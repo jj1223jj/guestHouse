@@ -30,10 +30,8 @@
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="com.java.guestdelluna" />
-	<context:component-scan base-package="com.java.guestHouse.*"></context:component-scan>
+	<context:component-scan base-package="com.java.*" />
 	
-	<context:component-scan base-package="com.java.aop"/>
 	<aop:aspectj-autoproxy/>
 	
 	<!-- Multipart -->
