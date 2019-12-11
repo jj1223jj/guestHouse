@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스페이지</a>
 </body>
 </html>

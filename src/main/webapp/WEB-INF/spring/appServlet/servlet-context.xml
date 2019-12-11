@@ -31,6 +31,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.java.guestdelluna" />
+	<context:component-scan base-package="com.java.guestHouse.*"></context:component-scan>
 	
 	<context:component-scan base-package="com.java.aop"/>
 	<aop:aspectj-autoproxy/>
@@ -40,5 +41,8 @@
 		<beans:property name="defaultEncoding" value="utf-8"/>
 		<beans:property name="maxUploadSize" value="1024000"/>
 	</beans:bean>
+	
+	<!-- UTF-8 -->
+	
 	
 </beans:beans>
