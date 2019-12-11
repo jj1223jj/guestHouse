@@ -31,7 +31,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.java.guestdelluna" />
-	
+	<context:component-scan base-package="com.java.*" />
 	<context:component-scan base-package="com.java.aop"/>
 	<aop:aspectj-autoproxy/>
 	
