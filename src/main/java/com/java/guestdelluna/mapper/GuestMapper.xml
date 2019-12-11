@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.dellunaMapper">
+
+<insert id="reviewInsert" parameterType="com.java.guestdelluna.dto.ReviewDto">
+	
+</insert>
+
+<!-- 
+   <insert id="guestinsert" parameterType="com.java.guest.dto.GuestDto">
+
+   insert into guest(num,name,password,message,write_date) values(guest_num_seq.nextval,#{name},#{password},#{message},#{writeDate})
+
+   </insert>
+
+
+   <select id="guestList" parameterType="java.util.Map" resultMap="GuestDto">
+   <![CDATA[
+    select * from (select rownum as rnum,a.* from
+    (select * from guest order by num desc) a)b where b.rnum >=#{starRow} and b.rnum <=#{endRow}
+   ]]>
+   </select>
+   
+   <select id="guestCount" resultType="int">
+   select count(*) from guest
+   
+   </select>
+
+   <delete id="guestDelete" parameterType="int">
+   delete from guest where num =#{num}
+   
+   </delete>
+   
+   <select id="guestselectUp" parameterType="int" resultMap="GuestDto">
+   select * from guest where num=#{num}
+   </select>
+   
+   <update id="guestUpdatesel" parameterType="com.java.guest.dto.GuestDto">
+   update guest set password=#{password},message=#{message} where num=#{num}
+   </update> -->
+      
+</mapper>
+
+   
