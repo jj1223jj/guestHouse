@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<a href="${root}/ys">윤수</a>
 </body>
 </html>

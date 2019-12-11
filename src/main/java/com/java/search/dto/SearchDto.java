@@ -28,14 +28,14 @@ public class SearchDto {
 	private String bName;
 	private String autoJibunAddress;
 	private String latLng;
+	private String detailAddress;
 	
 	public SearchDto() {}
 	public SearchDto(int houseCode, int memberCode, String houseName, String explain, String etc, String checkIn,
 			String checkOut, String necessary, String wifi, String washer, String hotWater, String aircon, String tv,
 			String mart, String parking, String kitchen, String safety, String houseImgName, String houseImgPath,
 			String houseImgSize, String address, String sido, String sigungu, String roadName, String bName,
-			String autoJibunAddress, String latLng) {
-		super();
+			String autoJibunAddress, String latLng, String detailAddress) {
 		this.houseCode = houseCode;
 		this.memberCode = memberCode;
 		this.houseName = houseName;
@@ -63,6 +63,7 @@ public class SearchDto {
 		this.bName = bName;
 		this.autoJibunAddress = autoJibunAddress;
 		this.latLng = latLng;
+		this.detailAddress = detailAddress;
 	}
 	public int getHouseCode() {
 		return houseCode;
@@ -226,6 +227,13 @@ public class SearchDto {
 	public void setLatLng(String latLng) {
 		this.latLng = latLng;
 	}
+	
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
 	@Override
 	public String toString() {
 		return "SearchDto [houseCode=" + houseCode + ", memberCode=" + memberCode + ", houseName=" + houseName
@@ -235,7 +243,19 @@ public class SearchDto {
 				+ kitchen + ", safety=" + safety + ", houseImgName=" + houseImgName + ", houseImgPath=" + houseImgPath
 				+ ", houseImgSize=" + houseImgSize + ", address=" + address + ", sido=" + sido + ", sigungu=" + sigungu
 				+ ", roadName=" + roadName + ", bName=" + bName + ", autoJibunAddress=" + autoJibunAddress + ", latLng="
-				+ latLng + "]";
+				+ latLng + ", detailAddress=" + detailAddress + ", getHouseCode()=" + getHouseCode()
+				+ ", getMemberCode()=" + getMemberCode() + ", getHouseName()=" + getHouseName() + ", getExplain()="
+				+ getExplain() + ", getEtc()=" + getEtc() + ", getCheckIn()=" + getCheckIn() + ", getCheckOut()="
+				+ getCheckOut() + ", getNecessary()=" + getNecessary() + ", getWifi()=" + getWifi() + ", getWasher()="
+				+ getWasher() + ", getHotWater()=" + getHotWater() + ", getAircon()=" + getAircon() + ", getTv()="
+				+ getTv() + ", getMart()=" + getMart() + ", getParking()=" + getParking() + ", getKitchen()="
+				+ getKitchen() + ", getSafety()=" + getSafety() + ", getHouseImgName()=" + getHouseImgName()
+				+ ", getHouseImgPath()=" + getHouseImgPath() + ", getHouseImgSize()=" + getHouseImgSize()
+				+ ", getAddress()=" + getAddress() + ", getSido()=" + getSido() + ", getSigungu()=" + getSigungu()
+				+ ", getRoadName()=" + getRoadName() + ", getbName()=" + getbName() + ", getAutoJibunAddress()="
+				+ getAutoJibunAddress() + ", getLatLng()=" + getLatLng() + ", getDetailAddress()=" + getDetailAddress()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 	
 }
