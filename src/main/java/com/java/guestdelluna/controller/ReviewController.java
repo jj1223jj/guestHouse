@@ -26,13 +26,13 @@ public class ReviewController {
 		
 		mav.addObject("request", request);
 		
-		mav.setViewName("guestdelluna/review.tiles");
+		dellunaService.review(mav);
 		
 		return mav;
 	
 	}
 	
-	@RequestMapping(value="guestdelluna/reviewOk.do" , method=RequestMethod.GET)
+	@RequestMapping(value="guestdelluna/reviewOk.do" , method=RequestMethod.POST)
 	public ModelAndView reviewOk(HttpServletRequest request , HttpServletResponse response, ReviewDto reviewDto) {
 		
 		HomeAscpect.logger.info(HomeAscpect.logMsg + reviewDto.toString());
@@ -48,7 +48,7 @@ public class ReviewController {
 		
 	}
 	
-	
+	@RequestMapping(value="guestdelluna/reviewUpdate.do" , method=RequestMethod.GET)
 	public ModelAndView reviewUpdate(HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -59,5 +59,70 @@ public class ReviewController {
 		return mav;
 		
 	}
+	
+	@RequestMapping(value="guestdelluna/reviewUpdateOk.do" , method=RequestMethod.POST)
+	public ModelAndView reviewUpdateOk(HttpServletRequest request , HttpServletResponse response , ReviewDto reviewDto) {
+		
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		HomeAscpect.logger.info(HomeAscpect.logMsg + pageNumber);		
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("reviewDto", reviewDto);
+		mav.addObject("pageNumber", pageNumber);
+		
+		dellunaService.reviewUpdateOk(mav);
+				
+		return mav;
+		
+	}
+	
+	//페이징 기법
+	@RequestMapping(value="guestdelluna/reviewDelete.do" , method=RequestMethod.GET)
+	public ModelAndView reviewDelete(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("request", request);
+		mav.addObject("boardNumber", boardNumber);
+		
+		dellunaService.reviewDelete(mav);
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="guestdelluna/myReview.do" , method=RequestMethod.GET)
+	public ModelAndView myReview(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		dellunaService.readMyReview(mav);
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="guestdelluna/allMyReview.do" , method=RequestMethod.GET)
+	public ModelAndView myReivewList(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		dellunaService.myReviewList(mav);
+		
+		return mav;
+		
+	}
+	
+
 	
 }

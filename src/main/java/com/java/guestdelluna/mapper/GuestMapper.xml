@@ -4,9 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.dellunaMapper">
 
-<insert id="reviewInsert" parameterType="com.java.guestdelluna.dto.ReviewDto">
-	
-</insert>
+<select id="selectForUpdate" parameterType="String" resultType="com.java.guestdelluna.dto.MemberDto">
+	select * from where email=#{email}
+</select>
+
+<update id="updateMember" parameterType="com.java.guestdelluna.dto.MemberDto">
+	update member set name=#{name} , email=#{email} , password=#{password} , phone=#{phone} where email=#{email}
+</update>
 
 <!-- 
    <insert id="guestinsert" parameterType="com.java.guest.dto.GuestDto">
