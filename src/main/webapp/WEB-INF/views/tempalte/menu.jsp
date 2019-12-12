@@ -74,5 +74,8 @@
 	----------------------------------------------------------------<br/>
 	
 	<a href="${root}/guestdelluna/managePoint.do">포인트 관리</a><br/>
+
+	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스페이지</a>
+
 </body>
 </html>
