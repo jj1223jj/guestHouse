@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
 import com.java.guestdelluna.dto.DellunaExpDto;
 import com.java.guestdelluna.dto.DellunaZzimDto;
 import com.java.guestdelluna.service.DellunaService;
@@ -36,8 +35,6 @@ public class DellunaController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + dellunaZzimDto.toString());
-		HomeAscpect.logger.info(HomeAscpect.logMsg + dellunaExpDto.toString());
 		
 		mav.addObject("dellunaExpDto", dellunaExpDto);
 		mav.addObject("dellunaZzimDto", dellunaZzimDto);
@@ -54,6 +51,8 @@ public class DellunaController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
+		
+		//페이지넘버
 	
 		dellunaService.zzimlist(mav);
 		

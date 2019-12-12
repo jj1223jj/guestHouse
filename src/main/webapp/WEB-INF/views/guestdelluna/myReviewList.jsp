@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-수정완료를 누르면 guestdelluna/reviewUpdateOk.do 로 이동할수 있게 설정
+예약 목록이 뜨고 상품을 눌렀을 때 해당 url(myReserve 함수)로 이동하게 해주면 완성
 </body>
 </html>
