@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="dao.MemberMapper">
+	<insert id="insert" parameterType="com.java.member.dto.MemberDto">
+  		<![CDATA[insert into member
+  		(memberCode,memberName,email,password,phone,regDate,point,memberLevel,memberImgName,memberImgPath,memberImgSize)
+  			values(
+  			member_memberCode_seq.nextval, 
+  			#{memberName}, 
+  			#{email},
+  			#{password},
+  			#{phone},
+  			#{regDate},
+  			#{point},
+  			#{memberLevel},
+  			#{memberImgName, jdbcType=VARCHAR},
+  			#{memberImgPath, jdbcType=VARCHAR},
+  			#{memberImgSize, jdbcType=VARCHAR}
+  			)]]>
+  	</insert>
+
+	<select id="emailCheck" parameterType="String" resultType="String">
+  		select email from member where email=#{email}
+  	</select>
+  	
+  	<select id="login" parameterType="java.util.Map" resultType="String">
+  		SELECT memberLevel FROM member WHERE email=#{email} and password=#{password}
+  	</select>
+</mapper>
