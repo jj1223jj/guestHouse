@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-수정완료를 누르면 guestdelluna/reviewUpdateOk.do 로 이동할수 있게 설정
+check받아서 메인으로
 </body>
 </html>

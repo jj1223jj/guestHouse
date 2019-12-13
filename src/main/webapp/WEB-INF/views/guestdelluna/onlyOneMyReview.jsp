@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-수정완료를 누르면 guestdelluna/reviewUpdateOk.do 로 이동할수 있게 설정
+리뷰 하나 클릭해서 본다는 페이지라는 뜻
 </body>
 </html>

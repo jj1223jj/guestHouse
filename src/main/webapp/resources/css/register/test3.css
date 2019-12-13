@@ -1,0 +1,124 @@
+
+@charset "utf-8";
+/* @import url("lib/font.css");
+ */
+
+/* HTML Default */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, article, aside, hgroup, header, footer, figure, figcaption, nav, section { margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline; background:transparent; line-height:1.4em; box-sizing:border-box; font-weight:200;}
+article, aside, hgroup, header, footer, figure, figcaption, nav, section { display: block; }
+body {padding:0;margin:0;box-sizing:border-box; font-family: 'Noto Sans', sans-serif; font-size:14px;color:#666; -webkit-font-smoothing: antialiased;}
+h1, h2, h3, h4, h5, h6 { font-weight:300; } 
+ol, ul { list-style:none; }
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after,q:before, q:after { content:''; }
+table { border-collapse:collapse; border-spacing:0; table-layout:fixed; width:100%;}
+button { margin:0; padding:0; border:0; font:inherit; color:inherit; background:transparent; overflow:visible; cursor:pointer; line-height:1; }
+a:link, a:visited, a:hover, a,active, a:focus { text-decoration:none; cursor:pointer; color:rgba(0,0,0,0.65);}
+legend, caption { display:none; }
+textarea { resize:vertical; font:inherit; overflow-y:auto; }
+input, select { color:inherit; font:inherit; vertical-align: middle; box-sizing:border-box;}
+address, i { font-style:normal; }
+table { border-collapse:collapse; table-layout:fixed; }
+img, select, input, button { vertical-align:middle; }
+em { font-style:normal; }
+input { font-family: 'Noto Sans', sans-serif;}
+
+
+/* placeholder */
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #989898;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #989898;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: rgba(152,152,152,0.8);
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #989898;
+}
+
+input[type=text]::-ms-clear{
+	display: none;
+}
+
+.por { position:relative;}
+
+.tl {text-align:left !important;}
+.tr {text-align:right !important;}
+.tc {text-align:center !important;}
+
+.fl { float:left !important;}
+.fr { float:right !important;}
+
+.clear { clear:both;}
+
+.vt { vertical-align:top !important;}
+.vm { vertical-align:middle !important;}
+.vtb { vertical-align:text-bottom !important;}
+
+.dpi { display:inline;}
+.dpii { display:inline !important;}
+.dpb { display:block;}
+.dpib { display:inline-block;}
+.dpn { display:none;}
+.dpt { display:table;}
+.dptr {display: table-row;}
+.dptc {display: table-cell;}
+
+.vstH {visibility:hidden;}
+
+.clearFixed:after { content:''; display:block; clear:both;}
+.ellipsis { overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.blind { overflow:hidden; position:absolute; top:0; left:0; width:0; height:0; font-size:0;}
+
+.fsi11px{font-size:11px !important;}
+.fsi14px{font-size:14px !important;}
+.lhi14px{line-height:14px !important;}
+
+.fwBdI {font-weight:bold !important;}
+.fw600 {font-weight:600;}
+.fw500 {font-weight:500;}
+.fw450 {font-weight:450;}
+.fw300 {font-weight:300;}
+.fw200 {font-weight:200 !important;}
+
+.bdGray1{border:1px solid #e6e3df;}
+.bdNone {border:none !important;}
+
+.pad0i{padding:0 !important;}
+.pad25{padding:25px;}
+.pb15i{padding-bottom:15px !important;}
+.pb192i{padding-bottom:192px !important;}
+.pt15i{padding-top:15px !important;}
+.pt50 {padding-top:50px;}
+.pl8i {padding:0 0 0 8px !important;}
+.pl14 {padding-left:14px;}
+.pr14 {padding-right:14px;}
+.prl14{padding:0 14px;}
+.pl5 {padding-left:5px;}
+
+.ml20{margin-left: 20px;}
+.mt20i{margin-top:20px !important;}
+.mb0i{margin-bottom: 0px !important;}
+
+.colorEmp{color:#e66045;}
+.color333{color:#333;}
+.color999{color:#999 !important;}
+.color666{color:#666 !important;}
+
+.bgTransi{background-color: transparent !important;}
+.contNoneI:before {content:none !important;}
+
+.w10Per {width:10%;}
+.w20Per {width:20%;}
+.w25Per {width:25%;}
+.w30Per {width:30%;}
+.w35Per {width:35%;}
+.w40Per {width:40%;}
+.w50Per {width:50%;}
+.w60Per {width:60%;}
+.w70Per {width:70%;}
+.w100Per{width:100%;}
+
+.opa50p{opacity:0.5};
