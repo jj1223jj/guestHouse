@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAscpect;
 import com.java.search.service.SearchService;
@@ -23,12 +24,12 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(HttpServletRequest request, HttpServletResponse response) {
-		String address =request.getParameter("address");
-		HomeAscpect.logger.info(HomeAscpect.logMsg+"등록할 주소: "+address);
+	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
-		searchService.searchGehi(address);
+		searchService.search(mav);
 		
-		return "search/ys.tiles";
+		return mav;
 	}
 }

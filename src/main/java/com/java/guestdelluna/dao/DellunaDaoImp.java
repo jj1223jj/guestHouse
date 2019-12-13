@@ -21,7 +21,7 @@ public class DellunaDaoImp implements DellunaDao {
 	@Override
 	public int insertReview(ReviewDto reviewDto) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
