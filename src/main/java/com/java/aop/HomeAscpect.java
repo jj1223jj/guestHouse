@@ -29,5 +29,4 @@ public class HomeAscpect {
 		
 	}
 	
-	/* annotation 설정 후 servlet.xml에서 component-scan, autoproxy설정 */
 }
