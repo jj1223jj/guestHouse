@@ -31,6 +31,7 @@ public class SearchController {
 		
 		searchService.search(mav);
 		
+		mav.setViewName("search/searchHouse.tiles");
 		return mav;
 	}
 	
@@ -49,6 +50,7 @@ public class SearchController {
 		//테스트용으로 데이터 넣기 위한 함수
 		searchService.dataInputOk(mav);
 		
+		mav.setViewName("search/dataInput.tiles");
 		return mav;
 	}
 }
