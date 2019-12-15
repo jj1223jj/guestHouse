@@ -29,8 +29,6 @@ public class SearchServiceImp implements SearchService {
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
 		String local = request.getParameter("local");
-		System.out.println(local);
-		//local = "("+local.substring(0,local.length()-1)+")";
 		String people = request.getParameter("people");
 		String searchHouseName = request.getParameter("searchHouseName");
 		
@@ -50,8 +48,7 @@ public class SearchServiceImp implements SearchService {
 		HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 개수: " +searchHouseList.size());
 		
 		mav.addObject("searchHouseList", searchHouseList);
-		
-		mav.setViewName("search/searchHouse.tiles");
+	
 	}
 	
 	
@@ -72,7 +69,6 @@ public class SearchServiceImp implements SearchService {
 		int check= searchDao.dataInputOk(searchDto);
 		HomeAspect.logger.info(HomeAspect.logMsg+"dataInput check: "+check);
 		
-		mav.setViewName("search/dataInput.tiles");
 	}
 
 	
