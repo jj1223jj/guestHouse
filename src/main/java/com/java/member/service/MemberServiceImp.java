@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.member.dao.MemberDao;
 import com.java.member.dto.MemberDto;
 
@@ -36,11 +36,11 @@ public class MemberServiceImp implements MemberService {
 		memberDto.setRegDate(new Date());	
 		memberDto.setMemberLevel("A"); 	
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + memberDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
 
 		int check = memberDao.register(memberDto);
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + "check: " + check);
+		HomeAspect.logger.info(HomeAspect.logMsg + "check: " + check);
 
 		mav.addObject("check", check);
 		
@@ -54,10 +54,10 @@ public class MemberServiceImp implements MemberService {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 		String email = request.getParameter("email");
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"입력한 email: " + email);
+		HomeAspect.logger.info(HomeAspect.logMsg +"입력한 email: " + email);
 		
 		int check = memberDao.emailCheck(email);
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"기존에 있는 이메일이면 1 / 아니면 0: " + check);
+		HomeAspect.logger.info(HomeAspect.logMsg +"기존에 있는 이메일이면 1 / 아니면 0: " + check);
 		
 		mav.addObject("check", check);
 		mav.addObject("email", email);
@@ -76,11 +76,11 @@ public class MemberServiceImp implements MemberService {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"입력한 email: "+ email + "\t\t"+"입력한 password: " + password);
+		HomeAspect.logger.info(HomeAspect.logMsg +"입력한 email: "+ email + "\t\t"+"입력한 password: " + password);
 		
 		String memberLevel = memberDao.login(email,password);	
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"회원등급 (회원이 아닐경우 null값): "+ memberLevel);
+		HomeAspect.logger.info(HomeAspect.logMsg +"회원등급 (회원이 아닐경우 null값): "+ memberLevel);
 		
 		if(memberLevel != null) {	
 			mav.addObject("memberLevel", memberLevel);	

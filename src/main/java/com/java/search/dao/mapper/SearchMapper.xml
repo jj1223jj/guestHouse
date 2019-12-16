@@ -2,7 +2,50 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.searchMapper">
-	<select id="searchGehi" parameterType="String" resultType="com.java.search.dto.SearchDto">
-		select * from house where address =#{search}
+	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.search.dto.SearchDto">
+		select * from house
+		<if test="localNew!=null">
+			where local in #{localNew}
+		</if>
 	</select>
+	
+	
+	<!-- 테스트 용으로 데이터 넣기 위한 함수 -->
+	<insert id="dataInput" parameterType="com.java.search.dto.SearchDto">
+		insert into house(
+						houseCode,
+						houseName,
+						memberCode,
+						zipCode,
+						sido,
+						sigungu,
+						roadName,
+						bName,
+						address,
+						jibunAddress,
+						latlng,
+						detailAddress,
+						local,
+						people,
+						bed,
+						price
+					) values(
+						house_houseCode_seq.nextval,
+						#{houseName},
+						#{memberCode},
+						#{zipCode},
+						#{sido},
+						#{sigungu},
+						#{roadName},
+						#{bName},
+						#{address},
+						#{jibunAddress},
+						#{latLng},
+						#{detailAddress},
+						#{local},
+						#{people},
+						#{bed},
+						#{price}
+					)
+	</insert>
 </mapper>

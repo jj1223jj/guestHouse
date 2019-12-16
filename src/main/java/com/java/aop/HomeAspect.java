@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class HomeAscpect {
-	public static Logger logger = Logger.getLogger(HomeAscpect.class.getName());
+public class HomeAspect {
+	public static Logger logger = Logger.getLogger(HomeAspect.class.getName());
 	public static final String logMsg = "LogMsg==================";
 	
 	@Around(value = "within(com.java..*)")

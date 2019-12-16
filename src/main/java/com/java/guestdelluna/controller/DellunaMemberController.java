@@ -13,7 +13,7 @@ import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.service.DellunaService;
 
 @Controller
-public class MemberController {
+public class DellunaMemberController {
 
 	@Autowired
 	private DellunaService dellunaService;

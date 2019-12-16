@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.guestdelluna.dao.DellunaDao;
 import com.java.guestdelluna.dto.DellunaExpDto;
 import com.java.guestdelluna.dto.DellunaZzimDto;
@@ -55,8 +55,8 @@ public class DellunaServiceImp implements DellunaService {
 		DellunaZzimDto dellunaZzimDto = (DellunaZzimDto) map.get("dellunaZzimDto");
 		
 		
-		  HomeAscpect.logger.info(HomeAscpect.logMsg + dellunaZzimDto.toString());
-		  HomeAscpect.logger.info(HomeAscpect.logMsg + dellunaExpDto.toString());
+		  HomeAspect.logger.info(HomeAspect.logMsg + dellunaZzimDto.toString());
+		  HomeAspect.logger.info(HomeAspect.logMsg + dellunaExpDto.toString());
 		 
 		if(dellunaZzimDto.getWishCode() == 0) {
 			System.out.println("체험 찜을 눌렀으니 방에 대한 정보는 없을 수 밖에 없다");
@@ -96,13 +96,13 @@ public class DellunaServiceImp implements DellunaService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
-		HomeAscpect.logger.info(HomeAscpect.logMsg + reviewDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + reviewDto.toString());
 		
 		reviewDto.setRevDate(new Date());
 		reviewDto.setRevContent(reviewDto.getRevContent().replace("\r\n", "<br/>"));
 		
 		int check = dellunaDao.insertReview(reviewDto);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + check);
+		HomeAspect.logger.info(HomeAspect.logMsg + check);
 		
 		mav.addObject("check", check);
 		mav.addObject("guestdelluna/reviewOk");
@@ -119,7 +119,7 @@ public class DellunaServiceImp implements DellunaService {
 		
 		List<ReviewDto> reviewlist = null;
 		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
-		HomeAscpect.logger.info(HomeAscpect.logMsg + "메엥ㅁ버코드  : " + memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "메엥ㅁ버코드  : " + memberCode);
 		
 		ReviewDto reviewDto = null;
 		
@@ -128,12 +128,12 @@ public class DellunaServiceImp implements DellunaService {
 		if(count==1) {
 		
 		reviewDto = dellunaDao.selectReview(memberCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + reviewDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + reviewDto.toString());
 		}
 		
 		else {
 			reviewlist = dellunaDao.selectListReview(memberCode);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + reviewlist.size());	
+			HomeAspect.logger.info(HomeAspect.logMsg + reviewlist.size());	
 		}
 		
 		mav.addObject("count", count);
@@ -173,10 +173,10 @@ public class DellunaServiceImp implements DellunaService {
 		
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
-		HomeAscpect.logger.info(HomeAscpect.logMsg + pageNumber + " / " + boardNumber);
+		HomeAspect.logger.info(HomeAspect.logMsg + pageNumber + " / " + boardNumber);
 		
 		int check = dellunaDao.deleteReview(boardNumber);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + check);
+		HomeAspect.logger.info(HomeAspect.logMsg + check);
 		
 		mav.addObject("check", check);
 		mav.setViewName("guestdelluna/reviewDeleteOk.tiles");
@@ -192,10 +192,10 @@ public class DellunaServiceImp implements DellunaService {
 		
 		int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		HomeAscpect.logger.info(HomeAscpect.logMsg + boardNumber + " / " + pageNumber);
+		HomeAspect.logger.info(HomeAspect.logMsg + boardNumber + " / " + pageNumber);
 		
 		ReviewDto reviewDto = dellunaDao.clickMyReview(boardNumber);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + reviewDto);
+		HomeAspect.logger.info(HomeAspect.logMsg + reviewDto);
 		
 		mav.addObject("reviewDto", reviewDto);
 		mav.addObject("pageNumber", pageNumber);
@@ -216,10 +216,10 @@ public class DellunaServiceImp implements DellunaService {
 		if(pageNumber == null) pageNumber="1";
 		
 		int currentPage = Integer.parseInt(pageNumber);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + currentPage);
+		HomeAspect.logger.info(HomeAspect.logMsg + currentPage);
 		
 		int count = dellunaDao.reviewCount();
-		HomeAscpect.logger.info(HomeAscpect.logMsg + count);
+		HomeAspect.logger.info(HomeAspect.logMsg + count);
 		
 		int boardSize = 5 ;
 		int startRow = (currentPage-1)*boardSize + 1;
@@ -229,8 +229,8 @@ public class DellunaServiceImp implements DellunaService {
 		
 		if(count>0) {
 			reviewList = dellunaDao.reviewList(startRow,endRow);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + reviewList.size());
-			HomeAscpect.logger.info(HomeAscpect.logMsg + reviewList);
+			HomeAspect.logger.info(HomeAspect.logMsg + reviewList.size());
+			HomeAspect.logger.info(HomeAspect.logMsg + reviewList);
 		}
 		
 		mav.addObject("count", count);
@@ -253,7 +253,7 @@ public class DellunaServiceImp implements DellunaService {
 		
 		//사용가능포인트
 		int point = dellunaDao.findMyPoint(memberCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + point);
+		HomeAspect.logger.info(HomeAspect.logMsg + point);
 
 		//적립내역 - 일단 결제내역을 끌어온다(방 및 체험)
 		
@@ -281,37 +281,37 @@ public class DellunaServiceImp implements DellunaService {
 		
 		//체험 예약 수 가져옴
 		int countExp = dellunaDao.countExp(memberCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + countExp);
+		HomeAspect.logger.info(HomeAspect.logMsg + countExp);
 		
 		//체험수가 0,1이면 dto로 아니면 list로
 		if(countExp<2) {
 			expReservationDto = dellunaDao.findExpDto(memberCode);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + expReservationDto.toString());
+			HomeAspect.logger.info(HomeAspect.logMsg + expReservationDto.toString());
 			mav.addObject("countExp", countExp);
 			mav.addObject("expReservationDto", expReservationDto);
 		}
 		else {
 			listExp = dellunaDao.findExpList(memberCode);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + listExp.size());
-			HomeAscpect.logger.info(HomeAscpect.logMsg + listExp.toString());
+			HomeAspect.logger.info(HomeAspect.logMsg + listExp.size());
+			HomeAspect.logger.info(HomeAspect.logMsg + listExp.toString());
 			mav.addObject("countExp", countExp);
 			mav.addObject("listExp", listExp);
 		}
 		
 		//하우스 예약수 가져옴
 		int countHouse = dellunaDao.countHouse(memberCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + countHouse);
+		HomeAspect.logger.info(HomeAspect.logMsg + countHouse);
 		
 		if(countHouse<2) {
 			houseReservationDto = dellunaDao.findHouseDto(memberCode);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + houseReservationDto.toString());
+			HomeAspect.logger.info(HomeAspect.logMsg + houseReservationDto.toString());
 			mav.addObject("countHouse", countHouse);
 			mav.addObject("expReservationDto", houseReservationDto);
 		}
 		else {
 			listExp = dellunaDao.findHouseList(memberCode);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + listHouse.size());
-			HomeAscpect.logger.info(HomeAscpect.logMsg + listHouse.toString());
+			HomeAspect.logger.info(HomeAspect.logMsg + listHouse.size());
+			HomeAspect.logger.info(HomeAspect.logMsg + listHouse.toString());
 			mav.addObject("countExp", countHouse);
 			mav.addObject("listHouse", listHouse);
 		}
@@ -388,10 +388,10 @@ public class DellunaServiceImp implements DellunaService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		int reserveCode = Integer.parseInt(request.getParameter("reserveCode"));
-		HomeAscpect.logger.info(HomeAscpect.logMsg + reserveCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + reserveCode);
 		
 		HouseReservationDto houseReservationDto = dellunaDao.myResHouse(reserveCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + houseReservationDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + houseReservationDto.toString());
 				
 		mav.addObject("houseReservationDto", houseReservationDto);
 		mav.addObject("reserveCode", reserveCode);
@@ -410,10 +410,10 @@ public class DellunaServiceImp implements DellunaService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		int exCode = Integer.parseInt(request.getParameter("exCode"));
-		HomeAscpect.logger.info(HomeAscpect.logMsg + exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + exCode);
 		
 		ExpReservationDto expReservationDto = dellunaDao.myResExp(exCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + expReservationDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + expReservationDto.toString());
 		
 		mav.addObject("expReservationDto", expReservationDto);
 		mav.addObject("exCode", exCode);
