@@ -1,10 +1,13 @@
 package com.java.search.service;
 
-import org.springframework.web.servlet.ModelAndView;
+import java.util.List;
+
+import com.java.search.dto.SearchDto;
 
 public interface SearchService {
-	public void search(ModelAndView mav);
-
+	public List<SearchDto> search(String checkIn, String checkOut, String local, String people, String searchHouseName);
+	
 	//테스트 용으로 데이터 넣기 위한 함수
-	public void dataInputOk(ModelAndView mav);
+	public void dataInputOk(SearchDto searchDto);
+
 }
