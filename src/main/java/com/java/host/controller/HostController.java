@@ -22,20 +22,56 @@ public class HostController {
 	@RequestMapping(value="/host/register.do", method = RequestMethod.GET)
 	public String hostRegister(HttpServletRequest request, HttpServletResponse response) {
 		
-		return "host/hostRegister.tiles";
+		return "host/hostRegister2.tiles";
 	}
 	
-	@RequestMapping(value="/host/guestRoom.do", method = RequestMethod.GET)
+	@RequestMapping(value="/host/guestRoom.do", method = {RequestMethod.POST})
 	public ModelAndView hostRegister(HttpServletRequest request, HttpServletResponse response, HostDto hostDto) {
-		HomeAscpect.logger.info(HomeAscpect.logMsg + hostDto.toString());
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("hostDto", hostDto);
 		
 		hostService.hostRegister(mav);
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="/host/hostPage.do", method = RequestMethod.GET)
+	public ModelAndView hostPage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
+		hostService.hostPage(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/host/reservationView.do", method = RequestMethod.GET)
+	public ModelAndView reservationView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.reservationView(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/host/salesView.do", method = RequestMethod.GET)
+	public ModelAndView salesView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.salesView(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/host/houseManagement.do", method = RequestMethod.GET)
+	public ModelAndView houseManagement(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.houseManagement(mav);
 		
 		return mav;
 	}

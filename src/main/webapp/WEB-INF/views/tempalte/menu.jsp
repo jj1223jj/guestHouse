@@ -10,5 +10,9 @@
 </head>
 <body>
 	<a href="${root}/host/register.do">호스트 등록</a>
+	<a href="${root}/host/hostPage.do">호스트 페이지</a>
+	<a href="${root}/host/reservationView.do">예약현황</a>
+	<a href="${root}/host/salesView.do">매출조회</a>
+	<a href="${root}/host/houseManagement.do">게스트하우스 관리</a>
 </body>
 </html>

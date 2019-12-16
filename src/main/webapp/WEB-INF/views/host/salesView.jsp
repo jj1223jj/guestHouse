@@ -9,10 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>게스트 룸 등록</h3>
-	<form action="${root}/host/fileupload.do" method="post" enctype="multipart/form-data">
-	<input multiple="multiple" type="file" name="file" id="file[]"/>
-	<input type="submit">
-	</form>
+	<h3>매출조회</h3>
 </body>
 </html>
