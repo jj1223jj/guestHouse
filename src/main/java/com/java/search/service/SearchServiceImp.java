@@ -22,23 +22,12 @@ public class SearchServiceImp implements SearchService {
 	private SearchDao searchDao;
 
 	@Override
-	public void search(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest)map.get("request"); 
-		
-		String checkIn = request.getParameter("checkIn");
-		String checkOut = request.getParameter("checkOut");
-		String local = request.getParameter("local");
-		System.out.println(local);
-		//local = "("+local.substring(0,local.length()-1)+")";
-		String people = request.getParameter("people");
-		String searchHouseName = request.getParameter("searchHouseName");
+	public List<SearchDto> search(String checkIn, String checkOut, String local, String people, String searchHouseName) {
 		
 		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
 		
 		//myBatis에 넘겨줄 data, Map에 넣기
 		Map<String, Object> dataMap = new HashMap<String,Object>();
-		
 		
 		dataMap.put("checkIn", checkIn);
 		dataMap.put("checkOut", checkOut);
@@ -49,9 +38,8 @@ public class SearchServiceImp implements SearchService {
 		List<SearchDto> searchHouseList = searchDao.searchHouse(dataMap); 
 		HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 개수: " +searchHouseList.size());
 		
-		mav.addObject("searchHouseList", searchHouseList);
+		return searchHouseList;
 		
-		mav.setViewName("search/searchHouse.tiles");
 	}
 	
 	
@@ -64,15 +52,11 @@ public class SearchServiceImp implements SearchService {
 	
 	//테스트 용으로 데이터 넣기 위한 함수
 	@Override
-	public void dataInputOk(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request"); 
-		SearchDto searchDto = (SearchDto) map.get("searchDto");
+	public void dataInputOk(SearchDto searchDto) {
 		
 		int check= searchDao.dataInputOk(searchDto);
 		HomeAspect.logger.info(HomeAspect.logMsg+"dataInput check: "+check);
 		
-		mav.setViewName("search/dataInput.tiles");
 	}
 
 	

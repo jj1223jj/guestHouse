@@ -1,5 +1,7 @@
 package com.java.search.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,10 +29,18 @@ public class SearchController {
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
+
+		String checkIn = request.getParameter("checkIn");
+		String checkOut = request.getParameter("checkOut");
+		String local = request.getParameter("local");
+		String people = request.getParameter("people");
+		String searchHouseName = request.getParameter("searchHouseName");
+		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
 		
-		searchService.search(mav);
+		List<SearchDto> searchHouseList = searchService.search(checkIn, checkOut, local, people, searchHouseName);
+		mav.addObject("searchHouseList", searchHouseList);
 		
+		mav.setViewName("search/searchHouse.tiles");
 		return mav;
 	}
 	
@@ -42,13 +52,12 @@ public class SearchController {
 	@RequestMapping(value="/dataInputOk", method= RequestMethod.GET)
 	public ModelAndView dataInputOk(HttpServletRequest request, HttpServletResponse response , SearchDto searchDto) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mav.addObject("searchDto",searchDto);
 		HomeAspect.logger.info(HomeAspect.logMsg+"데이터 등록: "+searchDto);
 		
 		//테스트용으로 데이터 넣기 위한 함수
-		searchService.dataInputOk(mav);
-		
+		searchService.dataInputOk(searchDto);
+
+		mav.setViewName("search/dataInput.tiles");
 		return mav;
 	}
 }
