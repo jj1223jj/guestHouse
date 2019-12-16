@@ -55,7 +55,8 @@ public class SearchController {
 		HomeAspect.logger.info(HomeAspect.logMsg+"데이터 등록: "+searchDto);
 		
 		//테스트용으로 데이터 넣기 위한 함수
-		searchService.dataInputOk(searchDto);
+
+    searchService.dataInputOk(searchDto);
 
 		mav.setViewName("search/dataInput.tiles");
 		return mav;

@@ -1,0 +1,302 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="${root}/resources/javascript/host/register.js"></script>
+<link rel="stylesheet" type="text/css" href="${root}/resources/css/host/register.css"/>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
+</head>
+<body>
+	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data">
+	<div class="wrap">
+		<ul>
+			<li>
+				<h2>프로필 사진 추가</h2>
+				<div class="profileDiv">
+					<img src="" id="profileView"/>  
+				</div>
+				<div>
+					<span> 
+얼굴이 나온 프로필 사진을 통해서 다른 호스트와 게스트에게 나를 알릴 수 있습니다. 모든 에어비앤비 호스트는 프로필 사진이 있어야 합니다. 에어비앤비는 게스트에게 프로필 사진을 요청하지 않지만, 호스트는 요청할 수 있습니다. 호스트가 게스트에게 사진을 요청하는 경우에도, 예약이 확정된 후에만 사진을 볼 수 있습니다.
+					</span>
+					<input type="file" id="profileImg" name="profileImg"/>
+					<input type="button" value="파일 업로드 하기" onclick="profileUpload()"> 
+				</div>
+			</li>
+			<li>
+				<label>숙소이름</label>
+		<input type="text" name="houseName" id="houseName"/>
+			</li>
+			<li>
+				<input type="text" name="sample4_postcode" id="sample4_postcode" placeholder="우편번호">
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
+				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
+				<span id="guide" style="color:#999;display:none"></span>
+				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+				<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+				<input type="hidden" name="latLng" id="latLng"/>		
+			</li>
+			<li>
+				<label>메인사진</label>
+				<input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)">
+				<br/>
+				<div id="mainImgDiv">
+					<img src="" id="mainImgView"/>
+				</div>
+			</li>
+			<li>
+				<label>사진</label>
+				<input multiple="multiple" type="file" name="subImg" id="subImg"/>
+				<br/>
+				<div class="subImgDiv">
+				</div>
+			</li>
+			<li>
+				<label>인원 수</label>
+				<input type="number" id="people" name="people"/> 
+				<br/>
+			</li>
+			<li>
+				<label>침대 수</label>
+				<input type="number" id="bed" name="bed"/> 
+				<br/>
+			</li>
+			<li>
+				<label>욕실 수</label>
+				<input type="number" id="bath" name="bath"/> 
+				<br/>
+			</li>
+			<li>
+				<label>설명</label>
+				<textarea rows="20" cols="50"name="explain" id="explain"></textarea>
+				<br/>
+			</li>
+			<li>
+				<label>편의시설</label>
+				필수품목(비누 수건 어쩌고)<input type="checkbox" name="necessary" id="necessary"/>
+				와이파이<input type="checkbox" name="wifi" id="wifi"/>
+				세탁기<input type="checkbox" name="washer" id="washer"/>
+				온수<input type="checkbox" name="hotWater" id="hotWater"/>
+				에어컨<input type="checkbox" name="aircon" id="aircon"/>
+				티비<input type="checkbox" name="tv" id="tv"/>
+				편의점<input type="checkbox" name="mart" id="mart"/>
+				주차시설<input type="checkbox" name="parking" id="parking"/>
+				주방<input type="checkbox" name="kitchen" id="kitchen"/>
+				안전시설<input type="checkbox" name="safty" id="safty"/>
+				<br/>
+			</li>
+			<li>
+				<label>체크인</label>
+				<select name="checkInHH" id="checkInHH">
+					<option value="선택하세요">선택하세요</option>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+				</select>
+				<select name="checkInMM" id="checkInMM">
+					<option value="선택하세요">선택하세요</option>
+					<option value="00">00</option>
+					<option value="30">30</option>
+				</select>
+				<br/>
+			</li>
+			<li>
+				<label>체크아웃</label>
+				<select name="checkOutHH" id="checkOutHH">
+					<option value="선택하세요">선택하세요</option>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+				</select>
+				<select name="checkOutMM" id="checkOutMM">
+					<option value="선택하세요">선택하세요</option>
+					<option value="00">00</option>
+					<option value="30">30</option>
+				</select>
+				<br/>
+			</li>
+			<li>
+				<label>은행</label>
+				<select name="bank" id="bank">
+					<option value="KEB하나">KEB하나</option>
+					<option value="NH농협">NH농협</option>
+					<option value="외한">외한</option>
+					<option value="국민">국민</option>
+					<option value="기업">기업</option>
+					<option value="신한">신한</option>
+					<option value="우리">우리</option>
+					<option value="우체국">우체국</option>
+					<option value="카카오뱅크">카카오뱅크</option>
+					<option value="새마을금고">새마을금고</option>
+				</select>
+			</li>
+			<li>
+				<label>계좌</label>
+				<input type="text" name="account" id="account" placeholder="'-'제외하고 입력해주세요."/>
+			</li>
+			<li>
+				<label>금액</label>
+				<input type="text" name="price" id="price"/>
+			</li>
+			<li>
+				<label>기타사항</label>
+				<textarea rows="20" cols="50" name="etc" id="etc"></textarea>
+				<br/>
+			</li>
+			<li>
+				<input type="submit" value="다음">
+			</li>
+		</ul>
+	</div>
+	</form>
+	
+	
+	<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	mapOption = {
+	    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+	    level: 5 // 지도의 확대 레벨
+	};
+	
+	//지도를 미리 생성
+	var map = new daum.maps.Map(mapContainer, mapOption);
+	//주소-좌표 변환 객체를 생성
+	var geocoder = new daum.maps.services.Geocoder();
+	//마커를 미리 생성
+	var marker = new daum.maps.Marker({
+	position: new daum.maps.LatLng(37.537187, 127.005476),
+	map: map
+	});
+
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+/*                 if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+ */
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+                document.getElementById('detailAddress').focus();
+                //-------------------------------------------------------
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        
+                        //위도 경도 저장
+                        document.getElementById("latLng").value = result.y+','+result.x;
+                        
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            },
+            autoMapping:false
+        }).open();
+    }
+</script>
+</body>
+</html>

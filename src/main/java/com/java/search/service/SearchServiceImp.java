@@ -23,7 +23,6 @@ public class SearchServiceImp implements SearchService {
 
 	@Override
 	public List<SearchDto> search(String checkIn, String checkOut, String local, String people, String searchHouseName) {
-		
 		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
 		
 		//myBatis에 넘겨줄 data, Map에 넣기
