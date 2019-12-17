@@ -13,7 +13,7 @@ import com.java.member.dto.MemberDto;
 import com.java.member.service.MemberService;
 
 @Controller
-public class MemberController {
+public class MemController {
 	
 	@Autowired
 	private MemberService memberService;
