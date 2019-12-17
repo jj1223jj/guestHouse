@@ -183,6 +183,11 @@ public class HostServiceImp implements HostService {
 	public void reservationView(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = hostDao.memberCode(email);
+		
+		
 		
 		String pageNumber = request.getParameter("pageNumber");
 		if (pageNumber == null) {
@@ -190,16 +195,16 @@ public class HostServiceImp implements HostService {
 		}
 		int currentPage = Integer.parseInt(pageNumber);
 		
+		int count = hostDao.getCount(email);
 		
+		int boardSize = 3;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;
 		
-		
-		HttpSession session = request.getSession();
-		String email = (String)session.getAttribute("email");
-		int memberCode = hostDao.memberCode(email);
-		
-		List<String> houseNameList = hostDao.houseNameList(memberCode);
-		
-		mav.addObject("houseNameList", houseNameList);
+		//List<String> houseNameList;
+		//if ()
+		//houseNameList = hostDao.houseNameList(memberCode);
+		//mav.addObject("houseNameList", houseNameList);
 		
 		mav.setViewName("host/reservationView.tiles");
 	}

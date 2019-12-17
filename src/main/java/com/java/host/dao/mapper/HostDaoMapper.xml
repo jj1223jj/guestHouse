@@ -54,4 +54,8 @@
   <select id="reserveViewList" parameterType="int" resultType="com.java.host.dto.ReservationListDto">
   	select member.memberName, member.email, member.phone, reservation.checkIn, reservation.checkOut, reservation.payment, reservation.state from member natural join reservation where reservation.housecode = #{houseCode}
   </select>
+  
+  <select id="getCount" parameterType="String" resultType="int">
+  	select count(*) from house natural join member where email = #{email}
+  </select>
 </mapper>

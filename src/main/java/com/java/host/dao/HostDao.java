@@ -32,4 +32,6 @@ public interface HostDao {
 
 	public List<ReservationListDto> reserveViewList(int houseCode);
 
+	public int getCount(String email);
+
 }
