@@ -14,4 +14,8 @@ public interface HostService {
 
 	public void houseManagement(ModelAndView mav);
 
+	public void hostCancel(ModelAndView mav);
+
+	public void reservationOkView(ModelAndView mav);
+
 }
