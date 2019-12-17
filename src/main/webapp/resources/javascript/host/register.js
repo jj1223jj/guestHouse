@@ -89,3 +89,13 @@ function deleteImageAction(index) {
 	$(img_id).remove();
 }
 
+function regi(obj) {
+	var checkbox = document.getElementsByTagName("input[type='check']");
+	
+	for(var i=0; i<checkbox.length; i++) {
+		if (checkbox[i].checked == false) {
+			checkbox[i].value = "N";
+		}
+	}
+	
+}
