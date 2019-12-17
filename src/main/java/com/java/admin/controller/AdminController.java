@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.admin.service.AdminService;
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.member.dto.MemberDto;
 
 @Controller
@@ -45,7 +45,7 @@ public class AdminController {
 		
 		/*
 		 * int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		 * HomeAscpect.logger.info(HomeAscpect.logMsg + pageNumber);
+		 * HomeAspect.logger.info(HomeAspect.logMsg + pageNumber);
 		 */
 		
 		  ModelAndView mav = new ModelAndView(); 

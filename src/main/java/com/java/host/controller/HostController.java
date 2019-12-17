@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.host.dto.HostDto;
 import com.java.host.service.HostService;
 

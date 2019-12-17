@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dao.ExperienceDao;
 import com.java.experience.dto.ExperienceDto;
@@ -42,7 +42,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"email: "+ email);
+		HomeAspect.logger.info(HomeAspect.logMsg +"email: "+ email);
 		
 		MemberDto memberDto = new MemberDto();
 		memberDto.setEmail(email);
@@ -57,7 +57,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		if(memberCode != 0) {
 		
 			hostChkList = experienceDao.hostChkList(memberCode);
-			HomeAscpect.logger.info(HomeAscpect.logMsg +"해당 회원의 주소 갯수:" + hostChkList.size());
+			HomeAspect.logger.info(HomeAspect.logMsg +"해당 회원의 주소 갯수:" + hostChkList.size());
 		
 		}
 		
@@ -75,16 +75,16 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"email: "+ email);
+		HomeAspect.logger.info(HomeAspect.logMsg +"email: "+ email);
 		MemberDto memberDto = new MemberDto();
 		memberDto.setEmail(email);
 
 		// -- experienceDto
 		int memberCode = experienceDao.memberCode(email);
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"memberCode: "+ memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg +"memberCode: "+ memberCode);
 		
 		ExperienceDto experienceDto = (ExperienceDto)map.get("experienceDto");
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"experienceDto: "+ experienceDto);
+		HomeAspect.logger.info(HomeAspect.logMsg +"experienceDto: "+ experienceDto);
 		
 		// 회원코드
 		experienceDto.setMemberCode(memberCode);
@@ -144,7 +144,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		//-- 체험 코드 가져오기
 		int exCode = experienceDao.exCode();
-		HomeAscpect.logger.info(HomeAscpect.logMsg + "체험코드:" + exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "체험코드:" + exCode);
 		
 		
 		// -- hostDto
@@ -178,7 +178,7 @@ public class ExperienceServiceImp implements ExperienceService {
 					exFileDto.setMainImgName(exMainFileName);
 					exFileDto.setFilePath(exPath.getAbsolutePath());
 					exFileDto.setFileSize(exMainFileSize);
-					HomeAscpect.logger.info(HomeAscpect.logMsg + exFileDto.toString());
+					HomeAspect.logger.info(HomeAspect.logMsg + exFileDto.toString());
 					
 					int profileCheck = experienceDao.mainImgUpload(exFileDto);
 				}
@@ -213,12 +213,12 @@ public class ExperienceServiceImp implements ExperienceService {
 				
 				int check = experienceDao.subImgUpload(exFileDto);
 				
-				HomeAscpect.logger.info(HomeAscpect.logMsg + exFileDto);
-				HomeAscpect.logger.info(HomeAscpect.logMsg + check);
+				HomeAspect.logger.info(HomeAspect.logMsg + exFileDto);
+				HomeAspect.logger.info(HomeAspect.logMsg + check);
 				}
 			}
 		
-			HomeAscpect.logger.info(HomeAscpect.logMsg + experienceDto.toString());
+			HomeAspect.logger.info(HomeAspect.logMsg + experienceDto.toString());
 		
 			
 			mav.setViewName("experience/exHostOk.tiles");
@@ -245,7 +245,7 @@ public class ExperienceServiceImp implements ExperienceService {
 			
 		int count = experienceDao.getReviewCnt();
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + "전체 댓글 갯수: " +count);
+		HomeAspect.logger.info(HomeAspect.logMsg + "전체 댓글 갯수: " +count);
 	//	logger.info(logMsg + "전체 방명록 갯수: " + count);
 		
 		List<ExReviewDto> reviewList =null;
@@ -253,7 +253,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		if(count > 0) {	// 저장된 방명록이 존재 할 경우
 			
 			reviewList = experienceDao.getExReviewList(startRow, endRow);
-			HomeAscpect.logger.info(HomeAscpect.logMsg + "이 페이지에 저장된 댓글  갯수: " +reviewList.size());
+			HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " +reviewList.size());
 			
 		}
 		request.setAttribute("reviewList", reviewList);
@@ -275,7 +275,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		int check = experienceDao.writeReview(exReviewDto);
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + "check: " +check);
+		HomeAspect.logger.info(HomeAspect.logMsg + "check: " +check);
 		
 		mav.addObject("check",check);
 		mav.setViewName("guest/writeOk.tiles");

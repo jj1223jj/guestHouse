@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.JsonNode;
 import com.java.member.dto.MemberDto;
 import com.java.member.service.MemberService;
 

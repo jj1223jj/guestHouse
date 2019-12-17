@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.file.dto.FileDto;
 import com.java.guestHouse.dao.GuestHouseDao;
 import com.java.host.dto.HostDto;
@@ -35,13 +35,13 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		int houseCode=22;
 		
 		HostDto hostDto = guestHouseDao.guestHouseRead(houseCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + hostDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());
 		
 		List<FileDto> fileList = guestHouseDao.guestHouseImg(houseCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + fileList.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + fileList.toString());
 		
 		int memberCode = guestHouseDao.getMemberCode(email);
-		HomeAscpect.logger.info(HomeAscpect.logMsg + memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
 		
 		mav.addObject("hostDto",hostDto);
 		mav.addObject("fileList",fileList);
@@ -66,11 +66,11 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		Date checkIn = Date.valueOf(stCheckIn);
 		Date checkOut = Date.valueOf(stCheckOut);
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + houseCode +","+ memberCode +","+ checkIn +"," +checkOut +"," + people);
+		HomeAspect.logger.info(HomeAspect.logMsg + houseCode +","+ memberCode +","+ checkIn +"," +checkOut +"," + people);
 		
 		int price = guestHouseDao.getPrice(houseCode);
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg +price);
+		HomeAspect.logger.info(HomeAspect.logMsg +price);
 		
 		
 		

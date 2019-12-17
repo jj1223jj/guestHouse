@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.admin.dao.AdminDao;
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.experience.dto.ExperienceDto;
 import com.java.member.dao.MemberDao;
 import com.java.member.dto.MemberDto;
@@ -31,11 +31,11 @@ public class AdminServiceImp implements AdminService {
 			pageNumber="1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);	//요청페이지 - 시작, 끝
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"요청페이지: " + currentPage);
+		HomeAspect.logger.info(HomeAspect.logMsg +"요청페이지: " + currentPage);
 
 		
 		int count = adminDao.memberCount();
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"총 회원 수: "+ count);
+		HomeAspect.logger.info(HomeAspect.logMsg +"총 회원 수: "+ count);
 	
 		
 		
@@ -47,7 +47,7 @@ public class AdminServiceImp implements AdminService {
 		  
 		  if(count > 0) {
 			  memberList=adminDao.memberList(startRow,endRow);
-		  HomeAscpect.logger.info(HomeAscpect.logMsg +"이 페이지 회원 갯수: "+ memberList.size());
+		  HomeAspect.logger.info(HomeAspect.logMsg +"이 페이지 회원 갯수: "+ memberList.size());
 		  }
 		  
 		  mav.addObject("boardSize", boardSize);
@@ -66,10 +66,10 @@ public class AdminServiceImp implements AdminService {
 		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"memberCode: "+ memberCode + ", pageNumber: " + pageNumber);
+		HomeAspect.logger.info(HomeAspect.logMsg +"memberCode: "+ memberCode + ", pageNumber: " + pageNumber);
 		
 		MemberDto memberDto = adminDao.memberRead(memberCode);
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"memberDto: "+ memberDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg +"memberDto: "+ memberDto.toString());
 		
 		mav.addObject("memberDto",memberDto);
 		mav.addObject("pageNumber",pageNumber);
@@ -86,12 +86,12 @@ public class AdminServiceImp implements AdminService {
 		
 		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 		 
-		HomeAscpect.logger.info(HomeAscpect.logMsg +" memberDto: "+ memberDto.toString());
-		HomeAscpect.logger.info(HomeAscpect.logMsg +" memberCode: "+ memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg +" memberDto: "+ memberDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg +" memberCode: "+ memberCode);
 		
 		int check = adminDao.memberUpdateOk(memberDto);
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg +" check: "+ check);
+		HomeAspect.logger.info(HomeAspect.logMsg +" check: "+ check);
 		
 		mav.addObject("check",check);
 		
@@ -110,11 +110,11 @@ public class AdminServiceImp implements AdminService {
 			pageNumber="1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);	//요청페이지 - 시작, 끝
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"요청페이지: " + currentPage);
+		HomeAspect.logger.info(HomeAspect.logMsg +"요청페이지: " + currentPage);
 
 		
 		int count = adminDao.houseCount();
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"총 게스츠하우스 수: "+ count);
+		HomeAspect.logger.info(HomeAspect.logMsg +"총 게스츠하우스 수: "+ count);
 	
 		
 		
@@ -126,7 +126,7 @@ public class AdminServiceImp implements AdminService {
 		  
 		  if(count > 0) {
 			  houseList = adminDao.houseList(startRow,endRow);
-		  HomeAscpect.logger.info(HomeAscpect.logMsg +"이 페이지 게하 갯수: "+ houseList.size());
+		  HomeAspect.logger.info(HomeAspect.logMsg +"이 페이지 게하 갯수: "+ houseList.size());
 		  }
 		  
 		  mav.addObject("boardSize", boardSize);
@@ -150,11 +150,11 @@ public class AdminServiceImp implements AdminService {
 			pageNumber="1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);	
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"요청페이지: " + currentPage);
+		HomeAspect.logger.info(HomeAspect.logMsg +"요청페이지: " + currentPage);
 
 		
 		int count = adminDao.experienceCount();
-		HomeAscpect.logger.info(HomeAscpect.logMsg +"총 체험 수: "+ count);
+		HomeAspect.logger.info(HomeAspect.logMsg +"총 체험 수: "+ count);
 	
 		
 		
@@ -166,7 +166,7 @@ public class AdminServiceImp implements AdminService {
 		  
 		  if(count > 0) {
 			  experienceList = adminDao.experienceList(startRow,endRow);
-		  HomeAscpect.logger.info(HomeAscpect.logMsg +"이 페이지 체험 갯수: "+ experienceList.size());
+		  HomeAspect.logger.info(HomeAspect.logMsg +"이 페이지 체험 갯수: "+ experienceList.size());
 		  }
 		  
 		  mav.addObject("boardSize", boardSize);
