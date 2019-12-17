@@ -7,18 +7,20 @@ public class MemberDto {
 	private String memberName;
 	private String email;
 	private String password;
-	private int phone;
+	private String phone;
 	private Date regDate;
 	private int point;
 	private String memberLevel;
 	private String memberImgName;
 	private String memberImgPath;
-	private String memberImgSize;
+	private Long memberImgSize;
+	private String memberInfo;
 	
 	public MemberDto() {}
-	
-	public MemberDto(int memberCode, String memberName, String email, String password, int phone, Date regDate,
-			int point, String memberLevel, String memberImgName, String memberImgPath, String memberImgSize) {
+
+	public MemberDto(int memberCode, String memberName, String email, String password, String phone, Date regDate,
+			int point, String memberLevel, String memberImgName, String memberImgPath, Long memberImgSize,
+			String memberInfo) {
 		
 		this.memberCode = memberCode;
 		this.memberName = memberName;
@@ -31,9 +33,9 @@ public class MemberDto {
 		this.memberImgName = memberImgName;
 		this.memberImgPath = memberImgPath;
 		this.memberImgSize = memberImgSize;
+		this.memberInfo = memberInfo;
 	}
 
-	
 	public int getMemberCode() {
 		return memberCode;
 	}
@@ -66,11 +68,11 @@ public class MemberDto {
 		this.password = password;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -114,12 +116,20 @@ public class MemberDto {
 		this.memberImgPath = memberImgPath;
 	}
 
-	public String getMemberImgSize() {
+	public Long getMemberImgSize() {
 		return memberImgSize;
 	}
 
-	public void setMemberImgSize(String memberImgSize) {
+	public void setMemberImgSize(Long memberImgSize) {
 		this.memberImgSize = memberImgSize;
+	}
+
+	public String getMemberInfo() {
+		return memberInfo;
+	}
+
+	public void setMemberInfo(String memberInfo) {
+		this.memberInfo = memberInfo;
 	}
 
 	@Override
@@ -127,8 +137,8 @@ public class MemberDto {
 		return "MemberDto [memberCode=" + memberCode + ", memberName=" + memberName + ", email=" + email + ", password="
 				+ password + ", phone=" + phone + ", regDate=" + regDate + ", point=" + point + ", memberLevel="
 				+ memberLevel + ", memberImgName=" + memberImgName + ", memberImgPath=" + memberImgPath
-				+ ", memberImgSize=" + memberImgSize + "]";
+				+ ", memberImgSize=" + memberImgSize + ", memberInfo=" + memberInfo + "]";
 	}
-	
+
 	
 }
