@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.aop.HomeAscpect;
 import com.java.host.dto.HostDto;
 import com.java.host.service.HostService;
 
@@ -55,6 +56,7 @@ public class HostController {
 		return mav;
 	}
 	
+
 	@RequestMapping(value="/host/reservationOkView.do", method = RequestMethod.POST)
 	public ModelAndView reservationOkView(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -64,7 +66,7 @@ public class HostController {
 		
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/host/salesView.do", method = RequestMethod.GET)
 	public ModelAndView salesView(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -85,6 +87,7 @@ public class HostController {
 		return mav;
 	}
 	
+
 	@RequestMapping(value="/host/hostCancel.do", method = RequestMethod.GET)
 	public ModelAndView hostCancel(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -95,4 +98,5 @@ public class HostController {
 		return mav;
 	}
 	
+
 }

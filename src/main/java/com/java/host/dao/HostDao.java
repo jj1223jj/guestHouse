@@ -1,6 +1,7 @@
 package com.java.host.dao;
 
 import java.io.File;
+
 import java.util.List;
 
 import com.java.file.dto.FileDto;
@@ -31,5 +32,6 @@ public interface HostDao {
 	public int getHouseCode(String houseName);
 
 	public List<ReservationListDto> reserveViewList(int houseCode);
+
 
 }

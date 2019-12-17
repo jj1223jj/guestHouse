@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- <script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/base/jquery-ui.css">
-<!-- <script src="//code.jquery.com/jquery-1.12.4.js"></script> -->
 <script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc"></script>
 
 <script type="text/javascript">
 	var rangeDate = 31;
@@ -34,8 +34,7 @@
 						$("#to").datepicker("option","maxDate",edate);
 						setSDate = selectDate;
 						console.log(setSDate)
-					}
-				});
+				}});
 			}
 		});
 		
@@ -47,10 +46,64 @@
 			}
 		});
 	});
+	
+	
+	function reservationFun(root,houseCode,memberCode){
+		
+		var inputCheckIn = $('#from').val();
+		var inputCheckOut = $('#to').val();
+		//alert(inputCheckIn+","+inputCheckOut);
+		
+		if(inputCheckIn== ''){
+			alert("시작일을 선택해주세요");
+			$('input#from').focus();
+			return false;
+		}else if(inputCheckOut==''){
+			alert('종료일을 선택해주세요');
+			return false;
+		}
+		
+		var t1 = inputCheckIn.split("-");
+		var t2 = inputCheckOut.split("-");
+		var t1date = new Date(t1[0],t1[1],t1[2]);
+		var t2date = new Date(t2[0],t2[1],t2[2]);
+		var diff = t2date - t1date;
+		var currDay = 24*60*60*1000;
+		if(parseInt(diff/currDay)>rangeDate){
+			alert('선택 기간은'+rangeDate+'일을 초과할 수 없습니다.');
+			return false;
+		}
+		
+		//alert(t1+","+t1date);
+		//alert('성공');
+		
+		var people = $('#people').val();
+		alert(people);
+		
+		var url = root+"/guestHousePage/reservation.do?houseCode="+houseCode;
+		url += "&memberCode="+memberCode+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
+		
+		alert(url);
+		
+		location.href=url;
+	}
+	
+	
 </script>
+
 </head>
 <body>
-	<h3>게스트하우스 페이지</h3>
+
+	<c:forEach var="fileDto" items="${fileList}">
+		<c:if test="${fileDto.mainImgName!=null}">
+			<div class="mainImg">
+				<img alt="img loading" src="${fileDto.mainImgName}">
+			</div>
+		</c:if>
+		
+	</c:forEach>
+	</br></br>
+
 	<h4>예약하기</h4>
 	<div class="wrap">
 		<div>
@@ -65,8 +118,92 @@
 		<div>
 			<input type="text" id="to">
 		</div>
+		<div>
+			<input id="people">
+			<script>$("#people").spinner();</script>
+		</div>
 	</div>
-	<button class="btn">조회</button>
+	<button class="btn" onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}')">조회</button>
+	</br></br>
+	<!--  onclick="reservationFun('${root}','${hostDto.houseCode}')" -->
+	
+	<div class="guestHouse">
+		<div class="name">guest house name : ${hostDto.houseName}</div>
+
+		<div class="explain">설명 : ${hostDto.explain}</div></br>
+		
+		<div class="facilites">
+			<p>편의시설</p>
+			<span id="necessary">necessary : ${hostDto.necessary}</span>&nbsp;&nbsp;&nbsp;
+			<span id="wifi">wifi : ${hostDto.wifi}</span>
+			</br>
+			<span id="hotWater">hotWater : ${hostDto.hotWater}</span>&nbsp;&nbsp;&nbsp;
+			<span id="aircon">aircon : ${hostDto.aircon}</span>
+			</br>
+			<span id="safety">safety : ${hostDto.safety}</span>&nbsp;&nbsp;&nbsp;
+			<span id="mart">mart : ${hostDto.mart}</span>
+			</br>
+			<span id="parking">parking : ${hostDto.parking}</span>&nbsp;&nbsp;&nbsp;
+			<span id="kitchen">kitchen : ${hostDto.kitchen}</span>
+			</br>
+			<span id="tv">tv : ${hostDto.tv}</span>&nbsp;&nbsp;&nbsp;
+			</br>
+		</div>
+		</br>
+		
+		<div id="datepicker"></div>
+		<script type="text/javascript">
+			$("#datepicker").datepicker();
+		</script>
+		</br>
+		
+		<div class="review">
+			<h2>Review</h2>
+			<span id="gStar">별점 : </span>&nbsp;
+			<span id="gRevCount"> 후기</span></br>
+			<div>
+				<p id="guestName">이름: </p>
+				<p id="revDate">작성일:</p>
+				<p id=revContent>내용:</p>
+			</div>
+		</div>
+		
+		<div class="host">
+			<div>
+				<img alt="" src="">
+				<p id="hostName">호스트 이름 : </p>
+				<p id="hostDate">회원가입 : </p>
+				<span id="hStar">별점 : </span>&nbsp;
+				<span id="revCount">리뷰 수 : </span></br></br>
+			</div>
+			<div id="info"></div>
+		</div>
+		
+		<h2>지역정보</h2>
+		<div id="houseMap" style="width: 500px;height: 400px;"></div>
+		<script>
+			var container = document.getElementById('houseMap');
+			var options = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667),
+				level: 3
+			};
+	
+			var map = new kakao.maps.Map(container, options);
+		</script>
+		
+		</br>
+		<div id="notice">
+			<h2>유의사항</h2>
+			<div id="checkTime">
+				<span id="checkInTime"> check in : ${hostDto.checkInTime}</span>&nbsp;
+				<span id="checkOutTime"> check out : ${hostDto.checkOutTime}</span>
+			</div>
+			<div id="etc">
+				<h3>기타사항</h3>
+				${hostDto.etc}
+			</div>
+		</div>
+	</div>
 	
 </body>
 </html>

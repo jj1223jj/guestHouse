@@ -14,6 +14,7 @@ public class FileDto {
 	}
 
 	public FileDto(int fileCode, String fileName, String filePath, long fileSize, String exCode, int houseCode, String mainImgName) {
+
 		this.fileCode = fileCode;
 		this.fileName = fileName;
 		this.filePath = filePath;
@@ -87,3 +88,4 @@ public class FileDto {
 	
 	
 }
+
