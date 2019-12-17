@@ -85,4 +85,9 @@ public class HostDaoImp implements HostDao {
 	public List<ReservationListDto> reserveViewList(int houseCode) {
 		return sqlSession.selectList("reserveViewList", houseCode);
 	}
+
+	@Override
+	public int getCount(String email) {
+		return sqlSession.selectOne("getCount", email);
+	}
 }
