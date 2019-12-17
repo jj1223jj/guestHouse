@@ -8,7 +8,7 @@ public class HostDto {
 	private int memberCode;
 	private String houseName;
 	private String explain;
-	private String bath;
+	private int bath;
 	private String etc;
 	private String checkInTime;
 	private String checkOutTime;
@@ -43,7 +43,7 @@ public class HostDto {
 		
 	}
 
-	public HostDto(int houseCode, int memberCode, String houseName, String explain, String bath, String etc,
+	public HostDto(int houseCode, int memberCode, String houseName, String explain, int bath, String etc,
 			String checkInTime, String checkOutTime, String necessary, String wifi, String washer, String hotWater,
 			String aircon, String tv, String mart, String parking, String kitchen, String safety, String address,
 			String sido, String sigungu, String roadName, String bName, String jibunAddress, String latLng,
@@ -117,11 +117,11 @@ public class HostDto {
 		this.explain = explain;
 	}
 
-	public String getBath() {
+	public int getBath() {
 		return bath;
 	}
 
-	public void setBath(String bath) {
+	public void setBath(int bath) {
 		this.bath = bath;
 	}
 

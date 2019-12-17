@@ -35,6 +35,7 @@ public class MemberServiceImp implements MemberService {
 		memberDto.setPhone(request.getParameter("phone"));
 		memberDto.setRegDate(new Date());	
 		memberDto.setMemberLevel("A"); 	
+		memberDto.setMemberInfo("");
 		
 		HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
 

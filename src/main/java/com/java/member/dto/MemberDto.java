@@ -33,10 +33,8 @@ public class MemberDto {
 		this.memberImgPath = memberImgPath;
 		this.memberImgSize = memberImgSize;
 		this.memberInfo = memberInfo;
-			
 	}
 
-	
 	public int getMemberCode() {
 		return memberCode;
 	}
@@ -140,6 +138,6 @@ public class MemberDto {
 				+ memberLevel + ", memberImgName=" + memberImgName + ", memberImgPath=" + memberImgPath
 				+ ", memberImgSize=" + memberImgSize + ", memberInfo=" + memberInfo + "]";
 	}
-	
+
 	
 }

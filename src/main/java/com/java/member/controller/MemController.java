@@ -2,13 +2,16 @@ package com.java.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+//import com.fasterxml.jackson.databind.JsonNode;
 import com.java.member.dto.MemberDto;
 import com.java.member.service.MemberService;
 
@@ -88,6 +91,23 @@ public class MemController {
 		return mav;
 	}
 	
+	
+	
+	
+	
+	
+	/*
+	 * @RequestMapping(value = "kakaologin", produces = "application/json", method =
+	 * {RequestMethod.GET, RequestMethod.POST}) public ModelAndView
+	 * KakaoLogin(@RequestParam("code") String code, HttpServletRequest request,
+	 * HttpServletResponse response, HttpSession session) throws Exception {
+	 * System.out.println("code: " + code);
+	 * 
+	 * ModelAndView mav = new ModelAndView(); JsonNode node =
+	 * KakaoController.getAccessToken(code);
+	 * 
+	 * return mav; }
+	 */
 	
 	
 }
