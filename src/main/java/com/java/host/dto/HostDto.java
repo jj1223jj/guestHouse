@@ -117,11 +117,11 @@ public class HostDto {
 		this.explain = explain;
 	}
 
-	public String getBath() {
+	public int getBath() {
 		return bath;
 	}
 
-	public void setBath(String bath) {
+	public void setBath(int bath) {
 		this.bath = bath;
 	}
 

@@ -1,0 +1,90 @@
+package com.java.admin.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.java.admin.service.AdminService;
+import com.java.aop.HomeAscpect;
+import com.java.member.dto.MemberDto;
+
+@Controller
+public class AdminController {
+
+	@Autowired
+	private AdminService adminService;
+	
+	@RequestMapping(value = "/admin/memberList.do", method = RequestMethod.GET)
+	public ModelAndView memberList(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin memberManagement");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.memberList(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/adminMemberRead.do", method = RequestMethod.GET)
+	public ModelAndView memberUpdate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView  mav = new ModelAndView();
+		mav.addObject("request",request);
+		
+		adminService.memberRead(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/memberUpdateOk.do", method=RequestMethod.POST)
+	public ModelAndView memberUpdateOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+		
+		/*
+		 * int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		 * HomeAscpect.logger.info(HomeAscpect.logMsg + pageNumber);
+		 */
+		
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.addObject("request",request);
+		  mav.addObject("memberDto",memberDto); 
+		  adminService.memberUpdateOk(mav);
+		 
+		System.out.println("adminController memberUpdateOk: "+memberDto.toString());
+		/*
+		 * mav.addObject("pageNumber",pageNumber);
+		 */
+		return mav;
+	}
+	
+	// 게스트하우스 관리
+	@RequestMapping(value = "/admin/houseList.do", method = RequestMethod.GET)
+	public ModelAndView houseList(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin guestHouseManagement");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.houseList(mav);
+		
+		return mav;
+	}
+	
+	// 체험 관리
+	@RequestMapping(value = "/admin/experienceList.do", method = RequestMethod.GET)
+	public ModelAndView experienceList(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin ecperienceManagement");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.experienceList(mav);
+		 
+		return mav;
+	}
+	
+	
+}

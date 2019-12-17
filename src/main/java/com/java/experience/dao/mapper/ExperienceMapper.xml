@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="dao.ExperienceMapper">
+
+	<insert parameterType="com.java.exfile.dto.ExFileDto" id="subImgUpload">
+		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 
+	</insert>
+
+	<select parameterType="String" id="memberCode" resultType="int">
+		select memberCode from member where email = #{email} 
+	</select>
+
+	<insert parameterType="com.java.experience.dto.ExperienceDto" id="exHostRegister">
+		insert into experience 
+		(exCode, memberCode, exName, exPeople,exStartDate, exEndDate,exTime,exPrice,exAddress,exExplain,exApproval,exBank,exAccount,exRegDate)
+		values(experience_exCode_seq.nextval, 
+		#{memberCode},
+		#{exName},
+		#{exPeople},
+		#{exStartDate, jdbcType=DATE},
+		#{exEndDate,jdbcType=DATE},
+		#{exTime},
+		#{exPrice},
+		#{exAddress, jdbcType=VARCHAR},
+		#{exExplain},
+		#{exApproval},
+		#{exBank},
+		#{exAccount},
+		#{exRegDate}) 
+	</insert>
+	
+	<insert parameterType="com.java.exfile.dto.ExFileDto" id="exMainImgUpload">
+		insert into ExFileList(fileCode, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval, #{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
+	</insert>
+	
+	<select id="exCode" resultType="int">
+		select max(exCode) from experience
+	</select>
+	
+	<select id="hostChkList" parameterType="int" resultType="com.java.host.dto.HostDto">
+		select * from house where memberCode=#{memberCode}
+	</select>
+	
+	<!-- 후기작성  -->
+	<select id="reviewCnt" resultType="int">
+		select count(*) from exReview
+	</select>
+	
+	<select id="reviewList" parameterType="java.util.Map" resultType="com.java.exreview.dto.ExReviewDto">
+		<![CDATA[
+		SELECT * FROM (SELECT rownum AS rnum, A.* FROM (SELECT * FROM exReview ORDER BY exReverseCode desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
+		]]>
+	</select>
+	
+	<insert id="writeReview" parameterType="com.java.exreview.dto.ExReviewDto" >
+		insert into exReview values(exReview_exReserveCode_seq.nextval, #{memberCode}, #{revDate}, #{revContent}, #{revRate})
+	</insert>
+</mapper>

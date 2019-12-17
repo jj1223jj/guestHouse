@@ -6,7 +6,7 @@
 <mapper namespace="dao.MemberMapper">
 	<insert id="insert" parameterType="com.java.member.dto.MemberDto">
   		<![CDATA[insert into member
-  		(memberCode,memberName,email,password,phone,regDate,point,memberLevel,memberImgName,memberImgPath,memberImgSize)
+  		(memberCode,memberName,email,password,phone,regDate,point,memberLevel,memberImgName,memberImgPath,memberImgSize,memberInfo)
   			values(
   			member_memberCode_seq.nextval, 
   			#{memberName}, 
@@ -18,7 +18,8 @@
   			#{memberLevel},
   			#{memberImgName, jdbcType=VARCHAR},
   			#{memberImgPath, jdbcType=VARCHAR},
-  			#{memberImgSize, jdbcType=VARCHAR}
+  			#{memberImgSize, jdbcType=VARCHAR},
+  			#{memberInfo, jdbcType=VARCHAR}
   			)]]>
   	</insert>
 
@@ -29,4 +30,5 @@
   	<select id="login" parameterType="java.util.Map" resultType="String">
   		SELECT memberLevel FROM member WHERE email=#{email} and password=#{password}
   	</select>
+  	
 </mapper>
