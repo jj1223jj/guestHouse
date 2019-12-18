@@ -169,39 +169,8 @@ public class HostServiceImp implements HostService {
 				HomeAspect.logger.info(HomeAspect.logMsg + check);
 			}
 		}
-		
-<<<<<<< HEAD
-//		MultipartFile upFile = request.getFile("subImg");
-//		long fileSize = upFile.getSize();
-//		if(fileSize != 0) {
-//			String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
-//			
-//			File path = new File("c:\\pds");
-//			path.mkdir();
-//			
-//			if (path.exists() && path.isDirectory()) {
-//				File file = new File(path, fileName);
-//				
-//				try {
-//					upFile.transferTo(file);
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				hostDto.setHouseImgSize(fileSize);
-//				hostDto.setHouseImgName(fileName);
-//				hostDto.setHouseImgPath(file.getAbsolutePath());
-//			}
-//		}
 
-		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());
-		
-		
-		
-		mav.setViewName("host/guestRoom.tiles");
-=======
 		mav.setViewName("host/hostPage.tiles");
->>>>>>> master
 	}
 
 	@Override
