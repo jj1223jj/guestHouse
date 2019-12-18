@@ -1,6 +1,7 @@
 package com.java.member.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -41,5 +42,5 @@ public class MemberDaoImp implements MemberDao {
 		
 		return sqlSessionTemplate.selectOne("dao.MemberMapper.login",hMap);
 	}
-
+	
 }

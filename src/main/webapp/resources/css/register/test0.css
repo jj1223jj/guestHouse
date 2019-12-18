@@ -395,7 +395,7 @@ h1.contTitle span { display:block; padding-bottom:13px; font-size:16px; color:#9
 /* 예약 */
 body.reservation #headerWrap { overflow:hidden; position:fixed; top:0; left:0; z-index:10; width:100%; min-width:1120px; height:64px; background:#4d4843;}
 body.reservation #headerWrap h1 { width:auto; height:auto; margin:19px 0 0 24px; text-transform:uppercase; font-size:16px; color:#fff; font-weight:450; background:none;}
-body.reservation #headerWrap h1 a { display:inline-block; width:24px; height:26px; padding-right:16px; margin-right:16px; border-right:1px solid #56514d; font-size:0; vertical-align:middle; background:url('/pcPub/static/images/reservation/logo.png') no-repeat; box-sizing:content-box;}
+body.reservation #headerWrap h1 a { display:inline-block; width:24px; height:26px; padding-right:16px; margin-right:16px; border-right:1px solid #56514d; font-size:0; vertical-align:middle; background:url('') no-repeat; box-sizing:content-box;}
 body.reservation #headerWrap ul { position:absolute; top:12px; left:50%; transform:translateX(-50%);}
 body.reservation #headerWrap li { float:left;}
 body.reservation #headerWrap li + li { margin-left:1px;}
@@ -3899,9 +3899,9 @@ table.priceList .tableRemarkStars:before {content:'※'; font-size:13px; positio
 .mypageMembership .membershipCard .overLogo {visibility:hidden;position:absolute;top:0;left:0;right:0;bottom:0;line-height:156px;color:#fff;text-align:center;text-decoration:underline;opacity:0;}
 .mypageMembership .membershipCard div:hover .overLogo {visibility:inherit; opacity:1;}
 .mypageMembership .membershipCard .overLogo > span {cursor:pointer;}
-.rrLogo{background:url('/pcPub/static/images/mypage/rrLogo.png') !important;}
-.rpLogo{background:url('/pcPub/static/images/mypage/rpLogo.png') !important;}
-.rgLogo{background:url('/pcPub/static/images/mypage/rgLogo.png') !important;}
+.rrLogo{background:url('logo주소넣기') !important;}
+.rpLogo{background:url('logo주소넣기') !important;}
+.rgLogo{background:url('logo주소넣기') !important;}
 
 /* 20190725 ta9 갤러리 start */
 #popup.type-gallery{z-index:1000;overflow-y: auto;visibility: hidden;position: fixed;left: 0;top: 0;right: 0;bottom: 0;background: rgba(0,0,0,0.85);text-align:center;}

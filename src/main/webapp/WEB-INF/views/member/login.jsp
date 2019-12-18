@@ -32,6 +32,12 @@
 		
 		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
 		
+		
+		<!-- 카카오 -->
+	
+		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+			
 		<!-- S : 1-2 js 	
 		<script type="text/javascript" src="/pcPub/static/js/common.js"></script>
 		<script src="/common/component/jquery-session/jquery.session.js"></script>
@@ -68,7 +74,7 @@
 		</script>
 		<![endif]-->
 		<!-- E : 1-2 css -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(document).ready(function() {
 		var title = $(".tit_38").html() + "";
 		if (title == "undefined") {
@@ -99,7 +105,7 @@
 	
 	
 
-
+ -->
 
 	<body class="">
 		
@@ -113,7 +119,7 @@
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
 	
 });
@@ -143,9 +149,9 @@ function sessionTimer() {
 
 </script>
 
+ -->
 
-
-<script language="JavaScript">
+<!-- <script language="JavaScript">
 $(document).ready(function(){
 	
 	
@@ -201,7 +207,7 @@ function jsRefundLayerInitialize() {
 }
 
 
-function jsLogin() {
+ function jsLogin() {
 	//카지노 가이드 초기화
 	$("#isCasinoGuide").val("");
 	
@@ -308,7 +314,21 @@ function jsChange() {
 }
  */
 </script>
-
+ 
+  -->
+  <script type="text/javascript">
+  $(function() {
+		$('ul.tab li').click(function() {
+			var activeTab = $(this).attr('data-tab');
+			$('ul.tab li').removeClass('current');
+			$('.tabcontent').removeClass('current');
+			$(this).addClass('current');
+			$('#' + activeTab).addClass('current');
+		})
+	});
+  
+  </script>
+  
 <!-- 컨텐츠 영역 -->
 <form action="${root}/member/loginOk.do" method="post" onsubmit="return registForm(this)" name="createForm">
 	<section id="container">
@@ -324,66 +344,104 @@ function jsChange() {
 	
 						<div>
 							<div class="tapBox">
-								<ul>
-									<li class="on"><a href="#">회원</a></li>
-									<li class=""><a href="#">구글 로그인</a></li>
+								<ul class="tab">
+									<li class="current" data-tab="tab1"><a href="#">회원 로그인</a></li>
+									<li data-tab="tab2"><a href="#">카카오 로그인</a></li>
 								</ul>
 							</div>
 							
-						<!--  <div class="tapView" style="display: none;">
+							<div class="tabcontent current" id="tab1">
+							
+								<form id="form1" name="form1">
+									<div class="loginBox">
+										<div class="inp">
+											<input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required="">
+											<button class="btnDelete" style="display: none;">삭제</button>
+										</div>									
+										<div class="inp">
+											<input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required="">
+											<button class="btnDelete">삭제</button>
+										</div>
+										
+										<button class="btn btnFull btnLogin" onclick="location:href='${root}/member/loginOk.do'" type="submit">로그인</button>
+									</div>
+								</form>
+							</div>
+							
+							
+							<div class="tabcontent" id="tab2">
 							
 							<input type="hidden" id="isCasinoGuide" value="">
-							<form id="form1" name="form1">
-								<div class="loginBox">
-									<div class="inp">
-										<input type="text" id="email" name="email" onkeypress="if(event.keyCode=='13') jsLogin();" placeholder="이메일123" required="">
-										<button class="btnDelete" style="display: none;">삭제</button>
-									</div>
-									<div class="inp">
-										<input type="password" id="password" name="password" onkeypress="if(event.keyCode=='13') jsLogin();" placeholder="비밀번호123" required="">
-										<button class="btnDelete" style="display: none;">삭제</button>
-									</div>
-									<button class="btn btnFull btnLogin" onclick="jsJoin(); return false;" type="submit">로그인123</button>
-									<div class="loginSave">
-										<div class="checkbox">
-											<input type="checkbox" id="loginchk" name="loginchk"><label for="check">로그인 상태 유지</label>
+							
+								<form id="form2" name="form2">
+									<div class="loginBox">
+										<div class="inp">
+											<a id="kakao-login-btn"></a>
+										    <a href="http://developers.kakao.com/logout"></a>
+										    
+										    <script type='text/javascript'>
+										      //<![CDATA[
+										        // 사용할 앱의 JavaScript 키를 설정해 주세요.
+										        Kakao.init('5a47c72d35ab36aa08feca719cb2bccf');
+										        
+										        // 카카오 로그인 버튼을 생성합니다.
+										        Kakao.Auth.createLoginButton({
+										          container: '#kakao-login-btn',
+										          success: function(authObj) {
+										            alert(JSON.stringify(authObj));
+										            
+										            // 로그인 성공시, API를 호출합니다.
+										            Kakao.API.request({
+										             url: '/v1/user/me',
+										             success: function(res) {
+										              console.log(res);
+										              
+										              var userID = res.id;      //유저의 카카오톡 고유 id
+										              var userEmail = res.kaccount_email;   //유저의 이메일
+										              var userNickName = res.properties.nickname; //유저가 등록한 별명
+										              
+										              console.log(userID);
+										              console.log(userEmail);
+										              console.log(userNickName);
+										              console.log(JSON.stringify(res.properties.profile_image));
+										              
+										              $("#kakao-profile").append(res.properties.nickname);
+										              $("#kakao-profile").append($("<img/>",{"src":res.properties.profile_image,"alt":res.properties.nickname+"님의 프로필 사진"}));
+										             },
+										             fail: function(error) {
+										              alert(JSON.stringify(error));
+										             }
+										            });
+										          },
+										          fail: function(err) {
+										             alert(JSON.stringify(err));
+										          }
+										        });
+										      //]]>
+										    </script>
+										    
+										    <div id="kakao-logged-group"></div>
+											<div id="kakao-profile"></div> 
+											
 										</div>
-										<p class="findPWD"><a href="/front/member/findId">아이디/비밀번호 찾기</a></p>
 									</div>
-								</div>
-							</form> 
-							
-							</div>  -->
-							
-							<div class="tapView" style="display: block;">
-							<form id="form2" name="form2">
-								<div class="loginBox">
-									<div class="inp">
-										<input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required="">
-										<button class="btnDelete" style="display: none;">삭제</button>
-									</div>									
-									<div class="inp">
-										<input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required="">
-										<button class="btnDelete">삭제</button>
-									</div>
-									
-									<button class="btn btnFull btnLogin" onclick="location:href='${root}/member/loginOk.do'" type="submit">로그인</button>
-								</div>
-							</form>
+								</form> 
 							</div>
-						</div>
+							</div> 
+						
 	
-						<div>
-							<div class="joinBox">
-								<h2>아직 회원이 아니신가요?</h2>
-								<p>회원이 되시면 게스트델루나 멤버십 회원으로서<br>더 큰 혜택과 편리함을 누릴 수 있습니다.</p>
-								<button class="btn btnJoin" onclick="location.href='${root}/member/register.do'" type="submit">회원가입</button>
+							<div>
+								<div class="joinBox">
+									<h2>아직 회원이 아니신가요?</h2>
+									<p>회원이 되시면 게스트델루나 멤버십 회원으로서<br>더 큰 혜택과 편리함을 누릴 수 있습니다.</p>
+									<button class="btn btnJoin" onclick="location.href='${root}/member/register.do'" type="submit">회원가입</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+	
 	</section>
 </form>
 <!-- //컨텐츠 영역 -->
@@ -400,6 +458,16 @@ p.astBefore::before {content: "*"; left: 66px; position: absolute; top: 163px;}
 .fs12p{font-size:12px;}
 .fs13p{font-size:13px;}
 .fs16p{font-size:16px;}
+
+
+.tabcontent {
+	display: none;
+}
+.tabcontent.current {
+	display: block;
+}
+
+
 </style>
 <script type="text/javascript">
 
@@ -555,35 +623,6 @@ function jsLayerEventDefault(obj) {
 	</tbody>
 </table>
 
-
-
-<!-- quick Bar -->
-<aside class="quickBar">
-	<div class="quickH">
-		<a href="/front/reservation">
-			<h1><img src="/pcPub/static/images/common/Reservation_icon_100.png">reservation</h1>
-			<p>파라다이스시티의 시설과 <br>상품을 한번에 예약하세요.</p>
-<!-- 			<span class="newCount">99</span> PC는 갯수 불요-->
-		</a>
-	</div>
-	<div class="quickC mCustomScrollbar _mCS_1" style="height: 633px;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-		<ul>
-			<li><a href="/front/contents/pcity/location"><em class="icon1"><i></i></em><p>paradise city map</p></a></li>
-			<li><a href="/front/hotel/overview"><em class="icon2"><i></i></em><p><span>hotel</span>paradise</p></a></li>
-			<li><a href="/front/artParadiso/overview"><em class="icon3"><i></i></em><p><span>hotel</span>art paradiso</p></a></li>
-			
-			<li><a href="/front/casino/overview"><em class="icon4"><i></i></em><p><span>casino</span>casino</p></a></li>
-			
-			<li><a href="/front/cimer/overview"><em class="icon5"><i></i></em><p><span>Spa</span>cimer</p></a></li>
-			<li><a href="/front/chroma/overview"><em class="icon6"><i></i></em><p><span>Club</span>chroma</p></a></li>
-			<li><a href="/front/plaza/overview"><em class="icon7"><i></i></em><p><span>Shopping</span>plaza</p></a></li>
-			<li><a href="/front/wonderbox/overview"><em class="icon8"><i></i></em><p><span>Theme Park</span>wonderbox</p></a></li>
-			<li><a href="/front/studio/overview"><em class="icon9"><i></i></em><p><span>Studio</span>studio paradise</p></a></li>
-			<li><a href="/front/artSpace/overview"><em class="icon10"><i></i></em><p><span>Art gallery</span>PARADISE ART SPACE</p></a></li>
-		</ul>
-	</div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: block;"><a href="#" class="mCSB_buttonUp" style="display: block;"></a><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 587px; top: 0px; display: block; max-height: 583px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div><a href="#" class="mCSB_buttonDown" style="display: block;"></a></div></div></div>
-</aside>
-<!-- //quick Bar -->
 
 
 
