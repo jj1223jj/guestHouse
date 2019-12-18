@@ -11,4 +11,6 @@ public interface SearchDao {
 
 	//테스트 용으로 데이터 넣기 위한 함수
 	public int dataInputOk(SearchDto searchDto);
+
+	public int getCount(Map<String, Object> dataMap);
 }

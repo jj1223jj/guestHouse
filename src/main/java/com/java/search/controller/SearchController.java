@@ -1,7 +1,5 @@
 package com.java.search.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,15 +28,18 @@ public class SearchController {
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 
+		//페이징
+		String pageNumber= request.getParameter("pageNumber");
+		if(pageNumber==null) pageNumber="1";
+		// 게스트 하우스 검색 조건
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
 		String local = request.getParameter("local");
 		String people = request.getParameter("people");
 		String searchHouseName = request.getParameter("searchHouseName");
 		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
-		
-		List<SearchDto> searchHouseList = searchService.search(checkIn, checkOut, local, people, searchHouseName);
-		mav.addObject("searchHouseList", searchHouseList);
+
+		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber);
 		
 		mav.setViewName("search/searchHouse.tiles");
 		return mav;
@@ -48,6 +49,12 @@ public class SearchController {
 	public ModelAndView dataInput(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("search/dataInput.tiles");
 	}
+	
+	@RequestMapping(value="/test", method= RequestMethod.GET)
+	public String test(HttpServletRequest request, HttpServletResponse response) {
+		return "search/test.tiles";
+	}
+	
 	
 	@RequestMapping(value="/dataInputOk", method= RequestMethod.GET)
 	public ModelAndView dataInputOk(HttpServletRequest request, HttpServletResponse response , SearchDto searchDto) {

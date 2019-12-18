@@ -11,6 +11,8 @@
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="${root}/resources/javascript/jquery/jquery-ui.css"/>
+<script type="text/javascript" src="${root}/resources/javascript/search/search.js"></script>
+
 
 <script>
 	$(function(){
@@ -19,29 +21,17 @@
 		var date = new Date();
 		var today = dateToString(date);
 		
-		$("#checkIn").prop("placeholder",today);
-		$("#checkIn").prop("value",today);
+		setCheckIn(today);
 		
 		date.setDate(date.getDate()+1);
 		var tommorow = dateToString(date);
 		
-		$("#checkOut").prop("placeholder",tommorow);
-		$("#checkOut").prop("value",tommorow);
+		setCheckOut(tommorow);
 		
+		checkBoxSetting();
 		
-		
-		// 지역선택 체크박스 전체와 나머지 클릭했을 때 어떻게 동작할지 처리
-		$(".all").click(function(){
-			if($(".all:checkbox").is(":checked")){
-				$(".etc:checkbox").prop("checked", false);
-			}
-		});
-		$(".etc").click(function(){
-			if($(".etc:checkbox").is(":checked")){
-				$(".all:checkbox").prop("checked", false);
-			}
-		});
-			
+
+		$(".all").attr("checked","");
 		
 		//체크인 달력 띄워주기
 		var yearSuffix = "년";
@@ -75,11 +65,6 @@
 		});
 	});
 	
-	// date타입을 "yyyy-mm-dd"형식 문자열로 바꿔주는 함수
-	function dateToString(date){
-		return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-	}
-	
 	//검색조건 submit함수
 	function confirmSubmit(){
 		
@@ -96,27 +81,28 @@
 
 </head>
 <body>
-
 	
+	<img alt="" src="${root}/resources/css/images/common/logo.png">
+	<a href="./test">test</a>
 	<form name="form" action="${root}/search" method="get" onsubmit="return confirmSubmit()">
 	
 		<div>
 			체크인
-			<input type="text" name="checkIn" id="checkIn" placeholder="2019-12-12" value="2019-12-12"/><br/>
+			<input type="text" name="checkIn" id="checkIn"/><br/>
 			체크아웃
-			<input type="text" name="checkOut" id="checkOut" placaholder="2019-12-13" value="2019-12-13"/><br/>
+			<input type="text" name="checkOut" id="checkOut"/><br/>
 		</div><br/>
 		
 		
 		<div>
 			지역
-			<input type="checkbox" class="all" checked="checked"/>전체<br/>
-			<input type="checkbox" name="local[]" value="'jeju'" class="etc"/>제주시<br/>
-			<input type="checkbox" name="local[]" value="'jejuEast'" class="etc"/>제주시 동부<br/>
-			<input type="checkbox" name="local[]" value="'jejuWest'" class="etc"/>제주시 서부<br/>
-			<input type="checkbox" name="local[]" value="'seoguipo'" class="etc"/>중문/서귀포<br/>
-			<input type="checkbox" name="local[]" value="'seoguipoEast'" class="etc"/>서귀포시 동부<br/>
-			<input type="checkbox" name="local[]" value="'seoguipoWest'" class="etc"/>서귀포시 서부<br/>
+			<input type="checkbox" class="all"/>전체<br/>
+			<input type="checkbox" name="local[]" value="jeju" class="etc"/>제주시<br/>
+			<input type="checkbox" name="local[]" value="jejuEast" class="etc"/>제주시 동부<br/>
+			<input type="checkbox" name="local[]" value="jejuWest" class="etc"/>제주시 서부<br/>
+			<input type="checkbox" name="local[]" value="seoguipo" class="etc"/>중문/서귀포<br/>
+			<input type="checkbox" name="local[]" value="seoguipoEast" class="etc"/>서귀포시 동부<br/>
+			<input type="checkbox" name="local[]" value="seoguipoWest" class="etc"/>서귀포시 서부<br/>
 			<input type="hidden" name="local" id="local"/>
 			<br/>
 		</div>

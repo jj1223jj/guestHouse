@@ -2,11 +2,8 @@ package com.java.host.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
 import com.java.file.dto.FileDto;
 import com.java.host.dao.HostDao;
 import com.java.host.dto.HostDto;
@@ -111,8 +108,8 @@ public class HostServiceImp implements HostService {
 				
 				int check = hostDao.subImgUpload(fileDto);
 				
-				HomeAscpect.logger.info(HomeAscpect.logMsg + fileDto);
-				HomeAscpect.logger.info(HomeAscpect.logMsg + check);
+				HomeAspect.logger.info(HomeAspect.logMsg + fileDto);
+				HomeAspect.logger.info(HomeAspect.logMsg + check);
 			}
 		}
 		
@@ -139,7 +136,7 @@ public class HostServiceImp implements HostService {
 //			}
 //		}
 
-		HomeAscpect.logger.info(HomeAscpect.logMsg + hostDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());
 		
 		
 		
