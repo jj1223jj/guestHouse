@@ -42,18 +42,20 @@
 				<td align="center" width="100">위치</td>
 				<td align="center" width="70">게하 승인여부</td>
 			</tr>
-			<c:forEach var="houseDto" items="${houseList}">
+			<c:forEach var="hostDto" items="${houseList}">
+					
 				<tr>
 					<td>
-					<button onclick="window.open('${root}/house/houseRead.do?memberCode=${houseDto.memberCode}&houseCode=${houseCode}','window_name','width=430,height=500,location=no,status=no,scrollbars=yes')">${houseDto.houseName}</button>
+					<button onclick="window.open('${root}/house/houseRead.do?memberCode=${hostDto.memberCode}&houseCode=${hostDto.houseCode}','window_name','width=430,height=500,location=no,status=no,scrollbars=yes')">${hostDto.houseName}</button>
 					
+					<input type="hidden" name="houseCode" value="${hostDto.houseCode}"/>
 					<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>
 					-->
 					</td>
-					<td>${houseDto.memberCode}</td>
+					<td>${hostDto.memberCode}</td>
 					<!--address나 local 둘 중 ?  -->
-					<td>${houseDto.address}</td>
-					<td>${houseDto.approvalstatus}</td>
+					<td>${hostDto.address}</td>
+					<td>${hostDto.approvalStatus}</td>
 					
 				</tr>
 			</c:forEach>

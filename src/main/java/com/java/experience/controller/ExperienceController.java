@@ -14,6 +14,7 @@ import com.java.experience.dto.ExperienceDto;
 import com.java.experience.service.ExperienceService;
 import com.java.exreview.dto.ExReviewDto;
 import com.java.host.dto.HostDto;
+import com.java.member.dto.MemberDto;
 
 @Controller
 public class ExperienceController {
@@ -55,11 +56,13 @@ public class ExperienceController {
 	
 	// 체험 후기 작성 눌렀을 때 
 		@RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
-		public ModelAndView exReview(HttpServletRequest request, HttpServletResponse response) {
+		public ModelAndView exReview(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 			System.out.println("exReview write,list");
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("request",request);
+			mav.addObject("response", response);
+			mav.addObject("memberDto",memberDto);
 			experienceService.exReview(mav);
 			
 			return mav;

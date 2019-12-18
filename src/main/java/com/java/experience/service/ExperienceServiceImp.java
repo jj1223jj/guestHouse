@@ -248,6 +248,15 @@ public class ExperienceServiceImp implements ExperienceService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "전체 댓글 갯수: " +count);
 	//	logger.info(logMsg + "전체 방명록 갯수: " + count);
 		
+		//MemberDto memberDto = (MemberDto)map.get("memberDto");
+		//HomeAspect.logger.info(HomeAspect.logMsg +"memberDto: "+ memberDto);
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		HomeAspect.logger.info(HomeAspect.logMsg +"email: "+ email);
+		MemberDto memberDto = new MemberDto();
+		memberDto.setEmail(email);
+		
 		List<ExReviewDto> reviewList =null;
 		
 		if(count > 0) {	// 저장된 방명록이 존재 할 경우
@@ -260,6 +269,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("boardSize", boardSize);
 		request.setAttribute("count", count);
+		request.setAttribute("memberDto", memberDto);
 		
 		mav.setViewName("experience/exReview.tiles");
 		
