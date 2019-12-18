@@ -8,7 +8,6 @@
 <title>회원 로그아웃</title>
 </head>
 <body>
-<jsp:include page="../../../index.jsp"/><br/><br/>
 
 	<!-- 로그아웃을 할 수 있는 사람은 로그인을 한 사람 -->
 	<c:remove var="email" scope="session"/>

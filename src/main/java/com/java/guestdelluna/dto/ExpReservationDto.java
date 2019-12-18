@@ -4,29 +4,41 @@ import java.util.Date;
 
 public class ExpReservationDto {
 
-	private int reserveCode ;
+	private int exReserveCode ;
 	private int exCode ;
-	private int memberCode ;
-	private int exPeople ;
-	private Date exDate ;
+	private int exPayment ;
+	private int memberCode;
+	private int exPeople;
+	private Date reserveDate ;
+	private String state;
 	
 	public ExpReservationDto() {}
 
-	public ExpReservationDto(int reserveCode, int exCode, int memberCode, int exPeople, Date exDate) {
+	public ExpReservationDto(int exReserveCode, int exCode, int exPayment, int memberCode, int exPeople,
+			Date reserveDate, String state) {
 	
-		this.reserveCode = reserveCode;
+		this.exReserveCode = exReserveCode;
 		this.exCode = exCode;
+		this.exPayment = exPayment;
 		this.memberCode = memberCode;
 		this.exPeople = exPeople;
-		this.exDate = exDate;
+		this.reserveDate = reserveDate;
+		this.state = state;
 	}
 
-	public int getReserveCode() {
-		return reserveCode;
+	@Override
+	public String toString() {
+		return "ExpReservationDto [exReserveCode=" + exReserveCode + ", exCode=" + exCode + ", exPayment=" + exPayment
+				+ ", memberCode=" + memberCode + ", exPeople=" + exPeople + ", reserveDate=" + reserveDate + ", state="
+				+ state + "]";
 	}
 
-	public void setReserveCode(int reserveCode) {
-		this.reserveCode = reserveCode;
+	public int getExReserveCode() {
+		return exReserveCode;
+	}
+
+	public void setExReserveCode(int exReserveCode) {
+		this.exReserveCode = exReserveCode;
 	}
 
 	public int getExCode() {
@@ -35,6 +47,14 @@ public class ExpReservationDto {
 
 	public void setExCode(int exCode) {
 		this.exCode = exCode;
+	}
+
+	public int getExPayment() {
+		return exPayment;
+	}
+
+	public void setExPayment(int exPayment) {
+		this.exPayment = exPayment;
 	}
 
 	public int getMemberCode() {
@@ -53,18 +73,22 @@ public class ExpReservationDto {
 		this.exPeople = exPeople;
 	}
 
-	public Date getExDate() {
-		return exDate;
+	public Date getReserveDate() {
+		return reserveDate;
 	}
 
-	public void setExDate(Date exDate) {
-		this.exDate = exDate;
+	public void setReserveDate(Date reserveDate) {
+		this.reserveDate = reserveDate;
 	}
 
-	@Override
-	public String toString() {
-		return "ExpReservation [reserveCode=" + reserveCode + ", exCode=" + exCode + ", memberCode=" + memberCode
-				+ ", exPeople=" + exPeople + ", exDate=" + exDate + "]";
+	public String getState() {
+		return state;
 	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
 	
 }

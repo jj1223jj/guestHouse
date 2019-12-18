@@ -63,7 +63,7 @@ public class SearchController {
 		
 		//테스트용으로 데이터 넣기 위한 함수
 
-    searchService.dataInputOk(hostDto);
+   		 searchService.dataInputOk(hostDto);
 
 		mav.setViewName("search/dataInput.tiles");
 		return mav;

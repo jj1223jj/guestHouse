@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
+import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.ReviewDto;
 import com.java.guestdelluna.service.DellunaService;
 
@@ -25,7 +26,6 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
-		
 		dellunaService.review(mav);
 		
 		return mav;

@@ -12,6 +12,7 @@ function createXHR() {
 	}
 }
 
+
 function sendRequest(method, url, callback, params) {
 	var httpMethod = method.toLowerCase();
 	if (httpMethod != "get" && httpMethod != "post") {
@@ -30,4 +31,6 @@ function sendRequest(method, url, callback, params) {
 	xhr.send(httpMethod == "post"? httpParams : null);
 	xhr.onreadystatechange = callback;
 	//alert(httpUrl);
+
+
 }

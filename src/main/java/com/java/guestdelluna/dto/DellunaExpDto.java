@@ -4,20 +4,39 @@ import java.util.Date;
 
 public class DellunaExpDto {
 
-	private int reserveCode ;
 	private int exCode ;
 	private int memberCode;
-	private int exPeople;
-	private Date exDate ;
+	private String exName ;
+	private int exPeople ;
+	private Date exStartDate ;
+	private Date exEndDate ;
+	private String exTime ;
+	private int exPrice ;
+	private String exAddress ;
+	private String exExplain ;
 	
 	public DellunaExpDto() {}
 
-	public int getReserveCode() {
-		return reserveCode;
+	public DellunaExpDto(int exCode, int memberCode, String exName, int exPeople, Date exStartDate, Date exEndDate,
+			String exTime, int exPrice, String exAddress, String exExplain) {
+		
+		this.exCode = exCode;
+		this.memberCode = memberCode;
+		this.exName = exName;
+		this.exPeople = exPeople;
+		this.exStartDate = exStartDate;
+		this.exEndDate = exEndDate;
+		this.exTime = exTime;
+		this.exPrice = exPrice;
+		this.exAddress = exAddress;
+		this.exExplain = exExplain;
 	}
 
-	public void setReserveCode(int reserveCode) {
-		this.reserveCode = reserveCode;
+	@Override
+	public String toString() {
+		return "DellunaExpDto [exCode=" + exCode + ", memberCode=" + memberCode + ", exName=" + exName + ", exPeople="
+				+ exPeople + ", exStartDate=" + exStartDate + ", exEndDate=" + exEndDate + ", exTime=" + exTime
+				+ ", exPrice=" + exPrice + ", exAddress=" + exAddress + ", exExplain=" + exExplain + "]";
 	}
 
 	public int getExCode() {
@@ -36,6 +55,14 @@ public class DellunaExpDto {
 		this.memberCode = memberCode;
 	}
 
+	public String getExName() {
+		return exName;
+	}
+
+	public void setExName(String exName) {
+		this.exName = exName;
+	}
+
 	public int getExPeople() {
 		return exPeople;
 	}
@@ -44,28 +71,54 @@ public class DellunaExpDto {
 		this.exPeople = exPeople;
 	}
 
-	public Date getExDate() {
-		return exDate;
+	public Date getExStartDate() {
+		return exStartDate;
 	}
 
-	public void setExDate(Date exDate) {
-		this.exDate = exDate;
+	public void setExStartDate(Date exStartDate) {
+		this.exStartDate = exStartDate;
 	}
 
-	public DellunaExpDto(int reserveCode, int exCode, int memberCode, int exPeople, Date exDate) {
-		
-		this.reserveCode = reserveCode;
-		this.exCode = exCode;
-		this.memberCode = memberCode;
-		this.exPeople = exPeople;
-		this.exDate = exDate;
+	public Date getExEndDate() {
+		return exEndDate;
 	}
 
-	@Override
-	public String toString() {
-		return "DellunaExpDto [reserveCode=" + reserveCode + ", exCode=" + exCode + ", memberCode=" + memberCode
-				+ ", exPeople=" + exPeople + ", exDate=" + exDate + "]";
+	public void setExEndDate(Date exEndDate) {
+		this.exEndDate = exEndDate;
 	}
+
+	public String getExTime() {
+		return exTime;
+	}
+
+	public void setExTime(String exTime) {
+		this.exTime = exTime;
+	}
+
+	public int getExPrice() {
+		return exPrice;
+	}
+
+	public void setExPrice(int exPrice) {
+		this.exPrice = exPrice;
+	}
+
+	public String getExAddress() {
+		return exAddress;
+	}
+
+	public void setExAddress(String exAddress) {
+		this.exAddress = exAddress;
+	}
+
+	public String getExExplain() {
+		return exExplain;
+	}
+
+	public void setExExplain(String exExplain) {
+		this.exExplain = exExplain;
+	}
+
 	
-		
+
 }

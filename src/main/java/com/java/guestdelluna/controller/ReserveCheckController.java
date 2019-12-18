@@ -29,22 +29,6 @@ public class ReserveCheckController {
 		return mav;
 	
 	}
-
-	@RequestMapping(value="/guestdelluna/viewMyReserveHouse.do" , method=RequestMethod.GET)
-	public ModelAndView viewMyReserve(HttpServletRequest request , HttpServletResponse response) {
-		
-		//예약상품을 클릭하면 예약코드에 맞는 dto를 보여 줄 수 있게 해줌
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("request", request);
-		
-		dellunaService.myReserveHouse(mav);
-		
-		return mav;
-		
-		
-	}
 	
 	@RequestMapping(value = "guestdelluna/viewMyReserveExp.do" , method=RequestMethod.GET)
 	public ModelAndView viewMyExp(HttpServletRequest request , HttpServletResponse response) {
@@ -62,8 +46,34 @@ public class ReserveCheckController {
 	@RequestMapping(value="guestdelluna/cancelReserve.do" , method=RequestMethod.GET)
 	public void cancleReservation(HttpServletRequest request , HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView();
 		
-		//예약취소를 하면 memberCode에 해당하는 dto를 삭제하면 된다
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		try {
+			dellunaService.reserveCancle(mav);
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	@RequestMapping(value="guestdelluna/cancelExp.do" , method=RequestMethod.GET)
+	public void cancleExpRes(HttpServletRequest request , HttpServletResponse response) {
+
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		try {
+			dellunaService.expCancle(mav);
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
