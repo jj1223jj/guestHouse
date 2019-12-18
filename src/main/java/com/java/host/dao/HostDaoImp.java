@@ -33,61 +33,61 @@ public class HostDaoImp implements HostDao {
 
 	@Override
 	public int subImgUpload(FileDto fileDto) {
-		return sqlSession.insert("subImgUpload", fileDto);
+		return sqlSession.insert("host.dao.mapper.subImgUpload", fileDto);
 	}
 
 	@Override
 	public int hostRegister(HostDto hostDto) {
-		return sqlSession.insert("hostRegister", hostDto);
+		return sqlSession.insert("host.dao.mapper.hostRegister", hostDto);
 	}
 
 	@Override
 	public int memberProfileImg(MemberDto memberDto) {
-		return sqlSession.update("memberProfileUpdate", memberDto);
+		return sqlSession.update("host.dao.mapper.memberProfileUpdate", memberDto);
 	}
 
 	@Override
 	public int memberCode(String email) {
-		return sqlSession.selectOne("memberCode", email);
+		return sqlSession.selectOne("host.dao.mapper.memberCode", email);
 	}
 
 	@Override
 	public int mainImgUpload(FileDto fileDto) {
-		return sqlSession.insert("mainImgUpload",fileDto);
+		return sqlSession.insert("host.dao.mapper.mainImgUpload",fileDto);
 	}
 
 	@Override
 	public int houseCode() {
-		return sqlSession.selectOne("houseCode");
+		return sqlSession.selectOne("host.dao.mapper.houseCode");
 	}
 
 	@Override
 	public List<HostDto> houseList(int memberCode) {
-		return sqlSession.selectList("houseList", memberCode);
+		return sqlSession.selectList("host.dao.mapper.houseList", memberCode);
 	}
 
 	@Override
 	public int hostCancel(int houseCode) {
-		return sqlSession.update("hostCancel", houseCode);
+		return sqlSession.update("host.dao.mapper.hostCancel", houseCode);
 	}
 
 	@Override
 	public List<String> houseNameList(int memberCode) {
-		return sqlSession.selectList("houseNameList", memberCode);
+		return sqlSession.selectList("host.dao.mapper.houseNameList", memberCode);
 	}
 
 	@Override
 	public int getHouseCode(String houseName) {
-		return sqlSession.selectOne("getHouseCode", houseName);
+		return sqlSession.selectOne("host.dao.mapper.getHouseCode", houseName);
 	}
 
 	@Override
 	public List<ReservationListDto> reserveViewList(int houseCode) {
-		return sqlSession.selectList("reserveViewList", houseCode);
+		return sqlSession.selectList("host.dao.mapper.reserveViewList", houseCode);
 	}
 
 	@Override
 	public int getCount(String email) {
-		return sqlSession.selectOne("getCount", email);
+		return sqlSession.selectOne("host.dao.mapper.getCount", email);
 	}
 }

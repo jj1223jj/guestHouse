@@ -186,7 +186,7 @@ public class HostServiceImp implements HostService {
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
 		int memberCode = hostDao.memberCode(email);
-		
+		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
 		
 		
 		String pageNumber = request.getParameter("pageNumber");
@@ -201,11 +201,11 @@ public class HostServiceImp implements HostService {
 		int startRow = (currentPage-1)*boardSize+1;
 		int endRow = currentPage*boardSize;
 		
-		//List<String> houseNameList;
+		List<String> houseNameList;
 		//if ()
-		//houseNameList = hostDao.houseNameList(memberCode);
-		//mav.addObject("houseNameList", houseNameList);
-		
+		houseNameList = hostDao.houseNameList(memberCode);
+		mav.addObject("houseNameList", houseNameList);
+		HomeAspect.logger.info(HomeAspect.logMsg + houseNameList.size());
 		mav.setViewName("host/reservationView.tiles");
 	}
 	
@@ -216,6 +216,7 @@ public class HostServiceImp implements HostService {
 		
 		String houseName = request.getParameter("houseName");
 		int houseCode = hostDao.getHouseCode(houseName);
+		HomeAspect.logger.info(HomeAspect.logMsg + houseCode);
 		List<ReservationListDto> reserveViewList = hostDao.reserveViewList(houseCode);
 		for (int i=0; i<reserveViewList.size();i++) {
 			HomeAspect.logger.info(HomeAspect.logMsg + reserveViewList.get(i).toString());
