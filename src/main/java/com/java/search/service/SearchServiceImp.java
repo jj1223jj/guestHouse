@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
+import com.java.host.dto.HostDto;
 import com.java.search.dao.SearchDao;
-import com.java.search.dto.SearchDto;
 
 
 @Component
@@ -29,13 +29,14 @@ public class SearchServiceImp implements SearchService {
 		dataMap.put("checkIn", checkIn);
 		dataMap.put("checkOut", checkOut);
 		dataMap.put("local", local);
-		
-		if(local.split(",").length>=1 && !local.equals("")) {
-			dataMap.put("localSplit", local.split(","));
-		}
-		System.out.println(dataMap.get("localSplit"));
 		dataMap.put("people", people);
-		dataMap.put("searchHouseName",searchHouseName);
+		
+		//지역조건이 전체가 아니면 배열로 dataMap에 넣어주기
+		if(local.split(",").length>=1 && !local.equals(""))
+			dataMap.put("localSplit", local.split(","));
+		//숙소이름 검색조건이 있으면 dataMap에 넣어주기
+		if(!searchHouseName.equals(""))
+			dataMap.put("searchHouseName",searchHouseName);
 
 		//페이징
 		int currentPage=Integer.parseInt(pageNumber);
@@ -46,7 +47,7 @@ public class SearchServiceImp implements SearchService {
 
 		//검색조건 결과 0아니면 데이터 10개씩 가져오기
 		int boardSize=3;
-		List<SearchDto> searchHouseList=null;
+		List<HostDto> searchHouseList=null;
 		if(count>0) {
 			int sRow = (currentPage-1)*boardSize+1;	//startRow
 			int eRow = currentPage*boardSize;		//endRow
@@ -77,9 +78,9 @@ public class SearchServiceImp implements SearchService {
 	
 	//테스트 용으로 데이터 넣기 위한 함수
 	@Override
-	public void dataInputOk(SearchDto searchDto) {
+	public void dataInputOk(HostDto hostDto) {
 		
-		int check= searchDao.dataInputOk(searchDto);
+		int check= searchDao.dataInputOk(hostDto);
 		HomeAspect.logger.info(HomeAspect.logMsg+"dataInput check: "+check);
 		
 	}

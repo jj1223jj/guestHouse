@@ -1,6 +1,7 @@
 package com.java.guestdelluna.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -52,6 +53,8 @@ public interface DellunaDao {
 	HouseReservationDto myResHouse(int reserveCode);
 
 	ExpReservationDto myResExp(int exCode);
+
+	int doZzim(Map<String, Object> dataMap, String zzim);
 
 	
 

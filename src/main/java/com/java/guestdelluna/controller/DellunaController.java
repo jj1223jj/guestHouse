@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.aop.HomeAspect;
 import com.java.guestdelluna.dto.DellunaExpDto;
 import com.java.guestdelluna.dto.DellunaZzimDto;
 import com.java.guestdelluna.service.DellunaService;
@@ -31,16 +32,13 @@ public class DellunaController {
 	private DellunaService dellunaService ;
 	
 	@RequestMapping(value="guestdelluna/zzim.do" , method=RequestMethod.GET)
-	public void zzim(HttpServletRequest request , HttpServletResponse response , DellunaZzimDto dellunaZzimDto, DellunaExpDto dellunaExpDto) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		
-		mav.addObject("dellunaExpDto", dellunaExpDto);
-		mav.addObject("dellunaZzimDto", dellunaZzimDto);
-		mav.addObject("request", request);
-		
-		dellunaService.doZzim(mav);
+	public void zzim(HttpServletRequest request , HttpServletResponse response) {
+		String memberCode = request.getParameter("memberCode");
+		String zzim = request.getParameter("zzim");
+		String houseCode = request.getParameter("houseCode");
+		HomeAspect.logger.info(HomeAspect.logMsg+"memberCode: "+memberCode+" zzim: "+zzim+" houseCode: "+houseCode);
+			
+		dellunaService.doZzim(memberCode,houseCode,zzim);
 		
 	}
 		

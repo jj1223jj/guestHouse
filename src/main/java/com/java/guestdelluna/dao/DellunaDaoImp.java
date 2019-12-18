@@ -159,6 +159,15 @@ public class DellunaDaoImp implements DellunaDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("myResExp",exCode);
 	}
+
+	@Override
+	public int doZzim(Map<String, Object> dataMap, String zzim) {
+		if(zzim!=null)
+			return sqlSessionTemplate.insert("dao.dellunaMapper.doZzim", dataMap);
+		else
+			return sqlSessionTemplate.delete("dao.dellunaMapper.cancelZzim", dataMap);
+		
+	}
 	
 	
 	

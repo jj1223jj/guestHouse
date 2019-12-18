@@ -9,7 +9,7 @@ public interface DellunaService {
 
 	void zzimCancle(ModelAndView mav);
 
-	void doZzim(ModelAndView mav);
+	void doZzim(String memberCode, String houseCode, String zzim);
 
 	void reviewOk(ModelAndView mav);
 

@@ -1,6 +1,7 @@
 package com.java.guestdelluna.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,26 +46,14 @@ public class DellunaServiceImp implements DellunaService {
 	}
 
 	@Override
-	public void doZzim(ModelAndView mav) {
-		// TODO Auto-generated method stub
+	public void doZzim(String memberCode, String houseCode, String zzim) {
 		
-		Map<String,Object> map = mav.getModelMap();
-		
-		//HttpServletRequest request = (HttpServletRequest) map.get("request");
-		DellunaExpDto dellunaExpDto = (DellunaExpDto) map.get("dellunaExpDto");
-		DellunaZzimDto dellunaZzimDto = (DellunaZzimDto) map.get("dellunaZzimDto");
-		
-		
-		  HomeAspect.logger.info(HomeAspect.logMsg + dellunaZzimDto.toString());
-		  HomeAspect.logger.info(HomeAspect.logMsg + dellunaExpDto.toString());
-		 
-		if(dellunaZzimDto.getWishCode() == 0) {
-			System.out.println("체험 찜을 눌렀으니 방에 대한 정보는 없을 수 밖에 없다");
-		}
-		
-		if(dellunaExpDto.getReserveCode() == 0) {
-			System.out.println("게하 찜을 눌렀으니 체험에 대한 정보는 없을 수 밖에 없다");
-		}
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("memberCode", memberCode);
+		dataMap.put("houseCode", houseCode);
+
+		int check = dellunaDao.doZzim(dataMap,zzim);
+		HomeAspect.logger.info(HomeAspect.logMsg+"check: "+check);
 		
 	}
 	

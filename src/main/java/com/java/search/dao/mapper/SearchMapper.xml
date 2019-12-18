@@ -21,10 +21,13 @@
 				local=#{item}
 			</foreach>
 		</if>
+		<if test="searchHouseName!=null">
+			and houseName like '%${searchHouseName}%'
+		</if>
 	</select>
 	
 
-	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.search.dto.SearchDto">
+	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.host.dto.HostDto">
 		<![CDATA[
 			
 			select * from (
@@ -46,7 +49,10 @@
 			<foreach collection="localSplit" item="item" open="and (" separator="or" close=")">
 				local=#{item}
 			</foreach>
-		</if>											
+		</if>
+		<if test="searchHouseName!=null">
+			and houseName like '%${searchHouseName}%'
+		</if>								
 													
 		<![CDATA[											
 			) where rn>=#{sRow} and rn<=#{eRow}
@@ -58,7 +64,7 @@
 	
 	
 	<!-- 테스트 용으로 데이터 넣기 위한 함수 -->
-	<insert id="dataInput" parameterType="com.java.search.dto.SearchDto">
+	<insert id="dataInput" parameterType="com.java.host.dto.HostDto">
 		insert into house(
 						houseCode,
 						houseName,

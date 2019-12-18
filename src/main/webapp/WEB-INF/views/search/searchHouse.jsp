@@ -23,23 +23,57 @@
   right: 0px;
   top: 0px;
 }
-
 #filterContent{
+	display:none;
+}
+.houseCode{
 	display:none;
 }
 </style>
 <script>
 	$(function(){
 		
+		//하트 클릭
+		$("._r0agyd").click(function(){
+			
+			var data;
+			if($(this).children().attr("fill")=="currentColor"){
+				$(this).children().attr("fill", "#FF385C");
+				$(this).children().attr("fill-opacity", "1");
+				$(this).children().attr("stroke","#FF385C");
+				$(this).children().attr("stroke-width","1");
+				data= { memberCode: "1", zzim: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
+			}else{
+				$(this).children().attr("fill", "currentColor");
+				$(this).children().attr("fill-opacity", "0");
+				$(this).children().attr("stroke","#222222");
+				$(this).children().attr("stroke-width","1.4");
+				data= { memberCode: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
+			}
+			$.ajax({
+				  method: "GET",
+				  url: "${root}/guestdelluna/zzim.do",
+				  data: data,
+				  success: function(){
+					  alert("hi");
+				  },
+				  error: function(){
+					  alert("아직안됨");
+				  }
+				})
+			
+		});
+		
+		//검색 조건 띄워주는 창
 		$("#filter").click(function(){
 			if($("#filterContent").css("display")=="none")
 				$("#filterContent").css("display","block");
 			else
 				$("#filterContent").css("display","none");
-			
 		});
 		
-		
+		//검색 조건 기본값 설정
+		$("input[name='searchHouseName']").val("${searchHouseName}");
 		var local='${local}'.split(",");
 		if(local.length>1){
 			$(local).each(function(i,e){
@@ -52,7 +86,6 @@
 		
 		
 		//검색 시점에서 checkIn과 checkOut 날짜 기준으로 placeholder와 value 설정
-		
 		setCheckIn('${checkIn}');
 		setCheckOut('${checkOut}');
 		
@@ -190,9 +223,14 @@
 	</c:if>
 	<c:if test="${count>0}">
 		<c:forEach var="i" items="${searchHouseList}">
-			${i.houseName}
-			${i.people}
-			${i.latLng}
+			<div class="house">
+				<div class="houseCode">${i.houseCode}</div>
+				<div class="houseName">${i.houseName}</div>
+				${i.people}
+				${i.latLng}
+				${i.price}원/1박
+				<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
+			</div>
 			<script>
 				var latLng = '${i.latLng}';
 				var index = latLng.indexOf(",");

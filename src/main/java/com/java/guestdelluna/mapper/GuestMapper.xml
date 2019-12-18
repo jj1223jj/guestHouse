@@ -12,6 +12,14 @@
 	update member set name=#{name} , email=#{email} , password=#{password} , phone=#{phone} where email=#{email}
 </update>
 
+<insert id="doZzim" parameterType="java.util.Map">
+	insert into wishList values(#{memberCode},#{houseCode})
+</insert>
+
+<delete id="cancelZzim" parameterType="java.util.Map">
+	delete from wishList where memberCode=#{memberCode} and houseCode=#{houseCode}
+</delete>
+
 <!-- 
    <insert id="guestinsert" parameterType="com.java.guest.dto.GuestDto">
 

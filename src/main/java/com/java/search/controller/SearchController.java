@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
-import com.java.search.dto.SearchDto;
+import com.java.host.dto.HostDto;
 import com.java.search.service.SearchService;
 
 @Controller
@@ -57,13 +57,13 @@ public class SearchController {
 	
 	
 	@RequestMapping(value="/dataInputOk", method= RequestMethod.GET)
-	public ModelAndView dataInputOk(HttpServletRequest request, HttpServletResponse response , SearchDto searchDto) {
+	public ModelAndView dataInputOk(HttpServletRequest request, HttpServletResponse response , HostDto hostDto) {
 		ModelAndView mav = new ModelAndView();
-		HomeAspect.logger.info(HomeAspect.logMsg+"데이터 등록: "+searchDto);
+		HomeAspect.logger.info(HomeAspect.logMsg+"데이터 등록: "+hostDto);
 		
 		//테스트용으로 데이터 넣기 위한 함수
 
-    searchService.dataInputOk(searchDto);
+    searchService.dataInputOk(hostDto);
 
 		mav.setViewName("search/dataInput.tiles");
 		return mav;
