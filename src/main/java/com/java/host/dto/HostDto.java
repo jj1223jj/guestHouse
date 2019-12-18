@@ -8,10 +8,10 @@ public class HostDto {
 	private int memberCode;
 	private String houseName;
 	private String explain;
-	private String bath;
+	private int bath;
 	private String etc;
-	private String checkIn;
-	private String checkOut;
+	private String checkInTime;
+	private String checkOutTime;
 	private String necessary;
 	private String wifi;
 	private String washer;
@@ -27,7 +27,7 @@ public class HostDto {
 	private String sigungu;
 	private String roadName;
 	private String bName;
-	private String autoJibunAddress;
+	private String jibunAddress;
 	private String latLng;
 	private String detailAddress;
 	private String local;
@@ -43,10 +43,10 @@ public class HostDto {
 		
 	}
 
-	public HostDto(int houseCode, int memberCode, String houseName, String explain, String bath, String etc,
-			String checkIn, String checkOut, String necessary, String wifi, String washer, String hotWater,
+	public HostDto(int houseCode, int memberCode, String houseName, String explain, int bath, String etc,
+			String checkInTime, String checkOutTime, String necessary, String wifi, String washer, String hotWater,
 			String aircon, String tv, String mart, String parking, String kitchen, String safety, String address,
-			String sido, String sigungu, String roadName, String bName, String autoJibunAddress, String latLng,
+			String sido, String sigungu, String roadName, String bName, String jibunAddress, String latLng,
 			String detailAddress, String local, String approvalStatus, String bank, int account, int people, int bed,
 			int price, Date houseRegDate) {
 		this.houseCode = houseCode;
@@ -55,8 +55,8 @@ public class HostDto {
 		this.explain = explain;
 		this.bath = bath;
 		this.etc = etc;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
+		this.checkInTime = checkInTime;
+		this.checkOutTime = checkOutTime;
 		this.necessary = necessary;
 		this.wifi = wifi;
 		this.washer = washer;
@@ -72,7 +72,7 @@ public class HostDto {
 		this.sigungu = sigungu;
 		this.roadName = roadName;
 		this.bName = bName;
-		this.autoJibunAddress = autoJibunAddress;
+		this.jibunAddress = jibunAddress;
 		this.latLng = latLng;
 		this.detailAddress = detailAddress;
 		this.local = local;
@@ -117,11 +117,11 @@ public class HostDto {
 		this.explain = explain;
 	}
 
-	public String getBath() {
+	public int getBath() {
 		return bath;
 	}
 
-	public void setBath(String bath) {
+	public void setBath(int bath) {
 		this.bath = bath;
 	}
 
@@ -133,20 +133,20 @@ public class HostDto {
 		this.etc = etc;
 	}
 
-	public String getCheckIn() {
-		return checkIn;
+	public String getCheckInTime() {
+		return checkInTime;
 	}
 
-	public void setCheckIn(String checkIn) {
-		this.checkIn = checkIn;
+	public void setCheckInTime(String checkInTime) {
+		this.checkInTime = checkInTime;
 	}
 
-	public String getCheckOut() {
-		return checkOut;
+	public String getCheckOutTime() {
+		return checkOutTime;
 	}
 
-	public void setCheckOut(String checkOut) {
-		this.checkOut = checkOut;
+	public void setCheckOutTime(String checkOutTime) {
+		this.checkOutTime = checkOutTime;
 	}
 
 	public String getNecessary() {
@@ -269,12 +269,12 @@ public class HostDto {
 		this.bName = bName;
 	}
 
-	public String getAutoJibunAddress() {
-		return autoJibunAddress;
+	public String getjibunAddress() {
+		return jibunAddress;
 	}
 
-	public void setAutoJibunAddress(String autoJibunAddress) {
-		this.autoJibunAddress = autoJibunAddress;
+	public void setjibunAddress(String jibunAddress) {
+		this.jibunAddress = jibunAddress;
 	}
 
 	public String getLatLng() {
@@ -360,12 +360,12 @@ public class HostDto {
 	@Override
 	public String toString() {
 		return "HostDto [houseCode=" + houseCode + ", memberCode=" + memberCode + ", houseName=" + houseName
-				+ ", explain=" + explain + ", bath=" + bath + ", etc=" + etc + ", checkIn=" + checkIn + ", checkOut="
-				+ checkOut + ", necessary=" + necessary + ", wifi=" + wifi + ", washer=" + washer + ", hotWater="
+				+ ", explain=" + explain + ", bath=" + bath + ", etc=" + etc + ", checkInTime=" + checkInTime + ", checkOutTime="
+				+ checkOutTime + ", necessary=" + necessary + ", wifi=" + wifi + ", washer=" + washer + ", hotWater="
 				+ hotWater + ", aircon=" + aircon + ", tv=" + tv + ", mart=" + mart + ", parking=" + parking
 				+ ", kitchen=" + kitchen + ", safety=" + safety + ", address=" + address + ", sido=" + sido
-				+ ", sigungu=" + sigungu + ", roadName=" + roadName + ", bName=" + bName + ", autoJibunAddress="
-				+ autoJibunAddress + ", latLng=" + latLng + ", detailAddress=" + detailAddress + ", local=" + local
+				+ ", sigungu=" + sigungu + ", roadName=" + roadName + ", bName=" + bName + ", jibunAddress="
+				+ jibunAddress + ", latLng=" + latLng + ", detailAddress=" + detailAddress + ", local=" + local
 				+ ", approvalStatus=" + approvalStatus + ", bank=" + bank + ", account=" + account + ", people="
 				+ people + ", bed=" + bed + ", price=" + price + ", houseRegDate=" + houseRegDate + "]";
 	}

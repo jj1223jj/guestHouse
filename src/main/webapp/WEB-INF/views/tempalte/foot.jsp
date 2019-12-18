@@ -21,7 +21,6 @@
 					
 		
 		<title>게스트하우스 홈페이지</title>
-	
 
 	</head>
 </head>

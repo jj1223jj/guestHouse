@@ -14,7 +14,7 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
 </head>
 <body>
-	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data">
+	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data" onsubmit="regi(this)">
 	<div class="wrap">
 		<ul>
 			<li>
@@ -22,6 +22,9 @@
 				<div class="profileDiv">
 					<img src="" id="profileView"/>  
 				</div>
+				<textarea rows="20" cols="50" name="memberInfo" id="memberInfo">
+					
+				</textarea>
 				<div>
 					<span> 
 얼굴이 나온 프로필 사진을 통해서 다른 호스트와 게스트에게 나를 알릴 수 있습니다. 모든 에어비앤비 호스트는 프로필 사진이 있어야 합니다. 에어비앤비는 게스트에게 프로필 사진을 요청하지 않지만, 호스트는 요청할 수 있습니다. 호스트가 게스트에게 사진을 요청하는 경우에도, 예약이 확정된 후에만 사진을 볼 수 있습니다.
@@ -35,7 +38,7 @@
 		<input type="text" name="houseName" id="houseName"/>
 			</li>
 			<li>
-				<input type="text" name="sample4_postcode" id="sample4_postcode" placeholder="우편번호">
+				<input type="text" name="zipCode" id="zipCode" placeholder="우편번호">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
 				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
@@ -90,7 +93,7 @@
 				편의점<input type="checkbox" name="mart" id="mart"/>
 				주차시설<input type="checkbox" name="parking" id="parking"/>
 				주방<input type="checkbox" name="kitchen" id="kitchen"/>
-				안전시설<input type="checkbox" name="safty" id="safty"/>
+				안전시설<input type="checkbox" name="safety" id="safety"/>
 				<br/>
 			</li>
 			<li>
@@ -244,7 +247,7 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById('zipCode').value = data.zonecode;
                 document.getElementById("sample4_roadAddress").value = roadAddr;
                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
                 

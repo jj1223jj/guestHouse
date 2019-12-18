@@ -32,9 +32,10 @@ public class MemberServiceImp implements MemberService {
 		memberDto.setEmail(request.getParameter("email"));
 		memberDto.setPassword(request.getParameter("password"));
 		
-		memberDto.setPhone(Integer.parseInt(request.getParameter("phone")));
+		memberDto.setPhone(request.getParameter("phone"));
 		memberDto.setRegDate(new Date());	
 		memberDto.setMemberLevel("A"); 	
+		memberDto.setMemberInfo("");
 		
 		HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
 

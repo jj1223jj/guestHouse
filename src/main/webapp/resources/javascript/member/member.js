@@ -1,6 +1,5 @@
 
 function registerForm(obj){
-	alert("OK");
 	
 
 }
@@ -21,3 +20,7 @@ function emailCheck(obj, root){
 	
 	open(url,"","width=400, height=400, scrollbars=yes");	// url페이지(idCheck.jsp)를 새창으로 오픈 
 }
+
+
+
+
