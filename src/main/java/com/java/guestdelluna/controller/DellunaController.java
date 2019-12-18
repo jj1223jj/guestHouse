@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.guestdelluna.dto.DellunaExpDto;
-import com.java.guestdelluna.dto.DellunaZzimDto;
+import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.service.DellunaService;
 
 @Controller
@@ -29,21 +29,7 @@ public class DellunaController {
 
 	@Autowired
 	private DellunaService dellunaService ;
-	
-	@RequestMapping(value="guestdelluna/zzim.do" , method=RequestMethod.GET)
-	public void zzim(HttpServletRequest request , HttpServletResponse response , DellunaZzimDto dellunaZzimDto, DellunaExpDto dellunaExpDto) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		
-		mav.addObject("dellunaExpDto", dellunaExpDto);
-		mav.addObject("dellunaZzimDto", dellunaZzimDto);
-		mav.addObject("request", request);
-		
-		dellunaService.doZzim(mav);
-		
-	}
-		
+			
 	//찜목록
 	@RequestMapping(value="guestdelluna/zzimlist.do" , method=RequestMethod.GET)
 	public ModelAndView zzimlist(HttpServletRequest request , HttpServletResponse response) {
@@ -51,8 +37,6 @@ public class DellunaController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
-		
-		//페이지넘버
 	
 		dellunaService.zzimlist(mav);
 		
@@ -69,6 +53,17 @@ public class DellunaController {
 		mav.addObject("request", request);
 		
 		dellunaService.zzimCancle(mav);
+		
+	}
+	@RequestMapping(value="guestdelluna/zzimExpCancel.do" , method=RequestMethod.GET)
+	public void zzimExpCancle(HttpServletRequest request , HttpServletResponse response) {
+		
+
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		dellunaService.zzimExpCancle(mav);
 		
 	}
 		

@@ -5,12 +5,142 @@
 <mapper namespace="dao.dellunaMapper">
 
 <select id="selectForUpdate" parameterType="String" resultType="com.java.guestdelluna.dto.MemberDto">
-	select * from where email=#{email}
+	select * from member where email=#{email}
 </select>
 
 <update id="updateMember" parameterType="com.java.guestdelluna.dto.MemberDto">
-	update member set name=#{name} , email=#{email} , password=#{password} , phone=#{phone} where email=#{email}
+	update member set memberName=#{memberName} , email=#{email} , password=#{password} , phone=#{phone} where email=#{email}
 </update>
+
+<update id="updateMemberFile" parameterType="com.java.guestdelluna.dto.MemberDto">
+	update member set memberImgName=#{memberImgName} , memberImgPath=#{memberImgPath} , memberImgSize=#{memberImgSize} ,  memberName=#{memberName} , email=#{email} , password=#{password} , phone=#{phone} where email=#{email}
+</update>
+
+<delete id="memberDeleteOk" parameterType="java.util.Map">
+	delete from member where email=#{email} and password=#{password} 
+</delete>
+
+<insert id="insertReview" parameterType="com.java.guestdelluna.dto.ReviewDto">
+	insert into review values (#{reserveCode} , #{memberCode} , #{revDate} , #{revContent} , #{revRate})
+</insert>
+
+<select id="selectMemberName" parameterType="String" resultType="String">
+	select memberName from member where email=#{email}
+</select>
+
+<select id="selectMemberCode" parameterType="String" resultType="int">
+	select memberCode from member where email=#{email}
+</select>
+
+<select id="countExp" parameterType="int" resultType="int">
+	select count(*) from exreserve
+</select>
+
+<select id="findExpList" parameterType="int" resultType="com.java.guestdelluna.dto.ExpReservationDto">
+	select * from exreserve where memberCode=#{memberCode}
+</select>
+
+<select id="countHouse" parameterType="int" resultType="int">
+	select count(*) from reservation
+</select>
+
+<select id="findHouseList" parameterType="int" resultType="com.java.guestdelluna.dto.HouseReservationDto">
+	select * from reservation where memberCode=#{memberCode}
+</select>
+
+<select id="selectExCode" parameterType="int" resultType="int">
+	select exCode from experience where memberCode = (select memberCode from member where email=#{email}) ;
+</select>
+
+<select id="selectReserveCode" parameterType="int" resultType="int">
+	select reserveCode from reservation where memberCode = (select memberCode from member where email=#{email}) ;
+</select>
+
+<delete id="exCode" parameterType="int">
+	delete from experience where exCode=#{exCode}
+</delete>
+
+<delete id="deleteHouseReserve">
+	delete from reservation where reserveCode=#{reserveCode}
+</delete>
+
+<select id="selectExName" parameterType="int" resultType="String">
+<![CDATA[
+	select exName from experience e , member b where e.membercode = b.membercode 
+		  ]]>
+</select>
+
+<select id="houseInfo" parameterType="int" resultType="com.java.guestdelluna.dto.HouseDto">
+	select * from house where memberCode=#{memberCode}
+</select>
+
+<select id="allHouse" resultType="int" parameterType="int">
+	select houseCode from reservation where memberCode=#{memberCode}
+</select>
+
+<select id="houseCodeThis" parameterType="int" resultType="int">
+	select houseCode from house where houseCode=#{houseCode}
+</select>
+
+<select id="findHouseName" parameterType="int" resultType="String">
+	select	housename from reservation r join  house h on r.houseCode = h.houseCode where r.memberCode = #{memberCode}
+</select>
+
+<select id="ExpResNum" parameterType="int" resultType="int">
+	select exCode from exreserve where memberCode=#{memberCode}
+</select>
+
+<select id="expRealNum" parameterType="int" resultType="int">
+	select excode from experience where excode=#{excode}
+</select>
+
+<select id="myExName" parameterType="int" resultType="String">
+	select	exname from experience r join  exreserve h on r.excode = h.excode where h.memberCode = #{memberCode}
+</select>
+
+<select id="findMyResCode" parameterType="int" resultType="int">
+	select reserveCode from reservation where memberCode=#{memberCode}
+</select>
+
+<update id="updateState" parameterType="int">
+	update reservation set state='예약취소' where reservecode=#{reserveCode}
+</update>
+
+<select id="findMyExpCode" parameterType="int" resultType="int">
+	select exreservecode from exreserve where memberCode=#{memberCode}
+</select>
+
+<update id="updateExpState" parameterType="int">
+	update exreserve set state='예약취소' where exreservecode=#{exreserveCode}
+</update>
+
+<select id="dtoExpZzim" parameterType="int" resultType="com.java.guestdelluna.dto.ExpZzimDto">
+	select * from exwishlist where memberCode=#{memberCode}
+</select>
+
+<select id="zzimExName" parameterType="int" resultType="String">
+	select r.exname from exwishlist e , experience r where r.excode = e.excode and e.membercode=#{memberCode}
+</select>
+
+<delete id="deleteExpZzim" parameterType="int">
+	delete from exwishlist where excode=#{excode}
+</delete>
+
+<select id="dtoHouseZzim" parameterType="int" resultType="com.java.guestdelluna.dto.HouseZzimDto">
+	select * from wishlist where memberCode=#{memberCode}
+</select>
+
+<select id="zzimHouseName" parameterType="int" resultType="String">
+	select housename from wishlist w , house h where h.housecode = w.housecode and w.membercode=#{memberCode}
+</select>
+
+<delete id="deleteHouseZzim" parameterType="int">
+	delete from wishlist where housecode=#{housecode}
+</delete>
+
+<!-- <select id="houseInfo2" parameterType="int" resultType="com.java.guestdelluna.dto.NewDto">
+	select * from reservation r , house h where r.houseCode = h.houseCode and r.memberCode = #{memberCode};
+</select> --> 
 
 <!-- 
    <insert id="guestinsert" parameterType="com.java.guest.dto.GuestDto">

@@ -14,13 +14,13 @@ public class MemberDto {
 	private String memberLevel ;
 	private String memberImgName;
 	private String memberImgPath ;
-	private String memberImgSize ;
+	private Long memberImgSize ;
 	
 	public MemberDto() {}
 
 	public MemberDto(int memberCode, String memberName, String email, String password, int phone, Date regDate,
-			int point, String memberLevel, String memberImgName, String memberImgPath, String memberImgSize) {
-		
+			int point, String memberLevel, String memberImgName, String memberImgPath, Long memberImgSize) {
+	
 		this.memberCode = memberCode;
 		this.memberName = memberName;
 		this.email = email;
@@ -122,13 +122,14 @@ public class MemberDto {
 		this.memberImgPath = memberImgPath;
 	}
 
-	public String getMemberImgSize() {
+	public Long getMemberImgSize() {
 		return memberImgSize;
 	}
 
-	public void setMemberImgSize(String memberImgSize) {
+	public void setMemberImgSize(Long memberImgSize) {
 		this.memberImgSize = memberImgSize;
 	}
+
 	
 	
 }

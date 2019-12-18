@@ -7,9 +7,7 @@ public interface DellunaService {
 
 	void zzimlist(ModelAndView mav);
 
-	void zzimCancle(ModelAndView mav);
-
-	void doZzim(ModelAndView mav);
+	String zzimCancle(ModelAndView mav);
 
 	void reviewOk(ModelAndView mav);
 
@@ -37,9 +35,13 @@ public interface DellunaService {
 
 	void deleteMemberOk(ModelAndView mav);
 
-	void myReserveHouse(ModelAndView mav);
-
 	void myReserveExp(ModelAndView mav);
+
+	String reserveCancle(ModelAndView mav) throws Throwable;
+
+	String expCancle(ModelAndView mav) throws Throwable;
+
+	String zzimExpCancle(ModelAndView mav);
 
 	
 

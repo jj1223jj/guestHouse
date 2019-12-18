@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java.aop.HomeAscpect;
+import com.java.aop.HomeAspect;
+import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.ReviewDto;
 import com.java.guestdelluna.service.DellunaService;
 
@@ -25,7 +26,6 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
-		
 		dellunaService.review(mav);
 		
 		return mav;
@@ -35,7 +35,7 @@ public class ReviewController {
 	@RequestMapping(value="guestdelluna/reviewOk.do" , method=RequestMethod.POST)
 	public ModelAndView reviewOk(HttpServletRequest request , HttpServletResponse response, ReviewDto reviewDto) {
 		
-		HomeAscpect.logger.info(HomeAscpect.logMsg + reviewDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg + reviewDto.toString());
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -64,7 +64,7 @@ public class ReviewController {
 	public ModelAndView reviewUpdateOk(HttpServletRequest request , HttpServletResponse response , ReviewDto reviewDto) {
 		
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		HomeAscpect.logger.info(HomeAscpect.logMsg + pageNumber);		
+		HomeAspect.logger.info(HomeAspect.logMsg + pageNumber);		
 		
 		ModelAndView mav = new ModelAndView();
 		

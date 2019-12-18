@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+게스트하우스 게시물로 링크걸어주기
 </body>
 </html>
