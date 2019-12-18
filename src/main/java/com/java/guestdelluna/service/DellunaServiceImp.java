@@ -108,6 +108,7 @@ public class DellunaServiceImp implements DellunaService {
 
 		int check = dellunaDao.doZzim(dataMap,zzim);
 		HomeAspect.logger.info(HomeAspect.logMsg+"check: "+check);
+	}
 
 	public String zzimExpCancle(ModelAndView mav) {
 		// TODO Auto-generated method stub

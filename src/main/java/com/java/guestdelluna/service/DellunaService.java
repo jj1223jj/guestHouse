@@ -7,8 +7,6 @@ public interface DellunaService {
 
 	void zzimlist(ModelAndView mav);
 
-	void zzimCancle(ModelAndView mav);
-
 	void doZzim(String memberCode, String houseCode, String zzim);
 
 	String zzimCancle(ModelAndView mav);
