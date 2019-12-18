@@ -7,11 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 방명록 </title>
+<title> 후기작성 </title>
 
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js">
-
 </script>
+
+<link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
+<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
+
 </head>
 <body>
 
@@ -25,17 +28,24 @@
 		<c:if test="${count==0 || currentPage==1}">
 			<form class="form" action="${root}/experience/exReviewOk.do" method="get">
 				<div class="title">
-					<span>이름</span>
-					<input type="text" name="memberName" size="12"/>
+					<span>이메일</span>
+					<input type="text" name="email" size="20" value="${email}" disabled="disabled"/>
 			
 					<span>비밀번호</span>
 					<input type="password" name="password" size="12"/>
 				</div>
 			
 				<div class="content"> 후기 내용
-					<textarea rows="5" cols="53" name="message"></textarea>
+					<textarea rows="5" cols="53" name="revContent"></textarea>
 				</div>
-			
+				
+				<div class="star-input">별점
+					<span class="input">
+						<input type="radio" name="star-input" value="1" id="p1">
+						
+					</span>
+					
+				</div>
 				<div class="title" style="text-align: right;">
 					<input type="submit" value="확인"/>
 					<input type="reset" value="취소"/>
@@ -43,23 +53,22 @@
 			</form>
 		</c:if>
 		
-		<%-- 미리 쓴 방명록이 존재하는 경우  --%>
+		<%-- 미리 쓴 후기가 존재하는 경우  --%>
 		<c:if test ="${count > 0}">
-			<%-- guestDto에 guestList값 --%>
-			<c:forEach var="guestDto" items="${guestList}">
+			<c:forEach var="exReviewDto" items="${exReviewList}">
 				<div class="form" style="margin: 50px auto; border-width:1px;">
 					<div class="title">
 						
-						<!-- 게시물 번호  -->
-						${guestDto.num} &nbsp;&nbsp;	
-						<!-- 게시물 작성 시간 -->
-						<fmt:formatDate value="${guestDto.writeDate}" pattern = "yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;
-						<a href="javascript:updateCheck('${root}','${guestDto.num}','${currentPage}')"	>수정</a>
-						<a href="javascript:deleteCheck('${root}','${guestDto.num}','${currentPage}')">삭제</a> 		
+						<!-- 리뷰 번호  -->
+						${exReviewDto.exReviewCode} &nbsp;&nbsp;	
+						<!-- 후기 작성 시간 -->
+						<fmt:formatDate value="${exReviewDto.revDate}" pattern = "yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;
+						<a href="javascript:updateCheck('${root}','${exReviewDto.exReviewCode}','${currentPage}')"	>수정</a>
+						<a href="javascript:deleteCheck('${root}','${exReviewDto.exReviewCode}','${currentPage}')">삭제</a> 		
 					</div>
 					
 					<div class="content" >
-						${guestDto.message}
+						${exReviewDto.revContent}
 					</div>
 				</div>
 			</c:forEach>

@@ -45,7 +45,7 @@
 			<c:forEach var="experienceDto" items="${experienceList}">
 				<tr>
 					<td>
-					<button onclick="window.open('${root}/experience/experienceRead.do?memberCode=${houseDto.memberCode}&exCode=${exCode}','window_name','width=430,height=500,location=no,status=no,scrollbars=yes')">${experienceDto.exName}</button>
+					<button onclick="window.open('${root}/experience/experienceRead.do?memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=430,height=500,location=no,status=no,scrollbars=yes')">${experienceDto.exName}</button>
 					
 					<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>
 					-->
