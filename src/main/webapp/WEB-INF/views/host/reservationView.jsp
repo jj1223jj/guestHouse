@@ -16,7 +16,7 @@
 		
 		if(selectHouse != "숙소를 선택하세요") {
 			var params = "houseName=" + selectHouse;
-			sendRequest("post", url, fromServer, params);
+			sendRequest("GET", url, fromServer, params);
 		}
 	}
 	

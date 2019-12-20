@@ -8,28 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-	function cancel(root, houseCode) {
-		alert(root + "," + houseCode);
-		var value = confirm("정말 삭제하시겠습니까?");
-		if (value == false) {
-			return false;
-		} else {
-			location.href=root + "/host/hostCancel.do?houseCode=" + houseCode;
-		}
-	}
-</script>
 </head>
 <body>
 	<a href="${root}/host/houseManagement.do">게스트하우스관리</a>
 	<a href="${root}/host/exManagement.do">체험 관리</a>
    <div align="center">
-   <h3>${memberCode} </h3>
    
-	 <c:if test="${houseList.size() == 0 || count == 0}">
+	 <c:if test="${experienceList.size() == 0 || count == 0}">
 	 	<table border="1">
 	 		<tr>
-	 			<td>등록된 숙소가 존재하지 않습니다.</td>
+	 			<td>등록된 체험이 존재하지 않습니다.</td>
 	 		</tr>
 	 	</table>
 	 </c:if>
@@ -37,25 +25,22 @@
    <c:if test="${count > 0}"> 
    <table border="1">
       <tr>
-         <td align="center" height="20"  width="125">숙소명</td> 
+         <td align="center" height="20"  width="125">체험명</td> 
          <td align="center" height="20"  width="300">주소</td> 
          <td align="center" height="20"  width="125">등록일</td> 
          <td align="center" height="20"  width="125">승인여부</td> 
          <td align="center" height="20"  width="80">관리</td>
-      
       </tr>
       
-      <c:forEach var="houseList" items="${houseList}">
+      <c:forEach var="experienceList" items="${experienceList}">
       <tr>
-         <td align="center" height="20"  width="125">${houseList.houseName}</td> 
-         <td align="center" height="20"  width="300">${houseList.address} ${houseList.detailAddress}</td> 
+         <td align="center" height="20"  width="125">${experienceList.exName}</td> 
+         <td align="center" height="20"  width="300">${experienceList.exAddress}</td> 
          <td align="center" height="20"  width="125" pattern="yyyy-MM-dd">
-         ${houseList.houseRegDate}
-         	<fmt:formatDate value="${houseList.houseRegDate}" pattern="yyyy-MM-dd"/>
+         	<fmt:formatDate value="${experienceList.exRegDate}" pattern="yyyy-MM-dd"/>
          </td>
-         <td align="center" height="20"  width="125">${houseList.approvalStatus}</td> 
-         <td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${houseList.houseCode}','${houseList}')">삭제</a></td> 
-      <%--    <fmt:formatDate value="${scoreDto.write_date}" pattern="yyyy-MM-dd"/> --%>
+         <td align="center" height="20"  width="125">${experienceList.exApproval}</td> 
+         <td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${houseList.houseCode}','${houseList}')">삭제</a></td>
       </tr>
       </c:forEach>
       
@@ -76,19 +61,18 @@
 			</c:if>
 			
 			<c:if test="${startPage>pageBlock}">
-				<a href="${root}/host/houseManagement.do?pageNumber=${startPage-pageBlock}">[이전]</a>
+				<a href="${root}/host/exManagement.do?pageNumber=${startPage-pageBlock}">[이전]</a>
 			</c:if>
 			
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a href="${root}/host/houseManagement.do?pageNumber=${i}">[${i}]</a>
+				<a href="${root}/host/exManagement.do?pageNumber=${i}">[${i}]</a>
 				
 			</c:forEach>
 			
 			<c:if test="${endPage < pageCount}">
-				<a href="${root}/host/houseManagement.do?pageNumber=${startPage+pageBlock}">[다음]</a>
+				<a href="${root}/host/exManagement.do?pageNumber=${startPage+pageBlock}">[다음]</a>
 			</c:if>
 		</c:if>
-   
    </div>
 </body>
 </html>

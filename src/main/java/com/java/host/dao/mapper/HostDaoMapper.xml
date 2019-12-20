@@ -21,8 +21,8 @@
   	bank,account,people,bed,price,houseRegDate)
   	 values(seq_house_num.nextval, #{memberCode},#{houseName},
   	#{explain},#{bath},#{etc},#{checkInTime},
-  	#{checkOutTime},#{necessary},#{wifi},#{washer},#{hotWater},#{aircon},#{tv},#{mart},
-  	#{parking},#{kitchen},#{safety},#{address}, #{sido}, #{sigungu}, #{roadName}, #{bName},
+  	#{checkOutTime},#{necessary, jdbcType=VARCHAR},#{wifi, jdbcType=VARCHAR},#{washer, jdbcType=VARCHAR},#{hotWater, jdbcType=VARCHAR},#{aircon, jdbcType=VARCHAR},#{tv, jdbcType=VARCHAR},#{mart, jdbcType=VARCHAR},
+  	#{parking, jdbcType=VARCHAR},#{kitchen, jdbcType=VARCHAR},#{safety, jdbcType=VARCHAR},#{address}, #{sido}, #{sigungu}, #{roadName}, #{bName},
   	 #{jibunAddress}, #{latLng}, #{detailAddress}, #{local}, #{approvalStatus}, #{bank}, 
   	 #{account}, #{people}, #{bed}, #{price}, #{houseRegDate})
   </insert>
@@ -35,8 +35,13 @@
   	select max(houseCode) from house
   </select>
   
-  <select id="houseList" parameterType="int" resultType="com.java.host.dto.HostDto">
-  	select * from house where memberCode = #{memberCode}
+  <select id="houseList" parameterType="java.util.Map" resultType="com.java.host.dto.HostDto">
+  <![CDATA[
+  	select * from
+	(select rownum rnum, A.* from
+	(select * from house where memberCode = #{memberCode})A)
+	where rnum>=#{startRow} and rnum<=#{endRow}
+	]]>
   </select>
   
   <update id="hostCancel" parameterType="int">
@@ -51,11 +56,50 @@
   	select houseCode from house where houseName = #{houseName}
   </select>
   
-  <select id="reserveViewList" parameterType="int" resultType="com.java.host.dto.ReservationListDto">
-  	select member.memberName, member.email, member.phone, reservation.checkIn, reservation.checkOut, reservation.payment, reservation.state from member natural join reservation where reservation.housecode = #{houseCode}
+  <select id="reserveViewList" parameterType="java.util.Map" resultType="com.java.host.dto.ReservationListDto">
+  	<![CDATA[
+  	select * from (select rownum rnum, A.*From (select member.memberName, member.email, member.phone, reservation.checkIn, reservation.checkOut, reservation.payment, reservation.state from member natural join reservation where reservation.housecode = #{houseCode})A) WHERE rnum>=#{startRow} and rnum<=#{endRow}
+  	]]>
   </select>
   
-  <select id="getCount" parameterType="String" resultType="int">
+  <select id="getHouseCount" parameterType="String" resultType="int">
   	select count(*) from house natural join member where email = #{email}
   </select>
+  
+  <select id="getReserveCount" parameterType="int" resultType="int">
+  	select count(*) from reservation where houseCode = #{houseCode}
+  </select>
+  
+   <select id="getExCount" parameterType="int" resultType="int">
+  	select count(*) from experience where memberCode = #{memberCode}
+  </select>
+  
+  <select id="experienceList" parameterType="java.util.Map" resultType="com.java.experience.dto.ExperienceDto">
+  	<![CDATA[
+  	select * from
+	(select rownum rnum, A.* from
+	(select * from experience
+	where memberCode = #{memberCode})A)
+	where rnum>=#{startRow} and rnum<=#{endRow}
+  	]]>
+  </select>
+  
+  <select id="getSales" parameterType="int" resultType="com.java.guestReserve.dto.GuestReserveDto">
+  	<!-- select TO_CHAR(reserveDate, 'yyyy-mm'), payment from reservation where memberCode = #{memberCode} -->
+  	select reservation.reserveDate, reservation.payment from house, reservation where house.memberCode = #{memberCode} and house.houseCode = reservation.houseCode and reservation.state = '완료'
+  </select>
+  
+  <select id="getSearchDateCount" parameterType="java.util.Map" resultType="int">
+  	select count(*) from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate}
+  </select>
+  
+  <select id="searchDateList" parameterType="java.util.Map" resultType="com.java.host.dto.SearchDateList">
+  	<![CDATA[
+  		select * from
+		(select rownum rnum, A.* from
+		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, member where house.memberCode = 21 and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate})A)
+		 WHERE rnum>=#{startRow} and rnum<=#{endRow}
+  	]]>
+  </select>
+  
 </mapper>

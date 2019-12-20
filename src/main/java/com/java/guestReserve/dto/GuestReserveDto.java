@@ -19,6 +19,7 @@ public class GuestReserveDto {
 	public GuestReserveDto(int reserveCode, int memberCode, int houseCode, Date reserveDate,
 			Date checkIn, Date checkOut, String state, int payment, int people) {
 		super();
+
 		this.reserveCode = reserveCode;
 		this.memberCode = memberCode;
 		this.houseCode = houseCode;
@@ -86,6 +87,14 @@ public class GuestReserveDto {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	public int getPayment() {
+		return payment;
+	}
+
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 
 
 
@@ -113,8 +122,11 @@ public class GuestReserveDto {
 	@Override
 	public String toString() {
 		return "GuestReserveDto [reserveCode=" + reserveCode + ", memberCode=" + memberCode + ", houseCode=" + houseCode
+
 				+ ", reserveDate=" + reserveDate + ", checkIn=" + checkIn + ", checkOut="
 				+ checkOut + ", state=" + state + ", payment=" + payment + ", people=" + people + "]";
+
+
 	}
 	
 	
