@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
+import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
+import com.java.host.dto.HostImgDto;
 import com.java.search.dao.SearchDao;
 
 
@@ -47,7 +51,7 @@ public class SearchServiceImp implements SearchService {
 
 		//검색조건 결과 0아니면 데이터 10개씩 가져오기
 		int boardSize=3;
-		List<HostDto> searchHouseList=null;
+		List<HostImgDto> searchHouseList=null;
 		if(count>0) {
 			int sRow = (currentPage-1)*boardSize+1;	//startRow
 			int eRow = currentPage*boardSize;		//endRow
@@ -59,8 +63,37 @@ public class SearchServiceImp implements SearchService {
 			HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 : " +searchHouseList.toString());
 		}
 		
+		//검색 결과 list -> JSON으로
+		JSONArray arr = new JSONArray();
+		for(HostImgDto hostDto : searchHouseList) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("houseName",hostDto.getHouseName());
+			map.put("houseCode",hostDto.getHouseCode());
+			map.put("lat",hostDto.getLatLng().split(",")[0]);
+			map.put("lng",hostDto.getLatLng().split(",")[1]);
+			map.put("people",hostDto.getPeople());
+			map.put("price",hostDto.getPrice());
+			
+			
+			JSONArray fileArr = new JSONArray();
+			for(FileDto fileDto : hostDto.getFileList()) {
+				HashMap<String, Object> fileMap = new HashMap<String, Object>();
+				fileMap.put("filePath",fileDto.getFilePath());
+				fileMap.put("fileName",fileDto.getFileName());
+				fileArr.add(fileMap);
+			}
+			map.put("fileList", fileArr);
+			arr.add(map);
+			HomeAspect.logger.info(HomeAspect.logMsg+"hostDto Json: " +map.toString());
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("houseJson", arr);
+		String jsonText = JSONValue.toJSONString(map);
+		HomeAspect.logger.info(HomeAspect.logMsg+"JsonText: " +jsonText);
+		
 		//물어보기
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("houseJson", jsonText);
 		mav.addObject("searchHouseList", searchHouseList);
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
