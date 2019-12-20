@@ -32,7 +32,7 @@ public class GuestHouseController {
 	}
 	
 	@RequestMapping(value="guestHousePage/reservation.do",method = RequestMethod.GET)
-	public void guestHouseReserv(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView guestHouseReserv(HttpServletRequest request, HttpServletResponse response) {
 		
 		//System.out.println("ok");
 		
@@ -41,8 +41,31 @@ public class GuestHouseController {
 		
 		guestHouseService.guestHouseReserv(mav);
 		
+		return mav;
 		//return "guestHousePage/guestHouseReserv.tiles";
 		 
 	}
+	
+	@RequestMapping(value ="/guestHousePage/reserveComplete.do", method = RequestMethod.GET)
+	public ModelAndView reservComplete(HttpServletRequest request, HttpServletResponse response) {
+//		System.out.println("ok");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
+		guestHouseService.reservComplete(mav);
+		
+		return mav;
+	}
 
+	@RequestMapping(value = "/guestHousePage/reserveCompleteOk.do", method = RequestMethod.GET)
+	public void reservCompleteChect(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("ok");
+		
+		System.out.println(request.getAttribute("houseCode"));
+		
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("request",request);
+//		
+	}
 }
