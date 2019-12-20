@@ -19,5 +19,37 @@
 	<select id="getPrice" resultType="int">
 		select price from house where houseCode=#{houseCode}
 	</select>
+	
+	<select id="getHostMemberCode" resultType="int">
+		select membercode from house where houseCode=#{houseCode}
+	</select>
+	
+	<select id="getHostInfo" resultType="com.java.host.dto.HostDto">
+		select * from house where houseCode=#{houseCode}
+	</select>
 
+	<select id="getMemberPoint" resultType="int">
+		select point from member where email=#{email}
+	</select>
+	
+	<select id="getHost" resultType="com.java.member.dto.MemberDto">
+		select * from member where memberCode=#{hostCode}
+	</select>
+	
+	<select id="getHouseName" resultType="String">
+		select houseName from house where houseCode=#{houseCode}
+	</select>
+	
+	<insert id="insertReserveInfo" parameterType="com.java.guestReserve.dto.GuestReserveDto">
+		insert into 
+		RESERVATION(reserveCode,memberCode,houseCode,reserveDate,checkIn,checkOut,state,payment,people)
+		values(seq_reserveCode_num.nextval,#{memberCode},#{houseCode},#{reserveDate},#{checkIn},#{checkOut},#{state},#{payment},#{people})
+	</insert>
+	
+	<select id="getReserveCode" parameterType="java.util.Map" resultType="int">
+		select reserveCode from RESERVATION where houseCode=#{houseCode} and memberCode=#{memberCode} and checkIn=#{checkIn}
+	</select>
 </mapper>
+
+
+
