@@ -7,7 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
+import com.java.host.dto.HostImgDto;
 
 @Component
 public class SearchDaoImp implements SearchDao {
@@ -16,8 +18,14 @@ public class SearchDaoImp implements SearchDao {
 	private SqlSessionTemplate session;
 	
 	@Override
-	public List<HostDto> searchHouse(Map<String, Object> dataMap) {
-		return session.selectList("dao.searchMapper.searchHouse", dataMap);
+	public List<HostImgDto> searchHouse(Map<String, Object> dataMap) {
+		List<HostImgDto> hostImgList = session.selectList("dao.searchMapper.searchHouse", dataMap);
+		for(HostImgDto hostImgDto : hostImgList) {
+			
+			List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());
+			hostImgDto.setFileList(fileList);
+		}
+		return hostImgList;
 	}
 
 	@Override

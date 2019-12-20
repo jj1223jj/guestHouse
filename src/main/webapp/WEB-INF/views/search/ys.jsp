@@ -83,7 +83,7 @@
 <body>
 	
 	<img alt="" src="${root}/resources/css/images/common/logo.png">
-	<a href="./test">test</a>
+	<a href="./test">test</a> ${memberCode}
 	<form name="form" action="${root}/search" method="get" onsubmit="return confirmSubmit()">
 	
 		<div>

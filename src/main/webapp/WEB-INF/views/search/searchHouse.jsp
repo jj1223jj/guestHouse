@@ -2,67 +2,61 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> 
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<c:set var="memberCode" value="3"/>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
 
+<link rel="stylesheet" type="text/css" href="${root}/resources/css/search/search.css"/>
+<script type="text/javascript" src="${root}/resources/javascript/search/search.js"></script>
+
+<!-- jQueryUI -->
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="${root}/resources/javascript/jquery/jquery-ui.css"/>
-<script type="text/javascript" src="${root}/resources/javascript/search/search.js"></script>
+
+<!-- kakaoMap -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c37448871d1dc7c24bd47df3b92bf2c3"></script>
+
+<!-- Swiper -->
+<link rel="stylesheet" href="${root}/resources/css/swiper/swiper.css">
+<script src="${root}/resources/javascript/swiper/swiper.js"></script>
+
 <style type="text/css">
-#map {
-  width: calc(100% - 840px);
-  height:calc(100% - 183px);
-  position: fixed;
-  right: 0px;
-  top: 0px;
-}
-#filterContent{
-	display:none;
-}
-.houseCode{
-	display:none;
-}
+
 </style>
 <script>
 	$(function(){
+		setRoot('${root}');
+		
+		$(".overlaybox").css("display","block");
+		
+		var swiper = new Swiper('.swiper-container', {
+			pagination : {
+				el : '.swiper-pagination',
+				dynamicBullets : true,
+			},
+			navigation : {
+				nextEl : '.swiper-button-next',
+				prevEl : '.swiper-button-prev',
+			},
+		});
+	
+		$(".overlaybox").css("display","none");
+		
+		
+		
+		//가격 필터
+		$( "#price" ).slider({range:!0,values:[17,67], max:500});
+		
 		
 		//하트 클릭
-		$("._r0agyd").click(function(){
-			
-			var data;
-			if($(this).children().attr("fill")=="currentColor"){
-				$(this).children().attr("fill", "#FF385C");
-				$(this).children().attr("fill-opacity", "1");
-				$(this).children().attr("stroke","#FF385C");
-				$(this).children().attr("stroke-width","1");
-				data= { memberCode: "1", zzim: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
-			}else{
-				$(this).children().attr("fill", "currentColor");
-				$(this).children().attr("fill-opacity", "0");
-				$(this).children().attr("stroke","#222222");
-				$(this).children().attr("stroke-width","1.4");
-				data= { memberCode: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
-			}
-			$.ajax({
-				  method: "GET",
-				  url: "${root}/guestdelluna/zzim.do",
-				  data: data,
-				  success: function(){
-					  alert("hi");
-				  },
-				  error: function(){
-					  alert("아직안됨");
-				  }
-				})
-			
-		});
+		heart('${memberCode}');
 		
 		//검색 조건 띄워주는 창
 		$("#filter").click(function(){
@@ -200,6 +194,7 @@
 
 
 	boardSize:${boardSize}, currentPage:${currentPage}, count:${count}<br/><br/>
+	<div id="price"></div>
 	
 	<div id="map"></div>
 	<script>
@@ -216,64 +211,127 @@
 		};
 	
 		var map = new kakao.maps.Map(container, options);
+		
+		var control = new kakao.maps.ZoomControl();
+		map.addControl(control, kakao.maps.ControlPosition.BOTTOMRIGHT); 
+
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMRIGHT); 
 	</script>
 	
 	<c:if test="${count==0||boardList.size()==0}">
 		검색 결과가 없습니다
 	</c:if>
 	<c:if test="${count>0}">
-		<c:forEach var="i" items="${searchHouseList}">
+		<c:forEach var="i" items="${searchHouseList}" >
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<c:forEach var="j" items="${i.fileList}">
+						<div class="swiper-slide"><img alt="img loading" src="<spring:url value='/image/${j.fileName}'/>"/></div>
+					</c:forEach>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</div>
 			<div class="house">
 				<div class="houseCode">${i.houseCode}</div>
 				<div class="houseName">${i.houseName}</div>
-				${i.people}
-				${i.latLng}
-				${i.price}원/1박
+				<div>${i.people}</div>
+				<div>${i.latLng}</div>
+				<div>${i.price}원/1박</div>
 				<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
 			</div>
-			<script>
-				var latLng = '${i.latLng}';
-				var index = latLng.indexOf(",");
-				var lat = latLng.substring(0,index-1);
-				var lng = latLng.substring(index+1);
-				
-				var content = '${i.houseName}';
-				var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-				
-				var marker = new kakao.maps.Marker({
-				    position: markerPosition,
-				});
-
-
-				marker.setMap(map);
-				// 마커에 표시할 인포윈도우를 생성합니다 
-			    var infowindow = new kakao.maps.InfoWindow({
-			        content: content // 인포윈도우에 표시할 내용
-			    });
-
-			    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-			    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-			    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-			    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-			    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-
-				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-			    function makeOverListener(map, marker, infowindow) {
-			        return function() {
-			            infowindow.open(map, marker);
-			        };
-			    }
-
-			    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-			    function makeOutListener(infowindow) {
-			        return function() {
-			            infowindow.close();
-			        };
-			    }
-				
-			</script>
+			
 			<br/><br/>
 		</c:forEach>
+		<script>
+			var houseJson = $.parseJSON('${houseJson}').houseJson;
+			console.log(houseJson);
+			var marker= [];
+			var customOverlay = [];
+			var position = [];
+			var content = [];
+			/* for(let j=0; j<houseJson[i].fileList.length;j++){
+			content[i]+=
+			'				';
+			} */
+			for(let i=0; i<houseJson.length;i++){
+				
+				position[i]= new kakao.maps.LatLng(houseJson[i].lat, houseJson[i].lng);
+				marker[i]= new kakao.maps.Marker({
+					map: map, 
+					position: position[i] // 마커의 위치
+				});
+				
+				
+				
+				
+			
+				content[i] = '<div class="overlaybox box'+i+'">' +
+				'    <div class="boxtitle">'+houseJson[i].houseName+'</div>' +
+				'    <ul>' +
+				'        <li class="up">' +
+				'<div class="swiper-container">' +
+				'	<div class="swiper-wrapper">';
+				
+
+						for(let j=0; j<houseJson[i].fileList.length;j++){
+				content[i]+=	'<div class="swiper-slide"><img alt="img loading" src="<spring:url value="/image/'+houseJson[i].fileList[j].fileName+'"/>"/></div>';
+						}
+					
+					
+					
+						
+				content[i]+=		
+				'	</div>' +
+				'	<div class="swiper-pagination"></div>' +
+				'	<div class="swiper-button-next"></div>' +
+				'	<div class="swiper-button-prev"></div>' +
+				'</div>' +
+				'            <span class="number">인원'+houseJson[i].people+'</span>' +
+				'            <span class="number">가격'+houseJson[i].price+'</span>' +
+				'			 <div class="houseCode">'+houseJson[i].houseCode+'</div>' +
+				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
+				'        </li>' +
+				'    </ul>' +
+				'</div>';
+				console.log(content[i]);
+
+				customOverlay[i] = new kakao.maps.CustomOverlay({
+						position: position[i],
+						content: content[i],
+						clickable: true,
+						zIndex: 6,
+						xAnchor: 0.3,
+						yAnchor: 1.14,
+				});
+
+				customOverlay[i].setMap(map);
+
+				kakao.maps.event.addListener(marker[i], 'click', function() {
+					for(let j=0; j<houseJson.length;j++){
+						$(".box"+j).css("display","none");
+						if($(".box"+i).css("display")=="none"){
+							$(".box"+i).css("display","block");
+						}
+					}
+				});
+				
+				kakao.maps.event.addListener(marker[i], 'mouseover', function() {
+				    marker[i].setZIndex(5);
+				});
+				
+				kakao.maps.event.addListener(marker[i], 'mouseout', function() {
+				    marker[i].setZIndex(3);
+				});
+			}
+			$(".overlaybox").css("display","none");
+			kakao.maps.event.addListener(map, 'click', function() {
+				$(".overlaybox").css("display","none");
+			});
+		</script>
 	</c:if>
 	<div class="page">
 		<c:if test="${count>0}">

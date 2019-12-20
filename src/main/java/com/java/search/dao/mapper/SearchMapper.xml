@@ -2,6 +2,12 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.searchMapper">
+
+	<select id="getHouseImg" parameterType="int" resultType="com.java.file.dto.FileDto">
+		select * from fileList where houseCode=#{value}
+	</select>
+
+
 	<select id="getCount" parameterType="java.util.Map" resultType="int">
 		<![CDATA[
 			select count(*) from house h
@@ -27,7 +33,7 @@
 	</select>
 	
 
-	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.host.dto.HostDto">
+	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
 		<![CDATA[
 			
 			select * from (
