@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@  taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <c:set var = "root" value = "${pageContext.request.contextPath}"/>
 <html>
@@ -10,10 +11,13 @@
 <title> 후기작성 </title>
 
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js">
+
 </script>
 
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
-<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
+<script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
+		
+
 
 </head>
 <body>
@@ -24,28 +28,43 @@
 	</h3>
 	 
 	<div align="center" style="margin: 100px auto;">
-		<%-- 리뷰 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
+		<%-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
 		<c:if test="${count==0 || currentPage==1}">
 			<form class="form" action="${root}/experience/exReviewOk.do" method="get">
 				<div class="title">
 					<span>이메일</span>
 					<input type="text" name="email" size="20" value="${email}" disabled="disabled"/>
 			
-					<span>비밀번호</span>
-					<input type="password" name="password" size="12"/>
 				</div>
 			
 				<div class="content"> 후기 내용
 					<textarea rows="5" cols="53" name="revContent"></textarea>
 				</div>
-				
-				<div class="star-input">별점
-					<span class="input">
-						<input type="radio" name="star-input" value="1" id="p1">
-						
+				<div>
+					<span class="star-input">
+					   <span class="input">
+					       <input type="radio" name="star-input" value="1" id="p1">
+					       <label for="p1">1</label>
+					       <input type="radio" name="star-input" value="2" id="p2">
+					       <label for="p2">2</label>
+					       <input type="radio" name="star-input" value="3" id="p3">
+					       <label for="p3">3</label>
+					       <input type="radio" name="star-input" value="4" id="p4">
+					       <label for="p4">4</label>
+					       <input type="radio" name="star-input" value="5" id="p5">
+					       <label for="p5">5</label>
+					     </span>
+					     
+					     <output for="star-input" name="starValue"><input type="hidden" name="revRate"></output>                  
 					</span>
-					
+				
 				</div>
+		
+				
+				<input type="hidden" name="exReserveCode" value="${exReviewDto.exReserveCode}">
+				<input type="hidden" name="memberCode" value="${exReviewDto.memberCode}">
+				
+				<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
 				<div class="title" style="text-align: right;">
 					<input type="submit" value="확인"/>
 					<input type="reset" value="취소"/>
@@ -55,21 +74,57 @@
 		
 		<%-- 미리 쓴 후기가 존재하는 경우  --%>
 		<c:if test ="${count > 0}">
-			<c:forEach var="exReviewDto" items="${exReviewList}">
+			<c:forEach var="exReviewDto" items="${reviewList}">
 				<div class="form" style="margin: 50px auto; border-width:1px;">
 					<div class="title">
 						
 						<!-- 리뷰 번호  -->
-						${exReviewDto.exReviewCode} &nbsp;&nbsp;	
+						예약번호: ${exReviewDto.exReserveCode} &nbsp;&nbsp;
+						<input type="hidden" name="exReserveCode" value="${exReviewDto.exReserveCode}">
+						
+						<!-- 이메일 -->
+						이메일: ${exReviewDto.email}&nbsp;&nbsp;
+					
 						<!-- 후기 작성 시간 -->
 						<fmt:formatDate value="${exReviewDto.revDate}" pattern = "yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;
-						<a href="javascript:updateCheck('${root}','${exReviewDto.exReviewCode}','${currentPage}')"	>수정</a>
-						<a href="javascript:deleteCheck('${root}','${exReviewDto.exReviewCode}','${currentPage}')">삭제</a> 		
+						
+						<!-- session의 이메일과 등록한 이메일 같으면 수정, 삭제 화면 보이기 (본인만 수정 삭제 가능)-->
+						<c:if test="${email eq exReviewDto.email}"> 
+							<a href="javascript:updateCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}')"	>수정</a>
+							<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}')">삭제</a> 		
+						</c:if>
 					</div>
-					
 					<div class="content" >
 						${exReviewDto.revContent}
 					</div>
+					<!-- 별점 출력 -->
+					<div>
+						 ${exReviewDto.revRate} 
+						<span class="star-out">
+						   <span class="output">
+						       <input type="hidden" name="star-output" value="${exReviewDto.revRate}" id="${exReviewDto.revRate}">
+						       <label for="${exReviewDto.revRate}"></label>
+						       <c:if test="${exReviewDto.revRate==1}">
+						       		<img src="${root}/resources/css/review/star1.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${exReviewDto.revRate==2}">
+						       		<img src="${root}/resources/css/review/star2.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${exReviewDto.revRate==3}">
+						       		<img src="${root}/resources/css/review/star3.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${exReviewDto.revRate==4}">
+						       		<img src="${root}/resources/css/review/star4.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${exReviewDto.revRate==5}">
+						       		<img src="${root}/resources/css/review/star5.PNG" style="width: 50px;">
+						       </c:if>
+						   </span>
+						   
+						
+						</span>
+					</div>
+					
 				</div>
 			</c:forEach>
 		</c:if>
@@ -82,6 +137,7 @@
 	--%> 
 	<div align="center">
 		<c:if test="${count > 0}">
+		
 			<%-- 1. 총 페이지 수  count/boardSize --%>
 			<fmt:parseNumber var="pageCount" integerOnly="true" value="${count/boardSize + (count%boardSize==0 ? 0 : 1)}"/>	<%--딱 떨어지지 않는 페이지 일때  --%>
 			
@@ -107,17 +163,17 @@
 			
 			<%-- 이전  // startPage=3, pageBlock=2 이면 [이전][3] 출력, 이전을 누르면  1페이지로 이동--%>
 			<c:if test="${startPage > pageBlock}">
-				<a href="${root}/guest/write.do?pageNumber=${startPage-pageBlock}">[이전]</a>
+				<a href="${root}/experience/exReview.do?pageNumber=${startPage-pageBlock}">[이전]</a>
 			</c:if>
 			
 			<%-- 페이지 블럭 [1][2][3] --%>
 			<c:forEach var="i" begin = "${startPage}" end = "${endPage}">
-				<a href="${root}/guest/write.do?pageNumber=${i}">[${i}]</a>
+				<a href="${root}/experience/exReview.do?pageNumber=${i}">[${i}]</a>
 			</c:forEach>
 			
 			<%-- 다음  // endPage=2, pageCount=3(총 페이지 갯수)이면 [1][2][다음] 출력, startPage=1, pageBlock=2일때 다음을 누르면 3페이지로 이동--%>
 			<c:if test="${endPage < pageCount}">
-				<a href="${root}/guest/write.do?pageNumber=${startPage+pageBlock}">[다음]</a>
+				<a href="${root}/experience/exReview.do?pageNumber=${startPage+pageBlock}">[다음]</a>
 			</c:if>
 			
 		</c:if>

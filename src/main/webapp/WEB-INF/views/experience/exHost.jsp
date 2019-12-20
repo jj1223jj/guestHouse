@@ -10,9 +10,6 @@
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="${root}/resources/javascript/host/register.js"></script>
 
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
-
 <script type="text/javascript" src="${root}/resources/javascript/jquery/Blitzer/jquery-ui.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/Blitzer/jquery-ui.css">
 
@@ -60,9 +57,10 @@
          <!-- 장소 선택 -->
 	         <li>
 	            <label>장소선택</label>
-	            <select name="exAddress" id="exAddress">
+	            <select name="exAddress" id="exAddress" style="width: 500px;">
         			<c:forEach var="hostDto" items="${hostChkList}">
-        				<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
+        			
+        			<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
 	               		<option value="${hostDto.address}">${hostDto.houseName}</option>
 	               		<%-- <input type="hidden" name="exAddress" value="${hostDto.address}"/>
 	           			<input type="hidden" name="exLatlng" value="${hostDto.latlng}"/> --%>	

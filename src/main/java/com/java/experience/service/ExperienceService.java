@@ -12,6 +12,14 @@ public interface ExperienceService {
 
 	public void exReviewOk(ModelAndView mav);
 
+	public void exReviewUpdate(ModelAndView mav);
+
+	public void exReviewUpdateOk(ModelAndView mav);
+
+	public void exReviewDelete(ModelAndView mav);
+
+	public void exPage(ModelAndView mav);
+
 	
 	
 	

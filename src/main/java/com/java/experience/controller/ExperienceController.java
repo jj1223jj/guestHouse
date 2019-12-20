@@ -16,6 +16,15 @@ import com.java.exreview.dto.ExReviewDto;
 import com.java.host.dto.HostDto;
 import com.java.member.dto.MemberDto;
 
+/**
+ * @author : 정승현
+ * @Date : 2019. 12. 18.
+ * @Content : 후기 입력까지 완료, 리스트, 별점 뿌리기 해야 함,
+ * 			  exhost.jsp에서 exAddress에 address랑 detailAddress가 합친 값이 DB들어갔는지 확인해야 함
+ * 			  hidden때문에 뷰 깨지는지 확인해야 함 
+ * 
+ */
+
 @Controller
 public class ExperienceController {
 
@@ -56,45 +65,86 @@ public class ExperienceController {
 	
 	// 체험 후기 작성 눌렀을 때 
 		@RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
-		public ModelAndView exReview(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+		public ModelAndView exReview(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
 			System.out.println("exReview write,list");
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("request",request);
-			mav.addObject("response", response);
-			mav.addObject("memberDto",memberDto);
+			mav.addObject("exReviewDto",exReviewDto);
+			
 			experienceService.exReview(mav);
 			
 			return mav;
 		}
 	
 	// 체험 후기 작성 완료
-		/*@RequestMapping(value="/experience/exReviewOk.do", method = RequestMethod.GET)
+		@RequestMapping(value="/experience/exReviewOk.do", method = RequestMethod.GET)
 		public ModelAndView exReviewOk(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
 			System.out.println("exReview write, list Ok");
 			
-			HomeAscpect.logger.info(HomeAscpect.logMsg + exReviewDto.toString());
-			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("request",request);
-			experienceService.exReviewOk(mav);
-			
+			mav.addObject("response",response);
 			mav.addObject("exReviewDto", exReviewDto);
-			
+
 			experienceService.exReviewOk(mav);
+			
+			HomeAspect.logger.info(HomeAspect.logMsg + exReviewDto.toString());
+
 			
 			return mav;
-		}*/
-		
-	// 체험 페이지 눌렀을 때 (x)
-	@RequestMapping(value="/experience/exPage.do", method = RequestMethod.GET)
-	public ModelAndView exPage(HttpServletRequest request, HttpServletResponse response) {
+		}
+	
+	// 후기 수정하기 눌렀을 때
+	@RequestMapping(value="/experience/exReviewUpdate.do", method  = RequestMethod.GET)
+	public ModelAndView exReviewUpdate(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
+		System.out.println("exReview 수정하기");
 		ModelAndView mav = new ModelAndView();
-		experienceService.exHostOk(mav);
+		
+		mav.addObject("request",request);
+		mav.addObject("exReviewDto",exReviewDto);
+		
+		experienceService.exReviewUpdate(mav);
+		
+		return mav;
+	}
+	// 수정 완료 눌렀을 때
+	@RequestMapping(value="/experience/exReviewUpdateOk", method = RequestMethod.GET)
+	public ModelAndView exReviewUpdateOk(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
+		System.out.println("exReview 수정완료");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("exReviewDto", exReviewDto);
+		
+		experienceService.exReviewUpdateOk(mav);
+		
 		return mav;
 	}
 	
+	// 삭제 눌렀을 때
+	@RequestMapping(value="/experience/exReviewDelete.do", method = RequestMethod.GET)
+	public ModelAndView exReviewDelete(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("exReview 삭제하기");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		experienceService.exReviewDelete(mav);
+		
+		return mav;
+	}
 	
-	
+	// 체험 페이지 눌렀을 때 
+	@RequestMapping(value="/experience/exPage.do", method = RequestMethod.GET)
+	public ModelAndView exPage(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("체험페이지");
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+		experienceService.exPage(mav);
+		
+		return mav;
+	}
 	
 }

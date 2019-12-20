@@ -32,7 +32,7 @@ public class MemberDaoImp implements MemberDao {
 		return check;
 	}
 	
-	@Override
+/*	@Override
 	public String login(String email, String password) {
 		
 		Map<String,Object> hMap = new HashMap<String, Object>();
@@ -41,6 +41,18 @@ public class MemberDaoImp implements MemberDao {
 		hMap.put("password", password);
 		
 		return sqlSessionTemplate.selectOne("dao.MemberMapper.login",hMap);
+	}
+	*/
+	
+	@Override
+	public MemberDto memberSel(String email, String password) {
+		
+		Map<String,Object> hMap = new HashMap<String, Object>();
+		
+		hMap.put("email", email);
+		hMap.put("password", password);
+		
+		return sqlSessionTemplate.selectOne("dao.MemberMapper.memberSel",hMap);
 	}
 	
 }

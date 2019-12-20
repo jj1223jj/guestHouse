@@ -79,15 +79,28 @@ public class MemberServiceImp implements MemberService {
 		
 		HomeAspect.logger.info(HomeAspect.logMsg +"입력한 email: "+ email + "\t\t"+"입력한 password: " + password);
 		
-		String memberLevel = memberDao.login(email,password);	
+		MemberDto memberDto = memberDao.memberSel(email,password);
+		//HomeAspect.logger.info(HomeAspect.logMsg +"memberDto: "+ memberDto.toString());
 		
-		HomeAspect.logger.info(HomeAspect.logMsg +"회원등급 (회원이 아닐경우 null값): "+ memberLevel);
+		if(memberDto !=null) {
+			
+		int memberCode = memberDto.getMemberCode();
+		String memberLevel = memberDto.getMemberLevel();	
+		HomeAspect.logger.info(HomeAspect.logMsg +memberDto.toString());
+		
+		
+		HomeAspect.logger.info(HomeAspect.logMsg +"회원등급 (회원이 아닐경우 null값): "+ memberLevel + "		memberCode:" + memberCode);
 		
 		if(memberLevel != null) {	
 			mav.addObject("memberLevel", memberLevel);	
 			mav.addObject("email", email);
-		}
+			mav.addObject("memberCode",memberCode);
+			}
 		
+		// memberDto가 null일 경우
+		}else {
+			String memberLevel = null;
+		}
 		mav.setViewName("member/loginOk.tiles");
 		
 	}
