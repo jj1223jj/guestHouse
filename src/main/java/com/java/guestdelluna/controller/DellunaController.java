@@ -67,16 +67,33 @@ public class DellunaController {
 		dellunaService.zzimCancle(mav);
 		
 	}
+	
+	//체험찜치소
 	@RequestMapping(value="guestdelluna/zzimExpCancel.do" , method=RequestMethod.GET)
 	public void zzimExpCancle(HttpServletRequest request , HttpServletResponse response) {
-		
 
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("request", request);
-		
+
 		dellunaService.zzimExpCancle(mav);
-		
+
 	}
+	
+	//내정보
+	@RequestMapping(value="guestdelluna/myInfo.do", method=RequestMethod.GET)
+	public ModelAndView viewMyInfo(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+
+		dellunaService.myInfo(mav);
+		
+		return mav;
+
+	}
+	
+
 		
 }

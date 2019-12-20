@@ -15,12 +15,14 @@ public class MemberDto {
 	private String memberImgName;
 	private String memberImgPath ;
 	private Long memberImgSize ;
+	private String memberInfo;
 	
 	public MemberDto() {}
 
 	public MemberDto(int memberCode, String memberName, String email, String password, int phone, Date regDate,
-			int point, String memberLevel, String memberImgName, String memberImgPath, Long memberImgSize) {
-	
+			int point, String memberLevel, String memberImgName, String memberImgPath, Long memberImgSize,
+			String memberInfo) {
+		
 		this.memberCode = memberCode;
 		this.memberName = memberName;
 		this.email = email;
@@ -32,6 +34,7 @@ public class MemberDto {
 		this.memberImgName = memberImgName;
 		this.memberImgPath = memberImgPath;
 		this.memberImgSize = memberImgSize;
+		this.memberInfo = memberInfo;
 	}
 
 	@Override
@@ -39,7 +42,15 @@ public class MemberDto {
 		return "MemberDto [memberCode=" + memberCode + ", memberName=" + memberName + ", email=" + email + ", password="
 				+ password + ", phone=" + phone + ", regDate=" + regDate + ", point=" + point + ", memberLevel="
 				+ memberLevel + ", memberImgName=" + memberImgName + ", memberImgPath=" + memberImgPath
-				+ ", memberImgSize=" + memberImgSize + "]";
+				+ ", memberImgSize=" + memberImgSize + ", memberInfo=" + memberInfo + "]";
+	}
+
+	public String getMemberInfo() {
+		return memberInfo;
+	}
+
+	public void setMemberInfo(String memberInfo) {
+		this.memberInfo = memberInfo;
 	}
 
 	public int getMemberCode() {

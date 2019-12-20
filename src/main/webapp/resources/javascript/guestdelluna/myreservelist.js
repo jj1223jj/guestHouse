@@ -1,23 +1,21 @@
 /**
  * 
  */
-
-
 function updateState(root,value){
 
 	var array = value.split(",");
-	
+
 	for(var i=0; i<array.length-1; i++){
 		value = array[i];
 
 	var url = root + "/guestdelluna/cancelReserve.do";
 
-	var params = "value= " + value;
-	
+	var params = "value=" + value;
+
 	sendRequest("GET" , url , updateStateFromServer , params);
-	
+
 	}
-	
+
 }
 
 function updateStateFromServer(){

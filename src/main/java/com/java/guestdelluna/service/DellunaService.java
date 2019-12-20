@@ -45,6 +45,14 @@ public interface DellunaService {
 
 	String zzimExpCancle(ModelAndView mav);
 
+	void listPay(ModelAndView mav);
+
+	String deleteExpPayList(ModelAndView mav);
+
+	void deleteExpPayHouse(ModelAndView mav);
+
+	void myInfo(ModelAndView mav);
+
 	
 
 	

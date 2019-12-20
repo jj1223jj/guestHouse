@@ -91,7 +91,7 @@
 </select>
 
 <select id="findHouseName" parameterType="int" resultType="String">
-	select	housename from reservation r join  house h on r.houseCode = h.houseCode where r.memberCode = #{memberCode}
+	select	housename from reservation r join  house h on r.houseCode = h.houseCode and r.memberCode = #{memberCode}
 </select>
 
 <select id="ExpResNum" parameterType="int" resultType="int">
@@ -145,6 +145,44 @@
 <delete id="deleteHouseZzim" parameterType="int">
 	delete from wishlist where housecode=#{housecode}
 </delete>
+
+<select id="findMyPoint" parameterType="int" resultType="int">
+	select point from member where membercode=#{membercode}
+</select>
+
+<delete id="deletePayListExp" parameterType="int">
+	delete from exReserve where exReserveCode=#{exReserveCode}
+</delete>
+
+<delete id="deletePayListHouse" parameterType="int">
+	delete from reservation where reserveCode=#{reserveCode}
+</delete>
+
+<select id="findHouseListWithString" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.HouseReservationDto">	
+	select * from reservation where memberCode=#{memberCode} and state=#{state}
+	<!-- 
+	<![CDATA[
+	select * from (select rownum rnum, a.*from
+					(select * from reservation) a) 
+						where rnum >=#{startRow} and rnum<=#{endRow} and memberCode=#{memberCode} and state=#{state}
+	]]>
+	
+	 -->
+</select>
+
+<select id="findHouseNameWithString" parameterType="java.util.Map" resultType="String">
+	select housename from reservation r , house h where r.housecode = h.housecode and r.membercode=#{memberCode} and r.state=#{state}	
+</select>
+
+<select id="findExpListWithString" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.ExpReservationDto">
+	select * from exreserve where memberCode=#{memberCode} and state=#{state}
+</select>
+
+<select id="myExNameWithString" parameterType="java.util.Map" resultType="String">
+	select exname from experience r join exreserve h on r.excode = h.excode where h.memberCode = #{memberCode} and h.state=#{state}
+</select>
+
+
 
 <!-- <select id="houseInfo2" parameterType="int" resultType="com.java.guestdelluna.dto.NewDto">
 	select * from reservation r , house h where r.houseCode = h.houseCode and r.memberCode = #{memberCode};
