@@ -25,9 +25,7 @@
 		<a href="${root}/member/logout.do">로그아웃</a><br/>
 		
 		<a href="${root}/guestdelluna/memberUpdate.do">회원수정(완)</a><br/>
-		<a href="${root}/guestdelluna/memberUpdateOk.do">회원수정ok버튼(완)</a><br/>
 		<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴(완)</a><br/>
-		<a href="${root}/guestdelluna/memberDeleteOk.do">회원탈퇴ok버튼(완)</a><br/>
 		<a href="${root}/guestdelluna/checkReserve.do">전체예약리스트확인 및 취소(완)</a><br/> <!-- 이건 리스트형태로 내가 예약한거 모두 보여주기 -->
 		<a href="${root}/guestdelluna/zzimlist.do">찜목록(완)</a><br/>
 
@@ -61,6 +59,11 @@
 	<a href="${root}/guestdelluna/allMyReview.do">내가 쓴 전체후기 보기</a>
 	<a href="${root}/guestdelluna/myReview.do">후기 중 하나 클릭해서 보기</a><br/>
 
+	----------------------------------------------------------------<br/>
+	
+	<a href="${root}/guestdelluna/myInfo.do">내정보</a>
+	
+	----------------------------------------------------------------<br/>
 	
 	
 	<!-- 수정 및 삭제는 내가 쓴 리뷰를 들어가야 볼 수 있다. 그래서 내가 쓴 리뷰에 있는 js에서 보내주는 게 나을 수도? -->

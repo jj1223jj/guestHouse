@@ -60,7 +60,7 @@ public class DellMemberController {
 		
 	}
 	
-	@RequestMapping(value = "guestdelluna/memberDeleteOk.do" , method=RequestMethod.POST)
+	@RequestMapping(value = "guestdelluna/memberDeleteOk.do" , method=RequestMethod.GET)
 	public ModelAndView memberDeleteOk(HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView();

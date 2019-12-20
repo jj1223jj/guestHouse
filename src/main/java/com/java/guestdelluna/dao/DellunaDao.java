@@ -107,6 +107,22 @@ public interface DellunaDao {
 
 	int deleteHouseZzim(int houseCode);	//o
 
+	int deletePayListExp(int exReserveCode);	//o
+
+	int deletePayListHouse(int houseReserveCode);	//o
+
+	List<HouseReservationDto> findHouseListWithString(int memberCode, String state);	//o
+
+	List<String> findHouseNameWithString(int memberCode, String state);	//o
+
+	List<ExpReservationDto> findExpListWithString(int memberCode, String state);	//o
+
+	List<String> myExNameWithString(int memberCode, String state);	//o
+
+	
+
+
+
 
 
 }

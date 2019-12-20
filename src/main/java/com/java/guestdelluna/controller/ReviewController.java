@@ -96,7 +96,7 @@ public class ReviewController {
 		return mav;
 		
 	}
-	
+
 	@RequestMapping(value="guestdelluna/myReview.do" , method=RequestMethod.GET)
 	public ModelAndView myReview(HttpServletRequest request , HttpServletResponse response) {
 		
@@ -109,7 +109,7 @@ public class ReviewController {
 		return mav;
 		
 	}
-	
+	//내가 쓴 후기
 	@RequestMapping(value="guestdelluna/allMyReview.do" , method=RequestMethod.GET)
 	public ModelAndView myReivewList(HttpServletRequest request , HttpServletResponse response) {
 		

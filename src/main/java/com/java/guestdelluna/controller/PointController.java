@@ -30,4 +30,39 @@ public class PointController {
 		
 	}
 	
+	@RequestMapping(value="guestdelluna/payList.do" , method=RequestMethod.GET)
+	public ModelAndView payList(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		dellunaService.listPay(mav);
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="guestdelluna/deleteExpPayList.do" , method=RequestMethod.GET)
+	public void deletePayListExp(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		dellunaService.deleteExpPayList(mav);
+		
+	}
+	
+	@RequestMapping(value="guestdelluna/deleteExpPayHouse.do" , method=RequestMethod.GET)
+	public void deletePayListHouse(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		dellunaService.deleteExpPayHouse(mav);
+		
+	}
+	
 }

@@ -42,13 +42,13 @@
 				$(this).children().attr("fill-opacity", "1");
 				$(this).children().attr("stroke","#FF385C");
 				$(this).children().attr("stroke-width","1");
-				data= { memberCode: "1", zzim: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
+				data= { memberCode: "63", zzim: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
 			}else{
 				$(this).children().attr("fill", "currentColor");
 				$(this).children().attr("fill-opacity", "0");
 				$(this).children().attr("stroke","#222222");
 				$(this).children().attr("stroke-width","1.4");
-				data= { memberCode: "1", houseCode: $(this).parent().children("div[class='houseCode']").text()};
+				data= { memberCode: "63", houseCode: $(this).parent().children("div[class='houseCode']").text()};
 			}
 			$.ajax({
 				  method: "GET",
