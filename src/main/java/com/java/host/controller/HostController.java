@@ -57,16 +57,17 @@ public class HostController {
 	}
 	
 
-	@RequestMapping(value="/host/reservationOkView.do", method = RequestMethod.POST)
+	@RequestMapping(value="/host/reservationOkView.do", method = RequestMethod.GET)
 	public ModelAndView reservationOkView(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		
+
 		hostService.reservationOkView(mav);
 		
 		return mav;
 	}
-
+		
+		
 	@RequestMapping(value="/host/salesView.do", method = RequestMethod.GET)
 	public ModelAndView salesView(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -87,6 +88,16 @@ public class HostController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/host/exManagement.do", method = RequestMethod.GET)
+	public ModelAndView exManagement(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.exManagement(mav);
+		
+		return mav;
+	}
+	
 
 	@RequestMapping(value="/host/hostCancel.do", method = RequestMethod.GET)
 	public ModelAndView hostCancel(HttpServletRequest request, HttpServletResponse response) {
@@ -97,6 +108,20 @@ public class HostController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/host/searchDate.do", method = RequestMethod.GET)
+	public ModelAndView searchDate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.searchDate(mav);
+		
+		return mav;
+	}
+	
+	
+	
+	
 	
 
 }

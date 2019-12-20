@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +18,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
-import com.java.file.dto.FileDto;
+import com.java.experience.dto.ExperienceDto;
+import com.java.file.dto.FileDto;import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.host.dao.HostDao;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.ReservationListDto;
+import com.java.host.dto.SearchDateList;
 import com.java.member.dto.MemberDto;
 
 @Component
@@ -64,6 +67,7 @@ public class HostServiceImp implements HostService {
 			
 			int profileCheck = hostDao.memberProfileImg(memberDto);
 		}
+		
 		
 		
 		
@@ -187,23 +191,9 @@ public class HostServiceImp implements HostService {
 		String email = (String)session.getAttribute("email");
 		int memberCode = hostDao.memberCode(email);
 		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
+
 		
-		
-		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null) {
-			pageNumber = "1";
-		}
-		int currentPage = Integer.parseInt(pageNumber);
-		
-		int count = hostDao.getCount(email);
-		
-		int boardSize = 3;
-		int startRow = (currentPage-1)*boardSize+1;
-		int endRow = currentPage*boardSize;
-		
-		List<String> houseNameList;
-		//if ()
-		houseNameList = hostDao.houseNameList(memberCode);
+		List<String> houseNameList = hostDao.houseNameList(memberCode);
 		mav.addObject("houseNameList", houseNameList);
 		HomeAspect.logger.info(HomeAspect.logMsg + houseNameList.size());
 		mav.setViewName("host/reservationView.tiles");
@@ -213,23 +203,97 @@ public class HostServiceImp implements HostService {
 	public void reservationOkView(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		
+		String pageNumber = request.getParameter("pageNumber");
+		HomeAspect.logger.info(HomeAspect.logMsg + "pageNumber: " + pageNumber);
 		
 		String houseName = request.getParameter("houseName");
+		HomeAspect.logger.info(HomeAspect.logMsg + "houseName: " + houseName);
+		
 		int houseCode = hostDao.getHouseCode(houseName);
 		HomeAspect.logger.info(HomeAspect.logMsg + houseCode);
-		List<ReservationListDto> reserveViewList = hostDao.reserveViewList(houseCode);
-		for (int i=0; i<reserveViewList.size();i++) {
-			HomeAspect.logger.info(HomeAspect.logMsg + reserveViewList.get(i).toString());
-			
+
+		if (pageNumber == null) {
+			pageNumber = "1";
 		}
-		mav.addObject("reserveViewList", reserveViewList);
+		int currentPage = Integer.parseInt(pageNumber);
 		
+		int count = hostDao.getReserveCount(houseCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "getReserveCount: " + count);
+		
+		int boardSize = 2;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;		
+		
+		
+		List<ReservationListDto> reserveViewList = null; 
+		if (count > 0) {
+			reserveViewList = hostDao.reserveViewList(houseCode, startRow, endRow);
+			for (int i=0; i<reserveViewList.size();i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg + reserveViewList.get(i).toString());
+				
+			}
+		}
+		
+		mav.addObject("houseName", houseName);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("reserveViewList", reserveViewList);
 		mav.setViewName("host/reservationOkView.empty");
 	}
+	
 
 	@Override
 	public void salesView(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = hostDao.memberCode(email);
+		
+		List<GuestReserveDto> salesList = hostDao.getSales(memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + salesList.size());
 
+		GuestReserveDto guestReserveDto =null;
+		
+		String[] date = new String[salesList.size()];
+		
+		String year = request.getParameter("year");
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		int currentYear = cal.get( cal.YEAR );
+		if (year == null) {
+			year = Integer.toString(currentYear);
+		}
+		HomeAspect.logger.info(HomeAspect.logMsg + year);
+		for (int i=0; i<salesList.size();i++) {
+			SimpleDateFormat simpleYear = new SimpleDateFormat("yyyyMM");
+			SimpleDateFormat simpleMonth = new SimpleDateFormat("MM");
+			date[i] = simpleYear.format(salesList.get(i).getReserveDate());
+			HomeAspect.logger.info(HomeAspect.logMsg + date[i] + "," + salesList.get(i).getPayment());
+			if (date[i].substring(0, 4).equals(year)) {
+				date[i] = simpleMonth.format(salesList.get(i).getReserveDate());
+				HomeAspect.logger.info(HomeAspect.logMsg + date[i] + "," + salesList.get(i).getPayment());
+			}
+		}
+		
+		int[] monthTotal = new int[12];
+		for (int j = 1; j <= 12; j++) {
+			for (int i = 0; i < date.length; i++) {
+				if (Integer.parseInt(date[i])==j) {
+					monthTotal[j-1] += salesList.get(i).getPayment();
+				}
+			}
+			HomeAspect.logger.info(HomeAspect.logMsg + monthTotal[j-1]);
+		}
+		
+		
+		mav.addObject("year", year);
+		mav.addObject("currentYear", currentYear);
+		mav.addObject("monthTotal",monthTotal);
 		mav.setViewName("host/salesView.tiles");
 	}
 
@@ -242,12 +306,75 @@ public class HostServiceImp implements HostService {
 		String email = (String)session.getAttribute("email");
 		int memberCode = hostDao.memberCode(email);
 		
-		List<HostDto> houseList = hostDao.houseList(memberCode);
-		mav.addObject("houseList", houseList);
+		String pageNumber = request.getParameter("pageNumber");
+		if (pageNumber == null) {
+			pageNumber = "1";
+		}
+		int currentPage = Integer.parseInt(pageNumber);
 		
+		int count = hostDao.getHouseCount(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + "HouseCount: " + count);
+		
+		int boardSize = 2;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;		
+		
+		List<HostDto> houseList = null;
+		if (count > 0) {
+			houseList = hostDao.houseList(memberCode,startRow,endRow);
+			HomeAspect.logger.info(HomeAspect.logMsg + "HouseListSize: " + houseList.size());
+		}
+		
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("houseList", houseList);
 		mav.setViewName("host/houseManagement.tiles");
 	}
 
+	@Override
+	public void exManagement(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = hostDao.memberCode(email);
+		
+		
+		String pageNumber = request.getParameter("pageNumber");
+		if (pageNumber == null) {
+			pageNumber = "1";
+		}
+		int currentPage = Integer.parseInt(pageNumber);
+		
+		int count = hostDao.getExCount(memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "getExCount: " + count);
+		
+		int boardSize = 2;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;		
+		
+		List<ExperienceDto> experienceList = null;
+		if (count > 0) {
+			experienceList = hostDao.experienceList(memberCode,startRow,endRow);
+			HomeAspect.logger.info(HomeAspect.logMsg + "experienceListSize: " + experienceList.size());
+			
+			for (int i=0; i<experienceList.size();i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg +experienceList.get(i).toString());
+			}
+			
+			
+		}
+		
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("experienceList", experienceList);
+		mav.setViewName("host/exManagement.tiles");
+	}
+	
+	
 	@Override
 	public void hostCancel(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -256,8 +383,55 @@ public class HostServiceImp implements HostService {
 		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 		int cancelCheck = hostDao.hostCancel(houseCode);
 		
-		
 		 houseManagement(mav);
+	}
+
+	@Override
+	public void searchDate(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = hostDao.memberCode(email);
+		HomeAspect.logger.info(HomeAspect.logMsg +"memberCode: " + memberCode);
+		
+		String startDate = request.getParameter("from");
+		String endDate = request.getParameter("to");
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "기간조회: " + startDate + "," + endDate);
+		
+		String pageNumber = request.getParameter("pageNumber");
+		if (pageNumber == null) {
+			pageNumber = "1";
+		}
+		int currentPage = Integer.parseInt(pageNumber);
+		
+		int count = hostDao.getSearchDateCount(memberCode, startDate, endDate);
+		HomeAspect.logger.info(HomeAspect.logMsg + "getSearchDateCount: " + count);
+		
+		int boardSize = 2;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;		
+		
+		List<SearchDateList> searchDateList = null;
+		if (count > 0) {
+			searchDateList = hostDao.searchDateList(memberCode, startDate, endDate, startRow, endRow);
+			HomeAspect.logger.info(HomeAspect.logMsg + "searchDateList: " + searchDateList.size());
+			
+			for (int i=0; i<searchDateList.size();i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg +searchDateList.get(i).toString());
+			}
+			
+		}
+		
+		mav.addObject("startDate", startDate);
+		mav.addObject("endDate", endDate);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("searchDateList", searchDateList);
+		mav.setViewName("host/searchDate.empty");
 	}
 	
 	

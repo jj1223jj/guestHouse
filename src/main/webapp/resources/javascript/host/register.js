@@ -73,7 +73,7 @@ function handleImgFileSelect(e) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			//var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\"><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove'></a>";
-			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\"><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='130px'></a>";
+			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='130px'/></a>";
 			$(".subImgDiv").append(html);
 			index++;
 		}
@@ -86,7 +86,11 @@ function deleteImageAction(index) {
 	sel_files.splice(index, 1);
 	
 	var img_id = "#img_id_" + index;
-	$(img_id).remove();
+	//$(img_id).remove();
+	
+	//$("#img_id_0").remove();
+	
+	
 }
 
 function regi(obj) {

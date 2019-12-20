@@ -11,11 +11,12 @@ public class GuestReserveDto {
 	private Date checkIn;
 	private Date checkOut;
 	private String state;
+	private int payment;
 	
 	public GuestReserveDto() {}
 	
 	public GuestReserveDto(int reserveCode, int memberCode, int houseCode, String houseName, Date reserveDate,
-			Date checkIn, Date checkOut, String state) {
+			Date checkIn, Date checkOut, String state, int payment) {
 		this.reserveCode = reserveCode;
 		this.memberCode = memberCode;
 		this.houseCode = houseCode;
@@ -24,6 +25,7 @@ public class GuestReserveDto {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 		this.state = state;
+		this.payment = payment;
 	}
 
 	public int getReserveCode() {
@@ -89,12 +91,20 @@ public class GuestReserveDto {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	public int getPayment() {
+		return payment;
+	}
+
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 
 	@Override
 	public String toString() {
 		return "GuestReserveDto [reserveCode=" + reserveCode + ", memberCode=" + memberCode + ", houseCode=" + houseCode
 				+ ", houseName=" + houseName + ", reserveDate=" + reserveDate + ", checkIn=" + checkIn + ", checkOut="
-				+ checkOut + ", state=" + state + "]";
+				+ checkOut + ", state=" + state + ", payment=" + payment + "]";
 	}
 	
 }

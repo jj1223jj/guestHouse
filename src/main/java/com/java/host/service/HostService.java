@@ -18,4 +18,9 @@ public interface HostService {
 
 	public void reservationOkView(ModelAndView mav);
 
+	public void exManagement(ModelAndView mav);
+
+	public void searchDate(ModelAndView mav);
+
+
 }
