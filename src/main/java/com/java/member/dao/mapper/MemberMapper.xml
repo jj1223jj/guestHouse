@@ -31,4 +31,8 @@
   		SELECT memberLevel FROM member WHERE email=#{email} and password=#{password}
   	</select>
   	
+  	<select id="memberSel" parameterType="java.util.Map"  resultType="com.java.member.dto.MemberDto">
+  		select * from member where email=#{email} and password=#{password}
+  	</select>
+  	
 </mapper>

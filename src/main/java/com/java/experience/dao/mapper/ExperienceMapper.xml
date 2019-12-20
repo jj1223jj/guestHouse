@@ -49,13 +49,42 @@
 		select count(*) from exReview
 	</select>
 	
-	<select id="reviewList" parameterType="java.util.Map" resultType="com.java.exreview.dto.ExReviewDto">
+	<select id="reviewList" parameterType="java.util.Map" resultType="com.java.exreview.dto.ExReviewListDto">
 		<![CDATA[
-		SELECT * FROM (SELECT rownum AS rnum, A.* FROM (SELECT * FROM exReview ORDER BY exReverseCode desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
+		SELECT * FROM (SELECT rownum AS rnum, A.* FROM (SELECT member.email, exReview.* FROM member, exReview where member.memberCode = exReview.memberCode ORDER BY revDate Desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
 		]]>
 	</select>
 	
+	<select id="exReserveCode" parameterType="int" resultType="int">
+		select exreserveCode from exReserve where memberCode=#{memberCode}
+	</select>
+	
 	<insert id="writeReview" parameterType="com.java.exreview.dto.ExReviewDto" >
-		insert into exReview values(exReview_exReserveCode_seq.nextval, #{memberCode}, #{revDate}, #{revContent}, #{revRate})
+		insert into exReview(exReserveCode, memberCode, revDate, revContent, revRate) values(#{exReserveCode}, #{memberCode}, #{revDate}, #{revContent}, #{revRate})
 	</insert>
+	
+	<select id="exReviewUpdate" parameterType="int" resultType="com.java.exreview.dto.ExReviewDto">
+		select * from exReview where memberCode=#{memberCode}
+	</select>
+	
+	<update id="exReviewUpdateOk" parameterType="com.java.exreview.dto.ExReviewDto">
+		update exReview set revDate=#{revDate}, revContent=#{revContent}, revRate=#{revRate} where memberCode=#{memberCode}
+	</update>
+	
+	<delete id="exReviewDelete" parameterType="int">
+		delete from exReview where exReserveCode=#{exReserveCode}
+	</delete>
+	
+	<!--체험 페이지  -->
+	<select id="exPage" parameterType="int" resultType="com.java.experience.dto.ExperienceDto">
+		select * from experience where exCode=#{exCode}
+	</select>
+	
+	<select id="exPageImg" parameterType="int" resultType="com.java.exfile.dto.ExFileDto">
+		select * from exFileList where exCode=#{exCode}
+	</select>
+	
+	<select id="exHostInfo" parameterType="int" resultType="com.java.member.dto.MemberDto">
+		select * from member where memberCode=#{memberCode}
+	</select>
 </mapper>

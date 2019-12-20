@@ -2,6 +2,7 @@ package com.java.experience.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,7 @@ import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dao.ExperienceDao;
 import com.java.experience.dto.ExperienceDto;
 import com.java.exreview.dto.ExReviewDto;
+import com.java.exreview.dto.ExReviewListDto;
 import com.java.host.dto.HostDto;
 import com.java.member.dto.MemberDto;
 
@@ -38,8 +40,6 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
-		
-		
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
 		HomeAspect.logger.info(HomeAspect.logMsg +"email: "+ email);
@@ -53,6 +53,8 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		HostDto hostDto = (HostDto)map.get("hostDto");
 		List<HostDto> hostChkList = null;
+	
+		
 		
 		if(memberCode != 0) {
 		
@@ -61,6 +63,11 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		}
 		
+		for (int i=0; i<hostChkList.size(); i++) {
+			hostChkList.get(i).setAddress(hostChkList.get(i).getAddress()+" "+hostChkList.get(i).getDetailAddress());
+			HomeAspect.logger.info(HomeAspect.logMsg + hostChkList.get(i).getAddress());
+			
+		}
 		request.setAttribute("hostChkList", hostChkList);
 		
 	}
@@ -92,8 +99,8 @@ public class ExperienceServiceImp implements ExperienceService {
 		//체험 이름
 		experienceDto.setExName(request.getParameter("exName"));
 		
-		//체험 주소
-		experienceDto.setExAddress(request.getParameter("exAddress"));
+		//체험 주소 (주소랑 상세주소 합친 값을 exAddress에, jsp에서 hidden으로 넘겨주는거 재확인)
+		experienceDto.setExAddress(request.getParameter("exAddress")+request.getParameter("detailAddress"));
 		
 		
 		// 인원수
@@ -149,7 +156,6 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		// -- hostDto
 		
-				HostDto hostDto = new HostDto();
 				//selectList로 memberCode에 맞는 address를 hostDto에서 가져옴
 				
 				
@@ -225,6 +231,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		}
 	
+	// 리뷰 작성하기
 	@Override
 	public void exReview(ModelAndView mav) {
 		// write, list
@@ -246,30 +253,56 @@ public class ExperienceServiceImp implements ExperienceService {
 		int count = experienceDao.getReviewCnt();
 		
 		HomeAspect.logger.info(HomeAspect.logMsg + "전체 댓글 갯수: " +count);
-	//	logger.info(logMsg + "전체 방명록 갯수: " + count);
 		
-		//MemberDto memberDto = (MemberDto)map.get("memberDto");
-		//HomeAspect.logger.info(HomeAspect.logMsg +"memberDto: "+ memberDto);
-		
+	
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
-		HomeAspect.logger.info(HomeAspect.logMsg +"email: "+ email);
-		MemberDto memberDto = new MemberDto();
+		int memberCode = (Integer)session.getAttribute("memberCode");
+		
+		HomeAspect.logger.info(HomeAspect.logMsg +"email: "+ email + "		memberCode: " + memberCode);
+		
+		/*MemberDto memberDto = (MemberDto)map.get("memberDto");
 		memberDto.setEmail(email);
+		HomeAspect.logger.info(HomeAspect.logMsg +"memberDto: "+ memberDto);
+		*/
+		//ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
 		
-		List<ExReviewDto> reviewList =null;
 		
-		if(count > 0) {	// 저장된 방명록이 존재 할 경우
+		// 멤버코드로 예약 테이블에서 예약번호를 가져옴
+		  int exReserveCode = experienceDao.reserveCode(memberCode);
+		  HomeAspect.logger.info(HomeAspect.logMsg +"exReserveCode: "+ exReserveCode);
 			
-			reviewList = experienceDao.getExReviewList(startRow, endRow);
-			HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " +reviewList.size());
+		// 예약번호가 있는 사람일 경우
+		  if(exReserveCode !=0) {
+			  
+			HomeAspect.logger.info(HomeAspect.logMsg +"exReserveCode: "+ exReserveCode);
+		
+			// 체험 예약번호
+			ExReviewDto exReviewDto = (ExReviewDto)map.get("exReviewDto");
+			exReviewDto.setExReserveCode(exReserveCode);
+			exReviewDto.setMemberCode(memberCode);
 			
-		}
-		request.setAttribute("reviewList", reviewList);
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("boardSize", boardSize);
-		request.setAttribute("count", count);
-		request.setAttribute("memberDto", memberDto);
+			// 예약 번호가 없는 사람일 경우
+		  }else {
+			  int exResrveCode = 0;
+		  }
+		
+			List<ExReviewListDto> reviewList =null;
+			
+			if(count > 0) {	// 저장된 방명록이 존재 할 경우
+			
+				reviewList = experienceDao.getExReviewList(startRow, endRow, memberCode); 
+				HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " +reviewList.size());
+				HomeAspect.logger.info(HomeAspect.logMsg + reviewList.get(0).toString());
+			}
+		
+		mav.addObject("reviewList", reviewList);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		
+
+		//mav.addObject("exReviewDto", exReviewDto);								 
 		
 		mav.setViewName("experience/exReview.tiles");
 		
@@ -279,16 +312,115 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		Map <String, Object> map = mav.getModelMap();
 		ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
-		
+		// 작성일
 		exReviewDto.setRevDate(new Date());
-		exReviewDto.setRevContent(exReviewDto.getRevContent().replace("\r\n", "<br>"));
 		
+		/*
+		 * // 내용 exReviewDto.setRevContent(exReviewDto.getRevContent().replace("\r\n",
+		 * "<br>"));
+		 */
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "exReviewDto: " +exReviewDto.toString());
 		int check = experienceDao.writeReview(exReviewDto);
 		
 		HomeAspect.logger.info(HomeAspect.logMsg + "check: " +check);
 		
 		mav.addObject("check",check);
-		mav.setViewName("guest/writeOk.tiles");
+		mav.setViewName("experience/exReviewOk.tiles");
+		
+	}
+	
+	@Override
+	public void exReviewUpdate(ModelAndView mav) {
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
+		
+		int exReserveCode = Integer.parseInt(request.getParameter("exReserveCode"));
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "exReserveCode:" +exReserveCode +" memberCode: " + memberCode);
+		
+		exReviewDto = experienceDao.exReviewUpdate(memberCode);
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "exReviewDto:" + exReviewDto.toString());
+		
+		mav.addObject("exReviewDto",exReviewDto);
+		mav.addObject("exReserveCode",exReserveCode);
+		
+		mav.setViewName("experience/exReviewUpdate.empty");
+		
+	}
+	@Override
+	public void exReviewUpdateOk(ModelAndView mav) {
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
+		exReviewDto.setRevDate(new Date());
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + exReviewDto.toString());
+		
+		int check = experienceDao.exReviewUpdateOk(exReviewDto);
+		
+		mav.addObject("check",check);
+		 
+		mav.setViewName("experience/exReviewUpdateOk.empty");
+	}
+	
+	@Override
+	public void exReviewDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int exReserveCode = Integer.parseInt(request.getParameter("exReserveCode"));
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "exReserveCode : " + exReserveCode);
+		
+		int check = experienceDao.exReviewDelete(exReserveCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "check : " + check);
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("check", check);
+		
+		mav.setViewName("experience/exReviewDelete.tiles");
+		
+	}
+	
+	// 체험 페이지
+	@Override
+	public void exPage(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = (Integer)session.getAttribute("memberCode");
+		HomeAspect.logger.info(HomeAspect.logMsg + "email : " + email + "	memberCode:"+memberCode);
+		
+		
+		//선택된 체험 코드에 해당하는 페이지로 이동
+		int exCode = 50;
+		
+		ExperienceDto experienceDto = experienceDao.exPage(exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "experienceDto : " + experienceDto.toString());
+		
+		List<ExFileDto> exFileList = experienceDao.exPageImg(exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "exFileDto : " + exFileList.toString());
+		
+		// 해당 호스트의 memberDto 불러서 호스트 정보 제공
+		MemberDto memberDto = experienceDao.exHostInfo(memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "memberDto : " + memberDto.toString());
+		
+		
+		mav.addObject("experienceDto",experienceDto);
+		mav.addObject("exFileList",exFileList);
+		mav.addObject("memberDto",memberDto);
+		
+		mav.setViewName("experience/exPage.tiles");
+	
 		
 	}
 	

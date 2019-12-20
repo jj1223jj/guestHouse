@@ -6,22 +6,19 @@ public class ExFileDto {
    private String fileName;
    private String filePath;
    private long fileSize;
-   private int houseCode;
    private String mainImgName;
    
    public ExFileDto() {
       
    }
 
-public ExFileDto(int fileCode, int exCode, String fileName, String filePath, long fileSize, int houseCode,
-		String mainImgName) {
+public ExFileDto(int fileCode, int exCode, String fileName, String filePath, long fileSize, String mainImgName) {
 	
 	this.fileCode = fileCode;
 	this.exCode = exCode;
 	this.fileName = fileName;
 	this.filePath = filePath;
 	this.fileSize = fileSize;
-	this.houseCode = houseCode;
 	this.mainImgName = mainImgName;
 }
 
@@ -65,14 +62,6 @@ public void setFileSize(long fileSize) {
 	this.fileSize = fileSize;
 }
 
-public int getHouseCode() {
-	return houseCode;
-}
-
-public void setHouseCode(int houseCode) {
-	this.houseCode = houseCode;
-}
-
 public String getMainImgName() {
 	return mainImgName;
 }
@@ -84,12 +73,9 @@ public void setMainImgName(String mainImgName) {
 @Override
 public String toString() {
 	return "ExFileDto [fileCode=" + fileCode + ", exCode=" + exCode + ", fileName=" + fileName + ", filePath="
-			+ filePath + ", fileSize=" + fileSize + ", houseCode=" + houseCode + ", mainImgName=" + mainImgName + "]";
+			+ filePath + ", fileSize=" + fileSize + ", mainImgName=" + mainImgName + "]";
 }
-   
-   
 
-	
-   
+
    
 }
