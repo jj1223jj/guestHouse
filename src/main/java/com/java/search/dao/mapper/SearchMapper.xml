@@ -33,6 +33,8 @@
 	</select>
 	
 
+	
+
 	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
 		<![CDATA[
 			
@@ -40,7 +42,7 @@
 			
 			
 			
-					select rownum rn, h.* from house h
+					select a.*, b.revRate, b.revCount from (select rownum rn, h.* from house h
 							where houseCode not in (
 											select houseCode from (
 																	select a.*, house.people-p remain from (
@@ -48,8 +50,10 @@
 																													where resDate >= #{checkIn} and resDate < #{checkOut}
 																													group by houseCode, resDate order by houseCode, resDate
 																											) a, house where a.houseCode=house.houseCode
-																	) where remain < #{people} group by houseCode
-													)
+																	) where remain < #{people} group by houseCode)) a left outer join
+                                                                    
+            (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount from (select reservation.houseCode, revRate from reservation, review where reservation.reserveCode=review.reservecode) a group by houseCode) b
+            on a.houseCode = b.houseCode
 		]]>										
 		<if test="localSplit!=null">
 			<foreach collection="localSplit" item="item" open="and (" separator="or" close=")">
@@ -65,6 +69,11 @@
 		]]>
 		
 		
+	</select>
+	
+	<select id="searchHouse3" parameterType="int" resultType="double">
+		select avg(revRate) revRate from (select reservation.houseCode, revRate from reservation, review where reservation.reserveCode=review.reservecode and houseCode=#{value}) a group by houseCode
+	
 	</select>
 	
 	

@@ -73,6 +73,8 @@ public class SearchServiceImp implements SearchService {
 			map.put("lng",hostDto.getLatLng().split(",")[1]);
 			map.put("people",hostDto.getPeople());
 			map.put("price",hostDto.getPrice());
+			map.put("revRate",hostDto.getRevRate());
+			map.put("revCount",hostDto.getRevCount());
 			
 			
 			JSONArray fileArr = new JSONArray();

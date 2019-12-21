@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <c:set var="memberCode" value="3"/>
+<c:set var="pageBlock" value="${2}"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -33,10 +34,20 @@
 <script>
 	$(function(){
 		setRoot('${root}');
-		
 
+		/* for(let i=0; i<=${pageBlock};i++){
+			$("."+i).click(function(){
+				console.log(customOverlay[i]);
+			});
+			$("."+i).mouseover(function(){
+				console.log(customOverlay[i].getZIndex());
+			});
+			$("."+i).mouseout(function(){
+				console.log(customOverlay[i].getZIndex());
+			}); 
+		}*/
+/* 
 		$(".overlaybox").css("display","block");
-		
 		var swiper = new Swiper('.swiper-container', {
 			pagination : {
 				el : '.swiper-pagination',
@@ -47,8 +58,7 @@
 				prevEl : '.swiper-button-prev',
 			},
 		});
-	
-		$(".overlaybox").css("display","none");
+		$(".overlaybox").css("display","none"); */
 		
 		
 		
@@ -224,28 +234,31 @@
 		검색 결과가 없습니다
 	</c:if>
 	<c:if test="${count>0}">
-		<c:forEach var="i" items="${searchHouseList}" >
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="j" items="${i.fileList}">
-						<div class="swiper-slide"><img alt="img loading" src="<spring:url value='/image/${j.fileName}'/>"/></div>
-					</c:forEach>
+		<c:forEach var="i" items="${searchHouseList}" varStatus="index" >
+			<div class="${index.index}">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="j" items="${i.fileList}">
+							<div class="swiper-slide"><img alt="img loading" src="<spring:url value='/image/${j.fileName}'/>"/></div>
+						</c:forEach>
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
 				</div>
-				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
+				<div class="house">
+					<div class="houseCode">${i.houseCode}</div>
+					<div class="houseName">${i.houseName}</div>
+					<div>${i.people}</div>
+					<div>${i.latLng}</div>
+					<div><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: #FF385C;"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg>${i.revRate}(${i.revCount})</div>
+					<div>${i.price}원/1박</div>
+					<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
+				</div>
+				
+				<br/><br/>
 			</div>
-			<div class="house">
-				<div class="houseCode">${i.houseCode}</div>
-				<div class="houseName">${i.houseName}</div>
-				<div>${i.people}</div>
-				<div>${i.latLng}</div>
-				<div>${i.price}원/1박</div>
-				<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
-			</div>
-			
-			<br/><br/>
 		</c:forEach>
 		<script>
 			var houseJson = $.parseJSON('${houseJson}').houseJson;
@@ -292,7 +305,8 @@
 				'	<div class="swiper-button-prev"></div>' +
 				'</div>' +
 				'            <span class="number">인원'+houseJson[i].people+'</span>' +
-				'            <span class="number">가격'+houseJson[i].price+'</span>' +
+				'            <span class="people">가격'+houseJson[i].price+'</span>' +
+				'            <span class="revRate"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: #FF385C;"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg>'+houseJson[i].revRate+'('+houseJson[i].revCount+')</span>' +
 				'			 <div class="houseCode">'+houseJson[i].houseCode+'</div>' +
 				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
 				'        </li>' +
@@ -336,7 +350,6 @@
 	</c:if>
 	<div class="page">
 		<c:if test="${count>0}">
-			<c:set var="pageBlock" value="${2}"/>
 			<fmt:parseNumber var="result" value="${count/boardSize}" integerOnly="true"/>
 			<c:set var="pageCount" value="${count%boardSize==0? result:result+1}"/>
 			<fmt:parseNumber var="result2" value="${(currentPage-1)/pageBlock}" integerOnly="true"/>
