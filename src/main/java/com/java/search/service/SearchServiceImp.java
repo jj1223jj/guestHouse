@@ -24,12 +24,14 @@ public class SearchServiceImp implements SearchService {
 	private SearchDao searchDao;
 
 	@Override
-	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber) {
-		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
+	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, String memberCode) {
+		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", memberCode: "+memberCode);
 		
 		//myBatis에 넘겨줄 data, Map에 넣기
 		Map<String, Object> dataMap = new HashMap<String,Object>();
 		
+		if(memberCode!=null)
+			dataMap.put("memberCode", memberCode);
 		dataMap.put("checkIn", checkIn);
 		dataMap.put("checkOut", checkOut);
 		dataMap.put("local", local);
@@ -75,6 +77,7 @@ public class SearchServiceImp implements SearchService {
 			map.put("price",hostDto.getPrice());
 			map.put("revRate",hostDto.getRevRate());
 			map.put("revCount",hostDto.getRevCount());
+			map.put("zzimed",hostDto.getZzimed());
 			
 			
 			JSONArray fileArr = new JSONArray();

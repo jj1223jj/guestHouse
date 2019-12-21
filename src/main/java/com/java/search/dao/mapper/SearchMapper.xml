@@ -36,6 +36,52 @@
 	
 
 	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
+		select * from (
+			
+			select rownum rn, a.*, b.revRate, b.revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from (
+			
+			    select h.* from house h
+			                                where houseCode not in (
+			    select houseCode from (
+			    select a.*, house.people-p remain from (
+			    select houseCode, resDate, sum(people) p from remain
+			                                                                    <![CDATA[where resDate >= #{checkIn} and resDate < #{checkOut}
+			                                                                                      group by houseCode, resDate order by houseCode, resDate
+			    ) a, house where a.houseCode=house.houseCode
+			    ) where remain < #{people} group by houseCode]]>
+			    )
+			
+			) a
+			left outer join (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount from (select reservation.houseCode, revRate from reservation, review where reservation.reserveCode=review.reservecode) a group by houseCode) b
+			on a.houseCode=b.houseCode
+			<if test="memberCode!=null">
+			left outer join wishList c
+			on a.houseCode=c.houseCode
+			</if>
+		
+		<if test="localSplit!=null">
+			where (
+			<foreach collection="localSplit" item="item" separator="or">
+				local=#{item}
+			</foreach>
+			)
+		</if>
+		<if test="searchHouseName!=null">
+			and houseName like '%${searchHouseName}%'
+		</if>								
+													
+		<![CDATA[											
+			) where rn>=#{sRow} and rn<=#{eRow}
+		]]>
+		
+		
+	</select>
+
+	
+
+
+
+	<select id="searchHouse2" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
 		<![CDATA[
 			
 			select * from (

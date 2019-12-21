@@ -38,6 +38,44 @@ function dateToString(date){
 function heart(memberCode){
 	if(memberCode!='') {
 		$("._r0agyd").click(function(){
+			var heart=$(this).attr("class").split(" ")[1];
+			var data;
+			if($("."+heart).children().attr("fill")=="currentColor"){
+				$("."+heart).children().attr("fill", "#FF385C");
+				$("."+heart).children().attr("fill-opacity", "1");
+				$("."+heart).children().attr("stroke","#FF385C");
+				$("."+heart).children().attr("stroke-width","1");
+				data= { memberCode: memberCode, zzim: memberCode, houseCode: $(this).parent().children("div[class='houseCode']").text()};
+			}else{
+				$("."+heart).children().attr("fill", "currentColor");
+				$("."+heart).children().attr("fill-opacity", "0");
+				$("."+heart).children().attr("stroke","#222222");
+				$("."+heart).children().attr("stroke-width","1.4");
+				data= { memberCode: memberCode, houseCode: $(this).parent().children("div[class='houseCode']").text()};
+			}
+			//$(this).parent(".overlaybox").css("display","block");
+			$.ajax({
+				  method: "GET",
+				  url: root+"/guestdelluna/zzim.do",
+				  data: data,
+				  success: function(){
+				  },
+				  error: function(){
+				  }
+				})
+			
+		});
+	}else{
+		$("._r0agyd").click(function(){
+			alert( $("#price" ).slider( "values" ));
+			//alert("로그인 해주세요");
+			//로그인 모달 띄워주기
+		});
+	}
+}
+function heart2(memberCode){
+	if(memberCode!='') {
+		$("._r0agyd").click(function(){
 			console.log($(this).parent().children("div[class='houseCode']").text());
 			var data;
 			if($(this).children().attr("fill")=="currentColor"){
