@@ -25,5 +25,24 @@
 	
 		</script>
 	</c:if>
+	
+	<c:if test="${reviewChk != 0 and getExReserveCode !=0}">	
+		<script type="text/javascript">
+			alert("후기를 이미 작성하였습니다.");
+			location.href="${root}/experience/exPage.do";	
+			
+			
+		</script>
+	</c:if>
+	
+	<c:if test="${reviewChk != 0 and getExReserveCode ==0}">	
+		<script type="text/javascript">
+			
+				alert("후기를 작성할 권한이 없는 사용자입니다.");
+				location.href="${root}/experience/exPage.do";
+			
+		</script>
+	</c:if>
+	
 </body>
 </html>

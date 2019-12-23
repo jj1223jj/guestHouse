@@ -92,22 +92,18 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
-	
-	/*
-	 * @RequestMapping(value = "kakaologin", produces = "application/json", method =
-	 * {RequestMethod.GET, RequestMethod.POST}) public ModelAndView
-	 * KakaoLogin(@RequestParam("code") String code, HttpServletRequest request,
-	 * HttpServletResponse response, HttpSession session) throws Exception {
-	 * System.out.println("code: " + code);
-	 * 
-	 * ModelAndView mav = new ModelAndView(); JsonNode node =
-	 * KakaoController.getAccessToken(code);
-	 * 
-	 * return mav; }
-	 */
+	  @RequestMapping(value = "/member/kakaoLogin.do", method =RequestMethod.GET)
+	  public ModelAndView KakaoLogin(HttpServletRequest request, HttpServletResponse response)  {
+		  System.out.println("kakao login");
+		  ModelAndView mav = new ModelAndView();
+		  mav.addObject("request",request);
+		  
+		  memberService.kakaoLogin(mav);
+			
+	  return mav; 
+	  
+	  }
+	 
 	
 	
 }

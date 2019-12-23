@@ -16,34 +16,28 @@
 
 	<br/><br/>
 	<h3>승현---------------------------------------------------------</h3>
-	<c:if test="${email == null}">
+	<c:if test="${memberLevel == null}">
 
-		<a href="${root}/member/login.do">로그인/회원가입</a>&nbsp;&nbsp;<br/>
+		<a href="${root}/member/login.do">로그인/회원가입</a>&nbsp;&nbsp;
 	</c:if>
-	<c:if test="${email != null}">
-		<h3 style="text-align: center;">* ${email} 로그인 중. *</h3>&nbsp;&bsp;<br/>
+	<c:if test="${memberLevel != null}">
+		<h3 style="text-align: center;">* ${email} 로그인 중. *</h3>&nbsp;&nbsp;<br/>
 		<a href="${root}/member/logout.do">로그아웃</a><br/>
 		
-		<a href="${root}/guestdelluna/memberUpdate.do">회원수정(완)</a><br/>
-		<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴(완)</a><br/>
-		<a href="${root}/guestdelluna/checkReserve.do">전체예약리스트확인 및 취소(완)</a><br/> <!-- 이건 리스트형태로 내가 예약한거 모두 보여주기 -->
-		<a href="${root}/guestdelluna/zzimlist.do">찜목록(완)</a><br/>
-
+		<a href="${root}/experience/exPage.do?exCode=41">체험 페이지</a>
 		<br/>
-		<a href="${root}/experience/exPage.do">체험 페이지</a>
-		<br/>
-		<a href = "${root}/experience/exReview.do">체험 후기 작성</a>
-		<br/>
+		<%-- <a href = "${root}/experience/exReview.do">체험 후기 작성</a> --%>
+	
 		<c:if test="${memberLevel =='Host'}">
 		<a href="${root}/experience/exHost.do">체험 등록하기</a>
-		<br/>
+		<br/><br/>
 		</c:if>
 		
 		<c:if test ="${memberLevel =='Admin'}">
 			<a href="${root}/admin/memberList.do">회원관리</a></br>
 			<a href="${root}/admin/houseList.do">게스트하우스 관리(등록 승인, 취소)</a></br>
 			<a href="${root}/admin/experienceList.do">체험 관리</a>
-			</br></br>
+			<br/><br/>
 		</c:if>
 	</c:if>
 
@@ -51,11 +45,16 @@
 		<a href="${root}/member/levelChange.do">회원 등급 조정</a>
 		<a href="${root}/member/">게스트하우스 관리(등록 승인, 취소)</a>
 	</c:if>	
+	
+	----------------------------------------------------------------<br/>
+	<a href="${root}/guestdelluna/memberUpdate.do">회원수정(완)</a><br/>
+		<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴(완)</a><br/>
+		<a href="${root}/guestdelluna/checkReserve.do">전체예약리스트확인 및 취소(완)</a><br/> <!-- 이건 리스트형태로 내가 예약한거 모두 보여주기 -->
+		<a href="${root}/guestdelluna/zzimlist.do">찜목록(완)</a><br/>
 	--끝--	--끝--	--끝--	--끝--	--끝--	--끝--	--끝--	--끝--<br/>
 
-	----------------------------------------------------------------<br/>
 
-	후기쓰기 -> 모달
+	후기쓰기 -> 모달<br>
 	<a href="${root}/guestdelluna/allMyReview.do">내가 쓴 전체후기 보기</a>
 	<a href="${root}/guestdelluna/myReview.do">후기 중 하나 클릭해서 보기</a><br/>
 

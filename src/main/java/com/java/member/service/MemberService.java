@@ -11,6 +11,9 @@ public interface MemberService {
 
 	public void memberLoginOk(ModelAndView mav);
 
+	public void kakaoLogin(ModelAndView mav);
+
+
 
 
 }

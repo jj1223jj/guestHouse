@@ -193,6 +193,8 @@
 						
 					</script>
 					
+					
+					
 					<br/>
 					<div id="notice">
 						<h2>유의사항</h2>

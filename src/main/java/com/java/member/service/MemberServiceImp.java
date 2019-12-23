@@ -104,4 +104,35 @@ public class MemberServiceImp implements MemberService {
 		mav.setViewName("member/loginOk.tiles");
 		
 	}
+	
+	@Override
+	public void kakaoLogin(ModelAndView mav) {
+		Map <String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		String email = request.getParameter("email");
+		String memberImgPath = request.getParameter("memberImgPath");
+		String memberName = request.getParameter("memberName");
+		String memberLevel = "A";
+		
+		int emailChk = memberDao.kakaoEmailChk(email);
+		int check = 0;
+		
+		if(emailChk ==0) {
+			check = memberDao.inserKakao(email,memberImgPath,memberName);
+			
+		}else {
+			check = emailChk;
+		}
+		
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "check: " + check);
+
+		mav.addObject("check", check);
+		mav.addObject("memberLevel",memberLevel);
+		
+		mav.setViewName("member/loginOk.tiles");
+		
+	}
 }

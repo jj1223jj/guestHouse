@@ -45,18 +45,33 @@
 	</select>
 	
 	<!-- 후기작성  -->
-	<select id="reviewCnt" resultType="int">
-		select count(*) from exReview
+	
+	<!-- 이 페이지의 리뷰갯수 -->
+	<select id="reviewCnt" parameterType="int" resultType="int">
+		 select count(*) from exReview inner join exReserve on exReview.exReserveCode = exReserve.exReserveCode and exReserve.exCode = #{exCode} 
+		
 	</select>
+	
+	<!-- <select id="reviewCnt" resultType="int">
+		select count(*) from exReview
+	</select> -->
 	
 	<select id="reviewList" parameterType="java.util.Map" resultType="com.java.exreview.dto.ExReviewListDto">
 		<![CDATA[
-		SELECT * FROM (SELECT rownum AS rnum, A.* FROM (SELECT member.email, exReview.* FROM member, exReview where member.memberCode = exReview.memberCode ORDER BY revDate Desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
+		SELECT * FROM (select rownum as rnum, A.* from (select exReview.*, experience.exCode, member.email from exReview inner join exReserve on exReview.exReserveCode = exReserve.exReserveCode inner join experience on exReserve.exCode = experience.exCode and exReserve.exCode=#{exCode} inner join member on exReview.memberCode = member.memberCode ORDER BY exReview.revDate Desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
 		]]>
 	</select>
-	
-	<select id="exReserveCode" parameterType="int" resultType="int">
-		select exreserveCode from exReserve where memberCode=#{memberCode}
+<!-- 이 사람이 이 체험에 예약했는지 갯수 가져오기  -->
+	<select id="exReserveCodeCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from exReserve where memberCode=#{memberCode} and exCode=#{exCode}
+	</select>
+<!-- 예약번호 가져오기 댓글 -->
+	<select id="exReserveCode" parameterType="java.util.Map" resultType="com.java.exreserve.dto.ExReserveDto">
+		select exReserveCode from exReserve where exCode=#{exCode} and memberCode=#{memberCode}
+	</select>
+<!-- 리뷰 테이블에 존재하는 예약번호인지 확인 -->
+	<select id="reviewChk" parameterType="int" resultType="int">
+		select count(*) from exReview where exReserveCode=#{exReserveCode}
 	</select>
 	
 	<insert id="writeReview" parameterType="com.java.exreview.dto.ExReviewDto" >
@@ -80,11 +95,50 @@
 		select * from experience where exCode=#{exCode}
 	</select>
 	
-	<select id="exPageImg" parameterType="int" resultType="com.java.exfile.dto.ExFileDto">
+	<select id="exPageImgList" parameterType="java.util.Map" resultType="com.java.exfile.dto.ExFileDto">
 		select * from exFileList where exCode=#{exCode}
 	</select>
 	
 	<select id="exHostInfo" parameterType="int" resultType="com.java.member.dto.MemberDto">
 		select * from member where memberCode=#{memberCode}
+	</select>
+	
+	<!-- 체험예약 -->
+	<select id="exPayment" parameterType="java.util.Map" resultType="int">
+		select exPrice*#{exPeople} from experience where exCode = #{exCode}
+	</select>
+	
+	<select id="getPoint" parameterType="String" resultType="int">
+		select point from member where email=#{email}
+	</select>
+	
+	<insert id= "insertExReserve" parameterType="com.java.exreserve.dto.ExReserveDto">
+		insert into exReserve(exReserveCode, memberCode, exCode, exPeople, reserveDate, exPayment, state, exDate) values(exReserve_exReserveCode_seq.nextval, #{memberCode}, #{exCode}, #{exPeople}, #{reserveDate}, #{exPayment}, #{state}, #{exDate})
+	</insert>
+	
+	<select id="getExReserveCode" parameterType="java.util.Map" resultType="int">
+		 select exReserveCode from exReserve where exCode=#{exCode} and memberCode=#{memberCode} and exDate=#{exDate} 
+	</select>
+	
+
+	
+	<!-- 포인트 업데이트 -->
+	<update id="pointUpdate" parameterType="com.java.member.dto.MemberDto">
+		update member set point=#{plusPoint} where memberCode=#{memberCode}
+	</update>
+	
+	<!-- 메세지 보관함 -->
+	<!-- <insert id="message" parameterType="com.java.message.dto.MessageDto">
+		insert into message set(msgCode, memberCode, msgContent, msgDate, memberCode2) values(message_msgCode_seq.nextval, #{memberCode},#{msgContent},sysDate,"읽지 않음")
+	</insert> -->
+	
+	<!-- 달력 체험 가능 인원 -->
+	<select id="reserveList" parameterType="java.util.Map" resultType="com.java.exreserve.dto.ExReserveDto">
+		select exPeople from exReserve where exCode=#{exCode} and exDate=#{exDate}
+	</select>
+	
+	<!-- 하루에 수용 가능한 인원 -->
+	<select id="getPeople" parameterType="int" resultType="int">
+		select exPeople from experience where exCode=#{exCode}
 	</select>
 </mapper>

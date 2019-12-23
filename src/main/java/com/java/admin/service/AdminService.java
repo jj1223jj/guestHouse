@@ -16,4 +16,11 @@ public interface AdminService {
 	/* 체험 관리*/
 	public void experienceList(ModelAndView mav);
 
+	public void experienceStateOK(ModelAndView mav);
+
+	public void experienceStateNo(ModelAndView mav);
+
+
+
+
 }

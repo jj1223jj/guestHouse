@@ -35,4 +35,11 @@
   		select * from member where email=#{email} and password=#{password}
   	</select>
   	
+  	<insert id="insertKakao" parameterType="com.java.member.dto.MemberDto">
+  		insert into member(memberCode,email,memberImgPath,memberName, memberLevel,regDate,point) values(member_memberCode_seq.nextval, #{email}, #{memberImgPath},#{memberName},'A',sysdate,0)
+  	</insert>
+  	
+  	<select id="kakaoEmailChk" parameterType="String" resultType="int">
+  		select count(*) from member where email = #{email}
+  	</select>
 </mapper>

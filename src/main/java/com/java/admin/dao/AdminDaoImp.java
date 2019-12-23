@@ -73,5 +73,13 @@ public class AdminDaoImp implements AdminDao {
 		
 		return sqlSessionTemplate.selectList("dao.AdminMapper.experienceList",hMap);
 	}
+	@Override
+	public int experienceStateOk(int exCode) {
+		return sqlSessionTemplate.update("dao.AdminMapper.experienceStateOk",exCode);
+	}
+	@Override
+	public int experienceStateNo(int exCode) {
+		return sqlSessionTemplate.update("dao.AdminMapper.experienceStateNo",exCode);
+	}
 
 }
