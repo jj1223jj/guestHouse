@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -505,12 +506,16 @@ public class DellunaServiceImp implements DellunaService {
 				memberDto.setMemberImgName(fileName);
 				memberDto.setMemberImgSize(fileSize);
 				memberDto.setMemberImgPath(file.getAbsolutePath());
-
+				
 			}
 
 		}
-
+		
+		String memberInfo = request.getParameter("memberInfo");
+		HomeAspect.logger.info(HomeAspect.logMsg + "멤버정보 : " + memberInfo);
+		memberDto.setMemberInfo(memberInfo);
 		check = dellunaDao.updateMember(memberDto);
+		
 		HomeAspect.logger.info(HomeAspect.logMsg + check);
 		HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
 		mav.addObject("check", check);

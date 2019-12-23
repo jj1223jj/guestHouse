@@ -14,14 +14,14 @@
 	<c:if test="${check >0 }">
 		<script type="text/javascript">
 			alert("정보수정완료")
-			//메인 생기면 메인으로 이동할수있게 url 설정
+			var url = root + "guestdelluna/myInfo.do" 
 		</script>
 	</c:if>
 	
 	<c:if test="${check ==0 }">
 		<script type="text/javascript">
-			alert("수정안됨")
-			var url = root + "guestdelluna/memberUpdate.do" 
+			alert("수정 실패")
+			var url = root + "guestdelluna/myInfo.do" 
 		</script>
 	</c:if>
 
