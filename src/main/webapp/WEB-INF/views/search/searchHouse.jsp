@@ -5,7 +5,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> 
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<c:set var="memberCode" value="3"/>
+<c:set var="memberCode" value="3" scope="session"/>
+<c:set var="pageBlock" value="${2}"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -33,10 +34,29 @@
 <script>
 	$(function(){
 		setRoot('${root}');
+
 		
 
+		 for(let i=0; i<='${pageBlock}';i++){
+			$(".house"+i).mouseover(function(){
+				var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+			    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+			    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+				marker[i].setImage(markerImage);
+			});
+			$(".house"+i).mouseout(function(){
+				var imageSrc = 'http://t1.daumcdn.net/mapjsapi/images/2x/marker.png', // 마커이미지의 주소입니다    
+			    imageSize = new kakao.maps.Size(29, 42), // 마커이미지의 크기입니다
+			    imageOption = {offset: new kakao.maps.Point(13, 49)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+				marker[i].setImage(markerImage);
+				console.log(marker[i].setImage);
+			}); 
+		 }
+
 		$(".overlaybox").css("display","block");
-		
 		var swiper = new Swiper('.swiper-container', {
 			pagination : {
 				el : '.swiper-pagination',
@@ -47,7 +67,6 @@
 				prevEl : '.swiper-button-prev',
 			},
 		});
-	
 		$(".overlaybox").css("display","none");
 		
 		
@@ -227,28 +246,36 @@
 		검색 결과가 없습니다
 	</c:if>
 	<c:if test="${count>0}">
-		<c:forEach var="i" items="${searchHouseList}" >
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="j" items="${i.fileList}">
-						<div class="swiper-slide"><img alt="img loading" src="<spring:url value='/image/${j.fileName}'/>"/></div>
-					</c:forEach>
+		<c:forEach var="i" items="${searchHouseList}" varStatus="index" >
+			<div class="house${index.index}">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="j" items="${i.fileList}">
+							<div class="swiper-slide"><img alt="img loading" src="<spring:url value='/image/${j.fileName}'/>"/></div>
+						</c:forEach>
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
 				</div>
-				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
+				<div class="house">
+					<div class="houseCode">${i.houseCode}</div>
+					<div class="houseName">${i.houseName}</div>
+					<div>${i.people}</div>
+					<div>${i.latLng}</div>
+					<div><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: #FF385C;"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg>${i.revRate}(${i.revCount})</div>
+					<div>${i.price}원/1박</div>
+					<c:if test="${i.zzimed==null}">
+						<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
+					</c:if>
+					<c:if test="${i.zzimed!=null}">
+						<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
+					</c:if>
+				</div>
+				
+				<br/><br/>
 			</div>
-			<div class="house">
-				<div class="houseCode">${i.houseCode}</div>
-				<div class="houseName">${i.houseName}</div>
-				<div>${i.people}</div>
-				<div>${i.latLng}</div>
-				<div>${i.price}원/1박</div>
-				<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
-			</div>
-			
-			<br/><br/>
 		</c:forEach>
 		<script>
 			var houseJson = $.parseJSON('${houseJson}').houseJson;
@@ -257,6 +284,8 @@
 			var customOverlay = [];
 			var position = [];
 			var content = [];
+			var bounds = new kakao.maps.LatLngBounds();
+
 			/* for(let j=0; j<houseJson[i].fileList.length;j++){
 			content[i]+=
 			'				';
@@ -264,6 +293,7 @@
 			for(let i=0; i<houseJson.length;i++){
 				
 				position[i]= new kakao.maps.LatLng(houseJson[i].lat, houseJson[i].lng);
+				bounds.extend(position[i]);
 				marker[i]= new kakao.maps.Marker({
 					map: map, 
 					position: position[i] // 마커의 위치
@@ -295,9 +325,17 @@
 				'	<div class="swiper-button-prev"></div>' +
 				'</div>' +
 				'            <span class="number">인원'+houseJson[i].people+'</span>' +
-				'            <span class="number">가격'+houseJson[i].price+'</span>' +
-				'			 <div class="houseCode">'+houseJson[i].houseCode+'</div>' +
-				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
+				'            <span class="people">가격'+houseJson[i].price+'</span>' +
+				'            <span class="revRate"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: #FF385C;"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg>'+houseJson[i].revRate+'('+houseJson[i].revCount+')</span>' +
+				'			 <div class="houseCode">'+houseJson[i].houseCode+'</div>';
+				if(houseJson[i].zzimed==null){
+				content[i]+=
+				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
+				}else{
+				content[i]+=
+				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
+				}
+				content[i]+=
 				'        </li>' +
 				'    </ul>' +
 				'</div>';
@@ -331,15 +369,19 @@
 				    marker[i].setZIndex(3);
 				});
 			}
+			map.setBounds(bounds);
+			map.setLevel(10);
 			$(".overlaybox").css("display","none");
 			kakao.maps.event.addListener(map, 'click', function() {
 				$(".overlaybox").css("display","none");
 			});
 		</script>
 	</c:if>
+	
+	
+	
 	<div class="page">
 		<c:if test="${count>0}">
-			<c:set var="pageBlock" value="${2}"/>
 			<fmt:parseNumber var="result" value="${count/boardSize}" integerOnly="true"/>
 			<c:set var="pageCount" value="${count%boardSize==0? result:result+1}"/>
 			<fmt:parseNumber var="result2" value="${(currentPage-1)/pageBlock}" integerOnly="true"/>

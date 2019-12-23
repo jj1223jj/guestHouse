@@ -87,7 +87,7 @@ public class GuestReserveDto {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
 	public int getPayment() {
 		return payment;
 	}
@@ -109,12 +109,11 @@ public class GuestReserveDto {
 	@Override
 	public String toString() {
 		return "GuestReserveDto [reserveCode=" + reserveCode + ", memberCode=" + memberCode + ", houseCode=" + houseCode
-
-				+ ", reserveDate=" + reserveDate + ", checkIn=" + checkIn + ", checkOut="
-				+ checkOut + ", state=" + state + ", payment=" + payment + ", people=" + people + "]";
-
-
+				+ ", reserveDate=" + reserveDate + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", state="
+				+ state + ", payment=" + payment + ", people=" + people + "]";
 	}
+
+
 	
 	
 }

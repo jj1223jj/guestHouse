@@ -21,7 +21,6 @@ public class SearchDaoImp implements SearchDao {
 	public List<HostImgDto> searchHouse(Map<String, Object> dataMap) {
 		List<HostImgDto> hostImgList = session.selectList("dao.searchMapper.searchHouse", dataMap);
 		for(HostImgDto hostImgDto : hostImgList) {
-			
 			List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());
 			hostImgDto.setFileList(fileList);
 		}

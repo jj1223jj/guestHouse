@@ -8,34 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.java.guestdelluna.dto.DellunaExpDto;
 import com.java.guestdelluna.dto.ExpReservationDto;
+import com.java.guestdelluna.dto.ExpReviewDto;
 import com.java.guestdelluna.dto.ExpZzimDto;
 import com.java.guestdelluna.dto.HouseDto;
 import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.dto.MemberDto;
-import com.java.guestdelluna.dto.ReviewDto;
+import com.java.guestdelluna.dto.MsgDto;
+import com.java.guestdelluna.dto.PointAccumulate;
+import com.java.guestdelluna.dto.PointUse;
+import com.java.guestdelluna.dto.HouseReviewDto;
 
 public interface DellunaDao {
 
-	int insertReview(ReviewDto reviewDto);
-
-	ReviewDto selectReview(int memberCode);
-
-	int countMemberCode(int memberCode);
-
-	List<ReviewDto> selectListReview(int memberCode);
-
-	int reviewUpdate(ReviewDto reviewDto);
-
-	int deleteReview(int boardNumber);
-
-	ReviewDto clickMyReview(int boardNumber);
+	HouseReviewDto selectReview(int memberCode);
 
 	int reviewCount();
 
-	List<ReviewDto> reviewList(int startRow, int endRow);
-
-	int findMyPoint(int memberCode);
+	List<HouseReviewDto> reviewList(int startRow, int endRow);
 
 	int countExp(int memberCode);	//o
 
@@ -55,11 +45,7 @@ public interface DellunaDao {
 
 	ExpReservationDto myResExp(int exCode);
 
-	int doZzim(Map<String, Object> dataMap, String zzim);
-
-	String selectMemberName(String email);
-
-	int selectMemberCode(String email);	//o
+	int doZzim(Map<String, Object> dataMap, String zzim);	//o
 
 	int selectExCode(int memberCode);
 
@@ -69,9 +55,9 @@ public interface DellunaDao {
 
 	int deleteHouseReserve(int reserveCode);
 
-	
+	int selectMemberCode(String email);	//o
 
-	List<HouseDto> houseInfo(int memberCode);
+	List<HouseDto> houseInfo(int memberCode);	//o
 
 	List<Integer> allHouse(int memberCode);		//o
 
@@ -119,10 +105,44 @@ public interface DellunaDao {
 
 	List<String> myExNameWithString(int memberCode, String state);	//o
 
-	
+	int getCountAccu(int memberCode);	//o
 
+	int getCountUse(int memberCode);	//o
 
+	List<PointAccumulate> myAccuPoint(int memberCode, int startRow, int endRow);	//o
 
+	List<PointUse> myUsePoint(int memberCode, int startRow, int endRow);	//o
 
+	int expReviewCount(int memberCode);	//o
+
+	int houseReviewCount(int memberCode);	//o
+
+	List<ExpReviewDto> myExpReview(int memberCode, int startRow, int endRow);	//o
+
+	List<HouseReviewDto> myHouseReview(int memberCode, int houseStartRow, int houseEndRow);	//o
+
+	ExpReviewDto findMyReview(int memberCode, int exReserveCode);	//o
+
+	int deleteReview(int exReserveCode, int memberCode);	//o
+
+	int deleteHouseReview(int reserveCode, int memberCode);	//o
+
+	int updateExpReview(int memberCode, int exReserveCode, String revContent);	//o
+
+	int selectMSG(int memberCode,String msgCheck);	//o
+
+	List<MsgDto> listMsg(int memberCode, String msgCheck);	//o
+
+	int deleteAllMsg(int memberCode);	//o
+
+	int deleteMsg(int memberCode, int msgCode);	//o
+
+	int allMsg(int memberCode);	//o
+
+	int updateMsg(int memberCode, int msgCode, String msgCheck);	//o
+
+	List<MsgDto> allMsgDto(int memberCode);	//o
+
+	int updateHouseReview(int memberCode, int reserveCode, String revContent);
 
 }

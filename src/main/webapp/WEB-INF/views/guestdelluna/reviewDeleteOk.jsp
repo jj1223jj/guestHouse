@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-check값 받아서 삭제됐으면 메인페이지로 이동
+
+	<c:if test="${check > 0 }">
+		<script type="text/javascript">
+			alert("삭제 완료");
+			setTimeout("location.reload()");
+		</script>
+	</c:if>
+
+	<c:if test="${check ==0 }">
+		<script type="text/javascript">
+			alert("삭제 실패");
+			setTimeout("location.reload()");
+		</script>
+	</c:if>
+
 </body>
 </html>
