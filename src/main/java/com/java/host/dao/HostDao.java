@@ -10,6 +10,7 @@ import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.ReservationListDto;
 import com.java.host.dto.SearchDateList;
+import com.java.host.dto.SearchDateListCount;
 import com.java.member.dto.MemberDto;
 
 public interface HostDao {
@@ -46,9 +47,11 @@ public interface HostDao {
 
 	public List<GuestReserveDto> getSales(int memberCode);
 
-	public int getSearchDateCount(int memberCode, String startDate, String endDate);
+	public SearchDateListCount getSearchDateCount(int memberCode, String startDate, String endDate);
 
 	public List<SearchDateList> searchDateList(int memberCode, String startDate, String endDate, int startRow,
 			int endRow);
+
+	public MemberDto selectMemberDto(String email);
 
 }

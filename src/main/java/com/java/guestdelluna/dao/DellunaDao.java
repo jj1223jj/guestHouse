@@ -14,6 +14,10 @@ import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.ReviewDto;
+import com.java.host.dto.ExReviewListDto;
+import com.java.host.dto.HostExListDto;
+import com.java.host.dto.HostHouseListDto;
+import com.java.host.dto.HouseReviewListDto;
 
 public interface DellunaDao {
 
@@ -118,6 +122,16 @@ public interface DellunaDao {
 	List<ExpReservationDto> findExpListWithString(int memberCode, String state);	//o
 
 	List<String> myExNameWithString(int memberCode, String state);	//o
+
+	List<HostHouseListDto> getHouseList(int memberCode);
+
+	List<HouseReviewListDto> getHouseReviewList(int memberCode);
+
+	List<ExReviewListDto> getExReviewList(int memberCode);
+
+	List<HostExListDto> getExList(int memberCode);
+
+	List<HouseReviewListDto> getHouseReviewListScroll(int memberCode, int startRow, int endRow);
 
 	
 

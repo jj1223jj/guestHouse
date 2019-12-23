@@ -96,19 +96,6 @@ public class GuestReserveDto {
 		this.payment = payment;
 	}
 
-
-
-	public int getPayment() {
-		return payment;
-	}
-
-
-
-	public void setPayment(int payment) {
-		this.payment = payment;
-	}
-	
-
 	public int getPeople() {
 		return people;
 	}

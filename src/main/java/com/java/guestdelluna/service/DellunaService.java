@@ -53,6 +53,8 @@ public interface DellunaService {
 
 	void myInfo(ModelAndView mav);
 
+	void scroll(ModelAndView mav);
+
 	
 
 	

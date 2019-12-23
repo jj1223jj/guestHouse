@@ -3,6 +3,7 @@ package com.java.host.service;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface HostService {
+	public void hostRegisterPage(ModelAndView mav);
 
 	public void hostRegister(ModelAndView mav);
 
@@ -21,6 +22,7 @@ public interface HostService {
 	public void exManagement(ModelAndView mav);
 
 	public void searchDate(ModelAndView mav);
+
 
 
 }

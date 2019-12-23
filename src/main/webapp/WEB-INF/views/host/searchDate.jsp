@@ -41,6 +41,8 @@
 	      </c:forEach>
 		</table>
 		</c:if>
+		<h3>건 수: ${searchDateListCount.count}</h3>
+		<h3>총금액: ${searchDateListCount.payment}</h3>
 		<div align="center">
 		<c:if test="${count>0 }">
 			<fmt:parseNumber var="pageCount" integerOnly="true" 
@@ -69,6 +71,7 @@
 				<a href="${root}/host/searchDate.do?pageNumber=${startPage+pageBlock}&from=${startDate}&to=${endDate}">[다음]</a>
 			</c:if>
 		</c:if>
+		
 	</div>
    
    </div>

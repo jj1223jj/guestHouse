@@ -15,24 +15,13 @@ import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.ReservationListDto;
 import com.java.host.dto.SearchDateList;
+import com.java.host.dto.SearchDateListCount;
 import com.java.member.dto.MemberDto;
 
 @Component
 public class HostDaoImp implements HostDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
-//	@Override
-//	public int subImgUpload(String fileName, File filepath, long fileSize) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		map.put("fileName", fileName);
-//		map.put("path", filepath);
-//		map.put("fileSize", fileSize);
-//		
-//		//return sqlSession.insert("subImgUpload", map);
-//		return 0;
-//	}
 
 	@Override
 	public int subImgUpload(FileDto fileDto) {
@@ -127,7 +116,7 @@ public class HostDaoImp implements HostDao {
 	}
 
 	@Override
-	public int getSearchDateCount(int memberCode, String startDate, String endDate) {
+	public SearchDateListCount getSearchDateCount(int memberCode, String startDate, String endDate) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberCode", memberCode);
 		map.put("startDate", startDate);
@@ -145,5 +134,10 @@ public class HostDaoImp implements HostDao {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		return sqlSession.selectList("host.dao.mapper.searchDateList", map);
+	}
+
+	@Override
+	public MemberDto selectMemberDto(String email) {
+		return sqlSession.selectOne("host.dao.mapper.selectMemberDto", email);
 	}
 }

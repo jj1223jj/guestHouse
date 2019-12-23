@@ -21,9 +21,13 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/host/register.do", method = RequestMethod.GET)
-	public String hostRegister(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView hostRegister(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
-		return "host/hostRegister2.tiles";
+		hostService.hostRegisterPage(mav);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/host/guestRoom.do", method = {RequestMethod.POST})
