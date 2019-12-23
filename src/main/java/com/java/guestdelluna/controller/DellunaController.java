@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -94,6 +95,30 @@ public class DellunaController {
 
 	}
 	
+	@RequestMapping(value="guestdelluna/msgAllDelete.do" , method=RequestMethod.GET)
+	public void deleteAllMsg(HttpServletRequest request , HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
 
-		
+		mav.addObject("request", request);
+
+		dellunaService.deleteAllMsg(mav);
+	}
+	
+	@RequestMapping(value="guestdelluna/msgDelete.do" , method=RequestMethod.GET)
+	public void msgDelete(HttpServletRequest request , HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+
+		dellunaService.msgDelete(mav);
+	}
+	
+	@RequestMapping(value="guestdelluna/msgUpdate.do" , method=RequestMethod.POST)
+	public void msgUpdate(HttpServletRequest request , HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+
+		dellunaService.msgUpdate(mav);
+	}
 }
