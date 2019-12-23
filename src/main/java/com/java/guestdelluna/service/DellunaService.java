@@ -49,6 +49,8 @@ public interface DellunaService {
 
 	void houseReviewDelete(ModelAndView mav);
 
+	void scroll(ModelAndView mav);
+
 	void deleteAllMsg(ModelAndView mav);
 
 	void msgDelete(ModelAndView mav);

@@ -95,6 +95,18 @@ public class DellunaController {
 
 	}
 	
+	@RequestMapping(value="guestdelluna/scroll.do", method=RequestMethod.GET)
+		public ModelAndView scroll(HttpServletRequest request , HttpServletResponse response) {
+			
+			ModelAndView mav = new ModelAndView();
+
+			mav.addObject("request", request);
+
+			dellunaService.scroll(mav);
+			
+			return mav;
+
+		}
 	@RequestMapping(value="guestdelluna/msgAllDelete.do" , method=RequestMethod.GET)
 	public void deleteAllMsg(HttpServletRequest request , HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();

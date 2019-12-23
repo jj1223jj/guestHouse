@@ -24,6 +24,7 @@ import com.java.host.dao.HostDao;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.ReservationListDto;
 import com.java.host.dto.SearchDateList;
+import com.java.host.dto.SearchDateListCount;
 import com.java.member.dto.MemberDto;
 
 @Component
@@ -31,6 +32,22 @@ public class HostServiceImp implements HostService {
 	@Autowired
 	private HostDao hostDao;
 
+	@Override
+	public void hostRegisterPage(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = hostDao.memberCode(email);
+		
+		MemberDto memberDto = hostDao.selectMemberDto(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + "memberDto :" + memberDto.toString());
+		
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("host/hostRegister2.tiles");
+	}
+	
 	@Override
 	public void hostRegister(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -407,8 +424,9 @@ public class HostServiceImp implements HostService {
 		}
 		int currentPage = Integer.parseInt(pageNumber);
 		
-		int count = hostDao.getSearchDateCount(memberCode, startDate, endDate);
-		HomeAspect.logger.info(HomeAspect.logMsg + "getSearchDateCount: " + count);
+		SearchDateListCount searchDateListCount = hostDao.getSearchDateCount(memberCode, startDate, endDate);
+		HomeAspect.logger.info(HomeAspect.logMsg + "getSearchDateCount: " + searchDateListCount.toString());
+		int count = searchDateListCount.getCount();
 		
 		int boardSize = 2;
 		int startRow = (currentPage-1)*boardSize+1;
@@ -418,13 +436,14 @@ public class HostServiceImp implements HostService {
 		if (count > 0) {
 			searchDateList = hostDao.searchDateList(memberCode, startDate, endDate, startRow, endRow);
 			HomeAspect.logger.info(HomeAspect.logMsg + "searchDateList: " + searchDateList.size());
-			
 			for (int i=0; i<searchDateList.size();i++) {
 				HomeAspect.logger.info(HomeAspect.logMsg +searchDateList.get(i).toString());
+				
 			}
 			
 		}
 		
+		mav.addObject("searchDateListCount", searchDateListCount);
 		mav.addObject("startDate", startDate);
 		mav.addObject("endDate", endDate);
 		mav.addObject("boardSize", boardSize);
@@ -433,6 +452,9 @@ public class HostServiceImp implements HostService {
 		mav.addObject("searchDateList", searchDateList);
 		mav.setViewName("host/searchDate.empty");
 	}
+
+	
+	
 	
 	
 }

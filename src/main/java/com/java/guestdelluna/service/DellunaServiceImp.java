@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
+import com.java.experience.dto.ExperienceDto;
 import com.java.guestdelluna.dao.DellunaDao;
 import com.java.guestdelluna.dto.DellunaExpDto;
 import com.java.guestdelluna.dto.HouseZzimDto;
@@ -30,6 +31,12 @@ import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
+import com.java.guestdelluna.dto.ReviewDto;
+import com.java.host.dao.HostDao;
+import com.java.host.dto.ExReviewListDto;
+import com.java.host.dto.HostExListDto;
+import com.java.host.dto.HostHouseListDto;
+import com.java.host.dto.HouseReviewListDto;
 
 @Component
 public class DellunaServiceImp implements DellunaService {
@@ -697,6 +704,9 @@ public class DellunaServiceImp implements DellunaService {
 		String email = (String) session.getAttribute("email");
 		HomeAspect.logger.info(HomeAspect.logMsg + email);
 
+		String memberLevel = (String) session.getAttribute("memberLevel");
+		HomeAspect.logger.info(HomeAspect.logMsg + memberLevel);
+
 		int memberCode = dellunaDao.selectMemberCode(email);
 		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
 		
@@ -710,10 +720,35 @@ public class DellunaServiceImp implements DellunaService {
 		}
 
 		mav.addObject("memberDto", memberDto);
-		
+
 		String housePageNumber =request.getParameter("housePageNumber");
 		if (housePageNumber == null)
 			housePageNumber = "1";
+
+		//host가 가지고있는 숙소 리스트 별점 등 가져오기
+		List<HostHouseListDto> hostHouseList = dellunaDao.getHouseList(memberCode);
+		for(int i = 0; i<hostHouseList.size(); i++) {
+			HomeAspect.logger.info(HomeAspect.logMsg + "hostHouseList: " + hostHouseList.get(i).toString());
+		}
+		
+		//host가 가지고 있는 체험 리스트 별점 등 가져오기
+		List<HostExListDto> hostExList = dellunaDao.getExList(memberCode);
+		for(int i = 0; i<hostExList.size(); i++) {
+			HomeAspect.logger.info(HomeAspect.logMsg + "hostExList: " + hostExList.get(i).toString());
+		}
+		
+		//host의 숙소 후기 리스트
+		List<HouseReviewListDto> houseReviewList = dellunaDao.getHouseReviewList(memberCode);
+		for(int i = 0; i<houseReviewList.size(); i++) {
+			HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + houseReviewList.get(i).toString());
+		}
+		
+		//host의 체험 후기 리스트
+		List<ExReviewListDto> exReviewList = dellunaDao.getExReviewList(memberCode);
+		for(int i = 0; i<exReviewList.size(); i++) {
+			HomeAspect.logger.info(HomeAspect.logMsg + "exReviewList: " + exReviewList.get(i).toString());
+		}
+
 		
 		String pageNumber = request.getParameter("pageNumber");
 		if (pageNumber == null)
@@ -721,7 +756,17 @@ public class DellunaServiceImp implements DellunaService {
 
 		int currentPage = Integer.parseInt(pageNumber);
 		
+
 		int housecurrentPage = Integer.parseInt(housePageNumber);
+
+		mav.addObject("hostHouseList", hostHouseList);
+		mav.addObject("hostExList", hostExList);
+		mav.addObject("houseReviewList", houseReviewList);
+		mav.addObject("exReviewList", exReviewList);
+		mav.addObject("memberLevel", memberLevel);
+		mav.addObject("memberDto", memberDto);
+		//mav.addObject(attributeName, attributeValue);		
+
 		
 		int countAccu = dellunaDao.getCountAccu(memberCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + memberCode + "의 적립 된 개수 : " + countAccu);
@@ -817,6 +862,7 @@ public class DellunaServiceImp implements DellunaService {
 
 		mav.setViewName("guestdelluna/myInfo.tiles");
 
+
 	}
 
 	@Override
@@ -859,6 +905,45 @@ public class DellunaServiceImp implements DellunaService {
 		
 		int check = dellunaDao.deleteAllMsg(memberCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "메시지삭제됐나요 : " + check);
+
+	}
+
+	@Override
+	public void scroll(ModelAndView mav) {
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");	
+
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		
+		int memberCode = dellunaDao.selectMemberCode(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
+		
+		String pageNumber = request.getParameter("page");
+		if (pageNumber == null) {
+			pageNumber = "1";
+		}
+		int currentPage = Integer.parseInt(pageNumber);
+		HomeAspect.logger.info(HomeAspect.logMsg + "currentPage: " + currentPage);
+		
+		int boardSize = 2;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;
+		
+		String status = request.getParameter("status");
+		HomeAspect.logger.info(HomeAspect.logMsg + status);
+		
+		List<HouseReviewListDto> houseReviewList = null;
+		if (status.equals("house")) {
+			houseReviewList = dellunaDao.getHouseReviewListScroll(memberCode, startRow, endRow);
+			for(int i = 0; i<houseReviewList.size(); i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + houseReviewList.get(i).toString());
+			}
+		}
+			
+		
+		mav.addObject("houseReviewList", houseReviewList);
+		mav.setViewName("guestdelluna/scroll.empty");
 
 	}
 

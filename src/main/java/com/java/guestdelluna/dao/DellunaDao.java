@@ -18,6 +18,12 @@ import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
+import com.java.guestdelluna.dto.ReviewDto;
+import com.java.host.dto.ExReviewListDto;
+import com.java.host.dto.HostExListDto;
+import com.java.host.dto.HostHouseListDto;
+import com.java.host.dto.HouseReviewListDto;
+
 
 public interface DellunaDao {
 
@@ -136,6 +142,17 @@ public interface DellunaDao {
 	int deleteAllMsg(int memberCode);	//o
 
 	int deleteMsg(int memberCode, int msgCode);	//o
+
+	List<HostHouseListDto> getHouseList(int memberCode);
+
+	List<HouseReviewListDto> getHouseReviewList(int memberCode);
+
+	List<ExReviewListDto> getExReviewList(int memberCode);
+
+	List<HostExListDto> getExList(int memberCode);
+
+	List<HouseReviewListDto> getHouseReviewListScroll(int memberCode, int startRow, int endRow);
+
 
 	int allMsg(int memberCode);	//o
 

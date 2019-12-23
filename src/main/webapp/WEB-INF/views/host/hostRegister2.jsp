@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -12,24 +13,27 @@
 <link rel="stylesheet" type="text/css" href="${root}/resources/css/host/register.css"/>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body>
-	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data" onsubmit="regi(this)">
+	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data" onsubmit="return register()">
 	<div class="wrap">
 		<ul>
 			<li>
 				<h2>프로필 사진 추가</h2>
 				<div class="profileDiv">
-					<img src="" id="profileView"/>  
+					<img alt="img loading" src="<spring:url value='/profileImg/${memberDto.memberImgName}' />" id="profileView"/>
 				</div>
 				<textarea rows="20" cols="50" name="memberInfo" id="memberInfo">
-					
+					${memberDto.memberInfo}
 				</textarea>
 				<div>
 					<span> 
 얼굴이 나온 프로필 사진을 통해서 다른 호스트와 게스트에게 나를 알릴 수 있습니다. 모든 에어비앤비 호스트는 프로필 사진이 있어야 합니다. 에어비앤비는 게스트에게 프로필 사진을 요청하지 않지만, 호스트는 요청할 수 있습니다. 호스트가 게스트에게 사진을 요청하는 경우에도, 예약이 확정된 후에만 사진을 볼 수 있습니다.
 					</span>
-					<input type="file" id="profileImg" name="profileImg"/>
+					<input type="file" id="profileImg" name="profileImg" onchange="profile()" accept="image/*"/>
 					<input type="button" value="파일 업로드 하기" onclick="profileUpload()"> 
 				</div>
 			</li>
@@ -38,10 +42,10 @@
 		<input type="text" name="houseName" id="houseName"/>
 			</li>
 			<li>
-				<input type="text" name="zipCode" id="zipCode" placeholder="우편번호">
+				<input type="text" name="zipCode" id="zipCode" placeholder="우편번호" disabled="disabled">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
-				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
+				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소" disabled="disabled">
+				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소" disabled="disabled">
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
 				<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
@@ -49,7 +53,7 @@
 			</li>
 			<li>
 				<label>메인사진</label>
-				<input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)">
+				<input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)" accept="image/*">
 				<br/>
 				<div id="mainImgDiv">
 					<img src="" id="mainImgView"/>
@@ -57,7 +61,7 @@
 			</li>
 			<li>
 				<label>사진</label>
-				<input multiple="multiple" type="file" name="subImg" id="subImg"/>
+				<input multiple="multiple" type="file" name="subImg" id="subImg" accept="image/*"/>
 				<br/>
 				<div class="subImgDiv">
 				</div>
@@ -185,11 +189,11 @@
 			</li>
 			<li>
 				<label>계좌</label>
-				<input type="text" name="account" id="account" placeholder="'-'제외하고 입력해주세요."/>
+				<input type="text" name="account" id="account" placeholder="'-'제외하고 입력해주세요." onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 			</li>
 			<li>
 				<label>금액</label>
-				<input type="text" name="price" id="price"/>
+				<input type="text" name="price" id="price" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 			</li>
 			<li>
 				<label>기타사항</label>
@@ -197,7 +201,7 @@
 				<br/>
 			</li>
 			<li>
-				<input type="submit" value="다음">
+				<input type="submit" value="등록">
 			</li>
 		</ul>
 	</div>

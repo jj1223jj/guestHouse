@@ -89,17 +89,136 @@
   	select reservation.reserveDate, reservation.payment from house, reservation where house.memberCode = #{memberCode} and house.houseCode = reservation.houseCode and reservation.state = '완료'
   </select>
   
-  <select id="getSearchDateCount" parameterType="java.util.Map" resultType="int">
-  	select count(*) from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate}
+  <select id="getSearchDateCount" parameterType="java.util.Map" resultType="com.java.host.dto.SearchDateListCount">
+  	<!-- select count(*) from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate} -->
+  	select count(*) as count, sum(reservation.payment) as payment
+	from house, reservation, member 
+	where house.memberCode = #{memberCode}
+	and member.memberCode = reservation.memberCode 
+	and house.houseCode = reservation.houseCode 
+	and reservation.state = '완료' 
+	and reservation.reserveDate between #{startDate} and #{endDate}
   </select>
   
   <select id="searchDateList" parameterType="java.util.Map" resultType="com.java.host.dto.SearchDateList">
   	<![CDATA[
   		select * from
 		(select rownum rnum, A.* from
-		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, member where house.memberCode = 21 and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate})A)
+		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate})A)
 		 WHERE rnum>=#{startRow} and rnum<=#{endRow}
   	]]>
   </select>
   
+  <select id="getHouseList" parameterType="int" resultType="com.java.host.dto.HostHouseListDto">
+  <![CDATA[
+  		select h.houseName, f.mainImgName, nvl(avg(rv.revRate),0) as revRate, count(rv.revContent) as reviewCount
+		from house h
+		inner
+		join filelist f
+		on h.houseCode = f.houseCode
+		left outer
+		join reservation r
+		on h.houseCode = r.houseCode
+		left outer
+		join review rv
+		on r.reserveCode = rv.reserveCode
+		where NOT f.mainImgName is NULL
+		and h.approvalStatus = '승인완료'
+		and h.memberCode = #{memberCode}
+		group by h.houseName,f.mainImgName
+  	]]>
+  </select>
+  
+  <select id="getHouseReviewList" parameterType="int" resultType="com.java.host.dto.HouseReviewListDto">
+  	 <![CDATA[
+  	 	select h.houseName, f.mainImgName, rv.revContent, rv.revRate, rv.revDate, m.memberImgName, m.memberName
+		from house h
+		inner
+		join filelist f
+		on h.houseCode = f.houseCode
+		left outer
+		join reservation r
+		on h.houseCode = r.houseCode
+		left outer
+		join review rv
+		on r.reserveCode = rv.reserveCode
+		left outer
+		join member m
+		on rv.memberCode = m.memberCode
+		where NOT f.mainImgName is NULL
+		and h.memberCode = #{memberCode}
+		and NOT rv.revContent is NULL
+  	 ]]>
+  </select>
+  
+  <select id="getExReviewList" parameterType="int" resultType="com.java.host.dto.ExReviewListDto">
+   	 <![CDATA[
+  	 	select e.exName, f.mainImgName, rv.revContent, rv.revRate, rv.revDate, m.memberImgName, m.memberName
+		from experience e
+		inner
+		join exFileList f
+		on e.exCode = f.exCode
+		left outer
+		join exReserve r
+		on e.exCode = r.exCode
+		left outer
+		join exReview rv
+		on r.exReserveCode = rv.exReserveCode
+		left outer
+		join member m
+		on rv.memberCode = m.memberCode
+		where NOT f.mainImgName is NULL
+		and e.memberCode = #{memberCode}
+		and NOT rv.revContent is NULL
+  	 ]]>
+  </select>
+  
+  <select id="getExList" parameterType="int" resultType="com.java.host.dto.HostExListDto">
+   	 <![CDATA[
+	   	 select e.exName, f.mainImgName, nvl(avg(rv.revRate),0) as revRate, count(rv.revContent) as reviewCount
+		from experience e
+		inner
+		join exFileList f
+		on e.exCode = f.exCode
+		left outer
+		join exReserve r
+		on e.exCode = r.exCode
+		left outer
+		join exReview rv
+		on r.exReserveCode = rv.exReserveCode
+		where NOT f.mainImgName is NULL
+		and e.exApproval = '승인완료'
+		and e.memberCode = #{memberCode}
+		group by e.exName,f.mainImgName
+  	 ]]>
+  </select>
+  
+  <select id="selectMemberDto" parameterType="String" resultType="com.java.member.dto.MemberDto">
+  	select * from member where email = #{email}
+  </select>
+  
+  <select id="getHouseReviewListScroll" parameterType="java.util.Map" resultType="com.java.host.dto.HouseReviewListDto">
+  <![CDATA[
+  	select * from
+	(select rownum rnum, A.* from
+	(select h.houseName, f.mainImgName, rv.revContent, rv.revRate, rv.revDate, m.memberImgName, m.memberName
+		from house h
+		inner
+		join filelist f
+		on h.houseCode = f.houseCode
+		left outer
+		join reservation r
+		on h.houseCode = r.houseCode
+		left outer
+		join review rv
+		on r.reserveCode = rv.reserveCode
+		left outer
+		join member m
+		on rv.memberCode = m.memberCode
+		where NOT f.mainImgName is NULL
+		and h.memberCode = #{memberCode}
+		and NOT rv.revContent is NULL)A)
+	    where rnum>= #{startRow} and rnum<= #{endRow}
+     ]]>
+  </select>
 </mapper>
