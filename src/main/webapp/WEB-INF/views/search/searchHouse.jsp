@@ -72,6 +72,9 @@
 		
 		
 		//가격 필터
+		/* $().ajax({
+			url:'${root}/getMaxPrice',
+		}); */
 		$( "#price" ).slider({range:!0,values:[17,67], max:500});
 		
 		

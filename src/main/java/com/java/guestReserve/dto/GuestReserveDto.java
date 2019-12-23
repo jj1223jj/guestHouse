@@ -95,7 +95,6 @@ public class GuestReserveDto {
 	public void setPayment(int payment) {
 		this.payment = payment;
 	}
-	
 
 	public int getPeople() {
 		return people;
