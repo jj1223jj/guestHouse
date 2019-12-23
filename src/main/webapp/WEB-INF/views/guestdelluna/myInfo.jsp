@@ -138,9 +138,7 @@ body {
 <body onload="rootPage('${root}')">
 	<button id="opener">알림종그림이라는 뜻</button>
 	<div id="dialog" title="메시지 확인">
-		<script type="text/javascript">
-			$(function(root) {
-<body>
+
 
 	<c:set var="cntMsg" value="${cntMsg}" />
 	<c:set var="msgDto" value="${msgDto}" />
@@ -621,7 +619,7 @@ body {
 	ㅎㅇㅎㅇ
 	</div>
 	
-	<script>
+	
 		$("#dialog").dialog({
 
 
