@@ -2,7 +2,7 @@ package com.java.guestdelluna.dto;
 
 import java.util.Date;
 
-public class ReviewDto {
+public class HouseReviewDto {
 
 	private int reserveCode;
 	
@@ -14,9 +14,9 @@ public class ReviewDto {
 	
 	private int revRate	;
 	
-	public ReviewDto() {}
+	public HouseReviewDto() {}
 
-	public ReviewDto(int reserveCode, int memberCode, Date revDate, String revContent, int revRate) {
+	public HouseReviewDto(int reserveCode, int memberCode, Date revDate, String revContent, int revRate) {
 		
 		this.reserveCode = reserveCode;
 		this.memberCode = memberCode;
