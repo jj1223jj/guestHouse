@@ -31,7 +31,6 @@ import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
-import com.java.guestdelluna.dto.ReviewDto;
 import com.java.host.dao.HostDao;
 import com.java.host.dto.ExReviewListDto;
 import com.java.host.dto.HostExListDto;
