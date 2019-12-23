@@ -36,14 +36,15 @@ public class SearchController {
 		String pageNumber= request.getParameter("pageNumber");
 		if(pageNumber==null) pageNumber="1";
 		// 게스트 하우스 검색 조건
+		String sort = request.getParameter("sort");
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
 		String local = request.getParameter("local");
 		String people = request.getParameter("people");
 		String searchHouseName = request.getParameter("searchHouseName");
-		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
+		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName +", sort: "+sort);
 
-		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber, memberCode);
+		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber, memberCode, sort);
 		
 		mav.setViewName("search/searchHouse.tiles");
 		return mav;

@@ -161,13 +161,20 @@
 		}); */
 		
 		
-		$("#priceSort").click(function(){
-			$("#sort").val("price");
-			sort();
+		$("#priceHigh").click(function(){
+			$("#sort").val("priceHigh");
+			var sortValue=$("#sort").val();
+			sort(sortValue);
+		});
+		$("#priceLow").click(function(){
+			$("#sort").val("priceLow");
+			var sortValue=$("#sort").val();
+			sort(sortValue);
 		});
 		$("#rateSort").click(function(){
-			$("#sort").val("rate");
-			sort();
+			$("#sort").val("revRate");
+			var sortValue=$("#sort").val();
+			sort(sortValue);
 		});
 		
 		$("#priceSearch").click(function(){
@@ -175,8 +182,8 @@
 		});
 	});
 	
-	function sort(){
-		
+	function sort(sortValue){
+		location.href=root+"/search?pageNumber=${pageNumber}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort="+sortValue;
 	}
 	
 	//검색조건 submit함수
@@ -193,6 +200,7 @@
 
 </head>
 <body>
+<c:set var="sort" value="${sort}"/>
 	<button id="filter">필터</button>
 	<div id="filterContent">
 		<form action="${root}/search" method="get" onsubmit="return confirmSubmit()">
@@ -244,8 +252,9 @@
 	<input id="minPrice" name="minPrice" type="text" value="${min}"/>
 	<input id="maxPrice" name="maxPrice" type="text" value="${max}"/>
 	<button id="priceSearch">가격검색</button>
-	<button id="priceSort">가격순</button>
-	<button id="rateSort">별점순</button>
+	<button id="priceHigh">가격높은순</button>
+	<button id="priceLow">가격낮은순</button>
+	<button id="rateSort">별점높은순</button>
 	<input id="sort" type="hidden" name="sort"/>
 	
 	<div id="map"></div>
@@ -422,8 +431,8 @@
 				</c:if>
 			
 				<c:if test="${startPage>1}">
-					<a href="${root}/search?pageNumber=1&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}">[처음]</a>
-					<a href="${root}/search?pageNumber=${startPage-pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}">[이전]</a>
+					<a href="${root}/search?pageNumber=1&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[처음]</a>
+					<a href="${root}/search?pageNumber=${startPage-pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[이전]</a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${startPage}" end="${endPage}">
@@ -431,13 +440,13 @@
 						<a href="#" style="font-weight: bold;" id="${i}" class="n">${i}</a>
 					</c:if>
 					<c:if test="${i!=currentPage}">
-						<a href="${root}/search?pageNumber=${i}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}" id="${i}" class="n">${i}</a>
+						<a href="${root}/search?pageNumber=${i}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}" id="${i}" class="n">${i}</a>
 					</c:if>
 				</c:forEach>
 				
 				<c:if test="${endPage<pageCount}">
-					<a href="${root}/search?pageNumber=${startPage+pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}">[다음]</a>
-					<a href="${root}/search?pageNumber=${pageCount}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}">[끝]</a>
+					<a href="${root}/search?pageNumber=${startPage+pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[다음]</a>
+					<a href="${root}/search?pageNumber=${pageCount}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[끝]</a>
 				</c:if>
 		</c:if>
 	</div>

@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+header{
+	position: fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+}
+.headerContainer{
+	height:100px;
+	background-color: #79abff;
+}
+
+.logoContainer{
+	height:100px;
+	width:100px;
+	float: left;
+	border: solid #cccccc 1px;
+	text-align: center;
+}
+
+.titleContainer{
+	height:100px;
+	width:400px;
+	float: left;
+	border: solid #cccccc 1px;
+	text-align: center;
+}
+
+.menuContainer{
+	height:100px;
+	width:1000px;
+	float: right;
+	border: solid #cccccc 1px;
+	top:0px;
+	right:0px;
+	text-align: center;
+}
+.hosting{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.login{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.register{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.myInfoContainer{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.logoutContainer{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.hostContainer{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.zzimContainer{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}
+.reserveListContainer{
+	float:right;
+	height:100px;
+	width:100px;
+	text-align: center;
+	border: solid #cccccc 1px;
+}

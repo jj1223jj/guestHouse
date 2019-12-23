@@ -40,8 +40,9 @@
          	<fmt:formatDate value="${experienceList.exRegDate}" pattern="yyyy-MM-dd"/>
          </td>
          <td align="center" height="20"  width="125">${experienceList.exApproval}</td> 
-         <c:if test="${experienceList.exApproval != '삭제'}"
-         <td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${experienceList.exCode}','${experienceList}')">삭제</a></td>
+         <c:if test="${experienceList.exApproval != '삭제'}">
+         	<td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${experienceList.exCode}','${experienceList}')">삭제</a></td>
+         </c:if>
       </tr>
       </c:forEach>
       

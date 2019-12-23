@@ -65,9 +65,10 @@
 	
 
 	<select id="searchHouse" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
-		select * from (
+		select * from(
+		select h.*, rownum rn from (
 			
-			select rownum rn, a.*, b.revRate, b.revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from (
+			select a.*, nvl(b.revRate,0) revRate, b.revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from (
 			
 			    select h.* from house h
 			                                where houseCode not in (
@@ -79,7 +80,6 @@
 			    ) a, house where a.houseCode=house.houseCode
 			    ) where remain < #{people} group by houseCode]]>
 			    )
-			
 			) a
 			left outer join (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount from (select reservation.houseCode, revRate from reservation, review where reservation.reserveCode=review.reservecode) a group by houseCode) b
 			on a.houseCode=b.houseCode
@@ -98,8 +98,19 @@
 		</if>
 		<if test="searchHouseName!=null">
 			and houseName like '%${searchHouseName}%'
-		</if>								
-													
+		</if>
+		<if test="sort=='priceHigh'">
+			order by price desc, revRate desc
+		</if>
+		<if test="sort=='priceLow'">
+			order by price, revRate desc
+		</if>
+		<if test="sort=='revRate'">
+			order by revRate desc
+		</if>
+		) h
+		
+		
 		<![CDATA[											
 			) where rn>=#{sRow} and rn<=#{eRow}
 		]]>
