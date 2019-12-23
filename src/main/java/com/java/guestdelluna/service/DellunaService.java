@@ -11,17 +11,11 @@ public interface DellunaService {
 
 	String zzimCancle(ModelAndView mav);
 
-	void reviewOk(ModelAndView mav);
-
-	void reviewUpdate(ModelAndView mav);
+	String reviewUpdate(ModelAndView mav);
 
 	void reviewUpdateOk(ModelAndView mav);
-
-	void review(ModelAndView mav);
-
+	
 	void reviewDelete(ModelAndView mav);
-
-	void readMyReview(ModelAndView mav);
 
 	void myReviewList(ModelAndView mav);
 
@@ -49,12 +43,18 @@ public interface DellunaService {
 
 	String deleteExpPayList(ModelAndView mav);
 
-	void deleteExpPayHouse(ModelAndView mav);
+	String deleteExpPayHouse(ModelAndView mav);
 
 	void myInfo(ModelAndView mav);
 
-	
+	void houseReviewDelete(ModelAndView mav);
 
-	
+	void deleteAllMsg(ModelAndView mav);
+
+	void msgDelete(ModelAndView mav);
+
+	void msgUpdate(ModelAndView mav);
+
+	void houseReviewUpdateOk(ModelAndView mav);
 
 }
