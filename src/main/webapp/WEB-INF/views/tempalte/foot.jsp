@@ -36,8 +36,8 @@
 				<li><a href="/front/policy/privacy/agreement">이용약관</a></li>
 				<li><a href="http://recruit.paradise.co.kr/">채용안내</a></li>
 			</ul>
-			<p class="address">㈜파라다이스세가사미: 인천광역시 중구 영종해안남로 321번길 186, 사업자 등록번호 121-86-18441, 통신판매번호 제 2017-인천중구-0027호, 대표이사 : 박병룡</p>
-			<p class="copy">Tel. 1833-8855, E-mail : p-city@paradian.com, Copyright © PARADISE SEGASAMMY Co. Ltd. All rights reserved.</p>
+			<p class="address">제주스테이: 서울시 구로구, 사업자 등록번호 121-86-18441, 통신판매번호 제 2017-인천중구-0027호,</p>
+			<p class="copy">Tel. 1833-8855, E-mail : dolharebang@jejuStay.com, Copyright © JEJU STAY Co. Ltd. All rights reserved.</p>
 		</div>
 	</footer>
 	<!-- //하단 영역 -->

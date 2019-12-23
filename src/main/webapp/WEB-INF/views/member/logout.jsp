@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 로그아웃</title>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>
 <body>
 
@@ -16,6 +17,9 @@
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
 	<script type="text/javascript">
 		alert("로그아웃 되었습니다");
+		 Kakao.init('5a47c72d35ab36aa08feca719cb2bccf');
+		 Kakao.Auth.logout();
+		 
 		location.href="${root}/guestHouse.do";	
 </script>
 </body>

@@ -30,12 +30,12 @@
 	<div align = "center" style="margin-top:50px;">
 	
 		<div border="1">
-			<tr>
+			<div>
 				 
 				<p align="center" height="20" width="125">${memberDto.memberName}님의 회원 정보 수정입니다.</p>
 				
 				<p align="center" height="20" width="125">포인트</p>
-				<td align="center" height="20" width="125"><input type="text" name="point" value="${memberDto.point}" /></td>
+				<div align="center" height="20" width="125"><input type="text" name="point" value="${memberDto.point}" /></div>
 				<p align="center" height="20" width="125">회원등급</p>
 					<div>
 						<select name = "memberLevel">
@@ -49,16 +49,16 @@
 					</script>	
 					</div>
 				
-			</tr>
+			</div>
 			<br/><br/>
-			<tr>
-				<td height="30" colspan="7" align="center">
+			<div>
+				<div height="30" colspan="7" align="center">
 					<input type="submit" value="수정"/>
 					
 					<input type="reset" value="취소"/>
 					
-				</td>
-			</tr>
+				</div>
+			</div>
 		</div>
 	</div>
 	</form>

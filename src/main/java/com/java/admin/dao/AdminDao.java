@@ -27,4 +27,8 @@ public interface AdminDao {
 
 	public List<ExperienceDto> experienceList(int startRow, int endRow);
 
+	public int experienceStateOk(int exCode);
+
+	public int experienceStateNo(int exCode);
+
 }

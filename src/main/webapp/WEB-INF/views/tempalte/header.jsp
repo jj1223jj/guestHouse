@@ -249,8 +249,9 @@
 		</div>
 		
 		<div class="bgDepth" style="display: none; height: 400px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"></div>
+		<!-- <p style="text-align: center; position: absolute; font-size: 100px;">JEJU STAY</p> -->
 	</header>
-	<!-- //헤더영역 -->
+			<!-- //헤더영역 -->
 	
 </body>
 </html>

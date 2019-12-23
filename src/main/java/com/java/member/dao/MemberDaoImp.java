@@ -32,7 +32,7 @@ public class MemberDaoImp implements MemberDao {
 		return check;
 	}
 	
-/*	@Override
+	@Override
 	public String login(String email, String password) {
 		
 		Map<String,Object> hMap = new HashMap<String, Object>();
@@ -42,7 +42,7 @@ public class MemberDaoImp implements MemberDao {
 		
 		return sqlSessionTemplate.selectOne("dao.MemberMapper.login",hMap);
 	}
-	*/
+	
 	
 	@Override
 	public MemberDto memberSel(String email, String password) {
@@ -53,6 +53,22 @@ public class MemberDaoImp implements MemberDao {
 		hMap.put("password", password);
 		
 		return sqlSessionTemplate.selectOne("dao.MemberMapper.memberSel",hMap);
+	}
+	
+	@Override
+	public int inserKakao(String email, String memberImgPath, String memberName) {
+		Map<String,Object> hMap = new HashMap<String, Object>();
+		
+		hMap.put("email", email);
+		hMap.put("memberImgPath", memberImgPath);
+		hMap.put("memberName", memberName);
+		
+		return sqlSessionTemplate.insert("dao.MemberMapper.insertKakao",hMap);
+	}
+	
+	@Override
+	public int kakaoEmailChk(String email) {
+		return sqlSessionTemplate.selectOne("dao.MemberMapper.kakaoEmailChk",email);
 	}
 	
 }

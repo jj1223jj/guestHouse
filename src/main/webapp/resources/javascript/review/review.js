@@ -54,9 +54,39 @@ function deleteCheck(root, exReserveCode, memberCode, currentPage){
 	var url=root+"/experience/exReviewDelete.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode + "&pageNumber="+currentPage;
 	alert(url);
 
-	var value = confirm("정말로 삭제하시겠습니까?");
+	var value = confirm("후기를 삭제하시겠습니까?");
 	if(value==true){
 		location.href=url;
 	}
-
 }
+/*function exReviewChk(root){
+	var revContent = document.getElementById("revContentIn").value;
+	var exReserveCode = document.getElementById(id)
+	if(exReserveCode == 0 || exReserveCode == null){
+		alert("예약자가 아니거나 이미 작성하셨으면 후기 작성이 불가능합니다.");
+		var url = root+"/experience/exPage.do";
+		loaction.href= url;
+		
+	} else{
+		var url = root +"location.href='${root}/experience/exReviewOk.do?revContent="+revContent+"&revRate="+revRate;	
+		alert(url);
+		}
+	}*/
+
+
+function check(revContent, revRate) {
+		var revContent = $('#revContent').val();
+		var revRate = $('#revRate').val();
+		
+		if(revContent ==''){
+			alert("후기 내용을 작성해주세요.");
+			$('#revContent').focus();
+			return false;
+		}else if(revRate ==0){
+			alert("별점을 선택해 주세요.");
+			return false;
+		}
+	}
+
+
+

@@ -192,7 +192,7 @@ function jsPwd1Validation() {
 								<div class="ui-select-wrapper">
 									<div class="inp">
 										<input type="text" id="memberName" name="memberName" required maxlength="14" title="이름(한글)" style="width: 543px;">
-										<button class="btnDelete">삭제</button>
+										
 									</div>
 								</div>
 							</dd>
@@ -205,7 +205,7 @@ function jsPwd1Validation() {
 							<dd>
 								<div class="inp">
 									<input type="tel" id="phone" name="phone" value="" required maxlength="11" placeholder="" title="휴대 전화 번호" style="width: 540px;" >
-									<button class="btnDelete">삭제</button>
+									
 								</div>
 								
 								<div class="errorText">

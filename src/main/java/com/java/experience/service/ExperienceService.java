@@ -20,6 +20,12 @@ public interface ExperienceService {
 
 	public void exPage(ModelAndView mav);
 
+	public void exReserve(ModelAndView mav);
+
+	public void exReserveOk(ModelAndView mav);
+// 달력
+	public void exReserveCal(ModelAndView mav);
+
 	
 	
 	

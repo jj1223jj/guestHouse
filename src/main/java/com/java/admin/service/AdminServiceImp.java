@@ -178,4 +178,41 @@ public class AdminServiceImp implements AdminService {
 		  
 		
 	}
+	
+	@Override
+	public void experienceStateOK(ModelAndView mav) {
+		
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+	    int exCode = Integer.parseInt(request.getParameter("exCode"));
+	    
+	   int exStateOk = adminDao.experienceStateOk(exCode);
+	   HomeAspect.logger.info(HomeAspect.logMsg +" exStateOk : "+ exStateOk);
+	   
+	   mav.addObject("exCode",exCode);
+	   mav.addObject("exStateOk",exStateOk);
+	   
+	   mav.setViewName("admin/exState.tiles");
+		
+	}
+	
+	@Override
+	public void experienceStateNo(ModelAndView mav) {
+
+		Map<String,Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+	    int exCode = Integer.parseInt(request.getParameter("exCode"));
+	    
+	   int exStateNo = adminDao.experienceStateNo(exCode);
+
+	   HomeAspect.logger.info(HomeAspect.logMsg +" exStateNo : "+ exStateNo);
+	   
+	   mav.addObject("exCode",exCode);
+	   mav.addObject("exStateNo",exStateNo);
+	   
+	   mav.setViewName("admin/exState.tiles");
+		
+	}
 }

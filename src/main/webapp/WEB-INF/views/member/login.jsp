@@ -13,7 +13,7 @@
 		<!-- <meta name="keywords" content="Paradise city, p-city, p city, pcity, 파라다이스시티, 피시티, 파라다이스씨티, 피씨티, 영종도 복합리조트, 영종도 카지노, 영종도 호텔, 영종도 리조트, vkfkekdltmtlxl, 김수현">
 		<meta name="description" content="동북아시아 최초의 복합리조트"> -->
 		
-		<title>GUEST DELLUNA</title>
+		<title>JEJU STAY</title>
 		<!-- 
 		<meta property="fb:app_id" content="1844741562469039">
 		<meta property="og:type" content="website">
@@ -336,7 +336,7 @@ function jsChange() {
 		<input type="hidden" id="isCasinoGuide" value="">
 		<div class="loginWrap">
 			<div class="innerBox">
-				<h1><span>로그인</span>게스트델루나에 오신 것을 환영합니다.<br>로그인을 하시고 더 편리하게 이용하세요.</h1>
+				<h1><span>로그인</span>Jeju Stay에 오신 것을 환영합니다.<br>로그인을 하시고 더 편리하게 이용하세요.</h1>
 			</div>
 			<div class="fullBg">
 				<div class="innerBox">
@@ -376,29 +376,57 @@ function jsChange() {
 								<form id="form2" name="form2">
 									<div class="loginBox">
 										<div class="inp">
-											<a id="kakao-login-btn"></a>
+											<input type="button" onclick="kakaoLogin()" value="카카오 로그인"/>
+											<!-- <a id="kakao-login-btn"></a>
 										    <a href="http://developers.kakao.com/logout"></a>
-										    
+										     -->
 										    <script type='text/javascript'>
 										      //<![CDATA[
 										        // 사용할 앱의 JavaScript 키를 설정해 주세요.
 										        Kakao.init('5a47c72d35ab36aa08feca719cb2bccf');
 										        
 										        // 카카오 로그인 버튼을 생성합니다.
-										        Kakao.Auth.createLoginButton({
+										        function kakaoLogin(){
+										        	Kakao.Auth.loginForm({
+										        		success:function(authObj){
+										        			// 로그인 성공시, API를 호출합니다.
+												            Kakao.API.request({
+												             url: '/v1/user/me',
+												             success: function(res) {
+												            	 var url="";
+												            	 $.ajax({
+												            		 url:url,
+												            	 	type:"get",
+												            	 	dataType: "text",
+												            	 	success:function(data){
+												            	 		window.location.href="${root}"+"/member/kakaoLogin.do?email="+res.kaccount_email+"&memberImgPath="+res.properties.profile_image +"&memberName="+res.properties.nickname;
+															              
+												            	 	}
+												            	 });
+												             }
+												            	 
+												             });
+										        		}
+										        	});
+										        }										        
+										        
+										        
+										       /*  Kakao.Auth.createLoginButton({
 										          container: '#kakao-login-btn',
 										          success: function(authObj) {
 										            alert(JSON.stringify(authObj));
-										            
+										           
 										            // 로그인 성공시, API를 호출합니다.
 										            Kakao.API.request({
 										             url: '/v1/user/me',
 										             success: function(res) {
+										            	 window.location.href="${root}"+"/member/kakaoLogin.do?email="+userEmail+"&memberImgName="+userProfile
 										              console.log(res);
 										              
 										              var userID = res.id;      //유저의 카카오톡 고유 id
 										              var userEmail = res.kaccount_email;   //유저의 이메일
 										              var userNickName = res.properties.nickname; //유저가 등록한 별명
+										              var userProfile = res.properties.profile_image;
 										              
 										              console.log(userID);
 										              console.log(userEmail);
@@ -416,7 +444,7 @@ function jsChange() {
 										          fail: function(err) {
 										             alert(JSON.stringify(err));
 										          }
-										        });
+										        }); */
 										      //]]>
 										    </script>
 										    
@@ -433,7 +461,7 @@ function jsChange() {
 							<div>
 								<div class="joinBox">
 									<h2>아직 회원이 아니신가요?</h2>
-									<p>회원이 되시면 게스트델루나 멤버십 회원으로서<br>더 큰 혜택과 편리함을 누릴 수 있습니다.</p>
+									<p>회원이 되시면 Jeju Stay 멤버십 회원으로서<br>더 큰 혜택과 편리함을 누릴 수 있습니다.</p>
 									<button class="btn btnJoin" onclick="location.href='${root}/member/register.do'" type="submit">회원가입</button>
 								</div>
 							</div>

@@ -76,7 +76,7 @@ public class AdminController {
 	// 체험 관리
 	@RequestMapping(value = "/admin/experienceList.do", method = RequestMethod.GET)
 	public ModelAndView experienceList(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin ecperienceManagement");
+		System.out.println("Admin experienceManagement");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -85,6 +85,28 @@ public class AdminController {
 		 
 		return mav;
 	}
+	@RequestMapping(value="/admin/exState.do", method = RequestMethod.GET)
+	public ModelAndView exStateOk(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin exStateOk");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.experienceStateOK(mav);
+		 
+		return mav;
+	}
 	
+	@RequestMapping(value="/admin/exStateNo.do", method = RequestMethod.GET)
+	public ModelAndView exStateNo(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin exStateNO");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.experienceStateNo(mav);
+		 
+		return mav;
+	}
 	
 }

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
+import com.java.experience.dao.ExperienceDao;
 import com.java.experience.dto.ExperienceDto;
 import com.java.experience.service.ExperienceService;
+import com.java.exreserve.dto.ExReserveDto;
 import com.java.exreview.dto.ExReviewDto;
 import com.java.host.dto.HostDto;
 import com.java.member.dto.MemberDto;
@@ -66,13 +68,14 @@ public class ExperienceController {
 	// 체험 후기 작성 눌렀을 때 
 		@RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
 		public ModelAndView exReview(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
-			System.out.println("exReview write,list");
-			
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("request",request);
-			mav.addObject("exReviewDto",exReviewDto);
-			
-			experienceService.exReview(mav);
+		
+		  System.out.println("exReview write,list");
+		  
+		  ModelAndView mav = new ModelAndView(); mav.addObject("request",request);
+		  mav.addObject("exReviewDto",exReviewDto);
+		  
+		  experienceService.exReview(mav);
+		 
 			
 			return mav;
 		}
@@ -137,14 +140,56 @@ public class ExperienceController {
 	
 	// 체험 페이지 눌렀을 때 
 	@RequestMapping(value="/experience/exPage.do", method = RequestMethod.GET)
-	public ModelAndView exPage(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView exPage(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
 		System.out.println("체험페이지");
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
+		mav.addObject("response",response);
+		mav.addObject("exReviewDto", exReviewDto);
+	
 		experienceService.exPage(mav);
 		
 		return mav;
 	}
+	
+	// 예약하기 눌렀을 때
+	@RequestMapping(value="/experience/exReserve.do", method = RequestMethod.GET)
+	public ModelAndView exReserve(HttpServletRequest request, HttpServletResponse response, ExReserveDto exReserveDto) {
+		System.out.println("체험예약하기");
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+		mav.addObject("exReserveDto",exReserveDto);
+		
+		experienceService.exReserve(mav);
+		
+		return mav;
+	}
+	// 예약 요청하기 눌렀을 때
+	@RequestMapping(value="/experience/exReserveOk.do", method = RequestMethod.GET)
+	public ModelAndView exReserveOk(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("체험예약완료");
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+
+		experienceService.exReserveOk(mav);
+		
+		return mav;
+	}
+	// 달력에서 예약가능일자 
+	@RequestMapping(value="/experience/exReserveCal.do",method = RequestMethod.GET)
+	public ModelAndView exReserveCal(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("달력");
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+
+		experienceService.exReserveCal(mav);
+		
+		return mav;
+	}
+	
 	
 }
