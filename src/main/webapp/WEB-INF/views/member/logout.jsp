@@ -12,6 +12,7 @@
 	<!-- 로그아웃을 할 수 있는 사람은 로그인을 한 사람 -->
 	<c:remove var="email" scope="session"/>
 	<c:remove var="memberLevel" scope="session"/>
+	<c:remove var="memberCode" scope="session"/>
 	
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
 	<script type="text/javascript">

@@ -8,7 +8,36 @@
 	</select>
 
 
-	<select id="getCount" parameterType="java.util.Map" resultType="int">
+	<select id="getCount" parameterType="java.util.Map" resultType="com.java.search.dto.GetCountDto">
+		<![CDATA[
+			select count(*) count, max(price) max, min(price) min from house h
+								where houseCode not in (
+												select houseCode from (
+																		select a.*, house.people-p remain from (
+																													select houseCode, resDate, sum(people) p from remain
+																														where resDate >= #{checkIn} and resDate < #{checkOut}
+																														group by houseCode, resDate order by houseCode, resDate
+																												) a, house where a.houseCode=house.houseCode
+																		) where remain < #{people} group by houseCode
+														)
+		]]>
+		
+		<if test="localSplit!=null">
+			<foreach collection="localSplit" item="item" open="and (" separator="or" close=")">
+				local=#{item}
+			</foreach>
+		</if>
+		<if test="searchHouseName!=null">
+			and houseName like '%${searchHouseName}%'
+		</if>
+	</select>
+
+
+
+
+
+
+	<select id="getCount2" parameterType="java.util.Map" resultType="int">
 		<![CDATA[
 			select count(*) from house h
 								where houseCode not in (
@@ -57,6 +86,7 @@
 			<if test="memberCode!=null">
 			left outer join wishList c
 			on a.houseCode=c.houseCode
+			and c.memberCode=#{memberCode}
 			</if>
 		
 		<if test="localSplit!=null">

@@ -67,8 +67,8 @@ function heart(memberCode){
 		});
 	}else{
 		$("._r0agyd").click(function(){
-			alert( $("#price" ).slider( "values" ));
-			//alert("로그인 해주세요");
+			//alert( $("#price" ).slider( "values" ));
+			alert("로그인 해주세요");
 			//로그인 모달 띄워주기
 		});
 	}
@@ -105,8 +105,7 @@ function heart2(memberCode){
 		});
 	}else{
 		$("._r0agyd").click(function(){
-			alert( $("#price" ).slider( "values" ));
-			//alert("로그인 해주세요");
+			alert("로그인 해주세요");
 			//로그인 모달 띄워주기
 		});
 	}
