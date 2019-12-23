@@ -20,6 +20,7 @@ public class SearchDaoImp implements SearchDao {
 	
 	@Override
 	public List<HostImgDto> searchHouse(Map<String, Object> dataMap) {
+		System.out.println(dataMap.get("sort"));
 		List<HostImgDto> hostImgList = session.selectList("dao.searchMapper.searchHouse", dataMap);
 		for(HostImgDto hostImgDto : hostImgList) {
 			List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());

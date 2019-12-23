@@ -25,8 +25,9 @@ public class SearchServiceImp implements SearchService {
 	private SearchDao searchDao;
 
 	@Override
-	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, Integer memberCode) {
-		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", memberCode: "+memberCode);
+	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, Integer memberCode, String sort) {
+		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", memberCode: "+memberCode+", sort: "+sort);
+		ModelAndView mav = new ModelAndView();
 		
 		//myBatis에 넘겨줄 data, Map에 넣기
 		Map<String, Object> dataMap = new HashMap<String,Object>();
@@ -37,7 +38,10 @@ public class SearchServiceImp implements SearchService {
 		dataMap.put("checkOut", checkOut);
 		dataMap.put("local", local);
 		dataMap.put("people", people);
-		
+		if(sort!=null) {
+			dataMap.put("sort", sort);
+			mav.addObject("sort",sort);
+		}
 		//지역조건이 전체가 아니면 배열로 dataMap에 넣어주기
 		if(local.split(",").length>=1 && !local.equals(""))
 			dataMap.put("localSplit", local.split(","));
@@ -102,7 +106,8 @@ public class SearchServiceImp implements SearchService {
 		HomeAspect.logger.info(HomeAspect.logMsg+"JsonText: " +jsonText);
 		
 		//물어보기
-		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("pageNumber", 1);
 		mav.addObject("min", min);
 		mav.addObject("max", max);
 		mav.addObject("houseJson", jsonText);

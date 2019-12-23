@@ -81,7 +81,7 @@
 
 </head>
 <body>
-	
+	<jsp:include page="/WEB-INF/views/tempalte/header.jsp"></jsp:include>
 	<img alt="" src="${root}/resources/css/images/common/logo.png">
 	<a href="./test">test</a> ${memberCode}
 	<form name="form" action="${root}/search" method="get" onsubmit="return confirmSubmit()">
