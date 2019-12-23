@@ -50,12 +50,10 @@
          <td align="center" height="20"  width="125">${houseList.houseName}</td> 
          <td align="center" height="20"  width="300">${houseList.address} ${houseList.detailAddress}</td> 
          <td align="center" height="20"  width="125" pattern="yyyy-MM-dd">
-         ${houseList.houseRegDate}
          	<fmt:formatDate value="${houseList.houseRegDate}" pattern="yyyy-MM-dd"/>
          </td>
          <td align="center" height="20"  width="125">${houseList.approvalStatus}</td> 
          <td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${houseList.houseCode}','${houseList}')">삭제</a></td> 
-      <%--    <fmt:formatDate value="${scoreDto.write_date}" pattern="yyyy-MM-dd"/> --%>
       </tr>
       </c:forEach>
       

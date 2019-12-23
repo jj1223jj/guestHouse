@@ -36,11 +36,12 @@
       <tr>
          <td align="center" height="20"  width="125">${experienceList.exName}</td> 
          <td align="center" height="20"  width="300">${experienceList.exAddress}</td> 
-         <td align="center" height="20"  width="125" pattern="yyyy-MM-dd">
+         <td align="center" height="20"  width="125">
          	<fmt:formatDate value="${experienceList.exRegDate}" pattern="yyyy-MM-dd"/>
          </td>
          <td align="center" height="20"  width="125">${experienceList.exApproval}</td> 
-         <td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${houseList.houseCode}','${houseList}')">삭제</a></td>
+         <c:if test="${experienceList.exApproval != '삭제'}"
+         <td align="center" height="20"  width="80"><a href="#" onclick="return cancel('${root}','${experienceList.exCode}','${experienceList}')">삭제</a></td>
       </tr>
       </c:forEach>
       
