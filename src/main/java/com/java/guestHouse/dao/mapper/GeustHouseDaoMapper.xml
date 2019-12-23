@@ -49,7 +49,41 @@
 	<select id="getReserveCode" parameterType="java.util.Map" resultType="int">
 		select reserveCode from RESERVATION where houseCode=#{houseCode} and memberCode=#{memberCode} and checkIn=#{checkIn}
 	</select>
+	
+	<update id="updatePoint" parameterType="java.util.Map" >
+		update member set point =#{memberPoint} where memberCode=#{memberCode}
+	</update>
+	
+	<insert id="insertResPoint" parameterType="com.java.guestdelluna.dto.PointAccumulate">
+		insert into
+		POINTACCUMULATE(accuCode,memberCode,accuPlace,accuDate,accuPoint)
+		values(seq_accuCode_num.nextval,#{memberCode},#{accuPlace},#{accuDate},#{accuPoint})
+	</insert>
+	
+	<insert id="insertUsePoint" parameterType="com.java.guestdelluna.dto.PointUse">
+		insert into
+		POINTUSE(useCode,memberCode,usePlace,useDate,usePoint)
+		values(seq_useCode_num.nextval,#{memberCode},#{usePlace},#{useDate},#{usePoint})
+	</insert>
+	
+	<insert id="insertRemain" parameterType="java.util.Map">
+		insert into
+		REMAIN(resDate,people,houseCode)
+		values(#{resDate},#{people},#{houseCode})
+	</insert>
+	
+	<select id="getRemain" parameterType="int" resultType="com.java.guestReserve.dto.RemainDto">
+		select * from remain where houseCode=#{houseCode}
+	</select>
+	
+	<select id="getMemberInfo" resultType="com.java.member.dto.MemberDto">
+		select * from member where email=#{email}
+	</select>
+	
 </mapper>
+
+
+
 
 
 
