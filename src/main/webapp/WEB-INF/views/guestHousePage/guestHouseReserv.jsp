@@ -25,12 +25,14 @@
 		var realTotal;
 		
 		if(usePoint==0){
-			resPoint = total*0.05;	// 결제금액에서 5%적립
+			resPoint = total*0.01;	// 결제금액에서 1%적립
 			realTotal = total;
 		}else{
 			realTotal = total - usePoint;	// 사용한 포인트만큼 결제금액 차감
 			resPoint = 0;
 		}
+		
+		alert($("#payment option:selected").val());
 		
 		var url = root+"/guestHousePage/reserveComplete.do?houseCode="+houseCode;
 		url += "&memberCode="+memberCode+"&checkIn="+ checkIn +"&checkOut=" +checkOut+"&people="+people;

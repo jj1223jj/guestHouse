@@ -18,10 +18,43 @@
 	var rangeDate = 31;
 	var setSDate, setEDate;
 	
-	$(function(){
-		$('#from').datepicker({
+
+	var disabledDays = new Array();
+
+	<c:forEach items="${dList}" var="item">
+		disabledDays.push("${dList}");
+	</c:forEach>  
+	
+	//var disabledDays=["2020-1-25","2020-1-26","2020-1-27"]; 
+
+	function disableSomeDay(date){
+		var month = date.getMonth();
+		var dates = date.getDate();
+		var year = date.getFullYear();
+		console.log('Checking (raw): ' + year + '-' + month + '-' + dates);
+		
+		var arr = new Array();
+		for(i=0; i<disabledDays.length; i++){
+			var temp;
+			temp = disabledDays[i].replace("[", "");
+			arr[i] = temp.replace("]", "");
+			console.log('replace: '+arr[i]);
+			
+			if($.inArray(year+'-'+(month+1)+'-'+dates,arr)!=-1|| new Date() > date){
+				console.log('bad:  ' + (month+1) + '-' + dates + '-' + year + ' / ' + arr[i]);
+				return [false];
+			}
+		}
+		console.log('good:  ' + year + '-' + (month+1) + '-' + dates);
+		return [true];
+	}
+	
+	
+	jQuery(document).ready(function(){
+		jQuery('#from').datepicker({
 			dateFormat: 'yy-mm-dd',
 			minDate: 0,
+			beforeShowDay:disableSomeDay,
 			onSelect: function(selectDate){
 				var stxt = selectDate.split("-");
 				stxt[1]=stxt[1]-1;
@@ -35,19 +68,19 @@
 						$("#to").datepicker("option","maxDate",edate);
 						setSDate = selectDate;
 						console.log(setSDate)
-				}});
+					}
+				});
 			}
 		});
 		
-		$('#to').datepicker({
+		jQuery('#to').datepicker({
 			dateFormat: "yy-mm-dd",
 			onSelect: function(selectDate){
 				setEDate = selectDate;
 				console.log(setEDate)
 			}
 		});
-	});
-	
+	}); 
 	
 	function reservationFun(root,houseCode,memberCode){
 		
@@ -143,7 +176,64 @@
 					
 					<div id="datepicker"></div>
 					<script type="text/javascript">
-						$("#datepicker").datepicker();
+						jQuery(document).ready(function(){
+							jQuery('#datepicker').datepicker({
+								dateFormat: 'yy-mm-dd',
+								preText:'이전 달',
+								nextText: '다음 달',
+								monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+								monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+								dayNames:['일','월','화','수','목','금','토'],
+								dayNamesShort:['일','월','화','수','목','금','토'],
+								dayNamesMin:['일','월','화','수','목','금','토'],
+								showMonthAfterYear: true,
+								changeMonth: true,
+								changeYear: true,
+								yearSuffix: '년',
+								beforeShowDay:disableSomeDay
+							});
+						});
+						
+						
+						var disabledDays = new Array();
+
+						<c:forEach items="${dList}" var="item">
+							disabledDays.push("${dList}");
+						</c:forEach>  
+						
+						//var disabledDays=["2020-1-25","2020-1-26","2020-1-27"]; 
+
+						function disableSomeDay(date){
+							var month = date.getMonth();
+							var dates = date.getDate();
+							var year = date.getFullYear();
+							console.log('Checking (raw): ' + year + '-' + month + '-' + dates);
+							
+							var arr = new Array();
+							for(i=0; i<disabledDays.length; i++){
+								var temp;
+								temp = disabledDays[i].replace("[", "");
+								arr[i] = temp.replace("]", "");
+								console.log('replace: '+arr[i]);
+								
+								if($.inArray(year+'-'+(month+1)+'-'+dates,arr)!=-1|| new Date() > date){
+									console.log('bad:  ' + (month+1) + '-' + dates + '-' + year + ' / ' + arr[i]);
+									return [false];
+								}
+							}
+							console.log('good:  ' + year + '-' + (month+1) + '-' + dates);
+							return [true];
+						}
+						
+						function editDays(date) { 
+						    for (var i = 0; i < disabledDays.length; i++) { 
+						     if (new Date(disabledDays[i]).toString() == date.toString()) {    
+						      return [false]; 
+						     } 
+						    } 
+						    return [true]; 
+						}  
+					
 					</script>
 					<br/>
 					
@@ -225,9 +315,18 @@
 					</div>
 					<div>
 						<input id="people">
-						<script>$("#people").spinner();</script>
+						<script>
+							$(function(){
+								$("#people").spinner({
+									min:1,
+									step:1
+								});
+							});
+							
+						</script>
 					</div>
-					<button class="btn" onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}')">조회</button>
+					<button class="searchBtn">조회</button>
+					<button class="btn" onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}')">예약</button>
 				</div>
 			</div>
 		</div>

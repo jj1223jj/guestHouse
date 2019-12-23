@@ -6,11 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.guestHouse.service.GuestHouseService;
+import com.java.guestReserve.dto.RequestPayDto;
 
 @Controller
 public class GuestHouseController {
@@ -57,15 +61,33 @@ public class GuestHouseController {
 		
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/guestHousePage/reserveCompleteOk.do", method = RequestMethod.GET)
 	public void reservCompleteChect(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("ok");
 		
-		System.out.println(request.getAttribute("houseCode"));
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
 		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("request",request);
-//		
+	}
+	
+	@RequestMapping(value = "/payments/complete", method = RequestMethod.POST)
+	@ResponseBody
+	public String AjaxView(RequestPayDto requestPay) {
+		
+		return requestPay.getImpUid()+requestPay.getMerchantUid()+requestPay.getPaidAmount()+requestPay.getApplyNum();
+	}
+	
+	@RequestMapping(value = "/order/paySuccess", method = RequestMethod.GET)
+	public ModelAndView kakaoPaySuccess(HttpServletRequest request, HttpServletResponse response ) {
+		System.out.println("ok");
+		
+		
+		ModelAndView mav = new ModelAndView(); mav.addObject("request",request);
+		  
+		guestHouseService.kakaoPaySuccess(mav);
+		
+		return mav;
+		 
 	}
 }

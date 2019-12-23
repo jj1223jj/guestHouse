@@ -3,6 +3,7 @@ package com.java.guestHouse.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Date;
 import java.util.Date;
@@ -20,7 +21,10 @@ import com.java.aop.HomeAspect;
 import com.java.file.dto.FileDto;
 import com.java.guestHouse.dao.GuestHouseDao;
 import com.java.guestReserve.dto.GuestReserveDto;
-
+import com.java.guestReserve.dto.RemainDto;
+import com.java.guestdelluna.dto.HouseDto;
+import com.java.guestdelluna.dto.PointAccumulate;
+import com.java.guestdelluna.dto.PointUse;
 import com.java.host.dto.HostDto;
 import com.java.member.dto.MemberDto;
 
@@ -32,6 +36,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 	String email;
 	HostDto hostDto;
 	List<FileDto> fileList;
+	int memberPoint;
 	
 	@Override
 	public void guestHouseRead(ModelAndView mav) {
@@ -41,9 +46,9 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpSession session = request.getSession();
 		email = (String)session.getAttribute("email");
 		
-		int houseCode=63;
+//		int houseCode=63;
 		
-//		 int houseCode = 8;
+		 int houseCode = 8;
 		
 		hostDto = guestHouseDao.getHostInfo(houseCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());
@@ -70,6 +75,62 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		float lng = Float.parseFloat(arrLatLng[1]);
 		HomeAspect.logger.info(HomeAspect.logMsg + lat +", "+lng);
 		
+		// 예약 가능 여부
+		List<RemainDto> remainDtoList = guestHouseDao.getReamin(houseCode);
+		HomeAspect.logger.info(HomeAspect.logMsg +remainDtoList.toString());
+		
+		Integer[] peopleNum = new Integer[remainDtoList.size()];
+//		Date[] disableDate = new Date[remainDtoList.size()];
+		
+		String[] disableDays = new String[remainDtoList.size()];
+		ArrayList<String> dList = new ArrayList<String>();
+		int count=0;
+		SimpleDateFormat transFormat2 = new SimpleDateFormat("yyyy-MM-dd");	
+		int pTotal = remainDtoList.get(0).getPeople();
+		
+		for(int i=1; i<remainDtoList.size();i++) {
+			
+			if(remainDtoList.get(0).getResDate().equals(remainDtoList.get(i).getResDate())) {		// remain테이블에서 같은 날짜 예약건이 있으면
+				pTotal += remainDtoList.get(i).getPeople();	// 인원수를 합쳐라
+				HomeAspect.logger.info(HomeAspect.logMsg +pTotal);
+				
+				if(pTotal==hostDto.getPeople()) {	// 총 예약자 수가 게스트하우스 예약 가능 인원과 같으면
+					disableDays[count] = transFormat2.format(remainDtoList.get(i).getResDate());
+//					String a = transFormat2.format(remainDtoList.get(i).getResDate());
+//					System.out.println(a);
+//					dList.add(0,a);
+					HomeAspect.logger.info(HomeAspect.logMsg +disableDays[count]);
+//					mav.addObject("dList",dList);		// jsp페이지에 disableDate(예약불가능 날짜) 넘겨줌
+					count++;
+				}
+			}
+		}
+		
+		int x = 0;
+		
+		
+		for(int i=0; i<disableDays.length; i++) {
+			String result=null;
+			HomeAspect.logger.info(HomeAspect.logMsg +disableDays[i]);
+			if(disableDays[i]!=null) {
+				String[] arrIn = disableDays[i].split("-");
+				
+				int[] intArrIn = new int[arrIn.length];
+				int j=0;
+				for(j=0; j<arrIn.length; j++) {
+					intArrIn[j] = Integer.parseInt(arrIn[j]);
+					System.out.println("intArrIn["+j+"]: "+intArrIn[j]);
+				}
+				result = intArrIn[0]+"-"+intArrIn[1]+"-"+intArrIn[2];
+				System.out.println(result);
+				dList.add(result);
+			}
+		}
+		for(int i=0; i<dList.size();i++) {
+			System.out.println(dList.get(i));
+		}
+		mav.addObject("dList",dList);
+		
 //		String bfPath = fileList.get(0).getFilePath();
 //		String[] arr = bfPath.split(":");
 //		String afPath = arr[0] +":" +"\\"+arr[1];
@@ -94,6 +155,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		mav.addObject("regDate",regDate);
 		mav.addObject("lat",lat);
 		mav.addObject("lng",lng);
+		mav.addObject("remainDtoList",remainDtoList);
 		
 		mav.setViewName("guestHousePage/guestPage.tiles");
 		
@@ -148,17 +210,12 @@ public class GuestHouseServiceImp implements GuestHouseService {
 //		HostDto hostDto = guestHouseDao.getHostInfo(houseCode);
 		HomeAspect.logger.info(HomeAspect.logMsg +hostDto.toString());
 		
-//		int price = guestHouseDao.getPrice(houseCode);
-//		HomeAspect.logger.info(HomeAspect.logMsg +price);
-		
-//		int hostMemberCode = guestHouseDao.getHostMemberCode(houseCode);
-		
 		int hostMemberCode =hostDto.getMemberCode();
 		HomeAspect.logger.info(HomeAspect.logMsg +hostMemberCode);
 		
 		HomeAspect.logger.info(HomeAspect.logMsg + email);		
-		int point = guestHouseDao.getPoint(email);
-		HomeAspect.logger.info(HomeAspect.logMsg + point);
+		memberPoint = guestHouseDao.getPoint(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + memberPoint);
 		
 		int total = hostDto.getPrice()*night*people;
 		
@@ -180,7 +237,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		mav.addObject("checkOut",stCheckOut);
 		mav.addObject("people",people);
 		mav.addObject("hostDto",hostDto);
-		mav.addObject("point",point);
+		mav.addObject("point",memberPoint);
 		mav.addObject("night",night);
 		mav.addObject("total",total);
 		mav.addObject("mainImg",mainImg);
@@ -212,6 +269,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HomeAspect.logger.info(HomeAspect.logMsg + houseCode +", "+memberCode+", "
 		+people+", "+stCheckIn+", "+stCheckOut+", "+total+", "+point+", "+usePoint);
 		
+		// string타입 Date타입으로 변경
 		Date checkIn=null;
 		Date checkOut=null;
 		try {
@@ -221,8 +279,53 @@ public class GuestHouseServiceImp implements GuestHouseService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+		String[] arrIn = stCheckIn.split("-");
+		String[] arrOut = stCheckOut.split("-");
 		
-//		String houseName = guestHouseDao.getHouseName(houseCode);
+		int[] intArrIn = new int[arrIn.length];
+		for(int i=0; i<arrIn.length; i++) {
+			intArrIn[i] = Integer.parseInt(arrIn[i]);
+		}
+		
+		int[] intArrOut = new int[arrOut.length];
+		for(int i=0; i<arrOut.length; i++) {
+			intArrOut[i] = Integer.parseInt(arrOut[i]);
+		}
+	
+		int night = GetDifferenceOfDate(intArrIn[0] ,intArrIn[1] , intArrIn[2] , intArrOut[0], intArrOut[1], intArrOut[2]);
+		HomeAspect.logger.info(HomeAspect.logMsg +"night : " + night);
+		
+		Calendar cal = Calendar.getInstance();
+		Date[] arrDate = new Date[night];				// 계산한 날짜 저장할 배열
+		cal.setTime(checkIn);		// checkIn 날짜
+		
+		if(night>1) {	// 숙박일이 2박 이상일 경우
+			arrDate[0] = cal.getTime();		// checkIn날짜 배열에 저장
+			System.out.println(arrDate[0]);
+			
+			for(int i=1; i<night; i++) {
+				cal.add(Calendar.DATE, 1);	// 1일 더해줌
+				arrDate[i] = cal.getTime();	// 더해준 날짜를 배열에 저장
+				System.out.println(arrDate[i]);
+			}
+			
+			for(int i=0; i<arrDate.length; i++) {
+				int remainCheckArr = guestHouseDao.insertRemain(arrDate[i], people, houseCode);
+				HomeAspect.logger.info(HomeAspect.logMsg +"remainCheck: "+remainCheckArr);
+			}
+		}else {	// 숙박일이 1박일 경우
+			int remainCheck = guestHouseDao.insertRemain(checkIn, people, houseCode);
+			HomeAspect.logger.info(HomeAspect.logMsg +"remainCheck: "+remainCheck);
+		}
+		
+		// 게스트하우스 사진
+		String mainImg = null;
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getMainImgName()!=null) {
+				mainImg = fileList.get(i).getMainImgName();
+			}
+		}
 		
 		GuestReserveDto guestReserveDto = new GuestReserveDto();
 		
@@ -241,31 +344,75 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		int reCheck = guestHouseDao.insertReserveInfo(guestReserveDto);
 		HomeAspect.logger.info(HomeAspect.logMsg +reCheck);
 		
+		HomeAspect.logger.info(HomeAspect.logMsg +"checkIn: "+checkIn);
 		// 예약 번호 
 		int reserveCode = guestHouseDao.getReserveCode(houseCode,memberCode,checkIn);
 		HomeAspect.logger.info(HomeAspect.logMsg +"reserveCode: "+reserveCode);
 		
 		int resPoint = (int)point;
+//		System.out.println(resPoint);
 		
-		System.out.println(resPoint);
+		// 멤버 포인트 수정
+		memberPoint = memberPoint+ resPoint - usePoint;
+		HomeAspect.logger.info(HomeAspect.logMsg +"memberPoint: "+memberPoint);
 		
 		// 멤버 포인트 업데이트
-//		int pointUpChect = guestHouseDao.updatePoint(resPoint,usePoint);
+		int pointUpCheck = guestHouseDao.updatePoint(memberPoint,memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg +"pointUpCheck: "+pointUpCheck);
 		
-		// 게스트하우스 사진
-		String mainImg = null;
-		for(int i=0; i<fileList.size(); i++) {
-			if(fileList.get(i).getMainImgName()!=null) {
-				mainImg = fileList.get(i).getMainImgName();
-			}
+		// 포인트 내역 db 저장
+		if(resPoint>0) {
+			PointAccumulate pointAccumulate = new PointAccumulate();
+			pointAccumulate.setAccuDate(guestReserveDto.getReserveDate());
+			pointAccumulate.setMemberCode(memberCode);
+			pointAccumulate.setAccuPlace(hostDto.getHouseName());
+			pointAccumulate.setAccuPoint(resPoint);
+			HomeAspect.logger.info(HomeAspect.logMsg +pointAccumulate.toString());
+			
+			int resPointCheck = guestHouseDao.insertResPoint(pointAccumulate);
+			HomeAspect.logger.info(HomeAspect.logMsg +"resPointCheck: "+resPointCheck);
+		}else{// 포인트 사용 내역
+			PointUse pointUse = new PointUse();
+			pointUse.setMemberCode(memberCode);
+			pointUse.setUseDate(guestReserveDto.getReserveDate());
+			pointUse.setUsePlace(hostDto.getHouseName());
+			pointUse.setUsePoint(usePoint);
+			
+			int usePointCheck = guestHouseDao.insertUsePoint(pointUse);
+			HomeAspect.logger.info(HomeAspect.logMsg +"usePointCheck: "+usePointCheck);
 		}
-				
+		
+		MemberDto memberDto = guestHouseDao.getMemberInfo(email);
+		
 		mav.addObject("reserveCode",reserveCode);
 		mav.addObject("guestReserveDto",guestReserveDto);
 		mav.addObject("hostDto",hostDto);
 		mav.addObject("mainImg",mainImg);
+		mav.addObject("memberDto",memberDto);
 		
 		mav.setViewName("guestHousePage/guestHouseReservOk.tiles");
+		//mav.setViewName("guestHousePage/kakaoPay.tiles");
+	}
+	
+	@Override
+	public void kakaoPaySuccess(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		/*
+		 * String reservCode = request.getParameter("imp_uid");
+		 * 
+		 * HomeAspect.logger.info(HomeAspect.logMsg +reservCode);
+		 */
+		
+		
+		  String msg = request.getParameter("msg");
+		  
+		  mav.addObject("msg",msg);
+		  
+		  mav.setViewName("order/paySuccess.tiles");
+		 
 	}
 	
 	public static int GetDifferenceOfDate(int nYear1,int nMonth1, int nDate1, int nYear2, int nMonth2, int nDate2) {

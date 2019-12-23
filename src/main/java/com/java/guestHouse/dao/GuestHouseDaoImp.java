@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import com.java.file.dto.FileDto;
 import com.java.guestReserve.dto.GuestReserveDto;
+import com.java.guestReserve.dto.RemainDto;
+import com.java.guestdelluna.dto.PointAccumulate;
+import com.java.guestdelluna.dto.PointUse;
 import com.java.member.dto.MemberDto;
 import com.java.host.dto.HostDto;
 
@@ -93,8 +96,47 @@ public class GuestHouseDaoImp implements GuestHouseDao{
 	}
 	
 	@Override
-	public int updatePoint(int point, int usePoint) {
+	public int updatePoint(int memberPoint, int memberCode) {
 		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("memberPoint", memberPoint);
+		hMap.put("memberCode", memberCode);
+		
+		return sqlSessionTemplate.update("dao.GuestHouseMapper.updatePoint",hMap);
+	}
+	
+	@Override
+	public int insertResPoint(PointAccumulate pointAccumulate) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.insert("dao.GuestHouseMapper.insertResPoint",pointAccumulate);
+	}
+	
+	@Override
+	public int insertUsePoint(PointUse pointUse) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.insert("dao.GuestHouseMapper.insertUsePoint",pointUse);
+	}
+	
+	@Override
+	public int insertRemain(Date checkIn, int people, int houseCode) {
+		// TODO Auto-generated method stub
+		Map<String, Object> hMap =new HashMap<String, Object>();
+		hMap.put("resDate", checkIn);
+		hMap.put("people", people);
+		hMap.put("houseCode", houseCode);
+		
+		return sqlSessionTemplate.insert("dao.GuestHouseMapper.insertRemain",hMap);
+	}
+	
+	@Override
+	public List<RemainDto> getReamin(int houseCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("dao.GuestHouseMapper.getRemain",houseCode);
+	}
+	
+	@Override
+	public MemberDto getMemberInfo(String email) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("dao.GuestHouseMapper.getMemberInfo",email);
 	}
 }
