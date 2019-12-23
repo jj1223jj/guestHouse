@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
+import com.java.search.dto.GetCountDto;
 
 public interface SearchDao {
 
@@ -13,5 +14,5 @@ public interface SearchDao {
 	//테스트 용으로 데이터 넣기 위한 함수
 	public int dataInputOk(HostDto hostDto);
 
-	public int getCount(Map<String, Object> dataMap);
+	public GetCountDto getCount(Map<String, Object> dataMap);
 }

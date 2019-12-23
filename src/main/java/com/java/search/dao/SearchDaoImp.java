@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
+import com.java.search.dto.GetCountDto;
 
 @Component
 public class SearchDaoImp implements SearchDao {
@@ -28,8 +29,11 @@ public class SearchDaoImp implements SearchDao {
 	}
 
 	@Override
-	public int getCount(Map<String, Object> dataMap) {
-		return session.selectOne("dao.searchMapper.getCount", dataMap);
+	public GetCountDto getCount(Map<String, Object> dataMap) {
+		GetCountDto getCountDto= session.selectOne("dao.searchMapper.getCount", dataMap);
+		System.out.println(getCountDto.getMax()+","+getCountDto.getMin());
+		
+		return getCountDto; 
 	}
 	
 	//테스트 용으로 데이터 넣기 위한 함수

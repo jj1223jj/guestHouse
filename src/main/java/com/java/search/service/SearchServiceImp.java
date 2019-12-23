@@ -15,6 +15,7 @@ import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
 import com.java.search.dao.SearchDao;
+import com.java.search.dto.GetCountDto;
 
 
 @Component
@@ -24,7 +25,7 @@ public class SearchServiceImp implements SearchService {
 	private SearchDao searchDao;
 
 	@Override
-	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, String memberCode) {
+	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, Integer memberCode) {
 		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", memberCode: "+memberCode);
 		
 		//myBatis에 넘겨줄 data, Map에 넣기
@@ -48,7 +49,11 @@ public class SearchServiceImp implements SearchService {
 		int currentPage=Integer.parseInt(pageNumber);
 		
 		//검색조건 결과가 0인지 확인
-		int count = searchDao.getCount(dataMap);
+		GetCountDto getCountDto = searchDao.getCount(dataMap);
+		int min = getCountDto.getMin();
+		int max = getCountDto.getMax();
+		max = max>=100000? 100000 : max;
+		int count =getCountDto.getCount();
 		HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 count: " +count);
 
 		//검색조건 결과 0아니면 데이터 10개씩 가져오기
@@ -98,6 +103,8 @@ public class SearchServiceImp implements SearchService {
 		
 		//물어보기
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("min", min);
+		mav.addObject("max", max);
 		mav.addObject("houseJson", jsonText);
 		mav.addObject("searchHouseList", searchHouseList);
 		mav.addObject("boardSize", boardSize);

@@ -29,7 +29,7 @@ public class SearchController {
 		ModelAndView mav = new ModelAndView();
 
 		//session
-		String memberCode = (String)request.getSession().getAttribute("memberCode");
+		Integer memberCode = (Integer) request.getSession().getAttribute("memberCode");
 		System.out.println(memberCode);
 		
 		//페이징
@@ -43,7 +43,7 @@ public class SearchController {
 		String searchHouseName = request.getParameter("searchHouseName");
 		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName );
 
-		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber,memberCode);
+		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber, memberCode);
 		
 		mav.setViewName("search/searchHouse.tiles");
 		return mav;
