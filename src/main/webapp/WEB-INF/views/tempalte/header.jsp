@@ -8,11 +8,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 		<meta charset="utf-8">
 
-		<link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test1.css"/> 
-		<link rel="stylesheet" href="${root}/resources/css/register/test2.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/>
-		
 		
 <head>
 <meta charset="UTF-8">

@@ -11,7 +11,7 @@
 <body>
 	<br/><br/>
 
-	<a href="${root}/ys">윤수</a><br/>
+	<%-- <a href="${root}/ys">윤수</a><br/>
 
 
 	<br/><br/>
@@ -26,7 +26,7 @@
 		
 		<a href="${root}/experience/exPage.do?exCode=41">체험 페이지</a>
 		<br/>
-		<%-- <a href = "${root}/experience/exReview.do">체험 후기 작성</a> --%>
+		<a href = "${root}/experience/exReview.do">체험 후기 작성</a>
 	
 		<c:if test="${memberLevel =='Host'}">
 		<a href="${root}/experience/exHost.do">체험 등록하기</a>
@@ -82,7 +82,7 @@
 	<br/>
 	
 	----------------------------------------------------------------<br/>
-	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스</a>
+	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스</a> --%>
 
 </body>
 </html>

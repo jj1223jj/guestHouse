@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> 
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<c:set var="pageBlock" value="${2}"/>
+<c:set var="pageBlock" value="${5}"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -19,6 +19,9 @@
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="${root}/resources/javascript/jquery/jquery-ui.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <!-- kakaoMap -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c37448871d1dc7c24bd47df3b92bf2c3"></script>
@@ -27,9 +30,6 @@
 <link rel="stylesheet" href="${root}/resources/css/swiper/swiper.css">
 <script src="${root}/resources/javascript/swiper/swiper.js"></script>
 
-<style type="text/css">
-
-</style>
 <script>
 	$(function(){
 		setRoot('${root}');
@@ -71,21 +71,7 @@
 		
 		
 		//가격 필터
-		/* $().ajax({
-			url:'${root}/getMaxPrice',
-		}); */
-		var priceValues=['${min}','${max}'];
-		$("#price").slider({
-				range:!0,
-				values: priceValues,
-				max: '${max}',
-				slide: function(e,ui){
-					$("#minPrice").val(ui.values[0]);
-					$("#maxPrice").val(ui.values[1]);
-				},
-			}
-		);
-		
+
 		//하트 클릭
 		heart('${memberCode}');
 		
@@ -151,15 +137,6 @@
 			dayNamesMin: dayNamesMin,
 		});
 		
-		/* $(".page > a").each(function(i,e){
-			$('#'+(i+1)).attr("href",'${root}/search?pageNumber='+(i+1)+'&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}');
-		}); */
-		/* $("#2").attr("href",'${root}/search?pageNumber=2&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}');
-		$(".page > a").click(function(){
-			var url=this+'&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}';
-			$(this).attr('href',url);			
-		}); */
-		
 		
 		$("#priceHigh").click(function(){
 			$("#sort").val("priceHigh");
@@ -177,8 +154,32 @@
 			sort(sortValue);
 		});
 		
-		$("#priceSearch").click(function(){
-			alert($("#sort").val());
+		$(".dateButton").click(function(){
+			if($(".checkInOutContainer").css("display")=="inline-block"){
+				$(".checkInOutContainer").css("display","none");
+			}else{
+				$(".checkInOutContainer").css("display","inline-block");
+				$(".peopleContainer").css("display","none");
+				$(".localContainer").css("display","none");
+			}
+		});
+		$(".peopleButton").click(function(){
+			if($(".peopleContainer").css("display")=="inline-block"){
+				$(".peopleContainer").css("display","none");
+			}else{
+				$(".peopleContainer").css("display","inline-block");
+				$(".localContainer").css("display","none");
+				$(".checkInOutContainer").css("display","none");
+			}
+		});
+		$(".localButton").click(function(){
+			if($(".localContainer").css("display")=="inline-flex"){
+				$(".localContainer").css("display","none");
+			}else{
+				$(".localContainer").css("display","inline-flex");
+				$(".checkInOutContainer").css("display","none");
+				$(".peopleContainer").css("display","none");
+			}
 		});
 	});
 	
@@ -197,258 +198,270 @@
 		});
 	}
 </script>
+<style type="text/css">
+
+.filterButton{
+	display: inline-block;
+}
+.btn{
+	border-radius: 15px;
+}
+.custom-select{
+	width:140px;
+}
+.checkInLabel, .checkOutLabel{
+	font-size: 24px;
+}
+.checkInContainer, .checkOutContainer{
+	width:230px;
+	display:inline-block;
+}
+.localAll, .localJeju, .localSeoguipo{
+	font: 16px bold;
+}
+.localAll{
+	width: 70px;
+}
+.localJeju{
+	width: 120px;
+}
+.localSeoguipo{
+	width: 140px;
+}
+.checkInOutContainer .form-control{
+	display:inline-block;
+	width: 110px;
+	height: 25px;
+}
+.searchContainer .form-control{
+	display:inline-block;
+	width: 210px;
+	height: 25px;
+	margin-left: 30px;
+}
+.calender::before{
+	margin-top: 10px;
+}
+i{
+	position: absolute;
+	right:4px;
+	top:-5px;
+}
+.custom-control{
+	margin-bottom: 0px !important;
+}
+
+.localContainer{
+	display: none;
+	margin-left: 170px;
+}
+
+.peopleContainer{
+	margin-top: 18px;
+	width: 200px;
+	font-size: 20px;	
+	margin-left: 100px;
+	display: none;
+}
+
+.searchContainer{
+	font-size: 20px;
+	display: inline-block;
+}
+
+.searchBtn{
+	margin-left:10px;
+}
+.checkInOutContainer{
+	margin-top: 19px;	
+	margin-left: 15px;
+	display:none;
+}
+
+.checkInOutContainer label{
+	font-size: 20px
+}
+.filterBox{
+	margin-top:15px;
+	margin-bottom:15px;
+	width:1500px;
+	height:113px;
+}
+.formContainer{
+	height:75px;
+	width: 840px;
+	background-color: #cccccc;
+	margin-top: 15px;
+}
+.filterContainer :first-child{
+	margin-left:15px;
+}
+
+.houseListContainer{
+	background-color: #bbccaa;
+	width: 840px;
+}
+.houseListCount{
+	background-color: #aabbcc;
+	height: 50px;
+}
+.houseContainer{
+	background-color: #998877;
+	height: 1000px;
+	padding: 0px 24px;
+}
+._gig1e7{
+	border-top: black solid 2px;
+	width: 792px;
+	height: 250px;
+}
+._ylefn59{
+	margin-top: 25px;
+	background-color: #ccddee;
+	width: 792px;
+	height: 224px;
+	position: relative;
+}
+._houseImg{
+	width: 300px;
+	height: 200px;
+	background-color: #eeffdd;
+	display: inline-block;
+}
+._houseInfo{
+	width: 476px;
+	height: 200px;
+	background: #ffddee;
+	display: inline-block;
+	position: absolute;
+	right: 0px;
+}
+._starRate{
+	height: 18px;
+	background: #ddffee;
+	margin-bottom: 8px;
+}
+._60dc7z{
+	margin-left: 4px;
+}
+</style>
 
 </head>
 <body>
 <c:set var="sort" value="${sort}"/>
-	<button id="filter">필터</button>
-	<div id="filterContent">
-		<form action="${root}/search" method="get" onsubmit="return confirmSubmit()">
-			<div>
-				체크인
-				<input type="text" name="checkIn" id="checkIn"/><br/>
-				체크아웃
-				<input type="text" name="checkOut" id="checkOut"/><br/>
-			</div><br/>
-			
-			
-			<div>
-				지역
-				<input type="checkbox" class="all"/>전체<br/>
-				<input type="checkbox" name="local[]" value="jeju" class="etc"/>제주시<br/>
-				<input type="checkbox" name="local[]" value="jejuEast" class="etc"/>제주시 동부<br/>
-				<input type="checkbox" name="local[]" value="jejuWest" class="etc"/>제주시 서부<br/>
-				<input type="checkbox" name="local[]" value="seoguipo" class="etc"/>중문/서귀포<br/>
-				<input type="checkbox" name="local[]" value="seoguipoEast" class="etc"/>서귀포시 동부<br/>
-				<input type="checkbox" name="local[]" value="seoguipoWest" class="etc"/>서귀포시 서부<br/>
-				<input type="hidden" name="local" id="local"/>
-				<br/>
+
+		<div class="filterBox">
+			<div class="filterContainer">
+				<div class="filterButton"><button class="dateButton btn btn-outline-primary" type="button">날짜</button></div>
+				<div class="filterButton"><button class="peopleButton btn btn-outline-primary" type="button">인원</button></div>
+				<div class="filterButton"><button class="localButton btn btn-outline-primary" type="button">지역</button></div>
+				<div class="searchContainer">
+					<input class="form-control" type="text" name="searchHouseName" placeholder="숙소명이름"/><button type="submit" class="searchBtn btn btn-primary btn-sm">검색</button>
+				</div>		
 			</div>
-			
-			<div>
-				인원
-				<select title="인원" id="searchPeople" name="people">
-					<option value="1">1명</option>
-					<option value="2">2명</option>
-					<option value="3">3명</option>
-					<option value="4">4명</option>
-					<option value="5">5명이상</option>
-				</select><br/>
-			</div>
-			
-			<div>
-				검색
-				<input type="text" name="searchHouseName" placeholder="숙소명이름"/><input type="submit" value="검색"/>
-			</div>
-			<br/><br/>
-		</form>
-	</div>
-
-
-
-
-	boardSize:${boardSize}, currentPage:${currentPage}, count:${count}<br/><br/>
-	<div id="price"></div>
-	<input id="minPrice" name="minPrice" type="text" value="${min}"/>
-	<input id="maxPrice" name="maxPrice" type="text" value="${max}"/>
-	<button id="priceSearch">가격검색</button>
-	<button id="priceHigh">가격높은순</button>
-	<button id="priceLow">가격낮은순</button>
-	<button id="rateSort">별점높은순</button>
-	<input id="sort" type="hidden" name="sort"/>
-	
-	<div id="map"></div>
-	<script>
-		if('${local}'==""){
-			var center=new kakao.maps.LatLng(33.450701, 126.570667); //지도의 중심좌표.
-		}else{
-			var center=new kakao.maps.LatLng(33.53630753279682, 126.83552349439641);
-		}
-			
-		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center: center,
-			level: 10 //지도의 레벨(확대, 축소 정도)
-		};
-	
-		var map = new kakao.maps.Map(container, options);
-		
-		var control = new kakao.maps.ZoomControl();
-		map.addControl(control, kakao.maps.ControlPosition.BOTTOMRIGHT); 
-
-		var mapTypeControl = new kakao.maps.MapTypeControl();
-		map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMRIGHT); 
-	</script>
-	
-	<c:if test="${count==0||boardList.size()==0}">
-		검색 결과가 없습니다
-	</c:if>
-	<c:if test="${count>0}">
-		<c:forEach var="i" items="${searchHouseList}" varStatus="index" >
-			<div class="house${index.index}">
-				<div class="swiper-container">
-					<div class="swiper-wrapper">
-						<c:forEach var="j" items="${i.fileList}">
-							<div class="swiper-slide"><img alt="img loading" src="<spring:url value='/image/${j.fileName}'/>"/></div>
-						</c:forEach>
+			<div class="formContainer">
+				<form name="form" action="${root}/search" method="get" onsubmit="return confirmSubmit()">
+					
+					<div class="checkInOutContainer">
+						<div class="checkInContainer">
+							<label for="checkIn">Check In</label>
+							<input class="form-control" type="text" name="checkIn" id="checkIn"/><i class="calenderIn far fa-calendar-alt fa-3x"></i>
+						</div>
+						<div class="checkOutContainer">
+							<label for="checkOut">Check Out</label>
+							<input class="form-control" type="text" name="checkOut" id="checkOut"/><i class="calenderOut far fa-calendar-alt fa-3x"></i>
+						</div>
 					</div>
-					<!-- Add Pagination -->
-					<div class="swiper-pagination"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
-				</div>
-				<div class="house">
-					<div class="houseCode">${i.houseCode}</div>
-					<div class="houseName">${i.houseName}</div>
-					<div>인원${i.people}</div>
-					<div>${i.latLng}</div>
-					<div><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: #FF385C;"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg>${i.revRate}(${i.revCount})</div>
-					<div>${i.price}원/1박</div>
-					<c:if test="${i.zzimed==null}">
-						<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
-					</c:if>
-					<c:if test="${i.zzimed!=null}">
-						<button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
-					</c:if>
-				</div>
-				
-				<br/><br/>
-			</div>
-		</c:forEach>
-		<script>
-			var houseJson = $.parseJSON('${houseJson}').houseJson;
-			console.log(houseJson);
-			var marker= [];
-			var customOverlay = [];
-			var position = [];
-			var content = [];
-			var bounds = new kakao.maps.LatLngBounds();
-
-			/* for(let j=0; j<houseJson[i].fileList.length;j++){
-			content[i]+=
-			'				';
-			} */
-			for(let i=0; i<houseJson.length;i++){
-				
-				position[i]= new kakao.maps.LatLng(houseJson[i].lat, houseJson[i].lng);
-				bounds.extend(position[i]);
-				marker[i]= new kakao.maps.Marker({
-					map: map, 
-					position: position[i] // 마커의 위치
-				});
-				
-				
-				
-				
-			
-				content[i] = '<div class="overlaybox box'+i+'">' +
-				'    <div class="boxtitle">'+houseJson[i].houseName+'</div>' +
-				'    <ul>' +
-				'        <li class="up">' +
-				'<div class="swiper-container">' +
-				'	<div class="swiper-wrapper">';
-				
-
-						for(let j=0; j<houseJson[i].fileList.length;j++){
-				content[i]+=	'<div class="swiper-slide"><img alt="img loading" src="<spring:url value="/image/'+houseJson[i].fileList[j].fileName+'"/>"/></div>';
-						}
-					
-					
-					
 						
-				content[i]+=		
-				'	</div>' +
-				'	<div class="swiper-pagination"></div>' +
-				'	<div class="swiper-button-next"></div>' +
-				'	<div class="swiper-button-prev"></div>' +
-				'</div>' +
-				'            <span class="number">인원'+houseJson[i].people+'</span>' +
-				'            <span class="people">가격'+houseJson[i].price+'</span>' +
-				'            <span class="revRate"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: #FF385C;"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg>'+houseJson[i].revRate+'('+houseJson[i].revCount+')</span>' +
-				'			 <div class="houseCode">'+houseJson[i].houseCode+'</div>';
-				if(houseJson[i].zzimed==null){
-				content[i]+=
-				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
-				}else{
-				content[i]+=
-				'			 <button aria-label="목록에 숙소 추가하기" type="button" class="_r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 16px; width: 16px; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
-				}
-				content[i]+=
-				'        </li>' +
-				'    </ul>' +
-				'</div>';
-				console.log(content[i]);
+					<div class="peopleContainer">
+						인원
+						<select class="custom-select" title="인원" id="searchPeople" name="people">
+							<option value="1">1명</option>
+							<option value="2">2명</option>
+							<option value="3">3명</option>
+							<option value="4">4명</option>
+							<option value="5">5명이상</option>
+						</select>
+					</div>
+					
+    				<div class="localContainer form-check-inline">
+						<div class="localAll">
+							<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input all" id="all"/>
+		    					 <label class="custom-control-label" for="all">전체</label>
+		    				</div>
+	    				</div>
+	    				<div class="localJeju">
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="jeju" value="jeju"/>
+		    					 <label class="custom-control-label" for="jeju">제주시</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="jejuEast" value="jejuEast"/>
+		    					 <label class="custom-control-label" for="jejuEast">제주시 동부</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="jejuWest" value="jejuWest"/>
+		    					 <label class="custom-control-label" for="jejuWest">제주시 서부</label>
+		    				</div>
+		    			</div>
+	    				<div class="localSeoguipo">
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="seoguipo" value="seoguipo"/>
+		    					 <label class="custom-control-label" for="seoguipo">중문 / 서귀포</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="seoguipoEast" value="seoguipoEast"/>
+		    					 <label class="custom-control-label" for="seoguipoEast">서귀포시 동부</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="seoguipoWest" value="seoguipoWest"/>
+		    					 <label class="custom-control-label" for="seoguipoWest">서귀포시 서부</label>
+		    				</div>
+		    				<input type="hidden" name="local" id="local"/>
+	    				</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="houseListContainer">
+			<div class="houseListCount">
+				300개 이상의 숙소
+			</div>
+			<div class="houseContainer">
+				<div class="_gig1e7">
+					<div class="_ylefn59">
+						<div class="_houseImg"></div>
+						<div class="_houseInfo">
+							<div class="_starRate"><span class="_60dc7z"><span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:12px;width:12px;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span>4.83</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="_gig1e7">
+					<div class="_ylefn59">
+						<div class="_houseImg"></div>
+						<div class="_houseInfo"></div>
+					</div>
+				</div>
+				<div class="_gig1e7">
+					<div class="_ylefn59">
+						<div class="_houseImg"></div>
+						<div class="_houseInfo"></div>
+					</div>
+				</div>
+				<div class="_gig1e7">
+					<div class="_ylefn59">
+						<div class="_houseImg"></div>
+						<div class="_houseInfo"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
-				customOverlay[i] = new kakao.maps.CustomOverlay({
-						position: position[i],
-						content: content[i],
-						clickable: true,
-						zIndex: 6,
-						xAnchor: 0.3,
-						yAnchor: 1.14,
-				});
 
-				customOverlay[i].setMap(map);
-
-				kakao.maps.event.addListener(marker[i], 'click', function() {
-					for(let j=0; j<houseJson.length;j++){
-						$(".box"+j).css("display","none");
-						if($(".box"+i).css("display")=="none"){
-							$(".box"+i).css("display","block");
-						}
-					}
-				});
-				
-				kakao.maps.event.addListener(marker[i], 'mouseover', function() {
-				    marker[i].setZIndex(5);
-				});
-				
-				kakao.maps.event.addListener(marker[i], 'mouseout', function() {
-				    marker[i].setZIndex(3);
-				});
-			}
-			map.setBounds(bounds);
-			map.setLevel(10);
-			$(".overlaybox").css("display","none");
-			kakao.maps.event.addListener(map, 'click', function() {
-				$(".overlaybox").css("display","none");
-			});
-		</script>
-	</c:if>
+	<%-- boardSize:${boardSize}, currentPage:${currentPage}, count:${count}<br/><br/> --%>
 	
 	
-	
-	<div class="page">
-		<c:if test="${count>0}">
-			<fmt:parseNumber var="result" value="${count/boardSize}" integerOnly="true"/>
-			<c:set var="pageCount" value="${count%boardSize==0? result:result+1}"/>
-			<fmt:parseNumber var="result2" value="${(currentPage-1)/pageBlock}" integerOnly="true"/>
-			<c:set var="startPage" value="${result2*pageBlock+1}"/>
-			<c:set var="endPage" value="${startPage+pageBlock-1}"/>
-			
-			<c:if test="${endPage>pageCount}">
-					<c:set var="endPage" value="${pageCount}"/>
-				</c:if>
-			
-				<c:if test="${startPage>1}">
-					<a href="${root}/search?pageNumber=1&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[처음]</a>
-					<a href="${root}/search?pageNumber=${startPage-pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[이전]</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<c:if test="${i==currentPage}">
-						<a href="#" style="font-weight: bold;" id="${i}" class="n">${i}</a>
-					</c:if>
-					<c:if test="${i!=currentPage}">
-						<a href="${root}/search?pageNumber=${i}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}" id="${i}" class="n">${i}</a>
-					</c:if>
-				</c:forEach>
-				
-				<c:if test="${endPage<pageCount}">
-					<a href="${root}/search?pageNumber=${startPage+pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[다음]</a>
-					<a href="${root}/search?pageNumber=${pageCount}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[끝]</a>
-				</c:if>
-		</c:if>
-	</div>
 </body>
 </html>

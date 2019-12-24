@@ -61,7 +61,7 @@ public class SearchServiceImp implements SearchService {
 		HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 count: " +count);
 
 		//검색조건 결과 0아니면 데이터 10개씩 가져오기
-		int boardSize=3;
+		int boardSize=10;
 		List<HostImgDto> searchHouseList=null;
 		if(count>0) {
 			int sRow = (currentPage-1)*boardSize+1;	//startRow

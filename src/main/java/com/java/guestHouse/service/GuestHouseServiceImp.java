@@ -46,7 +46,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpSession session = request.getSession();
 		email = (String)session.getAttribute("email");
 		
-		int houseCode=63;
+		int houseCode= Integer.parseInt(request.getParameter("houseCode"));
 		
 		 //int houseCode = 8;
 		
