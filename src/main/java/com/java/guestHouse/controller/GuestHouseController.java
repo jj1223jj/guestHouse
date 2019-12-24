@@ -25,35 +25,38 @@ public class GuestHouseController {
 	
 	@RequestMapping(value = "guestHousePage/guestHouse.do",method = RequestMethod.GET)
 	public ModelAndView guestHousePageRead(HttpServletRequest request, HttpServletResponse response) {
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
-		//mav.addObject("response",response);
 		
 		guestHouseService.guestHouseRead(mav);
 		
 		return mav;
 	}
 	
+	@RequestMapping(value="/guestHousePage/limitCheck.do",method = RequestMethod.GET)
+	public ModelAndView limitCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
+		guestHouseService.limitCheck(mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="guestHousePage/reservation.do",method = RequestMethod.GET)
 	public ModelAndView guestHouseReserv(HttpServletRequest request, HttpServletResponse response) {
-		
-		//System.out.println("ok");
-		
 		ModelAndView mav = new ModelAndView(); 
 		mav.addObject("request",request);
 		
 		guestHouseService.guestHouseReserv(mav);
 		
-		return mav;
-		//return "guestHousePage/guestHouseReserv.tiles";
-		 
+		return mav;		 
 	}
+	
+	
 	
 	@RequestMapping(value ="/guestHousePage/reserveComplete.do", method = RequestMethod.GET)
 	public ModelAndView reservComplete(HttpServletRequest request, HttpServletResponse response) {
-//		System.out.println("ok");
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		
@@ -62,28 +65,23 @@ public class GuestHouseController {
 		return mav;
 	}
 	
+	
+	
 	@RequestMapping(value = "/guestHousePage/reserveCompleteOk.do", method = RequestMethod.GET)
-	public void reservCompleteChect(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("ok");
-		
+	public ModelAndView reservCompleteCheckOk(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		
-	}
-	
-	@RequestMapping(value = "/payments/complete", method = RequestMethod.POST)
-	@ResponseBody
-	public String AjaxView(RequestPayDto requestPay) {
+		guestHouseService.kakaoPayCompleteOk(mav);
 		
-		return requestPay.getImpUid()+requestPay.getMerchantUid()+requestPay.getPaidAmount()+requestPay.getApplyNum();
+		return mav;
 	}
 	
-	@RequestMapping(value = "/order/paySuccess", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/guestHousePage/kakaoPay.do", method = RequestMethod.GET)
 	public ModelAndView kakaoPaySuccess(HttpServletRequest request, HttpServletResponse response ) {
-		System.out.println("ok");
-		
-		
-		ModelAndView mav = new ModelAndView(); mav.addObject("request",request);
+		ModelAndView mav = new ModelAndView(); 
+		mav.addObject("request",request);
 		  
 		guestHouseService.kakaoPaySuccess(mav);
 		

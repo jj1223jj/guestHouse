@@ -7,4 +7,6 @@ public interface GuestHouseService {
 	public void guestHouseReserv(ModelAndView mav);
 	public void reservComplete(ModelAndView mav);
 	public void kakaoPaySuccess(ModelAndView mav);
+	public void kakaoPayCompleteOk(ModelAndView mav);
+	public void limitCheck(ModelAndView mav);
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
@@ -44,8 +44,10 @@
 			<li>
 				<input type="text" name="zipCode" id="zipCode" placeholder="우편번호" disabled="disabled"/>
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소"/>
-				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소"/>
+
+				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
+				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
+
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
 				<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>

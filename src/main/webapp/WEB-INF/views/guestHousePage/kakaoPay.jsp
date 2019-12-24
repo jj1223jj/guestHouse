@@ -79,6 +79,8 @@
             }
 
             alert(msg);
+           	 
+            location.href='${root}/guestHousePage/reserveCompleteOk.do?imp_uid='+rsp.imp_uid+'&merchant_uid='+ rsp.merchant_uid+'&paid_amount='+rsp.paid_amount+"&reserveCode="+${reserveCode};
         });
         
     });

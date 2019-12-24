@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.java.file.dto.FileDto;
 import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.guestReserve.dto.RemainDto;
+import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.member.dto.MemberDto;
@@ -129,7 +130,7 @@ public class GuestHouseDaoImp implements GuestHouseDao{
 	}
 	
 	@Override
-	public List<RemainDto> getReamin(int houseCode) {
+	public List<RemainDto> getRemain(int houseCode) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("dao.GuestHouseMapper.getRemain",houseCode);
 	}
@@ -138,5 +139,11 @@ public class GuestHouseDaoImp implements GuestHouseDao{
 	public MemberDto getMemberInfo(String email) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("dao.GuestHouseMapper.getMemberInfo",email);
+	}
+	
+	@Override
+	public int insertMsg(MsgDto msgDto) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.insert("dao.GuestHouseMapper.insertMsg",msgDto);
 	}
 }
