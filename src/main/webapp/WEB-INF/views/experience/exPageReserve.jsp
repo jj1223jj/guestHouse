@@ -73,7 +73,7 @@
 				<br/>
 				<p id="price">금액                        	${exPayment/exPeople}원 X ${exPeople} </p>
 				<p id="total">총합계(KRW)     ${exPayment}</p>
-				
+				<p id="savePoint"> 적립 포인트   ${exPayment*0.01}</p>
 			</div>
 		</div>
 		

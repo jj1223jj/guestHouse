@@ -178,18 +178,7 @@ public class ExperienceController {
 		
 		return mav;
 	}
-	// 달력에서 예약가능일자 
-	@RequestMapping(value="/experience/exReserveCal.do",method = RequestMethod.GET)
-	public ModelAndView exReserveCal(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("달력");
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("request", request);
-
-		experienceService.exReserveCal(mav);
-		
-		return mav;
-	}
+	
 	
 	
 }

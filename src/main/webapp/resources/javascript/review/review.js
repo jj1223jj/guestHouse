@@ -35,8 +35,8 @@ var $star = $(".star-input"),
 
 starRating();
 
-function updateCheck(root, exReserveCode, memberCode){
-	var url = root + "/experience/exReviewUpdate.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode;
+function updateCheck(root, exReserveCode, memberCode, revContent){
+	var url = root + "/experience/exReviewUpdate.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode +"&revContent="+revContent ;
 	alert(url);
 
 	var width="500";
@@ -50,8 +50,8 @@ function updateCheck(root, exReserveCode, memberCode){
 	window.open(url,"review update","width="+width+",height="+height+",left="+left+",top="+top);
 }
 
-function deleteCheck(root, exReserveCode, memberCode, currentPage){
-	var url=root+"/experience/exReviewDelete.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode + "&pageNumber="+currentPage;
+function deleteCheck(root, exReserveCode, memberCode, currentPage,exCode){
+	var url=root+"/experience/exReviewDelete.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode + "&pageNumber="+currentPage + "&exCode="+exCode;
 	alert(url);
 
 	var value = confirm("후기를 삭제하시겠습니까?");
@@ -82,11 +82,26 @@ function check(revContent, revRate) {
 			alert("후기 내용을 작성해주세요.");
 			$('#revContent').focus();
 			return false;
-		}else if(revRate ==0){
+		}else if(revRate == 0){
 			alert("별점을 선택해 주세요.");
 			return false;
 		}
 	}
+
+function checkUp() {
+	
+	var revContent = $('#revContent').val();
+	var revRate = $('#revRate').val();
+	
+	if(revContent ==''){
+		alert("후기 내용을 작성해주세요.");
+		$('#revContent').focus();
+		return false;
+	}else if(revRate == 0){
+		alert("별점을 선택해 주세요.");
+		return false;
+	}
+}
 
 
 

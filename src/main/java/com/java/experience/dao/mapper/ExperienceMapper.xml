@@ -5,6 +5,7 @@
     
 <mapper namespace="dao.ExperienceMapper">
 
+<!-- 체험 등록  -->
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="subImgUpload">
 		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 
 	</insert>
@@ -44,7 +45,7 @@
 		select * from house where memberCode=#{memberCode}
 	</select>
 	
-	<!-- 후기작성  -->
+<!-- 후기작성  -->
 	
 	<!-- 이 페이지의 리뷰갯수 -->
 	<select id="reviewCnt" parameterType="int" resultType="int">
@@ -78,8 +79,8 @@
 		insert into exReview(exReserveCode, memberCode, revDate, revContent, revRate) values(#{exReserveCode}, #{memberCode}, #{revDate}, #{revContent}, #{revRate})
 	</insert>
 	
-	<select id="exReviewUpdate" parameterType="int" resultType="com.java.exreview.dto.ExReviewDto">
-		select * from exReview where memberCode=#{memberCode}
+	<select id="exReviewUpdate" parameterType="java.util.Map" resultType="com.java.exreview.dto.ExReviewDto">
+		select * from exReview where memberCode=#{memberCode} and exReserveCode=#{exReserveCode}
 	</select>
 	
 	<update id="exReviewUpdateOk" parameterType="com.java.exreview.dto.ExReviewDto">
@@ -119,7 +120,6 @@
 	<select id="getExReserveCode" parameterType="java.util.Map" resultType="int">
 		 select exReserveCode from exReserve where exCode=#{exCode} and memberCode=#{memberCode} and exDate=#{exDate} 
 	</select>
-	
 
 	
 	<!-- 포인트 업데이트 -->
@@ -127,18 +127,35 @@
 		update member set point=#{plusPoint} where memberCode=#{memberCode}
 	</update>
 	
-	<!-- 메세지 보관함 -->
-	<!-- <insert id="message" parameterType="com.java.message.dto.MessageDto">
-		insert into message set(msgCode, memberCode, msgContent, msgDate, memberCode2) values(message_msgCode_seq.nextval, #{memberCode},#{msgContent},sysDate,"읽지 않음")
-	</insert> -->
+	<insert id="resPointUp" parameterType="com.java.guestdelluna.dto.PointAccumulate">
+		insert into pointAccumulate (accuCode, membercode, accuPlace, accuDate, accuPoint) values(seq_accuCode_num.nextval,#{memberCode},#{accuPlace},#{accuDate},#{accuPoint})
+	</insert>
 	
-	<!-- 달력 체험 가능 인원 -->
+	<insert id="usePointUp" parameterType="com.java.guestdelluna.dto.PointUse">
+		insert into pointUse (useCode, memberCode, usePlace, useDate, usePoint) values(seq_useCode_num.nextval,#{memberCode},#{usePlace},#{useDate},#{usePoint})
+	</insert>
+	
+	<!-- 메세지 보관함 -->
+	<insert id="message" parameterType="com.java.guestdelluna.dto.MsgDto">
+		insert into message (msgCode, memberCode, msgContent, msgDate, msgCheck) values(message_msgCode_seq.nextval, #{memberCode},#{msgContent},#{msgDate},#{msgCheck})
+	</insert>
+	
+	<!-- 달력 체험 가능 인원 x-->
 	<select id="reserveList" parameterType="java.util.Map" resultType="com.java.exreserve.dto.ExReserveDto">
 		select exPeople from exReserve where exCode=#{exCode} and exDate=#{exDate}
 	</select>
 	
-	<!-- 하루에 수용 가능한 인원 -->
+	<!-- 하루에 수용 가능한 인원 x-->
 	<select id="getPeople" parameterType="int" resultType="int">
 		select exPeople from experience where exCode=#{exCode}
 	</select>
+	
+	<!-- 달력 !!! -->
+	<select id="getExRemain" parameterType="int" resultType="com.java.exremain.dto.ExRemainDto">
+		select * from exRemain where exCode=#{exCode}
+	</select>
+	
+	<insert id="insertExRemain" parameterType="java.util.Map">
+		insert into exRemain (resDate, exPeople,exCode) values(#{exDate},#{exPeople},#{exCode})
+	</insert>
 </mapper>

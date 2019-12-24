@@ -1,0 +1,44 @@
+@charset "UTF-8";
+#probootstrap-navbar{
+	position: 70%;
+	/* border: 3px dotted red; */
+}
+.container{
+	/* border: 1px dotted green; */
+	width: 100%;
+	position: fixed;
+	background-color: white;
+	border-bottom: 1px solid grey;
+	z-index: 999;
+	}
+.logCon{
+	/* border: 1px dotted orange; */
+	width: 300px;
+	margin-left: 200px;
+}
+
+.navbar-brand{
+	/* border: 1px solid yellow; */
+	margin: 20px auto;
+}
+.navbar-nav{
+	
+	width:950px;
+	/* border: 3px solid blue;  */
+	margin-left:500px;
+	margin-bottom: 30px;
+	
+}
+
+.nav-link{
+	
+	/* border: 1px solid red; */
+	margin-right: 45px;
+	float: right;
+	
+	
+}
+#probootstrap-menu{
+	/* border: 3px solid red; */
+	
+}

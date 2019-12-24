@@ -13,7 +13,7 @@
 	<c:if test="${check > 0}">	<!-- 제대로 수정되었으면 1, 아니면 00  -->
 		<script type="text/javascript">
 			alert("후기가 등록 되었습니다");
-			location.href="${root}/experience/exReview.do";
+			location.href="${root}/experience/exPage.do?exCode=${exCode}";
 	
 		</script>
 	</c:if>
@@ -21,7 +21,7 @@
 	<c:if test="${check == 0}">
 		<script type="text/javascript">
 			alert("후기가 등록되지 않았습니다");
-			location.href="${root}/experience/exReview.do";
+			location.href="${root}/experience/exPage.do?exCode=${exCode}";
 	
 		</script>
 	</c:if>
@@ -29,7 +29,7 @@
 	<c:if test="${reviewChk != 0 and getExReserveCode !=0}">	
 		<script type="text/javascript">
 			alert("후기를 이미 작성하였습니다.");
-			location.href="${root}/experience/exPage.do";	
+			location.href="${root}/experience/exPage.do?exCode=${exCode}";
 			
 			
 		</script>
@@ -39,7 +39,7 @@
 		<script type="text/javascript">
 			
 				alert("후기를 작성할 권한이 없는 사용자입니다.");
-				location.href="${root}/experience/exPage.do";
+				location.href="${root}/experience/exPage.do?exCode=${exCode}";
 			
 		</script>
 	</c:if>

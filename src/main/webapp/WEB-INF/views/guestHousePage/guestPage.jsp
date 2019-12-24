@@ -24,7 +24,6 @@
 	<c:forEach items="${dList}" var="item">
 		disabledDays.push("${dList}");
 	</c:forEach>  
-	
 	//var disabledDays=["2020-1-25","2020-1-26","2020-1-27"]; 
 
 	function disableSomeDay(date){

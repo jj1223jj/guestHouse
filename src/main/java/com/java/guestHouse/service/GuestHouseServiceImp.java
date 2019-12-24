@@ -46,9 +46,9 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpSession session = request.getSession();
 		email = (String)session.getAttribute("email");
 		
-//		int houseCode=63;
+		int houseCode=63;
 		
-		 int houseCode = 8;
+		//int houseCode = 8;
 		
 		hostDto = guestHouseDao.getHostInfo(houseCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());

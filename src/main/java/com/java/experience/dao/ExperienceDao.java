@@ -5,9 +5,12 @@ import java.util.List;
 
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dto.ExperienceDto;
+import com.java.exremain.dto.ExRemainDto;
 import com.java.exreserve.dto.ExReserveDto;
 import com.java.exreview.dto.ExReviewDto;
 import com.java.exreview.dto.ExReviewListDto;
+import com.java.guestdelluna.dto.PointAccumulate;
+import com.java.guestdelluna.dto.PointUse;
 import com.java.host.dto.HostDto;
 import com.java.member.dto.MemberDto;
 
@@ -34,7 +37,7 @@ public interface ExperienceDao {
 
 	public int writeReview(ExReviewDto exReviewDto);
 
-	public ExReviewDto exReviewUpdate(int memberCode);
+	public ExReviewDto exReviewUpdate(int memberCode, int exReserveCode);
 
 	public int exReviewUpdateOk(ExReviewDto exReviewDto);
 
@@ -67,7 +70,19 @@ public interface ExperienceDao {
 	// 하루에 수용 가능한 인원
 	public int getPeople(int exCode);
 
-	//public int message(int memberCode, String msgContent);
+	// 체험코드로 남은!!!
+	public List<ExRemainDto> getExRemain(int exCode);
+
+	public int insertExRemain(Date exDate, int exPeople, int exCode);
+
+	public int message(int memberCode, String msgContent, Date msgDate, String msgCheck);
+
+	public int resPointUp(PointAccumulate pointAccumulate);
+
+	public int usePointUp(PointUse pointUse);
+
+
+
 
 
 
