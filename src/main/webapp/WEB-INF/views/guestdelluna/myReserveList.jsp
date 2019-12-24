@@ -18,9 +18,6 @@
 <link rel="stylesheet"
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <body>
-
-	<div>게스트하우스 이름을 클릭하면 해당 url로 갈 수 있어야한다</div>
-
 	<c:set var="countExp" value="${countExp}" />
 	<c:set var="countHouse" value="${countHouse}" />
 	<c:set var="houseDtoList" value="${houseDtoList}" />
@@ -32,66 +29,35 @@
 		</ul>
 
 		<div id="fragment-1">
-
-			<table border="1">
-				<tr>
-					<td>
 						<div>
 							<input type="checkBox" name="allCheck" id="allCheck" />모두선택
 						</div>
-					</td>
-				</tr>
-			</table>
-
 			<c:forEach var="exList" items="${listExp}" varStatus="status">
-
-				<table border="1">
-					<tr>
-						<td><input type="checkbox" name="expCheck" class="expCheck"
-							value="${exList.exReserveCode}" /></td>
-						<td>
+					<input type="checkbox" name="expCheck" class="expCheck"
+							value="${exList.exReserveCode}" />
 							<div>번호</div>
-							<div class="seqRes">${status.count}</div>
-						</td>
-					</tr>
+					
 					<input type="hidden" name="exReserveCode"
 						value="${exList.exReserveCode}" />
-				</table>
-
-
 			</c:forEach>
 
 			<c:forEach var="exName" items="${exName}" varStatus="status">
-				<table border="1">
-					<tr>
-						<td>
+				
 							<div>체험이름</div>
 							<div>
-								<a href="#">${exName}</a>
+								<div>${exName}</div>				
 							</div>
-						</td>
-					</tr>
-				</table>
 			</c:forEach>
 
 			<c:forEach var="exList" items="${listExp}" varStatus="status">
-				<table border="1">
-					<tr>
-						<td>
 							<div>체험날짜</div>
 							<div>
 								<fmt:formatDate value="${exList.exRegDate }"
 									pattern="yyyy-MM-dd" />
 							</div>
-						</td>
-
-						<td>
+						
 							<div>예약여부</div>
 							<div>${exList.state}</div>
-						</td>
-					</tr>
-				</table>
-
 			</c:forEach>
 
 			<button id="opener">예약취소</button>
@@ -100,68 +66,37 @@
 		</div>
 
 		<div id="fragment-2">
-
-			<table border="1">
-				<tr>
-					<td>
 						<div>
 							<input type="checkBox" name="checkAll" id="checkAll" />모두선택
 						</div>
-					</td>
-				</tr>
-			</table>
-
 			<c:forEach var="houseList" items="${listHouse}" varStatus="status">
 
-				<table border="1">
-					<tr>
-						<td><input type="checkbox" name="houseCheck"
-							class="houseCheck" value="${houseList.reserveCode}" /></td>
-						<td>
+				<input type="checkbox" name="houseCheck"
+							class="houseCheck" value="${houseList.reserveCode}" />
 							<div>번호</div>
 							<div class="seqRes">${status.count}</div>
-						</td>
-					</tr>
 
 					<input type="hidden" name="houseReserveCode"
 						value="${houseList.reserveCode}" />
-
-				</table>
-
 				<input type="hidden" name="result" />
 
 			</c:forEach>
 
 			<c:forEach var="houseName" items="${houseName}">
-				<table border="1">
-					<tr>
-						<td>
 							<div>게스트하우스 이름</div>
 							<div>
-								<a href="#">${houseName}</a>
+								${houseName}
 							</div>
-						</td>
-					</tr>
-				</table>
 			</c:forEach>
 
 			<c:forEach var="houseList" items="${listHouse}" varStatus="status">
-				<table>
-					<tr>
-						<td>
 							<div>예약날짜</div>
 							<div class="resDate">
 								<fmt:formatDate value="${houseList.reserveDate}"
 									pattern="yyyy-MM-dd" />
 							</div>
-						</td>
-
-						<td>
-							<div>예약여부</div> <di>${houseList.state}</div>
-						</td>
-					</tr>
-				</table>
-
+						
+							<div>예약여부</div> <div>${houseList.state}</div>
 			</c:forEach>
 
 			<button id="opener2">예약취소</button>

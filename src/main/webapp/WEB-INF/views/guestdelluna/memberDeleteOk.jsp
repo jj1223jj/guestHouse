@@ -22,7 +22,7 @@
 	<c:if test="${check ==0 }">
 		<script type="text/javascript">
 			alert("비밀번호가 틀렸습니다. 다시 확인해주세요");
-			location.href="${root}/guestdelluna/myInfo.do";
+			location.href="${root}/guestdelluna/memberDelete.do";
 		</script>
 	</c:if>
 	

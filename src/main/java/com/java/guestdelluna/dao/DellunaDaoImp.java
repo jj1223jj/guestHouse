@@ -16,6 +16,8 @@ import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.MsgDto;
+import com.java.guestdelluna.dto.NewExpReviewDto;
+import com.java.guestdelluna.dto.NewHouseReviewDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
@@ -93,6 +95,7 @@ public class DellunaDaoImp implements DellunaDao {
 		int check = 0;
 
 		if (memberDto.getMemberImgName() == null) {
+			System.out.println(11111);
 			check = sqlSessionTemplate.update("dao.dellunaMapper.updateMember", memberDto);
 		} else {
 			check = sqlSessionTemplate.update("dao.dellunaMapper.updateMemberFile", memberDto);
@@ -398,12 +401,12 @@ public class DellunaDaoImp implements DellunaDao {
 	}
 
 	@Override
-	public List<PointUse> myUsePoint(int memberCode, int startRow, int endRow) {
+	public List<PointUse> myUsePoint(int memberCode, int  useStartRow, int useEndRow) {
 		// TODO Auto-generated method stub
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
+		map.put("useStartRow", useStartRow);
+		map.put("useEndRow", useEndRow);
 		
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.myUsePoint", map);
 	}
@@ -545,6 +548,18 @@ public class DellunaDaoImp implements DellunaDao {
 		map.put("reserveCode", reserveCode);
 		map.put("revContent", revContent);
 		return sqlSessionTemplate.update("dao.dellunaMapper.updateHouseReview", map);
+	}
+
+	@Override
+	public List<NewExpReviewDto> myExpreviewList(int memberCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("dao.dellunaMapper.myExpreviewList", memberCode);
+	}
+
+	@Override
+	public List<NewHouseReviewDto> myHousereviewList(int memberCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("dao.dellunaMapper.myHousereviewList",memberCode);
 	}
 	
 }

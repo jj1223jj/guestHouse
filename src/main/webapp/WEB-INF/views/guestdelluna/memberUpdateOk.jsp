@@ -14,14 +14,14 @@
 	<c:if test="${check >0 }">
 		<script type="text/javascript">
 			alert("정보수정완료")
-			var url = root + "guestdelluna/myInfo.do" 
+			var url = "${root}/guestdelluna/myInfo.do" 
 		</script>
 	</c:if>
 	
 	<c:if test="${check ==0 }">
 		<script type="text/javascript">
 			alert("수정 실패")
-			var url = root + "guestdelluna/myInfo.do" 
+			var url = "${root}/guestdelluna/myInfo.do" 
 		</script>
 	</c:if>
 

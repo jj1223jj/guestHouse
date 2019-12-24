@@ -9,7 +9,7 @@
 </select>
 
 <update id="updateMember" parameterType="com.java.guestdelluna.dto.MemberDto">
-	update member set memberName=#{memberName} , email=#{email} , password=#{password} , phone=#{phone}, memberInfo=#{memberInfo} where email=#{email}
+	update member set memberName=#{memberName} , password=#{password} , phone=#{phone}, memberInfo=#{memberInfo} where email=#{email}
 </update>
 
 <insert id="doZzim" parameterType="java.util.Map">
@@ -21,7 +21,7 @@
 </delete>
 
 <update id="updateMemberFile" parameterType="com.java.guestdelluna.dto.MemberDto">
-	update member set memberImgName=#{memberImgName} , memberImgPath=#{memberImgPath} , memberImgSize=#{memberImgSize} ,  memberName=#{memberName} , email=#{email} , password=#{password} , phone=#{phone}, memberInfo=#{memberInfo} where email=#{email}
+	update member set memberImgName=#{memberImgName} , memberImgPath=#{memberImgPath} , memberImgSize=#{memberImgSize} ,  memberName=#{memberName}  , password=#{password} , phone=#{phone}, memberInfo=#{memberInfo} where email=#{email}
 </update>
 
 <delete id="memberDeleteOk" parameterType="java.util.Map">
@@ -180,7 +180,7 @@
 <select id="myUsePoint" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.PointUse">
 	 <![CDATA[
 	 select * from (select rownum as rnum, a.* from
-    (select * from pointuse where memberCode=#{memberCode}) a)b where b.rnum >=#{startRow} and b.rnum <=#{endRow}
+    (select * from pointuse where memberCode=#{memberCode}) a)b where b.rnum >=#{useStartRow} and b.rnum <=#{useEndRow}
     ]]>
 </select>
 
@@ -252,6 +252,28 @@
 
 <select id="allMsgDto" parameterType="int" resultType="com.java.guestdelluna.dto.MsgDto">
 	select * from message where memberCode=#{memberCode}
+</select>
+
+<select id="myExpreviewList" parameterType="int" resultType="com.java.guestdelluna.dto.NewExpReviewDto">
+	select 	e.exReserveCode , e.revDate , e.revContent, r.exName, f.mainImgName from exreview e , experience r , exfilelist f, exreserve v
+     
+	where f.excode = r.excode
+    and r.excode = v.excode
+    and v.exreservecode = e.exreservecode
+    and v.membercode = e.membercode 
+    and v.membercode=#{memberCode}
+ 	and f.mainImgName is not null
+</select>
+
+<select id="myHousereviewList" parameterType="int" resultType="com.java.guestdelluna.dto.NewHouseReviewDto">
+	 select r.reservecode , r.revDate , r.revContent , h.housename , f.mainimgname from review r , house h , filelist f , reservation v
+    where 
+    h.housecode = v.housecode
+    and v.housecode = f.housecode
+    and v.reservecode = r.reservecode
+    and v.membercode = r.membercode
+    and v.membercode = 63
+    and f.mainimgname is not null
 </select>
 
 <!-- <select id="houseInfo2" parameterType="int" resultType="com.java.guestdelluna.dto.NewDto">
