@@ -104,7 +104,7 @@ google.charts.setOnLoadCallback(drawChart);
     
     
   } );
-  function searchDate(root) {
+  function searchDate(root, param) {
 		var from = document.getElementById("from").value;
 		var to = document.getElementById("to").value;
 		
@@ -112,7 +112,7 @@ google.charts.setOnLoadCallback(drawChart);
 		
 		
 		if (from != "" && to != "") {
-			var params = "from=" + from + "&to=" + to;
+			var params = "from=" + from + "&to=" + to + "&pageNumber=" + param;
 			sendRequest("GET", url, fromServer, params);
 		} else {
 			alert("날짜를 정확하게 선택해주세요.");
@@ -151,7 +151,7 @@ google.charts.setOnLoadCallback(drawChart);
 		<input type="text" id="from" name="from">
 		<label for="to">~</label>
 		<input type="text" id="to" name="to">
-	 	<button type="button" onclick="return searchDate('${root}')">조회</button>
+	 	<button type="button" onclick="return searchDate('${root}', '')">조회</button>
  	</form>
  	
  	<div id="searchDateView"></div>

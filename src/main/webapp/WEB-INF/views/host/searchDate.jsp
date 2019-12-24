@@ -59,16 +59,13 @@
 			</c:if>
 			
 			<c:if test="${startPage>pageBlock}">
-				<a href="${root}/host/searchDate.do?pageNumber=${startPage-pageBlock}&from=${startDate}&to=${endDate}">[이전]</a>
+				<a onclick="searchDate('${root}','${startPage-pageBlock}')">[이전]</a>
 			</c:if>
-			
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a href="${root}/host/searchDate.do?pageNumber=${i}&from=${startDate}&to=${endDate}">[${i}]</a>
-				
+				<a onclick="searchDate('${root}', '${i}')">[${i}]</a>
 			</c:forEach>
-			
 			<c:if test="${endPage < pageCount}">
-				<a href="${root}/host/searchDate.do?pageNumber=${startPage+pageBlock}&from=${startDate}&to=${endDate}">[다음]</a>
+				<a onclick="searchDate('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
 		

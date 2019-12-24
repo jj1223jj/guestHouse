@@ -21,7 +21,9 @@ $(document).ready(function(){
 });
 
 
-
+function mainUpload() {
+	$("#mainImg").trigger("click");
+}
 function mainImgPreview(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -48,6 +50,10 @@ function mainImgPreview(input) {
 	}
 }
 
+
+function subUpload() {
+	$("#subImg").trigger("click");
+}
 var sel_files = [];
 $(document).ready(function(){
 		$("#subImg").on("change", handleImgFileSelect);

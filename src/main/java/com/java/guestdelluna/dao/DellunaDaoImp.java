@@ -16,6 +16,8 @@ import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.MsgDto;
+import com.java.guestdelluna.dto.MyExReviewList;
+import com.java.guestdelluna.dto.MyHouseReviewList;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
@@ -545,6 +547,33 @@ public class DellunaDaoImp implements DellunaDao {
 		map.put("reserveCode", reserveCode);
 		map.put("revContent", revContent);
 		return sqlSessionTemplate.update("dao.dellunaMapper.updateHouseReview", map);
+	}
+
+	@Override
+	public List<ExReviewListDto> getExReviewListScroll(int memberCode, int startRow, int endRow) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberCode", memberCode);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSessionTemplate.selectList("host.dao.mapper.getExReviewListScroll" ,map);
+	}
+
+	@Override
+	public List<MyHouseReviewList> getMyHouseReviewListScroll(int memberCode, int startRow, int endRow) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberCode", memberCode);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSessionTemplate.selectList("host.dao.mapper.getMyHouseReviewListScroll" ,map);
+	}
+
+	@Override
+	public List<MyExReviewList> getMyExReviewListScroll(int memberCode, int startRow, int endRow) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberCode", memberCode);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSessionTemplate.selectList("host.dao.mapper.getMyExReviewListScroll" ,map);
 	}
 	
 }

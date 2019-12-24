@@ -44,21 +44,47 @@
 	]]>
   </select>
   
+  <select id="ahouseList" parameterType="int" resultType="com.java.host.dto.HostDto">
+  	select * from house where memberCode = #{memberCode}
+  </select>
+  
   <update id="hostCancel" parameterType="int">
   	update house set approvalStatus = '삭제' where housecode = #{houseCode}
+  </update>
+  
+  <update id="exCancel" parameterType="int">
+  	update experience set exApproval = '삭제' where exCode = #{exCode}
   </update>
   
   <select id="houseNameList" parameterType="int" resultType="String">
   	select houseName from house where memberCode = #{memberCode} and approvalStatus = '승인완료'
   </select>
   
+  <select id="exNameList" parameterType="int" resultType="String">
+  	select exName from experience where memberCode = #{memberCode} and exApproval = '승인완료'
+  </select>
+  
   <select id="getHouseCode" parameterType="String" resultType="int">
   	select houseCode from house where houseName = #{houseName}
   </select>
   
+  <select id="getExCode" parameterType="String" resultType="int">
+  	select exCode from experience where exName = #{exName}
+  </select>
+  
   <select id="reserveViewList" parameterType="java.util.Map" resultType="com.java.host.dto.ReservationListDto">
   	<![CDATA[
-  	select * from (select rownum rnum, A.*From (select member.memberName, member.email, member.phone, reservation.checkIn, reservation.checkOut, reservation.payment, reservation.state from member natural join reservation where reservation.housecode = #{houseCode})A) WHERE rnum>=#{startRow} and rnum<=#{endRow}
+  	select * from (select rownum rnum, A.*From (select member.memberName, member.email, member.phone, reservation.checkIn, reservation.checkOut, reservation.payment, reservation.state, reservation.people from member natural join reservation where reservation.housecode = #{houseCode})A) WHERE rnum>=#{startRow} and rnum<=#{endRow}
+  	]]>
+  </select>
+  
+  <select id="exReserveViewList" parameterType="java.util.Map" resultType="com.java.host.dto.ExReservationListDto">
+  	<![CDATA[
+  		select * from 
+		(select rownum rnum, A.*From 
+		(select member.memberName, member.email, member.phone, exReserve.reserveDate, exReserve.expayment, exReserve.state, exReserve.expeople 
+		from member natural join exReserve where exReserve.excode = #{exCode})A) 
+		WHERE rnum>=#{startRow} and rnum<=#{endRow}
   	]]>
   </select>
   
@@ -68,6 +94,10 @@
   
   <select id="getReserveCount" parameterType="int" resultType="int">
   	select count(*) from reservation where houseCode = #{houseCode}
+  </select>
+  
+  <select id="getExReserveCount" parameterType="int" resultType="int">
+  	select count(*) from exReserve where exCode = #{exCode}
   </select>
   
    <select id="getExCount" parameterType="int" resultType="int">
@@ -221,4 +251,74 @@
 	    where rnum>= #{startRow} and rnum<= #{endRow}
      ]]>
   </select>
+  
+  <select id="getExReviewListScroll" parameterType="java.util.Map" resultType="com.java.host.dto.ExReviewListDto">
+  <![CDATA[
+  	select * from 
+        (select rownum rnum, A.* from
+        (select e.exName, f.mainImgName, rv.revContent, rv.revRate, rv.revDate, m.memberImgName, m.memberName
+		from experience e
+		inner
+		join exFileList f
+		on e.exCode = f.exCode
+		left outer
+		join exReserve r
+		on e.exCode = r.exCode
+		left outer
+		join exReview rv
+		on r.exReserveCode = rv.exReserveCode
+		left outer
+		join member m
+		on rv.memberCode = m.memberCode
+		where NOT f.mainImgName is NULL
+		and e.memberCode = #{memberCode}
+		and NOT rv.revContent is NULL)A)
+        where rnum>=#{startRow} and rnum<= #{endRow}
+     ]]>
+  </select>
+  
+ <select id="getMyHouseReviewListScroll" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.MyHouseReviewList">
+  <![CDATA[
+  	select * from
+		(select rownum rnum, A.* from
+		(select h.houseName, f.mainImgName, r.reserveCode, rv.revContent, rv.revDate
+		from house h
+		inner join filelist f
+		on h.houseCode = f.houseCode
+		left outer
+		join reservation r
+		on h.houseCode = r.houseCode
+		left outer
+		join review rv
+		on r.reserveCode = rv.reserveCode
+		where NOT f.mainImgName is NULL
+		and rv.memberCode = #{memberCode})A)
+		where rnum>=#{startRow} and rnum<= #{endRow}
+     ]]>
+  </select>
+  
+  <select id="getMyExReviewListScroll" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.MyExReviewList">
+  <![CDATA[
+  	select * from
+	(select rownum rnum, A.* from
+	(select e.exName, f.mainImgName, r.exreserveCode, rv.revContent, rv.revDate
+	from experience e
+	inner join exfilelist f
+	on e.exCode = f.exCode
+	left outer
+	join exreserve r
+	on e.exCode = r.exCode
+	left outer
+	join exreview rv
+	on r.exreserveCode = rv.exreserveCode
+	where NOT f.mainImgName is NULL
+	and rv.memberCode = #{memberCode})A)
+	where rnum>=#{startRow} and rnum<= #{endRow}
+     ]]>
+  </select>
+  
+  <select id="getLocal" parameterType="String" resultType="String">
+  	select local from local where name like '${value}%'
+  </select>
+  
 </mapper>

@@ -21,6 +21,7 @@ import com.java.experience.dto.ExperienceDto;
 import com.java.file.dto.FileDto;
 import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.host.dao.HostDao;
+import com.java.host.dto.ExReservationListDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.ReservationListDto;
 import com.java.host.dto.SearchDateList;
@@ -62,7 +63,7 @@ public class HostServiceImp implements HostService {
 		long profileFileSize = upFile.getSize();
 		String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
 		
-		File path = new File("c:\\profile");
+		File path = new File("c:/profile");
 		path.mkdir();
 		
 		if (path.exists() && path.isDirectory()) {
@@ -108,6 +109,12 @@ public class HostServiceImp implements HostService {
 		
 		String[] roadStr = roadAddr.split(" ");
 		String[] jibunStr = jibunAddr.split(" ");
+		String localName = jibunStr[2].substring(0, 2);
+		HomeAspect.logger.info(HomeAspect.logMsg + "지번이름!!: " + localName);
+
+		String local = hostDao.getLocal(localName);
+		
+		hostDto.setLocal(local);
 		hostDto.setSido(roadStr[0]);
 		hostDto.setSigungu(roadStr[1]);
 		hostDto.setRoadName(roadStr[roadStr.length-2]);
@@ -117,7 +124,6 @@ public class HostServiceImp implements HostService {
 		hostDto.setBed(Integer.parseInt(request.getParameter("bed")));
 		hostDto.setPeople(Integer.parseInt(request.getParameter("people")));
 		hostDto.setPrice(Integer.parseInt(request.getParameter("price")));
-		hostDto.setLocal("아직");
 		hostDto.setHouseRegDate(new Date());
 		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());
 		
@@ -133,7 +139,7 @@ public class HostServiceImp implements HostService {
 		long mainFileSize = mainFile.getSize();
 		String mainFileName = Long.toString(System.currentTimeMillis()) + "_" + mainFile.getOriginalFilename();
 		
-		File mainFilePath = new File("c:\\pds");
+		File mainFilePath = new File("c:/pds");
 		path.mkdir();
 		
 		if (path.exists() && path.isDirectory()) {
@@ -162,7 +168,7 @@ public class HostServiceImp implements HostService {
 		
 		//------------------------------------------FileDto(subImg)
 		List<MultipartFile> files = request.getFiles("subImg");
-		File filepath = new File("c:\\pds");
+		File filepath = new File("c:/pds");
 		filepath.mkdir();
 		
 		for (int i=0;i <files.size(); i++) {
@@ -232,7 +238,7 @@ public class HostServiceImp implements HostService {
 		int houseCode = hostDao.getHouseCode(houseName);
 		HomeAspect.logger.info(HomeAspect.logMsg + houseCode);
 
-		if (pageNumber == null) {
+		if (pageNumber.equals("")) {
 			pageNumber = "1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);
@@ -260,6 +266,67 @@ public class HostServiceImp implements HostService {
 		mav.addObject("count", count);
 		mav.addObject("reserveViewList", reserveViewList);
 		mav.setViewName("host/reservationOkView.empty");
+	}
+	
+	public void exReservationView(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		int memberCode = hostDao.memberCode(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
+
+		
+		List<String> exNameList = hostDao.exNameList(memberCode);
+		mav.addObject("exNameList", exNameList);
+		HomeAspect.logger.info(HomeAspect.logMsg + exNameList.size());
+		mav.setViewName("host/exReservationView.tiles");
+	}
+	
+	@Override
+	public void exReservationOkView(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		
+		String pageNumber = request.getParameter("pageNumber");
+		HomeAspect.logger.info(HomeAspect.logMsg + "pageNumber: " + pageNumber);
+		
+		String exName = request.getParameter("exName");
+		HomeAspect.logger.info(HomeAspect.logMsg + "exName: " + exName);
+		
+		int exCode = hostDao.getExCode(exName);
+		HomeAspect.logger.info(HomeAspect.logMsg + exCode);
+
+		if (pageNumber.equals("")) {
+			pageNumber = "1";
+		}
+		int currentPage = Integer.parseInt(pageNumber);
+		
+		int count = hostDao.getExReserveCount(exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "getExReserveCount: " + count);
+		
+		int boardSize = 2;
+		int startRow = (currentPage-1)*boardSize+1;
+		int endRow = currentPage*boardSize;		
+		
+		
+		List<ExReservationListDto> exReserveViewList = null; 
+		if (count > 0) {
+			exReserveViewList = hostDao.exReserveViewList(exCode, startRow, endRow);
+			for (int i=0; i<exReserveViewList.size();i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg + exReserveViewList.get(i).toString());
+				
+			}
+		}
+		
+		mav.addObject("exName", exName);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("exReserveViewList", exReserveViewList);
+		mav.setViewName("host/exReservationOkView.empty");
 	}
 	
 
@@ -316,6 +383,12 @@ public class HostServiceImp implements HostService {
 
 	@Override
 	public void houseManagement(ModelAndView mav) {
+		
+		mav.setViewName("host/houseManagement.tiles");
+	}
+	
+	@Override
+	public void houseManagementView(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
@@ -324,7 +397,7 @@ public class HostServiceImp implements HostService {
 		int memberCode = hostDao.memberCode(email);
 		
 		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null) {
+		if (pageNumber.equals("")) {
 			pageNumber = "1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);
@@ -341,16 +414,23 @@ public class HostServiceImp implements HostService {
 			houseList = hostDao.houseList(memberCode,startRow,endRow);
 			HomeAspect.logger.info(HomeAspect.logMsg + "HouseListSize: " + houseList.size());
 		}
+
 		
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
 		mav.addObject("count", count);
 		mav.addObject("houseList", houseList);
-		mav.setViewName("host/houseManagement.tiles");
+		mav.setViewName("host/houseManagementView.empty");
 	}
 
 	@Override
 	public void exManagement(ModelAndView mav) {
+		
+		mav.setViewName("host/exManagement.tiles");
+	}
+	
+	@Override
+	public void exManagementView(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
@@ -360,7 +440,7 @@ public class HostServiceImp implements HostService {
 		
 		
 		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null) {
+		if (pageNumber.equals("")) {
 			pageNumber = "1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);
@@ -388,7 +468,7 @@ public class HostServiceImp implements HostService {
 		mav.addObject("currentPage", currentPage);
 		mav.addObject("count", count);
 		mav.addObject("experienceList", experienceList);
-		mav.setViewName("host/exManagement.tiles");
+		mav.setViewName("host/exManagementView.empty");
 	}
 	
 	
@@ -402,6 +482,19 @@ public class HostServiceImp implements HostService {
 		
 		 houseManagement(mav);
 	}
+	
+
+	@Override
+	public void exCancel(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		int exCode = Integer.parseInt(request.getParameter("exCode"));
+		int cancelCheck = hostDao.exCancel(exCode);
+		
+		 houseManagement(mav);
+	}
+
 
 	@Override
 	public void searchDate(ModelAndView mav) {
@@ -419,7 +512,7 @@ public class HostServiceImp implements HostService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "기간조회: " + startDate + "," + endDate);
 		
 		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null) {
+		if (pageNumber.equals("")) {
 			pageNumber = "1";
 		}
 		int currentPage = Integer.parseInt(pageNumber);
@@ -452,6 +545,16 @@ public class HostServiceImp implements HostService {
 		mav.addObject("searchDateList", searchDateList);
 		mav.setViewName("host/searchDate.empty");
 	}
+
+	
+
+
+
+
+
+	
+
+	
 
 	
 	

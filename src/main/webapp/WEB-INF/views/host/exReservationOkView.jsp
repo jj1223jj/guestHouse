@@ -12,7 +12,7 @@
 <body>
 	<h3>예약현황</h3>
 		 <div align="center">
-		 <c:if test="${reserveViewList.size() == 0 || count == 0}">
+		 <c:if test="${exReserveViewList.size() == 0 || count == 0}">
 		 	<table border="1">
 		 		<tr>
 		 			<td>예약 목록이 존재하지 않습니다.</td>
@@ -25,25 +25,24 @@
 	      <tr>
 	         <td align="center" height="20"  width="80">예약자</td> 
 	         <td align="center" height="20"  width="125">예약자이메일</td> 
-	         <td align="center" height="20"  width="125">예약자연락처</td> 
-	         <td align="center" height="20"  width="80">예약인원</td>
+	         <td align="center" height="20"  width="125">예약자연락처</td>
+	         <td align="center" height="20"  width="80">예약인원</td> 
 	         <td align="center" height="20"  width="200">예약일</td>
 	         <td align="center" height="20"  width="80">결제금액</td>
 	         <td align="center" height="20"  width="80">예약상태</td>
 	      </tr>
 	      
-	      <c:forEach var="reserveViewList" items="${reserveViewList}">
+	      <c:forEach var="exReserveViewList" items="${exReserveViewList}">
 	      <tr>
-	         <td align="center" height="20"  width="80">${reserveViewList.memberName}</td> 
-	         <td align="center" height="20"  width="125">${reserveViewList.email}</td>
-	         <td align="center" height="20"  width="125">${reserveViewList.phone}</td>
-	         <td align="center" height="20"  width="80">${reserveViewList.people}</td> 
+	         <td align="center" height="20"  width="80">${exReserveViewList.memberName}</td> 
+	         <td align="center" height="20"  width="125">${exReserveViewList.email}</td>
+	         <td align="center" height="20"  width="125">${exReserveViewList.phone}</td>
+	         <td align="center" height="20"  width="80">${exReserveViewList.exPeople}</td> 
 	         <td align="center" height="20"  width="200">
-	         <fmt:formatDate value="${reserveViewList.checkIn}" pattern="yyyy-MM-dd"/> ~
-	         <fmt:formatDate value="${reserveViewList.checkOut}" pattern="yyyy-MM-dd"/>
+	         <fmt:formatDate value="${exReserveViewList.reserveDate}" pattern="yyyy-MM-dd"/>
 	         </td>
-	         <td align="center" height="20"  width="80">${reserveViewList.payment}</td>
-	         <td align="center" height="20"  width="80">${reserveViewList.state}</td> 
+	         <td align="center" height="20"  width="80">${exReserveViewList.exPayment}</td>
+	         <td align="center" height="20"  width="80">${exReserveViewList.state}</td> 
 	      </tr>
 	      </c:forEach>
 		</table>
