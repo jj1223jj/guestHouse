@@ -15,8 +15,13 @@ import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.MsgDto;
+<<<<<<< HEAD
 import com.java.guestdelluna.dto.MyExReviewList;
 import com.java.guestdelluna.dto.MyHouseReviewList;
+=======
+import com.java.guestdelluna.dto.NewExpReviewDto;
+import com.java.guestdelluna.dto.NewHouseReviewDto;
+>>>>>>> leeky
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
@@ -118,7 +123,7 @@ public interface DellunaDao {
 
 	List<PointAccumulate> myAccuPoint(int memberCode, int startRow, int endRow);	//o
 
-	List<PointUse> myUsePoint(int memberCode, int startRow, int endRow);	//o
+	List<PointUse> myUsePoint(int memberCode, int  useStartRow, int useEndRow);	//o
 
 	int expReviewCount(int memberCode);	//o
 
@@ -161,7 +166,11 @@ public interface DellunaDao {
 
 	List<MsgDto> allMsgDto(int memberCode);	//o
 
-	int updateHouseReview(int memberCode, int reserveCode, String revContent);
+	int updateHouseReview(int memberCode, int reserveCode, String revContent);	//ㅐ
+
+	List<NewExpReviewDto> myExpreviewList(int memberCode);	//ㅐ
+
+	List<NewHouseReviewDto> myHousereviewList(int memberCode);	//ㅐ
 
 	List<ExReviewListDto> getExReviewListScroll(int memberCode, int startRow, int endRow);
 

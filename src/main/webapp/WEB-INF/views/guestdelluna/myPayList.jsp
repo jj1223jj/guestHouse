@@ -19,25 +19,6 @@
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 </head>
 <body>
-	예약목록중에 상태가 예약완료인 것을 불러오고 날짜가 지난 것만 예약취소에서 이용완료로 바꿔준다
-
-	<div>
-		<div>
-			<a href="${root}/guestdelluna/memberUpdate.do">회원수정</a>
-		</div>
-		<div>
-			<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a>
-		</div>
-		<div>
-			<a href="${root}/guestdelluna/managePoint.do">포인트관리</a>
-		</div>
-		<div>
-			<a href="${root}/guestdelluna/payList.do">결제내역</a>
-		</div>
-		<div>
-			<a href="${root}/guestdelluna/allMyReview.do">내가쓴후기</a>
-		</div>
-	</div>
 
 	<c:set var="now" value="<%=new java.util.Date()%>" />
 	<c:set var="sysYear">
@@ -52,57 +33,45 @@
 
 		<div id="fragment-1">
 
-			<table border="1">
-				<tr>
-					<td>
 						<div>
 							<input type="checkBox" name="allCheck" id="allCheck" />모두선택
 						</div>
-					</td>
-				</tr>
-			</table>
+		
 
 			<c:forEach var="exList" items="${expList}" varStatus="status">
 
-				<table border="1">
-					<tr>
-						<td><input type="checkbox" name="expCheck" class="expCheck"
-							value="${exList.exReserveCode}" /></td>
-						<td>
+				
+				
+						<input type="checkbox" name="expCheck" class="expCheck"
+							value="${exList.exReserveCode}" />
+						
 							<div>번호</div>
 							<div class="seqRes">${status.count}</div>
-						</td>
-					</tr>
+					
+				
 					<input type="hidden" name="exReserveCode"
 						value="${exList.exReserveCode}" />
-				</table>
+			
 
 			</c:forEach>
 
 			<c:forEach var="exName" items="${expName}" varStatus="status">
-				<table border="1">
-					<tr>
-						<td>
+				
 							<div>체험이름</div>
 							<div>
-								<a href="#">${exName}</a>
+								${exName}
 							</div>
-						</td>
-					</tr>
-				</table>
 			</c:forEach>
 
 			<c:forEach var="exList" items="${expList}" varStatus="status">
-				<table border="1">
-					<tr>
-						<td>
+				
 							<div>체험 날짜</div>
 							<div>
 								<fmt:formatDate value="${exList.exDate}" pattern="yyyy-MM-dd" />
 							</div>
-						</td>
+						
 
-						<td>
+						
 							<div>예약여부</div>
 							<div class="exResState">
 
@@ -133,80 +102,55 @@
 									</script>
 								</c:if>
 							</div>
-						</td>
-					</tr>
-				</table>
-
 			</c:forEach>
 
-			<button id="opener">삭제</button>
+			<button id="opener">체험 결제 취소</button>
 			<div id="dialog" title="삭제 하시겠습니까?"></div>
 			<br /> <br /> <br />
 		</div>
 
 		<div id="fragment-2">
 
-			<table border="1">
-				<tr>
-					<td>
 						<div>
 							<input type="checkBox" name="checkAll" id="checkAll" />모두선택
 						</div>
-					</td>
-				</tr>
-			</table>
-
 			<c:forEach var="houseList" items="${houseList}" varStatus="status">
 
-				<table border="1">
-					<tr>
-						<td><input type="checkbox" name="houseCheck"
+				<input type="checkbox" name="houseCheck"
 							class="houseCheck" value="${houseList.reserveCode}" /></td>
 						<td>
 							<div>번호</div>
 							<div class="seqRes">${status.count}</div>
-						</td>
-					</tr>
+						
 
 					<input type="hidden" name="houseReserveCode"
 						value="${houseList.reserveCode}" />
-				</table>
-
+				
 			</c:forEach>
 
 			<c:forEach var="houseName" items="${houseName}">
-				<table border="1">
-					<tr>
-						<td>
+				
 							<div>게스트하우스 이름</div>
 							<div>
-								<a href="#">${houseName}</a>
+								${houseName}
 							</div>
-						</td>
-					</tr>
-				</table>
+						
 			</c:forEach>
 
 			<c:forEach var="houseList" items="${houseList}" varStatus="status">
-				<table>
-					<tr>
-						<td>
+				
 							<div>체크인날짜</div>
 							<div class="resDate">
 								<fmt:formatDate value="${houseList.checkIn}"
 									pattern="yyyy-MM-dd" />
 							</div>
-						</td>
-
-						<td>
+						
 							<div>체크아웃날짜</div>
 							<div class="resDate">
 								<fmt:formatDate value="${houseList.checkOut}"
 									pattern="yyyy-MM-dd" />
 							</div>
-						</td>
-
-						<td>
+						
 							<div>예약여부</div>
 							<div class="houseResState">
 
@@ -230,13 +174,9 @@
 									</script>
 								</c:if>
 							</div>
-						</td>
-					</tr>
-				</table>
-
 			</c:forEach>
 
-			<button id="opener2">삭제</button>
+			<button id="opener2">게스트하우스 결제 취소</button>
 			<div id="dialog2" title="삭제 하시겠습니까?"></div>
 		</div>
 	</div>

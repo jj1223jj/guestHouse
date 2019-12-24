@@ -50,29 +50,18 @@ function updateCallBack() {
 	}
 }
 
-function focusExpReview(root, exResCode, i) {
+function focusExpReview(i) {
 
 	var modal = document.getElementsByClassName("modal");
-	modal[i].style.display = "block";
+	modal[i-1].style.display = "block";
 
 }
 
-function focusHouseReview(root, houseResCode, i) {
-	
-	var houseModal = document.getElementsByClassName("housemodal");
-	houseModal[i].style.display = "block";
-}
-
-function closeModal(root, exResCode, value, i) {
+function closeModal(root, i) {
 
 	var modal = document.getElementsByClassName("modal");
-	modal[i].style.display = "none";
+	modal[i-1].style.display = "none";
 
-}
-
-function closeHouseModal(root, exResCode, value, i) {
-	var houseModal = document.getElementsByClassName("housemodal");
-	houseModal[i].style.display = "none";
 }
 
 function expUpdateOk(root, expUpResCode) {
@@ -90,25 +79,5 @@ function expUpdateOk(root, expUpResCode) {
 		var params = "expUpResCode=" + expUpResCode + "&expRevContent=" + str
 	}
 
-	sendRequest("POST", url, updateCallBack, params);
-}
-
-function houseUpdateOk(root, houseUpResCode) {
-
-	// alert(houseUpResCode);
-	var houseReview = document.getElementsByName("houseReview");
-	var str = "";
-	for (var i = 0; i < houseReview.length; i++) {
-		var houseRevContent = document
-				.getElementsByClassName("houseRevContent");
-
-		if (houseRevContent[i].value != "") {
-			str = houseRevContent[i].value;
-		}
-
-		var url = root + "/guestdelluna/houseReviewUpdateOk.do?";
-		var params = "houseUpResCode=" + houseUpResCode + "&houseRevContent"
-				+ houseRevContent;
-	}
 	sendRequest("POST", url, updateCallBack, params);
 }
