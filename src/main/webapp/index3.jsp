@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+<script src="https://kit.fontawesome.com/0fcdcb00af.js" crossorigin="anonymous"></script>
 
 <script>
 	$(function(){
@@ -67,6 +67,14 @@
 			monthNames: monthNames,
 			dayNamesMin: dayNamesMin,
 		});
+		
+		$(".calenderIn").click(function(){
+			$("#checkIn").datepicker("show");
+		});
+		$(".calenderOut").click(function(){
+			$("#checkOut").datepicker("show");
+		});
+		
 	});
 	
 	//검색조건 submit함수
@@ -82,60 +90,155 @@
 </script>
 
 <style type="text/css">
-.filterBox{
-	position: absolute;
-	top :150px;
-	left:150px;
+form{
+	height: 100%;
+}
+.filterBoxContainer{
+	position: relative;
+	top :250px;
+	left:1000px;
 	width:500px;
-	height:500px;
+	height:400px;
+	border-radius: 25px;
+	border: 1px white solid;
+	background-color: white;
+}
+.filterBox{
+	height: 100%
 }
 .checkInLabel, .checkOutLabel{
-	font-size: 20px;
+	font-size: 24px;
 }
 .checkInContainer, .checkOutContainer{
 	width:200px;
 	display:inline-block;
 }
+.localAll, .localJeju, .localSeoguipo{
+	width: 140px;
+	font: 16px bold;
+}
+.form-control{
+	display:inline-block;
+	width: 150px;
+}
+.calender::before{
+	margin-top: 10px;
+}
+.checkInInput, .checkOutInput{
+	position: relative;
+	
+}
+i{
+	position: absolute;
+	right:-4px;
+	top:-9px;
+}
+.custom-control{
+	margin-bottom: 0px !important;
+}
+
+.localContainer{
+	position: absolute;
+	top : 100px;
+	left : 40px;
+}
+
+.peopleContainer{
+	position: absolute;
+	top : 200px;
+	left: 30px;
+	font-size: 20px;
+}
+
+.searchContainer{
+	position: absolute;
+	top : 200px;
+	right: 35px;
+	font-size: 20px;
+}
+.container{
+	position: relative;
+}
+.checkOutContainer{
+	position: absolute;
+	right: 35px;
+}
+
+.searchBtn{
+	margin-left:10px;
+	margin-bottom: 3.5px;
+}
+.checkInOutContainer{
+	margin-top: 40px;	
+	margin-left: 15px;
+}
+.backImg{
+	height: 1000px;
+	background-image: url("${root}/resources/images/JEJU STAY.jpg");
+}
+
 </style>
 
 </head>
 <body>
-	
 	<jsp:include page="/WEB-INF/views/tempalte/header.jsp"></jsp:include>
-	<div class="filterBox">
+	<div class="backImg">
+	<div class="filterBoxContainer">
+		<div class="filterBox container">
 				<form name="form" action="${root}/search" method="get" onsubmit="return confirmSubmit()">
 					
-					<div class="container">
-						<div class="checkInContainer container">
-							<div class="checkInLabel container"><label for="checkIn">Check In</label></div>
-							<div class="checkInInput container"><input class="form-control" type="text" name="checkIn" id="checkIn"/></div>
+					<div class="checkInOutContainer">
+						<div class="checkInContainer">
+							<div class="checkInLabel"><label for="checkIn">Check In</label></div>
+							<div class="checkInInput"><input class="form-control" type="text" name="checkIn" id="checkIn"/><i class="calenderIn far fa-calendar-alt fa-3x"></i></div>
 						</div>
-						<div class="checkOutContainer container">
-							<div class="checkOutLabel container"><label for="checkOut">Check Out</label></div>
-							<div class="checkOutInput container"><input class="form-control" type="text" name="checkOut" id="checkOut"/></div>
+						<div class="checkOutContainer">
+							<div class="checkOutLabel"><label for="checkOut">Check Out</label></div>
+							<div class="checkOutInput"><input class="form-control" type="text" name="checkOut" id="checkOut"/><i class="calenderOut far fa-calendar-alt fa-3x"></i></div>
 						</div>
 					</div>
 					
-					
-					<div class="localContainer form-check-inline">
-						<div><label class="form-check-label all"><input class="form-check-input" type="checkbox"/>전체</label></div>
-						<div>
-							<div><label class="form-check-label etc"><input class="form-check-input" type="checkbox" name="local[]" value="jeju"/>제주시</label></div>
-							<div><label class="form-check-label etc"><input class="form-check-input" type="checkbox" name="local[]" value="jejuEast"/>제주시 동부</label></div>
-							<div><label class="form-check-label etc"><input class="form-check-input" type="checkbox" name="local[]" value="jejuWest"/>제주시 서부</label></div>
-						</div>
-						<div>
-							<div><label class="form-check-label etc"><input class="form-check-input" type="checkbox" name="local[]" value="seoguipo"/>중문/서귀포</label></div>
-							<div><label class="form-check-label etc"><input class="form-check-input" type="checkbox" name="local[]" value="seoguipoEast"/>서귀포시 동부</label></div>
-							<div><label class="form-check-label etc"><input class="form-check-input" type="checkbox" name="local[]" value="seoguipoWest"/>서귀포시 서부</label></div>
-						</div>
-						<input type="hidden" name="local" id="local"/>
-						<br/>
+    				<div class="localContainer form-check-inline">
+						<div class="localAll">
+							<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input all" id="all"/>
+		    					 <label class="custom-control-label" for="all">전체</label>
+		    				</div>
+	    				</div>
+	    				<div class="localJeju">
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="jeju" value="jeju"/>
+		    					 <label class="custom-control-label" for="jeju">제주시</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="jejuEast" value="jejuEast"/>
+		    					 <label class="custom-control-label" for="jejuEast">제주시 동부</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="jejuWest" value="jejuWest"/>
+		    					 <label class="custom-control-label" for="jejuWest">제주시 서부</label>
+		    				</div>
+		    			</div>
+	    				<div class="localSeoguipo">
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="seoguipo" value="seoguipo"/>
+		    					 <label class="custom-control-label" for="seoguipo">중문/서귀포</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="seoguipoEast" value="seoguipoEast"/>
+		    					 <label class="custom-control-label" for="seoguipoEast">서귀포시 동부</label>
+		    				</div>
+		    				<div class="custom-control custom-checkbox mb-3">
+		     					 <input type="checkbox" class="custom-control-input etc" id="seoguipoWest" value="seoguipoWest"/>
+		    					 <label class="custom-control-label" for="seoguipoWest">서귀포시 서부</label>
+		    				</div>
+		    				<input type="hidden" name="local" id="local"/>
+	    				</div>
 					</div>
 					
-					<div>
+					<div class="peopleContainer">
 						인원
-						<select title="인원" id="searchPeople" name="people">
+						<select class="custom-select" title="인원" id="searchPeople" name="people">
 							<option value="1">1명</option>
 							<option value="2">2명</option>
 							<option value="3">3명</option>
@@ -144,13 +247,16 @@
 						</select><br/>
 					</div>
 					
-					<div>
-						숙소이름
-						<input class="form-control" type="text" name="searchHouseName" placeholder="숙소명이름"/><input type="submit" class="btn btn-outline-info" value="검색"/>
+					<div class="searchContainer">
+						<div>숙소이름</div>
+						<input class="form-control" type="text" name="searchHouseName" placeholder="숙소명이름"/><button type="submit" class="searchBtn btn btn-primary">검색</button>
 					</div>
 					<br/><br/>
 					
 				</form>
-	</div>		
+		</div>
+	</div>
+	</div>
+	
 </body>
 </html>
