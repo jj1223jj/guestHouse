@@ -32,10 +32,15 @@
 			<img src="<spring:url value='/image/${mainImg}' />" />
 		</div>
 		<div>
-			<p id="name">${hostDto.houseName}</p>
-			<p id="explain">${hostDto.explain}</p>	
+			<p id="name">${houseName}</p>
+			<p id="explain">${explain}</p>	
 			<span id="reserveCode">예약번호: ${reserveCode}</span>&nbsp;&nbsp;&nbsp;
-			<span id="payment">결제금액: ${guestReserveDto.payment}</span>
+			<span id="payment">결제금액: ${payment}</span>
+			
+			<!--payment
+				houseName
+				explain
+			 -->
 		</div>
 	</div>
 	

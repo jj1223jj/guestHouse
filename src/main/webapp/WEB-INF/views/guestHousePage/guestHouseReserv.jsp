@@ -32,15 +32,24 @@
 			resPoint = 0;
 		}
 		
-		alert($("#payment option:selected").val());
-		
 		var url = root+"/guestHousePage/reserveComplete.do?houseCode="+houseCode;
 		url += "&memberCode="+memberCode+"&checkIn="+ checkIn +"&checkOut=" +checkOut+"&people="+people;
 		url += "&total="+realTotal+"&point="+resPoint+"&usePoint="+usePoint;
 		
-		alert(url);
+		var url2 = root+"/guestHousePage/kakaoPay.do?houseCode="+houseCode;
+		url2 += "&memberCode="+memberCode+"&checkIn="+ checkIn +"&checkOut=" +checkOut+"&people="+people;
+		url2 += "&total="+realTotal+"&point="+resPoint+"&usePoint="+usePoint;
 		
-		location.href=url;
+		alert($("#payment option:selected").val());
+		
+		var account =$("#payment option:selected").val();
+		
+		if(account=='account'){
+			alert(url);
+			location.href=url;
+		}else{
+			location.href=url2;
+		}
 	};
 	
 /* 	function pointUseFun(total){

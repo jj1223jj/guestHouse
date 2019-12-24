@@ -19,13 +19,11 @@
 	var setSDate, setEDate;
 	
 
-	var disabledDays = new Array();
+	var disabledDays = [];
 
-	<c:forEach items="${dList}" var="item">
-		disabledDays.push("${dList}");
-	</c:forEach>  
-	
-	//var disabledDays=["2020-1-25","2020-1-26","2020-1-27"]; 
+	<c:forEach items="${dList}" var="i">
+		disabledDays.push("${i}");
+	</c:forEach>
 
 	function disableSomeDay(date){
 		var month = date.getMonth();
@@ -33,15 +31,11 @@
 		var year = date.getFullYear();
 		console.log('Checking (raw): ' + year + '-' + month + '-' + dates);
 		
-		var arr = new Array();
+		
 		for(i=0; i<disabledDays.length; i++){
-			var temp;
-			temp = disabledDays[i].replace("[", "");
-			arr[i] = temp.replace("]", "");
-			console.log('replace: '+arr[i]);
 			
-			if($.inArray(year+'-'+(month+1)+'-'+dates,arr)!=-1|| new Date() > date){
-				console.log('bad:  ' + (month+1) + '-' + dates + '-' + year + ' / ' + arr[i]);
+			if($.inArray(year+'-'+(month+1)+'-'+dates,disabledDays)!=-1|| new Date() > date){
+				console.log('bad:  ' + year + '-' + (month+1) + '-' + dates + ' / ' + disabledDays[i]);
 				return [false];
 			}
 		}
@@ -82,7 +76,7 @@
 		});
 	}); 
 	
-	function reservationFun(root,houseCode,memberCode){
+	function reservationFun(root,houseCode,email){
 		
 		var inputCheckIn = $('#from').val();
 		var inputCheckOut = $('#to').val();
@@ -112,14 +106,24 @@
 		//alert('성공');
 		
 		var people = $('#people').val();
-		alert(people);
 		
+	
+		/* 
 		var url = root+"/guestHousePage/reservation.do?houseCode="+houseCode;
 		url += "&memberCode="+memberCode+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
+		 */
+		alert(email);
 		
-		alert(url);
+		if(email!=""){
+			var url2 = root+"/guestHousePage/limitCheck.do?houseCode="+houseCode;
+			url2 += "&memberCode="+${memberCode}+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
+			alert(url2);
+			
+			location.href=url2;
+		}else if(email==""){
+			alert("로그인을 해주세요.");
+		};
 		
-		location.href=url;
 	}
 	
 	
@@ -152,6 +156,7 @@
 			<div style="margin-left: 50px; display: inline; float: left;">
 				<div class="guestHouse">
 					<div class="name">guest house name : ${hostDto.houseName}</div>
+					<div class=""></div>
 			
 					<div class="explain">설명 : ${hostDto.explain}</div><br/>
 					
@@ -195,13 +200,11 @@
 						});
 						
 						
-						var disabledDays = new Array();
+						var disabledDays = [];
 
-						<c:forEach items="${dList}" var="item">
-							disabledDays.push("${dList}");
-						</c:forEach>  
-						
-						//var disabledDays=["2020-1-25","2020-1-26","2020-1-27"]; 
+						<c:forEach items="${dList}" var="i">
+							disabledDays.push("${i}");
+						</c:forEach>
 
 						function disableSomeDay(date){
 							var month = date.getMonth();
@@ -209,30 +212,17 @@
 							var year = date.getFullYear();
 							console.log('Checking (raw): ' + year + '-' + month + '-' + dates);
 							
-							var arr = new Array();
+							
 							for(i=0; i<disabledDays.length; i++){
-								var temp;
-								temp = disabledDays[i].replace("[", "");
-								arr[i] = temp.replace("]", "");
-								console.log('replace: '+arr[i]);
 								
-								if($.inArray(year+'-'+(month+1)+'-'+dates,arr)!=-1|| new Date() > date){
-									console.log('bad:  ' + (month+1) + '-' + dates + '-' + year + ' / ' + arr[i]);
+								if($.inArray(year+'-'+(month+1)+'-'+dates,disabledDays)!=-1|| new Date() > date){
+									console.log('bad:  ' + year + '-' + (month+1) + '-' + dates + ' / ' + disabledDays[i]);
 									return [false];
 								}
 							}
 							console.log('good:  ' + year + '-' + (month+1) + '-' + dates);
 							return [true];
 						}
-						
-						function editDays(date) { 
-						    for (var i = 0; i < disabledDays.length; i++) { 
-						     if (new Date(disabledDays[i]).toString() == date.toString()) {    
-						      return [false]; 
-						     } 
-						    } 
-						    return [true]; 
-						}  
 					
 					</script>
 					<br/>
@@ -325,8 +315,8 @@
 							
 						</script>
 					</div>
-					<button class="searchBtn">조회</button>
-					<button class="btn" onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}')">예약</button>
+					<!-- <button class="searchBtn">조회</button> -->
+					<button class="btn" onclick="reservationFun('${root}','${hostDto.houseCode}','${email}')">예약</button>
 				</div>
 			</div>
 		</div>

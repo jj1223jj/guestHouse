@@ -73,12 +73,18 @@
 	</insert>
 	
 	<select id="getRemain" parameterType="int" resultType="com.java.guestReserve.dto.RemainDto">
-		select * from remain where houseCode=#{houseCode}
+		select resDate,sum(people) as people from remain where houseCode=#{houseCode} group by resDate
 	</select>
 	
 	<select id="getMemberInfo" resultType="com.java.member.dto.MemberDto">
 		select * from member where email=#{email}
 	</select>
+	
+	<insert id="insertMsg" parameterType="com.java.guestdelluna.dto.MsgDto">
+		insert into
+		message(msgCode,memberCode,msgContent,msgDate,msgCheck)
+		values(seq_msgCode_num.nextval,#{memberCode},#{msgContent},#{msgDate},#{msgCheck})
+	</insert>
 	
 </mapper>
 

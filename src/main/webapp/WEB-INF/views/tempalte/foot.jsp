@@ -14,10 +14,10 @@
 	<!--<![endif]-->
 	<head>
 		
-		<link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
+		<%-- <link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
 		<link rel="stylesheet" href="${root}/resources/css/register/test1.css"/>
 		<link rel="stylesheet" href="${root}/resources/css/register/test2.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/>
+		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/> --%>
 					
 		
 		<title>게스트하우스 홈페이지</title>
