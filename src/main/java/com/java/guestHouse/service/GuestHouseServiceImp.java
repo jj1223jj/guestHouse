@@ -47,11 +47,13 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
+
 //		int houseCode = Integer.Parse(request.getParameter("houseCode"));
 		
 //		int houseCode=63;
 //		int houseCode = 101;
 		int houseCode = 8;
+
 		
 		hostDto = guestHouseDao.getHostInfo(houseCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());

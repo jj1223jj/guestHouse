@@ -22,16 +22,19 @@
 
 <div align="center" style="margin: 40px auto;">
 		<%-- 리뷰 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
-		
-			<form class="form" action="${root}/experience/exReviewUpdateOk.do?memberCode=${exReviewDto.memberCode}&memberCode=${exReviewDto.exReserveCode}&pageNumber=${currentPage}" method="get">
+				
+			<form class="form" action="${root}/experience/exReviewUpdateOk.do?memberCode=${memberCode}&exReserveCode=${exReserveCode}&pageNumber=${currentPage}" 
+			method="get" onsubmit="return checkUp()">
 				<div class="title">
+				<input type="hidden" name = "memberCode" value="${memberCode}"/>
+				<input type="hidden" name="exReserveCode" value="${exReserveCode}"/>
 					<span>이메일</span>
 					<input type="text" name="email" size="20" value="${email}" disabled="disabled"/>
 			
 				</div>
 			
 				<div class="content"> 후기 내용
-					<textarea rows="5" cols="53" name="revContent">${exReviewDto.revContent}</textarea>
+					<textarea rows="5" cols="53" name="revContent" id="revContent">${revContent}</textarea>
 				</div>
 				<div>
 					<span class="star-input">
@@ -47,18 +50,16 @@
 					       <input type="radio" name="star-input" value="5" id="p5">
 					       <label for="p5">5</label>
 					     </span>
-					     
-					     <output for="star-input" name="starValue"><input type="hidden" name="revRate"></output>                  
+		
+					     <output for="star-input" name="starValue"><input type="hidden" name="revRate" id="revRate" class="revRate"/></output>                  
 					</span>
 				
 				</div>
+					     <script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
 				
-				<input type="hidden" name="exReserveCode" value="${exReviewDto.exReserveCode}">
-				<input type="hidden" name="memberCode" value="${exReviewDto.memberCode}">
 				
-				<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
 				<div class="title" style="text-align: right;">
-					<input type="submit" value="확인"/>
+					<input type="submit" value="확인" />
 					<input type="reset" value="취소" onclick="self.close()"/>
 				</div>
 			</form>

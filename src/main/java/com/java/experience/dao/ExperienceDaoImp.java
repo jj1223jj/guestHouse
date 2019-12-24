@@ -11,9 +11,12 @@ import org.springframework.stereotype.Component;
 
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dto.ExperienceDto;
+import com.java.exremain.dto.ExRemainDto;
 import com.java.exreserve.dto.ExReserveDto;
 import com.java.exreview.dto.ExReviewDto;
 import com.java.exreview.dto.ExReviewListDto;
+import com.java.guestdelluna.dto.PointAccumulate;
+import com.java.guestdelluna.dto.PointUse;
 import com.java.host.dto.HostDto;
 import com.java.member.dto.MemberDto;
 
@@ -89,7 +92,11 @@ public class ExperienceDaoImp implements ExperienceDao {
 		return sqlSessionTemplate.insert("dao.ExperienceMapper.writeReview", exReviewDto);
 	}
 	@Override
-	public ExReviewDto exReviewUpdate(int memberCode) {
+	public ExReviewDto exReviewUpdate(int memberCode, int exReserveCode) {
+		Map<String, Integer> hMap = new HashMap<String, Integer>();
+		hMap.put("exCode",memberCode);
+		hMap.put("exReserveCode",exReserveCode);
+		
 		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.exReviewUpdate", memberCode);
 	}
 	@Override
@@ -148,15 +155,16 @@ public class ExperienceDaoImp implements ExperienceDao {
 		
 		return sqlSessionTemplate.update("dao.ExperienceMapper.pointUpdate", hMap);
 	}
-	// 메세지 보관함
-	//@Override
-	//public int message(int memberCode, String msgContent) {
-	//	Map<String, Object> hMap = new HashMap<String, Object>();
-	//	hMap.put("memberCode",memberCode);
-	//	hMap.put("msgContent",msgContent);
-		
-	//	return sqlSessionTemplate.insert("dao.ExperienceMapper.message", hMap);
-	//}
+	
+	@Override
+	public int resPointUp(PointAccumulate pointAccumulate) {
+		return sqlSessionTemplate.insert("dao.ExperienceMapper.resPointUp", pointAccumulate);
+	}
+	
+	@Override
+	public int usePointUp(PointUse pointUse) {
+		return sqlSessionTemplate.insert("dao.ExperienceMapper.usePointUp", pointUse);
+	}
 	
 	// 달력 체험하는 인원 세기
 	@Override
@@ -171,5 +179,33 @@ public class ExperienceDaoImp implements ExperienceDao {
 	@Override
 	public int getPeople(int exCode) {
 		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.getPeople",exCode);
+	}
+	// exRemainDto에서 exCode에 맞는 값 가져오기!!!
+	@Override
+	public List<ExRemainDto> getExRemain(int exCode) {
+		return sqlSessionTemplate.selectList("dao.ExperienceMapper.getExRemain",exCode);
+	}
+	// 예약 확인시에 남은 체험 테이블에  데이터 넣기
+	@Override
+	public int insertExRemain(Date exDate, int exPeople, int exCode) {
+		Map<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("exDate",exDate);
+		hMap.put("exPeople",exPeople);
+		hMap.put("exCode",exCode);
+		
+		return sqlSessionTemplate.insert("dao.ExperienceMapper.insertExRemain",hMap);
+	}
+	
+	// 메세지 보관함
+
+	@Override
+	public int message(int memberCode, String msgContent, Date msgDate, String msgCheck) {
+		Map<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("memberCode",memberCode);
+		hMap.put("msgContent",msgContent);
+		hMap.put("msgDate",msgDate);
+		hMap.put("msgCheck",msgCheck);
+		
+		return sqlSessionTemplate.insert("dao.ExperienceMapper.message", hMap);
 	}
 }

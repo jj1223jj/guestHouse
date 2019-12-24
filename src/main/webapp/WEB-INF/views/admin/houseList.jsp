@@ -46,7 +46,7 @@
 					
 				<tr>
 					<td>
-					<button onclick="window.open('${root}/house/houseRead.do?memberCode=${hostDto.memberCode}&houseCode=${hostDto.houseCode}','window_name','width=430,height=500,location=no,status=no,scrollbars=yes')">${hostDto.houseName}</button>
+					<button onclick="window.open('${root}/guestHousePage/guestHouse.do?memberCode=${hostDto.memberCode}&houseCode=${hostDto.houseCode}','window_name','width=430,height=500,location=no,status=no,scrollbars=yes')">${hostDto.houseName}</button>
 					
 					<input type="hidden" name="houseCode" value="${hostDto.houseCode}"/>
 					<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>

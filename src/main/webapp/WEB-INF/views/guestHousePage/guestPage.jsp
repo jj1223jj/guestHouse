@@ -21,9 +21,11 @@
 
 	var disabledDays = [];
 
+
 	<c:forEach items="${dList}" var="i">
 		disabledDays.push("${i}");
 	</c:forEach>
+
 
 	function disableSomeDay(date){
 		var month = date.getMonth();

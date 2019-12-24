@@ -10,24 +10,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 		<meta charset="utf-8">
 
-		<!-- <meta name="keywords" content="Paradise city, p-city, p city, pcity, 파라다이스시티, 피시티, 파라다이스씨티, 피씨티, 영종도 복합리조트, 영종도 카지노, 영종도 호텔, 영종도 리조트, vkfkekdltmtlxl, 김수현">
-		<meta name="description" content="동북아시아 최초의 복합리조트"> -->
 		
 		<title>JEJU STAY</title>
-		<!-- 
-		<meta property="fb:app_id" content="1844741562469039">
-		<meta property="og:type" content="website">
-		<meta property="og:title" content="파라다이스시티 ">
-		<meta property="og:url" content="http://www.p-city.com/front/login">
-		<meta property="og:description" content="파라다이스시티 홈페이지">
-		<meta property="og:image" content="http://www.p-city.com/resource/front/sns_logo.png">
-		
-		<script async="" src="https://b92.yahoo.co.jp/search/?p=QM0HYALPLQ&amp;label=&amp;ref=https%3A%2F%2Fwww.p-city.com%2Ffront%2Flogin&amp;rref=https%3A%2F%2Fwww.p-city.com%2Ffront%3Fad%3Dtrue&amp;pt=&amp;item=&amp;cat=&amp;price=&amp;quantity=&amp;r=1575953543.5861688&amp;pvid=v197sw6ckhnk3ze1sjf"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://b92.yahoo.co.jp/search/?p=BWENCH3BVE&amp;label=&amp;ref=https%3A%2F%2Fwww.p-city.com%2Ffront%2Flogin&amp;rref=https%3A%2F%2Fwww.p-city.com%2Ffront%3Fad%3Dtrue&amp;pt=&amp;item=&amp;cat=&amp;price=&amp;quantity=&amp;r=1575953543.8055308&amp;pvid=v197sw6ckhnk3ze1sjf"></script><script src="https://hm.baidu.com/hm.js?4b47cbd74fc60910d3e399da479cb0b7"></script><script src="/resource/front/js/jquery-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/common/component/jquery-upload-file/js/file_handlers.js"></script>
-		<script src="/common/js/check.js"></script>
-		<script src="/common/js/form.js"></script>
-		<script src="/common/js/string.js"></script>
-		<script src="/common/js/common.js"></script> -->
+	
 		
 		
 		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
@@ -48,75 +33,9 @@
 		<link rel="stylesheet" href="${root}/resources/css/register/test1.css"/> 
 		<link rel="stylesheet" href="${root}/resources/css/register/test2.css"/>
 		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/>
-		
-		
-		<!-- 
-		<script type="text/javascript" src="/pcPub/static/js/ui.js?v=1"></script>
-			
-		
-		
-		data
-		<script src="/resource/front/inc/js/data/KO/json.data.global.js" type="text/javascript" charset="utf-8"></script>
-			
-		<script src="/resource/front/js/front.js"></script>
-		<link rel="canonical" href="www.p-city.com">
-		
-		<link rel="alternate" hreflang="KO" href="https://www.p-city.com/front?language=KO">
-		<link rel="alternate" hreflang="x-default" href="https://www.p-city.com/front?language=EN">
-		
- -->		<!--[if lt IE 9]>
-		<script type="text/javascript">
-			document.createElement("header"); 
-			document.createElement("nav"); 
-			document.createElement("section"); 
-			document.createElement("article"); 
-			document.createElement("footer");
-		</script>
-		<![endif]-->
-		<!-- E : 1-2 css -->
-	<!-- <script type="text/javascript">
-	$(document).ready(function() {
-		var title = $(".tit_38").html() + "";
-		if (title == "undefined") {
-			title = "";
-		} else {
-			title = title.replace(/(<([^>]+)>)/gi, "");
-		}
-		
-		var copy = $(".t_copy").html() + "";
-		if (copy == "undefined") {
-			copy = "파라다이스시티 홈페이지";
-		} else {
-			copy = copy.replace(/(<([^>]+)>)/gi, "");
-		}
-		
-		$("meta[property='og\\:title']").attr("content", $("meta[property='og\\:title']").attr("content") + " " + title);
-		$("meta[property='og\\:description']").attr("content", copy);
-		
-		//공지사항 (SBU별) 적용, 2019.04.25
-		if (typeof jsSbuNoticeWrite == 'function') {
-			jsSbuNoticeWrite();
-		}
-		
-		
-	});
-	</script>
-	<script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/856602146/?random=1575953543357&amp;cv=9&amp;fst=1575953543357&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_his=2&amp;u_tz=540&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fwww.p-city.com%2Ffront%2Flogin&amp;ref=https%3A%2F%2Fwww.p-city.com%2Ffront%3Fad%3Dtrue&amp;tiba=%ED%8C%8C%EB%9D%BC%EB%8B%A4%EC%9D%B4%EC%8A%A4%EC%8B%9C%ED%8B%B0%20%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80&amp;hn=www.googleadservices.com&amp;rfmt=3&amp;fmt=4"></script></head>
 	
-	
-
- -->
-
 	<body class="">
 		
-
-
-
-
-
-
-
-
 
 
 <!-- <script type="text/javascript">
@@ -593,35 +512,6 @@ function jsLayerEventDefault(obj) {
 
 
 
-<div class="layerPopWrap" id="SLEEP_USER">
-	<div class="bg"></div>
-	<div class="layerPopCont">
-		<div class="loginWrap">
-			<h1 class="pt15i pb15i">
-				<span class="layerTitleText fw500">계정 휴면해제 안내</span> 
-			</h1>
-			<div class="loginBox"><p class="pb15i pd0i">{0} 님의 휴면 상태가 해제되었습니다.</p><p class="pb15i">휴면 회원이 해제됨에 따라 기존 이용하셨던 서비스를 동일하게 이용할 수 있습니다.</p><p class="pb15i">파라다이스시티 홈페이지 또는 리조트 내에서의 1년 이상 활동(거래) 이력이 없는 경우, 휴면 회원으로 전환됩니다. </p>
-				<div class="termTxt pb15i">
-					<table class="bdNone">
-						<tbody>
-							<tr class="btnAreaTr bdNone">
-			<td colspan="2" class="bdNone">
-				<a href="javascript:void(0);" class="dpi btn small full btnFull" onclick="javascript:jsLoginOk();">
-					<span class="LayerbtnLeft">확인</span>
-				</a>
-			</td>
-		</tr> 
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<a href="javascript:void(0);" class="layerPopClose btnPopClose"></a>
-	</div>
-</div>
-
-
-
 <table style="display:none;">
 	<tbody>
 		<tr id="btnOneTr">
@@ -651,14 +541,6 @@ function jsLayerEventDefault(obj) {
 	</tbody>
 </table>
 
-
-
-
-<!-- 
-device : 
-language : KO
-geo : KO
--->
 
 
 

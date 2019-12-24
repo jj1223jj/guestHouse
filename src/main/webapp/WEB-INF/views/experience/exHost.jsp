@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript" src="${root}/resources/javascript/host/register.js"></script>
+<script type="text/javascript" src="${root}/resources/javascript/exHost/register.js"></script>
 
 <script type="text/javascript" src="${root}/resources/javascript/jquery/Blitzer/jquery-ui.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/Blitzer/jquery-ui.css">
@@ -47,7 +47,10 @@
 
 </head>
 <body>
-   <form action="${root}/experience/exHostOk.do" method="post" enctype="multipart/form-data">
+   <form action="${root}/experience/exHostOk.do" method="post" enctype="multipart/form-data"
+    onsubmit="return registerEx()">
+    
+    <!-- '${exName}','${exAddress}','${mainImg}','${subImg}','${exPeople}','${exTime}','${exExplain}','${exStartDateS}','${exEndDateS}','${exBank}','${exAccount}','${exPrice}' -->
    <div class="wrap" style="margin-left: 300px;">
       <ul>
         
@@ -61,11 +64,12 @@
 	            <label>장소선택</label>
 	            <select name="exAddress" id="exAddress" style="width: 500px;">
         			<c:forEach var="hostDto" items="${hostChkList}">
-        			
+        				<c:if test="${hostDto.approvalStatus eq '승인 완료'}" >
         			<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
 	               		<option value="${hostDto.address}">${hostDto.houseName}</option>
 	               		<%-- <input type="hidden" name="exAddress" value="${hostDto.address}"/>
 	           			<input type="hidden" name="exLatlng" value="${hostDto.latlng}"/> --%>	
+	           			</c:if>
          			</c:forEach>
 	            </select>
 	            
@@ -77,7 +81,7 @@
             <input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)">
             <br/>
             <div id="mainImgDiv">
-               <img src="" id="mainImgView"/>
+               <img src="" id="mainImgView" name="mainImgView"/>
             </div>
          </li>
          <li>

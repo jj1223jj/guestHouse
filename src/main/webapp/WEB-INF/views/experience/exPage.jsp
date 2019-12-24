@@ -53,6 +53,7 @@
 	    	<li>	
 	    		<label>진행시간</label>
 	    		<input type="text" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
+	    		<a>인원: ${experienceDto.exPeople}</a>
 	    	</li>
 	    	<li>	
 	    		<label>체험날짜</label>
@@ -96,21 +97,47 @@
 	        
 	        
 	        <script type="text/javascript">
+	        
+	        var disableDays = new Array();
+	        
+	        <c:forEach var="item" items="${dates}">
+	        	disableDays.push('${item}');
+	        </c:forEach>
+	        function disableSomeDay(date){
+	        	var month = date.getMonth()+1;
+	        	var dates = date.getDate();
+	        	var year = date.getFullYear();
+	        	
+	        	
+	        	for(i=0; i<disableDays.length; i++){
+	    			
+	    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
+	    				return [false];
+	    			}
+	        	}
+	        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
+	    		return [true];
+	        }
+	        
 				$(function(){
 					$("#date").datepicker({
 						dateFormat:"yy-mm-dd",
 						 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 						 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+						 //beforeShowDay: disableSomeDay,
+						 beforeShowDay: disableSomeDay,
 						 minDate:new Date('${startDateC}'),
 						 maxDate:new Date('${endDateC}'),					
+						 
 						 onSelect:function(dateText, inst, root){
 							 
 							 var exDate = $(this).val();
+
+							 alert(exDate + "은 예약이 가능합니다.");
 							 
-							 alert(exDate);
-							 var exCode = ${experienceDto.exCode};
-							 var url="${root}/experience/exReserveCal.do?exDate="+exDate+"&exCode="+exCode;
-							 alert(url);
+							 //var exCode = ${experienceDto.exCode};
+							 //var url="${root}/experience/exReserveCal.do?exDate="+exDate+"&exCode="+exCode;
+							 //alert(url);
 							//location.href=url;
 						 }
 						
@@ -128,6 +155,28 @@
 		<input type="text" id="exDateS" name="exDateS"/>
 		
 		<script type="text/javascript">
+		
+		 var disableDays = new Array();
+	        
+	        <c:forEach var="item" items="${dates}">
+	        	disableDays.push('${item}');
+	        </c:forEach>
+	        function disableSomeDay(date){
+	        	var month = date.getMonth()+1;
+	        	var dates = date.getDate();
+	        	var year = date.getFullYear();
+	        	
+	        	
+	        	for(i=0; i<disableDays.length; i++){
+	    			
+	    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
+	    				return [false];
+	    			}
+	        	}
+	        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
+	    		return [true];
+	        }
+	        
 		$(function(){
 			$("#exDateS").datepicker({
 				dateFormat:"yy-mm-dd",
@@ -135,6 +184,7 @@
 				 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
 				 showOn:"button",
 				 buttonText:"날짜선택",
+				 beforeShowDay: disableSomeDay,
 				 minDate:new Date('${startDateC}'),
 				 maxDate:new Date('${endDateC}'),
 				 onClose:function(selectedDate){
@@ -168,7 +218,8 @@
   <form action="${root}/experience/exReviewOk.do"  method="get" name="exForm" onsubmit="return check('${revContent}','${revRate}')">  
 	    <div align="" style="margin: 100px;">
 		
-		
+		<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
+		<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/> --%>
 		<%-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
 		<c:if test="${reviewList.size()==0 || currentPage==1}">
 			<div class="form">
@@ -234,12 +285,13 @@
 		<c:if test ="${reviewList.size() > 0}">
 			<c:forEach var="exReviewDto" items="${reviewList}">
 				<div class="form" style="margin: 50px 100px; border-width:1px;">
+					
 					<div class="title">
 						
-												
+						<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>						
 						<!-- 리뷰 번호  -->
 						예약번호: ${exReviewDto.exReserveCode} &nbsp;&nbsp;
-						<input type="hidden" name="exReserveCode" value="${exReviewDto.exReserveCode}">
+						<input type="hidden" name="exReserveCode" id ="exReserveCode" value="${exReviewDto.exReserveCode}">
 						
 						<!-- 이메일 -->
 						이메일: ${exReviewDto.email}&nbsp;&nbsp;
@@ -249,8 +301,8 @@
 						
 						<!-- session의 이메일과 등록한 이메일 같으면 수정, 삭제 화면 보이기 (본인만 수정 삭제 가능)-->
 						<c:if test="${email eq exReviewDto.email}"> 
-							<a href="javascript:updateCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}')"	>수정</a>
-							<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}')">삭제</a> 		
+							<a href="javascript:updateCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${exReviewDto.revContent}')"	>수정</a>
+							<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}','${experienceDto.exCode}')">삭제</a> 		
 						</c:if>
 					</div>
 					<div class="content" >
