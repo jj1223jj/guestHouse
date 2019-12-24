@@ -18,36 +18,38 @@
 </script>
 </head>
 <body>
-	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data" onsubmit="return register()">
 	<div class="wrap">
+	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data" onsubmit="return register()">
 		<ul>
+			<c:if test="${empty memberDto.memberImgName}">
 			<li>
-				<h2>프로필 사진 추가</h2>
+				<label>프로필 사진 추가</label>
 				<div class="profileDiv">
-					<img alt="img loading" src="<spring:url value='/profileImg/${memberDto.memberImgName}' />" id="profileView"/>
+					<img src="" id="profileView"/>
+					<input type="file" id="profileImg" name="profileImg" onchange="profile()" accept="image/*"/>
+					<input type="button" value="파일 업로드 하기" onclick="profileUpload()"> 
 				</div>
 				<textarea rows="20" cols="50" name="memberInfo" id="memberInfo">
 					${memberDto.memberInfo}
 				</textarea>
 				<div>
 					<span> 
-얼굴이 나온 프로필 사진을 통해서 다른 호스트와 게스트에게 나를 알릴 수 있습니다. 모든 에어비앤비 호스트는 프로필 사진이 있어야 합니다. 에어비앤비는 게스트에게 프로필 사진을 요청하지 않지만, 호스트는 요청할 수 있습니다. 호스트가 게스트에게 사진을 요청하는 경우에도, 예약이 확정된 후에만 사진을 볼 수 있습니다.
+						게스트에게 나를 소개해보세요!
 					</span>
-					<input type="file" id="profileImg" name="profileImg" onchange="profile()" accept="image/*"/>
-					<input type="button" value="파일 업로드 하기" onclick="profileUpload()"> 
 				</div>
 			</li>
+			</c:if>
 			<li>
 				<label>숙소이름</label>
-		<input type="text" name="houseName" id="houseName"/>
+		<input type="text" name="houseName" id="houseName" size="50"/>
 			</li>
 			<li>
+				<label>주소</label>
 				<input type="text" name="zipCode" id="zipCode" placeholder="우편번호" disabled="disabled"/>
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 
-				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
-				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
-
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br/>
+				<input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소"/>
+				<input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소"/>
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
 				<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
@@ -57,7 +59,7 @@
 				<label>메인사진</label>
 				<input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)" accept="image/*">
 				<br/>
-				<div id="mainImgDiv">
+				<div id="mainImgDiv" onclick="mainUpload()">
 					<img src="" id="mainImgView"/>
 				</div>
 			</li>
@@ -65,22 +67,22 @@
 				<label>사진</label>
 				<input multiple="multiple" type="file" name="subImg" id="subImg" accept="image/*"/>
 				<br/>
-				<div class="subImgDiv">
+				<div class="subImgDiv" onclick="subUpload()">
 				</div>
 			</li>
 			<li>
 				<label>인원 수</label>
-				<input type="number" id="people" name="people"/> 
+				<input type="number" id="people" name="people" min="1" max="16"/> 
 				<br/>
 			</li>
 			<li>
 				<label>침대 수</label>
-				<input type="number" id="bed" name="bed"/> 
+				<input type="number" id="bed" name="bed" min="1" max="16"/> 
 				<br/>
 			</li>
 			<li>
 				<label>욕실 수</label>
-				<input type="number" id="bath" name="bath"/> 
+				<input type="number" id="bath" name="bath" min="1" max="16"/> 
 				<br/>
 			</li>
 			<li>
@@ -90,21 +92,22 @@
 			</li>
 			<li>
 				<label>편의시설</label>
-				필수품목(비누 수건 어쩌고)<input type="checkbox" name="necessary" id="necessary"/>
-				와이파이<input type="checkbox" name="wifi" id="wifi"/>
-				세탁기<input type="checkbox" name="washer" id="washer"/>
-				온수<input type="checkbox" name="hotWater" id="hotWater"/>
-				에어컨<input type="checkbox" name="aircon" id="aircon"/>
-				티비<input type="checkbox" name="tv" id="tv"/>
-				편의점<input type="checkbox" name="mart" id="mart"/>
-				주차시설<input type="checkbox" name="parking" id="parking"/>
-				주방<input type="checkbox" name="kitchen" id="kitchen"/>
-				안전시설<input type="checkbox" name="safety" id="safety"/>
+				<input type="checkbox" name="necessary" id="necessary"/>필수품목(수건,비누,화장지,베개)
+				<input type="checkbox" name="wifi" id="wifi"/>와이파이
+				<input type="checkbox" name="washer" id="washer"/>세탁기
+				<input type="checkbox" name="hotWater" id="hotWater"/>온수
+				<br/>
+				<input type="checkbox" name="aircon" id="aircon"/>에어컨
+				<input type="checkbox" name="tv" id="tv"/>티비
+				<input type="checkbox" name="mart" id="mart"/>편의점
+				<input type="checkbox" name="parking" id="parking"/>주차시설
+				<input type="checkbox" name="kitchen" id="kitchen"/>주방
+				<input type="checkbox" name="safety" id="safety"/>안전시설
 				<br/>
 			</li>
 			<li>
 				<label>체크인</label>
-				<select name="checkInHH" id="checkInHH">
+				<select name="checkInHH" id="checkInHH"> : 
 					<option value="선택하세요">선택하세요</option>
 					<option value="00">00</option>
 					<option value="01">01</option>
@@ -206,8 +209,8 @@
 				<input type="submit" value="등록">
 			</li>
 		</ul>
-	</div>
 	</form>
+	</div>
 	
 	
 	<script>

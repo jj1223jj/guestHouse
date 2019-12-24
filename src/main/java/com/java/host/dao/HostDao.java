@@ -7,6 +7,7 @@ import java.util.List;
 import com.java.experience.dto.ExperienceDto;
 import com.java.file.dto.FileDto;
 import com.java.guestReserve.dto.GuestReserveDto;
+import com.java.host.dto.ExReservationListDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.ReservationListDto;
 import com.java.host.dto.SearchDateList;
@@ -53,5 +54,19 @@ public interface HostDao {
 			int endRow);
 
 	public MemberDto selectMemberDto(String email);
+
+	public List<HostDto> ahouseList(int memberCode);
+
+	public int exCancel(int exCode);
+
+	public List<String> exNameList(int memberCode);
+
+	public int getExCode(String exName);
+
+	public int getExReserveCount(int exCode);
+
+	public List<ExReservationListDto> exReserveViewList(int exCode, int startRow, int endRow);
+
+	public String getLocal(String localName);
 
 }

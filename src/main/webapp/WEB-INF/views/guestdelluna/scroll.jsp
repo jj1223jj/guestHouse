@@ -30,6 +30,61 @@
 					<span>${houseReviewList.houseName}</span>
 				</div>
 			</div>
-			</c:forEach>
+		</c:forEach>
+		
+		<c:forEach var="exReviewList" items="${exReviewList}">
+			<div class="reviewDiv">
+				<div class="reviewL">
+					<p>
+					<fmt:formatDate value="${exReviewList.revDate}" pattern="yyyy-MM-dd"/>
+					</p>
+					<span>${exReviewList.revContent}</span>
+					<div  class="reviewMemberImg">
+						<img alt="img loading" src="<spring:url value='/profileImg/${exReviewList.memberImgName}' />"/>
+					</div>
+					<span>${exReviewList.memberName}</span>
+				</div>
+				<div class="reviewR">
+					<div class="reviewHouseImg">
+						<img alt="img loading" src="<spring:url value='/image/${exReviewList.mainImgName}' />"/>
+					</div>
+					<span>${exReviewList.exName}</span>
+				</div>
+			</div>
+		</c:forEach>
+		
+		<c:forEach var="myHouseReviewList" items="${myHouseReviewList}">
+			<div class="reviewDiv">
+				<div class="reviewL">
+					<p>
+					<fmt:formatDate value="${myHouseReviewList.revDate}" pattern="yyyy-MM-dd"/>
+					</p>
+					<span>${myHouseReviewList.revContent}</span>
+				</div>
+				<div class="reviewR">
+					<div class="reviewHouseImg">
+						<img alt="img loading" src="<spring:url value='/image/${myHouseReviewList.mainImgName}' />"/>
+					</div>
+					<span>${myHouseReviewList.houseName}</span>
+				</div>
+			</div>
+		</c:forEach>
+		
+		<c:forEach var="myExReviewList" items="${myExReviewList}">
+			<div class="reviewDiv">
+				<div class="reviewL">
+					<p>
+					<fmt:formatDate value="${myExReviewList.revDate}" pattern="yyyy-MM-dd"/>
+					</p>
+					<span>${myExReviewList.revContent}</span>
+				</div>
+				<div class="reviewR">
+					<div class="reviewHouseImg">
+						<img alt="img loading" src="<spring:url value='/image/${myExReviewList.mainImgName}' />"/>
+					</div>
+					<span>${myExReviewList.exName}</span>
+				</div>
+			</div>
+		</c:forEach>
 </body>
 </html>

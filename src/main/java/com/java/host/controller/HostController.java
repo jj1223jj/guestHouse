@@ -71,6 +71,27 @@ public class HostController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/host/exReservationView.do", method = RequestMethod.GET)
+	public ModelAndView exReservationView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.exReservationView(mav);
+		
+		return mav;
+	}
+	
+
+	@RequestMapping(value="/host/exReservationOkView.do", method = RequestMethod.GET)
+	public ModelAndView exReservationOkView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+
+		hostService.exReservationOkView(mav);
+		
+		return mav;
+	}
 		
 		
 	@RequestMapping(value="/host/salesView.do", method = RequestMethod.GET)
@@ -93,12 +114,32 @@ public class HostController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/host/houseManagementView.do", method = RequestMethod.GET)
+	public ModelAndView houseManagementView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.houseManagementView(mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/host/exManagement.do", method = RequestMethod.GET)
 	public ModelAndView exManagement(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		
 		hostService.exManagement(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/host/exManagementView.do", method = RequestMethod.GET)
+	public ModelAndView exManagementView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.exManagementView(mav);
 		
 		return mav;
 	}
@@ -110,6 +151,16 @@ public class HostController {
 		mav.addObject("request", request);
 		
 		hostService.hostCancel(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/host/exCancel.do", method = RequestMethod.GET)
+	public ModelAndView exCancel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		hostService.exCancel(mav);
 		
 		return mav;
 	}

@@ -135,7 +135,7 @@ body {
 </head>
 </head>
 
-<body onload="rootPage('${root}')">
+<body onload="rootPage('${root}', '${memberLevel}')">
 	<button id="opener">알림종그림이라는 뜻</button>
 	<div id="dialog" title="메시지 확인">
 
@@ -503,6 +503,22 @@ body {
 	</div>
 
 	
+	
+	
+	
+	
+
+
+	<div>다음 문자를 그대로 입력해주세요</div>
+	<div>게스트 델루나를 탈퇴합니다</div>
+	<input type="text" class="deleteMsg" placeholder="게스트 델루나를 탈퇴합니다">
+	<br>
+
+	<input type="submit" value="탈퇴"
+		onclick="deleteCheck('${root}','${email}')" />
+	<input type="reset" value="탈퇴취소" />
+	
+	
 	<c:if test="${memberLevel == 'Host'}">
 		<h3>host의 숙소</h3>
 		<div class="houseList">
@@ -612,25 +628,6 @@ body {
 			</c:forEach>
 		</div> --%>
 	</c:if>
-	
-	<button type="button" id="houseBtn" selected="selected">숙소</button>
-	<button type="button" id="exBtn">체험</button>
-	<div id="scrollView">
-	ㅎㅇㅎㅇ
-	</div>
-	
-	
-		$("#dialog").dialog({
-
-
-	<div>다음 문자를 그대로 입력해주세요</div>
-	<div>게스트 델루나를 탈퇴합니다</div>
-	<input type="text" class="deleteMsg" placeholder="게스트 델루나를 탈퇴합니다">
-	<br>
-
-	<input type="submit" value="탈퇴"
-		onclick="deleteCheck('${root}','${email}')" />
-	<input type="reset" value="탈퇴취소" />
 	<br />
 	<strong><h1>포인트관리</h1></strong>
 	<div id="tabs">
@@ -891,6 +888,47 @@ body {
 			<button id="opener3">결제 취소</button>
 			<div id="dialog3" title="결제 취소 하시겠습니까?"></div>
 		</div>
+	<!-- ====================지연=================================================== -->	
+<%-- 		<div id="tabs3">
+		<ul>
+			<c:if test="${memberLevel == 'host'}">
+			<li><a id="hostHouseReview"><span>호스트의 숙소 후기</span></a></li>
+			<li><a id="hostExReview"><span>호스트의체험 후기</span></a></li>
+			</c:if>
+			<li><a id="HouseReview"><span>숙소 후기</span></a></li>
+			<li><a id="ExReview"><span>체험 후기</span></a></li>
+		</ul>
+		<ul>
+			<li id="hostHouseReviewView">
+				호스트의 숙소 후기
+			</li>
+			<li id="hostHouseReviewView">
+				호스트의체험 후기
+			</li>
+			<li id="HouseReviewView">
+				숙소 후기
+			</li>
+			<li id="ExReviewView">
+				체험 후기
+			</li>
+		</ul>
+	</div> --%>
+	<c:if test="${memberLevel == 'Host'}">
+	<button type="button" id="houseBtn" selected="selected">숙소</button>
+	<button type="button" id="exBtn">체험</button>
+	</c:if>
+	<button type="button" id="myHouseBtn" selected="selected">내가쓴숙소</button>
+	<button type="button" id="myExBtn">내가쓴체험</button>
+	<c:if test="${memberLevel == 'Host'}">
+	<div id="houseReview">
+	</div>
+	<div id="exReview">
+	</div>
+	</c:if>
+	<div id="myHouseReview">
+	</div>
+	<div id="myExReview">
+	</div>
 
 		<script type="text/javascript">
 		$("#allCheck").click(function() {

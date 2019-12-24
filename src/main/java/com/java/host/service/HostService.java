@@ -23,6 +23,16 @@ public interface HostService {
 
 	public void searchDate(ModelAndView mav);
 
+	public void houseManagementView(ModelAndView mav);
+
+	public void exManagementView(ModelAndView mav);
+
+	public void exCancel(ModelAndView mav);
+
+	public void exReservationView(ModelAndView mav);
+
+	public void exReservationOkView(ModelAndView mav);
+
 
 
 }

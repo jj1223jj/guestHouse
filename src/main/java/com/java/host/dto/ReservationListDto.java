@@ -10,18 +10,20 @@ public class ReservationListDto {
 	private Date CheckOut;
 	private int payment;
 	private String state;
+	private int people;
 	
 	public ReservationListDto() {
 		
 	}
 
-	public ReservationListDto(String memberName, String email, String phone, Date checkIn, Date checkOut, int payment, String state) {
+	public ReservationListDto(String memberName, String email, String phone, Date checkIn, Date checkOut, int payment, String state,int people) {
 		this.memberName = memberName;
 		this.email = email;
 		this.phone = phone;
 		CheckIn = checkIn;
 		CheckOut = checkOut;
 		this.payment = payment;
+		this.people = people;
 	}
 
 	public String getMemberName() {
@@ -79,11 +81,20 @@ public class ReservationListDto {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
+	}
 
 	@Override
 	public String toString() {
 		return "ReservationListDto [memberName=" + memberName + ", email=" + email + ", phone=" + phone + ", CheckIn="
-				+ CheckIn + ", CheckOut=" + CheckOut + ", payment=" + payment + ", state=" + state + "]";
+				+ CheckIn + ", CheckOut=" + CheckOut + ", payment=" + payment + ", state=" + state + ", people="
+				+ people + "]";
 	}
 	
 	

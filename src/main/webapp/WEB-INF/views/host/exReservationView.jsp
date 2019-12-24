@@ -10,12 +10,12 @@
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
 <script type="text/javascript">
 	function toServer(root, param) {
-		var selectHouse = document.getElementById("houseList").value;
+		var selectEx = document.getElementById("exNameList").value;
 		
-		var url = root + "/host/reservationOkView.do";
+		var url = root + "/host/exReservationOkView.do";
 		
-		if(selectHouse != "숙소를 선택하세요") {
-			var params = "houseName=" + selectHouse + "&pageNumber=" + param;
+		if(selectEx != "체험을 선택하세요") {
+			var params = "exName=" + selectEx + "&pageNumber=" + param;
 			sendRequest("GET", url, fromServer, params);
 		}
 	}
@@ -29,10 +29,10 @@
 </head>
 <body>
 	<h3>예약현황</h3>
-	<select name="houseList" id="houseList" onchange="toServer('${root}' , '')">
-		<option>숙소를 선택하세요</option>
-		<c:forEach var="houseNameList" items="${houseNameList}">
-			<option>${houseNameList}</option>
+	<select name="exNameList" id="exNameList" onchange="toServer('${root}' , '')">
+		<option>체험을 선택하세요</option>
+		<c:forEach var="exNameList" items="${exNameList}">
+			<option>${exNameList}</option>
 		</c:forEach>
 	</select>
    	<div id="listView">

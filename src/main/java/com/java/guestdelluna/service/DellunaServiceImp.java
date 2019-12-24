@@ -29,6 +29,8 @@ import com.java.guestdelluna.dto.HouseDto;
 import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.MsgDto;
+import com.java.guestdelluna.dto.MyExReviewList;
+import com.java.guestdelluna.dto.MyHouseReviewList;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
@@ -944,8 +946,34 @@ public class DellunaServiceImp implements DellunaService {
 				HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + houseReviewList.get(i).toString());
 			}
 		}
-			
 		
+		List<ExReviewListDto> exReviewList = null;
+		if (status.equals("ex")) {
+			exReviewList = dellunaDao.getExReviewListScroll(memberCode, startRow, endRow);
+			for(int i = 0; i<exReviewList.size(); i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg + "exReviewList: " + exReviewList.get(i).toString());
+			}
+		}
+		
+		List<MyHouseReviewList> myHouseReviewList = null;
+		if (status.equals("myHouseReview")) {
+			myHouseReviewList = dellunaDao.getMyHouseReviewListScroll(memberCode, startRow, endRow);
+			for(int i = 0; i<myHouseReviewList.size(); i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg + "myHouseReviewList: " + myHouseReviewList.get(i).toString());
+			}
+		}
+		
+		List<MyExReviewList> myExReviewList = null;
+		if (status.equals("myExReview")) {
+			myExReviewList = dellunaDao.getMyExReviewListScroll(memberCode, startRow, endRow);
+			for(int i = 0; i<myExReviewList.size(); i++) {
+				HomeAspect.logger.info(HomeAspect.logMsg + "myExReviewList: " + myExReviewList.get(i).toString());
+			}
+		}
+		
+		mav.addObject("myExReviewList", myExReviewList);
+		mav.addObject("myHouseReviewList", myHouseReviewList);
+		mav.addObject("exReviewList", exReviewList);
 		mav.addObject("houseReviewList", houseReviewList);
 		mav.setViewName("guestdelluna/scroll.empty");
 
