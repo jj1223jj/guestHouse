@@ -9,7 +9,7 @@
 </head>
 <body>
 	<t:insertAttribute name="header"/>
-	<hr color="blue"/>
+	<hr color="blue" style="margin-top: 9rem;"/>
 	
 	<t:insertAttribute name="menu"/>
 	<hr color="pink"/>
