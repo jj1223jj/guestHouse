@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <c:set var="pageBlock" value="${5}"/>
+<%-- <c:set var="memberCode" value="${5}" scope="session"/> --%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -33,10 +34,11 @@
 <script>
 	$(function(){
 		setRoot('${root}');
-
 		
+		
+		setHouseList('${jsonHouseList}');
 
-		 for(let i=0; i<='${pageBlock}';i++){
+		for(let i=0; i<='${pageBlock}';i++){
 			$(".house"+i).mouseover(function(){
 				var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
 			    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
@@ -73,7 +75,7 @@
 		//가격 필터
 
 		//하트 클릭
-		heart('${memberCode}');
+		heart('3');
 		
 		//검색 조건 띄워주는 창
 		$("#filter").click(function(){
@@ -182,6 +184,7 @@
 			}
 		});
 	});
+
 	
 	function sort(sortValue){
 		location.href=root+"/search?pageNumber=${pageNumber}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort="+sortValue;
@@ -204,145 +207,194 @@
 	display: inline-block;
 }
 .btn{
-	border-radius: 15px;
+	border-radius: 0.938rem;
 }
 .custom-select{
-	width:140px;
+	width:8.75rem;
 }
 .checkInLabel, .checkOutLabel{
-	font-size: 24px;
+	font-size: 1.5rem;
 }
 .checkInContainer, .checkOutContainer{
-	width:230px;
+	width:14.375rem;
 	display:inline-block;
 }
 .localAll, .localJeju, .localSeoguipo{
-	font: 16px bold;
+	font: 1rem bold;
 }
 .localAll{
-	width: 70px;
+	width: 4.375rem;
 }
 .localJeju{
-	width: 120px;
+	width: 7.5rem;
 }
 .localSeoguipo{
-	width: 140px;
+	width: 8.75rem;
 }
 .checkInOutContainer .form-control{
 	display:inline-block;
-	width: 110px;
-	height: 25px;
+	width: 6.875rem;
+	height: 1.563rem;
 }
 .searchContainer .form-control{
 	display:inline-block;
-	width: 210px;
-	height: 25px;
-	margin-left: 30px;
+	width: 13.125rem;
+	height: 1.563rem;
+	margin-left: 1.875rem;
 }
 .calender::before{
-	margin-top: 10px;
+	margin-top: 0.625rem;
 }
 i{
 	position: absolute;
-	right:4px;
-	top:-5px;
+	right:0.25rem;
+	top:-0.313rem;
 }
 .custom-control{
-	margin-bottom: 0px !important;
+	margin-bottom: 0rem !important;
 }
 
 .localContainer{
 	display: none;
-	margin-left: 170px;
+	margin-left: 10.625rem;
 }
 
 .peopleContainer{
-	margin-top: 18px;
-	width: 200px;
-	font-size: 20px;	
-	margin-left: 100px;
+	margin-top: 1.125rem;
+	width: 12.5rem;
+	font-size: 1.25rem;	
+	margin-left: 6.25rem;
 	display: none;
 }
 
 .searchContainer{
-	font-size: 20px;
+	font-size: 1.25rem;
 	display: inline-block;
 }
 
 .searchBtn{
-	margin-left:10px;
+	margin-left:0.625rem;
 }
 .checkInOutContainer{
-	margin-top: 19px;	
-	margin-left: 15px;
+	margin-top: 1.188rem;	
+	margin-left: 0.938rem;
 	display:none;
 }
 
 .checkInOutContainer label{
-	font-size: 20px
+	font-size: 1.25rem
 }
 .filterBox{
-	margin-top:15px;
-	margin-bottom:15px;
-	width:1500px;
-	height:113px;
+	margin-top:0.938rem;
+	margin-bottom:0.938rem;
+	width:100%;
+	height:7.063rem;
 }
 .formContainer{
-	height:75px;
-	width: 840px;
+	height:4.688rem;
+	width: 52.5rem;
 	background-color: #cccccc;
-	margin-top: 15px;
+	margin-top: 0.938rem;
 }
 .filterContainer :first-child{
-	margin-left:15px;
+	margin-left:0.938rem;
 }
 
 .houseListContainer{
 	background-color: #bbccaa;
-	width: 840px;
+	width: 52.5rem;
 }
 .houseListCount{
 	background-color: #aabbcc;
-	height: 50px;
+	height: 3.125;
 }
 .houseContainer{
 	background-color: #998877;
-	height: 1000px;
-	padding: 0px 24px;
+	height: 62.5rem;
+	padding: 0rem 1.5rem;
 }
 ._gig1e7{
-	border-top: black solid 2px;
-	width: 792px;
-	height: 250px;
+	border-top: black solid 0.125rem;
+	width: 49.5rem;
+	height: 15.625rem;
 }
 ._ylefn59{
-	margin-top: 25px;
+	margin-top: 1.563rem;
 	background-color: #ccddee;
-	width: 792px;
-	height: 224px;
+	width: 49.5rem;
+	height: 14rem;
 	position: relative;
 }
 ._houseImg{
-	width: 300px;
-	height: 200px;
+	width: 18.75rem;
+	height: 12.5rem;
 	background-color: #eeffdd;
 	display: inline-block;
 }
 ._houseInfo{
-	width: 476px;
-	height: 200px;
+	width: 29.75rem;
+	height: 12.5rem;
 	background: #ffddee;
 	display: inline-block;
 	position: absolute;
-	right: 0px;
+	right: 0rem;
 }
 ._starRate{
-	height: 18px;
+	height: 1.125rem;
 	background: #ddffee;
-	margin-bottom: 8px;
+	margin-bottom: 0.5rem;
 }
 ._60dc7z{
-	margin-left: 4px;
+	margin-left: 0.25rem;
+}
+._starImg{
+	display:inline-flex;
+}
+.reviewCount{
+	font-size: 0.875rem;
+	color: #484848;
+}
+._houseName{
+	font-size:1.125rem !important;
+}
+._houseFacilities{
+	font-size: 0.875rem;
+	color: #717171;
+}
+._price{
+	font-weight: bold;
+	font-size: 1.125rem;
+}
+._oneNight{
+	font-size: 1.125rem;
+}
+._priceContainer{
+	position: absolute;
+	bottom: 0rem;
+	right: 0rem;
+	
+}
+._heartButton{
+	position:absolute;
+	border-radius: 2rem;
+	top:0.7rem;
+	left:0.7rem;
+	opacity:0.93;
+	z-index: 5;
+	width: 2rem;
+	height: 2rem;
+	background-color: white;
+}
+._heart{
+	background-color: white;
+    border: 0rem;
+    height: 1rem;
+    width: 1rem;
+    padding: 0;
+    opacity: 0.93;
+    position: absolute;
+    top: 0.4rem;
+    left: 0.35rem;
 }
 </style>
 
@@ -429,32 +481,41 @@ i{
 				300개 이상의 숙소
 			</div>
 			<div class="houseContainer">
-				<div class="_gig1e7">
-					<div class="_ylefn59">
-						<div class="_houseImg"></div>
-						<div class="_houseInfo">
-							<div class="_starRate"><span class="_60dc7z"><span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:12px;width:12px;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span>4.83</span></div>
+				<div class="house">
+					<div class="_gig1e7">
+						<div class="_ylefn59">
+							<div class="_houseCode" style="display:none;">10</div>
+							<div class="_houseImg">
+								<div class="swiper-container">
+									<div class="swiper-wrapper">
+										<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="<spring:url value='/image/house1.png'/>"/></div>
+										<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="<spring:url value='/image/house2.png'/>"/></div>
+										<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="<spring:url value='/image/house3.png'/>"/></div>
+									</div>
+									<!-- Add Pagination -->
+									<div class="swiper-pagination"></div>
+									<div class="swiper-button-next"></div>
+									<div class="swiper-button-prev"></div>
+								</div>
+								<div class="_heartButton">
+									<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>
+								</div>
+							</div>
+							<div class="_houseInfo">
+								<div class="_starRate"><span class="_60dc7z"><span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:0.75rem;width:0.75rem;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span><span class="reviewRate">4.83</span><span class="reviewCount">(163)</span></span></div>
+								<div class="_houseName">바다를 보며 잠이드는 곳 '산책하우스'</div>
+								<div class="_houseFacilities" style="margin-top: 0.75rem">인원 3명 · 침대 1개 · 욕실 1개</div>
+								<div class="_houseFacilities" style="margin-top: 0.25rem">난방 · 무료 주차 공간 · 헤어드라이어 · 주방</div>
+								<div class="_priceContainer"><span class="_price">₩141,596</span><span class="_oneNight">/1박</span></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="_gig1e7">
-					<div class="_ylefn59">
-						<div class="_houseImg"></div>
-						<div class="_houseInfo"></div>
-					</div>
-				</div>
-				<div class="_gig1e7">
-					<div class="_ylefn59">
-						<div class="_houseImg"></div>
-						<div class="_houseInfo"></div>
-					</div>
-				</div>
-				<div class="_gig1e7">
-					<div class="_ylefn59">
-						<div class="_houseImg"></div>
-						<div class="_houseInfo"></div>
-					</div>
-				</div>
+				</div>	
+			</div>
+		</div>
+		<div class="mapContainer">
+			<div id="map">
+				${jsonHouseList}
 			</div>
 		</div>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

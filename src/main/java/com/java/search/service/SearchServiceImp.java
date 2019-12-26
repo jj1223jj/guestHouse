@@ -87,6 +87,10 @@ public class SearchServiceImp implements SearchService {
 			map.put("revRate",hostDto.getRevRate());
 			map.put("revCount",hostDto.getRevCount());
 			map.put("zzimed",hostDto.getZzimed());
+			map.put("parking",hostDto.getParking());
+			map.put("kitchen",hostDto.getKitchen());
+			map.put("aircon",hostDto.getAircon());
+			map.put("hotWater",hostDto.getHotWater());
 			
 			
 			JSONArray fileArr = new JSONArray();
@@ -111,6 +115,7 @@ public class SearchServiceImp implements SearchService {
 		mav.addObject("min", min);
 		mav.addObject("max", max);
 		mav.addObject("houseJson", jsonText);
+		mav.addObject("jsonHouseList", jsonText);
 		mav.addObject("searchHouseList", searchHouseList);
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
