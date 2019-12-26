@@ -13,7 +13,7 @@
 	<h3>예약현황</h3>
 		 <div align="center">
 		 <c:if test="${exReserveViewList.size() == 0 || count == 0}">
-		 	<table border="1">
+		 	<table>
 		 		<tr>
 		 			<td>예약 목록이 존재하지 않습니다.</td>
 		 		</tr>
@@ -21,17 +21,22 @@
 		 </c:if>
 		 
 		<c:if test="${count > 0}"> 
-	   <table border="1">
+	<div class="container">
+	   <table class="table table-hover">
+	   <thead align="center">
 	      <tr>
-	         <td align="center" height="20"  width="80">예약자</td> 
-	         <td align="center" height="20"  width="125">예약자이메일</td> 
-	         <td align="center" height="20"  width="125">예약자연락처</td>
-	         <td align="center" height="20"  width="80">예약인원</td> 
-	         <td align="center" height="20"  width="200">예약일</td>
-	         <td align="center" height="20"  width="80">결제금액</td>
-	         <td align="center" height="20"  width="80">예약상태</td>
+	         <th align="center" height="20"  width="80">예약자</th> 
+	         <th align="center" height="20"  width="125">예약자이메일</th> 
+	         <th align="center" height="20"  width="125">예약자연락처</th>
+	         <th align="center" height="20"  width="80">예약인원</th> 
+	         <th align="center" height="20"  width="200">예약일</th>
+	         <th align="center" height="20"  width="80">결제금액</th>
+	         <th align="center" height="20"  width="80">예약상태</th>
 	      </tr>
+	      </thead>
 	      
+	      
+	      <tbody>
 	      <c:forEach var="exReserveViewList" items="${exReserveViewList}">
 	      <tr>
 	         <td align="center" height="20"  width="80">${exReserveViewList.memberName}</td> 
@@ -45,7 +50,10 @@
 	         <td align="center" height="20"  width="80">${exReserveViewList.state}</td> 
 	      </tr>
 	      </c:forEach>
+	      </tbody>
 		</table>
+		
+		
 		</c:if>
 		<div align="center">
 		<c:if test="${count>0 }">
@@ -82,6 +90,7 @@
 			</c:if>
 		</c:if>
 	</div>
+   </div>
    </div>
 </body>
 </html>

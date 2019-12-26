@@ -746,13 +746,13 @@ public class DellunaServiceImp implements DellunaService {
 		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
 
 		MemberDto memberDto = dellunaDao.selectForUpdate(email);
-
-		if (memberDto.getMemberImgName() != null) {
-
-			int index = memberDto.getMemberImgName().indexOf("_") + 1;
-			memberDto.setMemberImgName(memberDto.getMemberImgName().substring(index));
-			HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
-		}
+//
+//		if (memberDto.getMemberImgName() != null) {
+//
+//			int index = memberDto.getMemberImgName().indexOf("_") + 1;
+//			memberDto.setMemberImgName(memberDto.getMemberImgName().substring(index));
+//			HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
+//		}
 
 		mav.addObject("memberDto", memberDto);
 

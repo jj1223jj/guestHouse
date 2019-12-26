@@ -10,8 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="${root}/host/houseManagement.do">게스트하우스관리</a>
-	<a href="${root}/host/exManagement.do">체험 관리</a>
    <div align="center">
    
 	 <c:if test="${experienceList.size() == 0 || count == 0}">
@@ -23,15 +21,19 @@
 	 </c:if>
    
    <c:if test="${count > 0}"> 
-   <table border="1">
+   <div class="container">
+   <table class="table table-hover">
+   <thead align="center">
       <tr>
-         <td align="center" height="20"  width="125">체험명</td> 
-         <td align="center" height="20"  width="300">주소</td> 
-         <td align="center" height="20"  width="125">등록일</td> 
-         <td align="center" height="20"  width="125">승인여부</td> 
-         <td align="center" height="20"  width="80">관리</td>
+         <th align="center" height="20"  width="125">체험명</th> 
+         <th align="center" height="20"  width="300">주소</th> 
+         <th align="center" height="20"  width="125">등록일</th> 
+         <th align="center" height="20"  width="125">승인여부</th> 
+         <th align="center" height="20"  width="80">관리</th>
       </tr>
+      </thead>
       
+      <tbody>
       <c:forEach var="experienceList" items="${experienceList}">
       <tr>
          <td align="center" height="20"  width="125">${experienceList.exName}</td> 
@@ -47,6 +49,7 @@
          </td>
       </tr>
       </c:forEach>
+      </tbody>
       
       </table>
       </c:if>
@@ -74,6 +77,7 @@
 				<a onclick="toServer('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
+      </div>
    </div>
 </body>
 </html>

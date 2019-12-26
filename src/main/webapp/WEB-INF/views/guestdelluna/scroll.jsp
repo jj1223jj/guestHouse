@@ -17,7 +17,7 @@
 					<p>
 					<fmt:formatDate value="${houseReviewList.revDate}" pattern="yyyy-MM-dd"/>
 					</p>
-					<span>${houseReviewList.revContent}</span>
+					<span class="reviewContent">${houseReviewList.revContent}</span>
 					<div  class="reviewMemberImg">
 						<img alt="img loading" src="<spring:url value='/profileImg/${houseReviewList.memberImgName}' />"/>
 					</div>
@@ -38,13 +38,13 @@
 					<p>
 					<fmt:formatDate value="${exReviewList.revDate}" pattern="yyyy-MM-dd"/>
 					</p>
-					<span>${exReviewList.revContent}</span>
+					<span class="reviewContent">${exReviewList.revContent}</span>
 					<div  class="reviewMemberImg">
 						<img alt="img loading" src="<spring:url value='/profileImg/${exReviewList.memberImgName}' />"/>
 					</div>
 					<span>${exReviewList.memberName}</span>
 				</div>
-				<div class="reviewR">
+				<div class="reviewR">	
 					<div class="reviewHouseImg">
 						<img alt="img loading" src="<spring:url value='/image/${exReviewList.mainImgName}' />"/>
 					</div>
@@ -59,7 +59,7 @@
 					<p>
 					<fmt:formatDate value="${myHouseReviewList.revDate}" pattern="yyyy-MM-dd"/>
 					</p>
-					<span>${myHouseReviewList.revContent}</span>
+					<span class="reviewContent">${myHouseReviewList.revContent}</span>
 				</div>
 				<div class="reviewR">
 					<div class="reviewHouseImg">
@@ -76,7 +76,7 @@
 					<p>
 					<fmt:formatDate value="${myExReviewList.revDate}" pattern="yyyy-MM-dd"/>
 					</p>
-					<span>${myExReviewList.revContent}</span>
+					<span class="reviewContent">${myExReviewList.revContent}</span>
 				</div>
 				<div class="reviewR">
 					<div class="reviewHouseImg">
