@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+.reviewBtn {
+	font-size: 1rem;
+	line-height: 4rem;
+	width: 9rem;
+	border: 0.063rem solid #ddd;
+	background-color: #fff;
+}
+
+.reviewDiv {
+	border-bottom: 0.063rem solid #ddd;
+	padding: 0.625rem 1.875rem;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.reviewL > span {
+	display: inline-block;
+	padding: 0.625rem 0.313rem;
+}
+
+.reviewL > .reviewContent {
+	margin: 0.938rem 0;
+}
+
+.reviewR {
+	margin-top: 3.125rem;
+}
+
+.moreViewDiv {
+	border-bottom: 0.063rem solid #ddd;
+}
+
+.moreView {
+	border: none;
+	background-color: #fff;
+	font-size: 1.188rem;
+	font-weight: bold;
+	color: #008489;
+	margin: 1.25rem 0 1.25rem 1.875rem;
+	
+}
+
+.menuL {
+	float: left;
+}
+.menuR {
+	float: right;
+}
+
+.infoDiv {
+	border-bottom: 0.063rem solid #ddd;
+	padding-bottom: 2rem;
+}
+.infoImg {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 18.75rem;
+	height: 18.75rem;
+	border-radius: 10rem;
+	border: 0.063rem solid #ddd;
+}
+.infoImg > img {
+	width: 18.75rem;
+}
+.infoDiv > p {
+	margin-top: 1.5rem;
+	font-size: 2.5rem;
+}
+.houseList {
+	border-bottom: 0.063rem solid #ddd;
+	padding-bottom: 2rem;
+}
+
+.reviewWrap {
+	margin-top: 2rem;
+}
+
+.houseRate {
+	text-align: right;
+	padding-right: 0.8rem;
+}
+.houseName {
+	font-size: 1.2rem;
+}
+.memberInfo {
+	margin-top: 1.2rem;
+	font-size: 1.2rem;
+}

@@ -7,11 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="${root}/host/houseManagement.do">게스트하우스관리</a>
-	<a href="${root}/host/exManagement.do">체험 관리</a>
    <div align="center">
    <h3>${memberCode} </h3>
    
@@ -24,14 +27,19 @@
 	 </c:if>
    
    <c:if test="${count > 0}"> 
-   <table border="1">
+   <div class="container">
+   <table class="table table-hover">
+   <thead align="center">
       <tr>
-         <td align="center" height="20"  width="125">숙소명</td> 
-         <td align="center" height="20"  width="300">주소</td> 
-         <td align="center" height="20"  width="125">등록일</td> 
-         <td align="center" height="20"  width="125">승인여부</td> 
-         <td align="center" height="20"  width="80">관리</td>
+         <th align="center" height="20"  width="125">숙소명</th> 
+         <th align="center" height="20"  width="300">주소</th> 
+         <th align="center" height="20"  width="125">등록일</th> 
+         <th align="center" height="20"  width="125">승인여부</th> 
+         <th align="center" height="20"  width="80">관리</th>
+      </tr>
+      </thead>
       
+      <tbody>
       <c:forEach var="houseList" items="${houseList}">
       <tr>
          <td align="center" height="20"  width="125">${houseList.houseName}</td> 
@@ -47,6 +55,7 @@
          </td> 
       </tr>
       </c:forEach>
+      </tbody>
       
       </table>
       </c:if>
@@ -74,7 +83,6 @@
 				<a onclick="toServer('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
-   
    </div>
 </body>
 </html>

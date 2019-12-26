@@ -14,6 +14,21 @@ textarea[name=revContent]:disabled {
 	background: #F8FBEF
 }
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+}
+
+#wrap {
+	width: 70rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */
@@ -121,11 +136,10 @@ textarea[name=revContent]:disabled {
 
 </style>
 <head>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.houseList {
+.houseList, .exList {
 	overflow: hidden;
 }
 
@@ -134,15 +148,17 @@ textarea[name=revContent]:disabled {
 }
 
 .houseImg {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 250px;
 	height: 160px;
 	overflow: hidden;
 }
 
-.reviewDiv {
-	overflow: hidden;
-	width: 600px;
-	margin-top: 20px;
+.houseImg > img {
+	width: 250px;
 }
 
 .reviewL {
@@ -150,10 +166,18 @@ textarea[name=revContent]:disabled {
 }
 
 .reviewMemberImg {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 48px;
 	height: 48px;
 	border-radius: 25px;
 	overflow: hidden;
+}
+
+.reviewMemberImg > img {
+	width: 48px;
 }
 
 .reviewR {
@@ -161,9 +185,21 @@ textarea[name=revContent]:disabled {
 }
 
 .reviewHouseImg {
-	width: 50px;
-	height: 40px;
 	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 105px;
+	height: 65px;
+	overflow: hidden;
+}
+.reviewR > span {
+	display: block;
+	text-align: center;
+	margin-top: 1rem;
+}
+.reviewHouseImg > img{
+	width: 105px;
 }
 </style>
 <c:set var="root" value="${pageContext.request.contextPath }" />
@@ -178,6 +214,8 @@ textarea[name=revContent]:disabled {
 	src="${root}/resources/javascript/guestdelluna/scroll.js"></script>
 <link rel="stylesheet"
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
+	<link rel="stylesheet"
+	href="${root}/resources/css/guestdelluna/scroll.css">
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/myReview.js"></script>
 <script type="text/javascript"
@@ -185,9 +223,10 @@ textarea[name=revContent]:disabled {
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/mypaylist.js"></script>
 </head>
-</head>
 
 <body onload="rootPage('${root}', '${memberLevel}')">
+<div id="wrap">
+	<div class="menuL">
 	<button id="opener">알림종그림이라는 뜻</button>
 	<!-- <div id="dialog" title="메시지 확인"> -->
 
@@ -297,6 +336,7 @@ textarea[name=revContent]:disabled {
 		<div>
 			<img alt="img loading" width="200" height="200"
 						src="<spring:url value='/image/${memberDto.memberImgName}'/>">
+						
 		</div>
 		<div>${memberDto.memberInfo}</div>
 		<div><a href="${root}/guestdelluna/allMyReview.do">내가 쓴 후기</a></div>
@@ -305,22 +345,45 @@ textarea[name=revContent]:disabled {
 	<a href="${root}/guestdelluna/myInfo.do">내정보</a>
 	<a href="${root}/guestdelluna/memberUpdate.do">회원수정</a>
 	<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a>
+	<br />
 	<a href="${root}/guestdelluna/managePoint.do">포인트관리</a>
 	<a href="${root}/guestdelluna/payList.do">결제내역</a>
 	<a href="${root}/guestdelluna/allMyReview.do">내가 쓴 후기</a>
 	<br />
-	<br />
-
 	<c:if test="${memberLevel == 'Host'}">
-		<h3>host의 숙소</h3>
+	<a href="${root}/host/reservationView.do">숙소예약현황</a>
+	<a href="${root}/host/exReservationView.do">체험예약현황</a>
+	<a href="${root}/host/salesView.do">매출조회</a>
+	<br/>
+	<a href="${root}/host/houseManagement.do">게스트하우스 관리</a>
+	<a href="${root}/host/exManagement.do">체험 관리</a>
+	</c:if>
+	</div>
+
+	<div class="menuR">
+	
+	<div class="infoDiv">
+		<div class="infoImg">
+			<img alt="img loading" src="<spring:url value='/profileImg/${memberDto.memberImgName}'/>">
+		</div>
+		<p>안녕하세요. 저는 ${memberDto.memberName}입니다.</p>
+		<span>
+		회원 가입: 
+		<fmt:formatDate value="${memberDto.regDate}" pattern="yyyy"/>
+		</span>
+		<div class="memberInfo">${memberDto.memberInfo}</div>
+	</div>
+	
+	<c:if test="${memberLevel == 'Host'}">
 		<div class="houseList">
+		<h3> ${memberDto.memberName}님의 숙소</h3>
 			<c:forEach var="hostHouseList" items="${hostHouseList}">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
 							src="<spring:url value='/image/${hostHouseList.mainImgName}'/>"/>
 					</div>
-					<span class="houseRate"> <c:if
+					<div class="houseRate"> <c:if
 							test="${hostHouseList.revRate==1}">
 							<img src="${root}/resources/css/review/star1.PNG"
 								style="width: 50px;">
@@ -337,20 +400,21 @@ textarea[name=revContent]:disabled {
 							<img src="${root}/resources/css/review/star5.PNG"
 								style="width: 50px;">
 						</c:if>
-					</span> <span>( ${hostHouseList.reviewCount} )</span> <span>${hostHouseList.houseName}</span>
+						 <span>( ${hostHouseList.reviewCount} )</span> 
+					</div><div class="houseName">${hostHouseList.houseName}</div>
 				</div>
 			</c:forEach>
 		</div>
 
-		<h3>host의 체험</h3>
 		<div class="houseList">
+		<h3> ${memberDto.memberName}님의 체험</h3>
 			<c:forEach var="hostExList" items="${hostExList}">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
 							src="<spring:url value='/ex/${hostExList.mainImgName}' />" />
 					</div>
-					<span class="houseRate"> <c:if
+					<div class="houseRate"> <c:if
 							test="${hostExList.revRate==1}">
 							<img src="${root}/resources/css/review/star1.PNG"
 								style="width: 50px;">
@@ -367,53 +431,32 @@ textarea[name=revContent]:disabled {
 							<img src="${root}/resources/css/review/star5.PNG"
 								style="width: 50px;">
 						</c:if>
-					</span> <span>( ${hostExList.reviewCount} )</span> <span>${hostExList.exName}</span>
+						<span>( ${hostExList.reviewCount} )</span> 
+					</div> <div class="houseName">${hostExList.exName}</div>
 				</div>
 			</c:forEach>
 		</div>
 	</c:if>
-
-		
-	<!-- ====================지연=================================================== -->	
-<%-- 		<div id="tabs3">
-		<ul>
-			<c:if test="${memberLevel == 'host'}">
-			<li><a id="hostHouseReview"><span>호스트의 숙소 후기</span></a></li>
-			<li><a id="hostExReview"><span>호스트의체험 후기</span></a></li>
-			</c:if>
-			<li><a id="HouseReview"><span>숙소 후기</span></a></li>
-			<li><a id="ExReview"><span>체험 후기</span></a></li>
-		</ul>
-		<ul>
-			<li id="hostHouseReviewView">
-				호스트의 숙소 후기
-			</li>
-			<li id="hostHouseReviewView">
-				호스트의체험 후기
-			</li>
-			<li id="HouseReviewView">
-				숙소 후기
-			</li>
-			<li id="ExReviewView">
-				체험 후기
-			</li>
-		</ul>
-	</div> --%>
-	<c:if test="${memberLevel == 'Host'}">
-	<button type="button" id="houseBtn" selected="selected">숙소</button>
-	<button type="button" id="exBtn">체험</button>
-	</c:if>
-	<button type="button" id="myHouseBtn" selected="selected">내가쓴숙소</button>
-	<button type="button" id="myExBtn">내가쓴체험</button>
-	<c:if test="${memberLevel == 'Host'}">
-	<div id="houseReview">
+	
+		<c:if test="${memberLevel == 'Host'}">
+	<div class="reviewWrap">
+		<button type="button" id="houseBtn" class="reviewBtn">숙소</button>
+		<button type="button" id="exBtn" class="reviewBtn">체험</button>
+		<div id="houseReview">
+		</div>
+		<div id="exReview">
+		</div>
+		<div id="myHouseReview">
+		</div>
+		<div id="myExReview">
+		</div>
 	</div>
-	<div id="exReview">
-	</div>
-	</c:if>
-	<div id="myHouseReview">
-	</div>
-	<div id="myExReview">
-	</div>
+	<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
+  </div>
+		</c:if>
+  
+  </div>
+  
+  <div style="clear:both;"></div>
 </body>
 </html>

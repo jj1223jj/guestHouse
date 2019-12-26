@@ -21,14 +21,18 @@
 		 </c:if>
 		 
 		<c:if test="${count > 0}"> 
-	   <table border="1">
+		<div class="container">
+	   <table class="table table-hover">
+	   <thead align="center">
 	      <tr>
-	         <td align="center" height="20"  width="80">예약일</td> 
-	         <td align="center" height="20"  width="80">예약자</td> 
-	         <td align="center" height="20"  width="80">예약인원</td> 
-	         <td align="center" height="20"  width="80">결제금액</td>
+	         <th align="center" height="20"  width="80">예약일</th> 
+	         <th align="center" height="20"  width="80">예약자</th> 
+	         <th align="center" height="20"  width="80">예약인원</th> 
+	         <th align="center" height="20"  width="80">결제금액</th>
 	      </tr>
+	      </thead>
 	      
+	      <tbody>
 	      <c:forEach var="searchDateList" items="${searchDateList}">
 	      <tr>
 	         <td align="center" height="20"  width="80">
@@ -39,6 +43,7 @@
 	         <td align="center" height="20"  width="80">${searchDateList.payment}</td> 
 	      </tr>
 	      </c:forEach>
+	      </tbody>
 		</table>
 		</c:if>
 		<h3>건 수: ${searchDateListCount.count}</h3>
@@ -71,6 +76,7 @@
 		
 	</div>
    
+   </div>
    </div>
 </body>
 </html>

@@ -57,26 +57,37 @@ $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증
 	});
 }); 
 
-$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-     if($(window).scrollTop() >= $(document).height() - $(window).height()){
-    	 if (status == 'house') {
-    		 getList(housePage,proot,status);
-    		 housePage++; 
-    	 }   
-    	 if (status == 'ex') {
-    		 getList(exPage,proot,status);
-    		 exPage++;  
-    	 }
-    	 if (status == 'myHouseReview') {
-    		 getList(myHousePage,proot,status);
-    		 myHousePage++; 
-    	 }   
-    	 if (status == 'myExReview') {
-    		 getList(myExPage,proot,status);
-    		 myExPage++;  
-    	 }
-     } 
-});
+function moreView() {
+	if (status == 'house') {
+		 getList(housePage,proot,status);
+		 housePage++; 
+	 }   
+	 if (status == 'ex') {
+		 getList(exPage,proot,status);
+		 exPage++;  
+	 }
+}
+
+//$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+//     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+//    	 if (status == 'house') {
+//    		 getList(housePage,proot,status);
+//    		 housePage++; 
+//    	 }   
+//    	 if (status == 'ex') {
+//    		 getList(exPage,proot,status);
+//    		 exPage++;  
+//    	 }
+//    	 if (status == 'myHouseReview') {
+//    		 getList(myHousePage,proot,status);
+//    		 myHousePage++; 
+//    	 }   
+//    	 if (status == 'myExReview') {
+//    		 getList(myExPage,proot,status);
+//    		 myExPage++;  
+//    	 }
+//     } 
+//});
     
     function getList(page, root, status) {
     	//alert(root + page + status);
