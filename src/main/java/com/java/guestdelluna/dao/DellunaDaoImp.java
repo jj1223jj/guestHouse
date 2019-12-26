@@ -17,6 +17,8 @@ import com.java.guestdelluna.dto.HouseZzimDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.NewExpReviewDto;
+import com.java.guestdelluna.dto.NewHouseReserveDto;
+import com.java.guestdelluna.dto.NewExpReserveDto;
 import com.java.guestdelluna.dto.NewHouseReviewDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
@@ -560,6 +562,38 @@ public class DellunaDaoImp implements DellunaDao {
 	public List<NewHouseReviewDto> myHousereviewList(int memberCode) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.myHousereviewList",memberCode);
+	}
+
+	@Override
+	public List<NewExpReserveDto> newExpReserve(int memberCode, String state) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("memberCode", memberCode);
+		map.put("state", state);
+		return sqlSessionTemplate.selectList("dao.dellunaMapper.newExpReserve", map);
+	}
+
+	@Override
+	public List<NewHouseReserveDto> newHouseReserve(int memberCode, String state) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("memberCode", memberCode);
+		map.put("state", state);
+		return sqlSessionTemplate.selectList("dao.dellunaMapper.newHouseReserve", map);
+	}
+
+	@Override
+	public List<NewExpReserveDto> newNewExpReserve(int memberCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("dao.dellunaMapper.newNewExpReserve", memberCode);
+	}
+
+	@Override
+	public List<NewHouseReserveDto> newNewHouseReserve(int memberCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("dao.dellunaMapper.newNewHouseReserve", memberCode);
 	}
 	
 }

@@ -30,6 +30,8 @@ import com.java.guestdelluna.dto.HouseReservationDto;
 import com.java.guestdelluna.dto.MemberDto;
 import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.NewExpReviewDto;
+import com.java.guestdelluna.dto.NewHouseReserveDto;
+import com.java.guestdelluna.dto.NewExpReserveDto;
 import com.java.guestdelluna.dto.NewHouseReviewDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
@@ -456,7 +458,15 @@ public class DellunaServiceImp implements DellunaService {
 			mav.addObject("expCodeFromExp", expCodeFromExp);
 
 		}
-
+		
+		List<NewExpReserveDto> newExpReserveDto = dellunaDao.newNewExpReserve(memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "newExpReserveDto : " + newExpReserveDto);
+		
+		List<NewHouseReserveDto> newHouseReserveDto = dellunaDao.newNewHouseReserve(memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "newHouseReserveDto : " + newHouseReserveDto);
+		
+		mav.addObject("newExpReserveDto", newExpReserveDto);
+		mav.addObject("newHouseReserveDto", newHouseReserveDto);
 		mav.addObject("houseDtoList", houseDtoList);
 		mav.addObject("countExp", countExp);
 		mav.addObject("listExp", listExp);
@@ -681,7 +691,15 @@ public class DellunaServiceImp implements DellunaService {
 		// 체험이름을 string으로 받아온다
 		List<String> expName = dellunaDao.myExNameWithString(memberCode, state);
 		HomeAspect.logger.info(HomeAspect.logMsg + "내가 예약한 체험이름 : " + expName);
-
+		
+		List<NewExpReserveDto> newExpReserveDto = dellunaDao.newExpReserve(memberCode,state);
+		HomeAspect.logger.info(HomeAspect.logMsg + "newExpReserveDto" + newExpReserveDto ) ;
+	
+		List<NewHouseReserveDto> newHouseReserveDto = dellunaDao.newHouseReserve(memberCode,state);
+		HomeAspect.logger.info(HomeAspect.logMsg + "newHouseReserveDto" + newHouseReserveDto ) ;
+	
+		mav.addObject("newHouseReserveDto", newHouseReserveDto);
+		mav.addObject("newExpReserveDto", newExpReserveDto);
 		mav.addObject("expName", expName);
 		mav.addObject("expList", expList);
 		mav.addObject("houseName", houseName);
