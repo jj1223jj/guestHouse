@@ -14,32 +14,60 @@
 	<!--<![endif]-->
 	<head>
 		
-		<%-- <link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test1.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test2.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/> --%>
-					
 		
 		<title>게스트하우스 홈페이지</title>
 
 	</head>
 </head>
 <body>
-	<!-- 하단 영역 -->
-	<footer id="footerWrap">
-		<div class="innerBox">
-			<ul>
-				<li><a href="/front/contents/pcity/location">오시는 길</a></li>
-				<li><a href="/front/contents/sitemap">사이트맵</a></li>
-				<li><a href="/front/policy/privacy">개인정보 처리 방침</a></li>
-				<li><a href="/front/policy/pic">영상정보처리기기 운영,관리방침</a></li>
-				<li><a href="/front/policy/privacy/agreement">이용약관</a></li>
-				<li><a href="http://recruit.paradise.co.kr/">채용안내</a></li>
-			</ul>
-			<p class="address">제주스테이: 서울시 구로구, 사업자 등록번호 121-86-18441, 통신판매번호 제 2017-인천중구-0027호,</p>
-			<p class="copy">Tel. 1833-8855, E-mail : dolharebang@jejuStay.com, Copyright © JEJU STAY Co. Ltd. All rights reserved.</p>
-		</div>
-	</footer>
-	<!-- //하단 영역 -->
+
+<!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
+
+  <!-- Footer Text -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase font-weight-bold">ADDRESS</h5>
+        <p>제주스테이: 서울시 구로구, 사업자 등록번호 121-86-18441, 통신판매번호 제 2017-인천중구-0027호,</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mb-md-0 mb-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase font-weight-bold"></h5>
+        <p>Tel. 1833-8855, E-mail : dolharebang@jejuStay.com, Copyright © JEJU STAY Co. Ltd. All rights reserved.</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Text -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+	
 </body>
 </html>

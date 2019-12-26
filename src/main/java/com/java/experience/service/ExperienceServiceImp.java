@@ -707,8 +707,13 @@ public class ExperienceServiceImp implements ExperienceService {
 		mav.addObject("exFileList", exFileList);
 		mav.addObject("memberDto", memberDto);
 
-		mav.setViewName("experience/exPage.tiles");
-
+		String exApp = request.getParameter("exApp");
+		
+		if(exApp!=null) {
+			mav.setViewName("experience/exPage.empty");
+		}else {
+			mav.setViewName("experience/exPage.tiles");
+		}
 	}
 
 	@Override

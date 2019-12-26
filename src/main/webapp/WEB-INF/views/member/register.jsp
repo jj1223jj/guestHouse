@@ -17,10 +17,10 @@
 	
 		<meta charset="UTF-8">
 		
-		<link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
+		<%-- <link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
 		<link rel="stylesheet" href="${root}/resources/css/register/test1.css"/> 
 		<link rel="stylesheet" href="${root}/resources/css/register/test2.css"/>
-		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/>
+		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/> --%>
 		
 		
 		
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		}
 	} */
 	
-	
+
 });
 
 
@@ -136,7 +136,6 @@ function jsPwd1Validation() {
 						<dd>
 							<div class="inp">
 								<input type="email" id="email" name="email" required maxlength="200" placeholder="guesthouse@guesthouse.com" title="아이디" >
-								
 								<input type="button" value="중복확인" style="position: absolute; width: 83px; margin-left: 20px;"onclick="emailCheck(createForm,'${root}')">
 							</div>
 							<p class="text"> - 일부 도메인은 수신에 제한이 있을 수 있습니다. <br />스팸메일함으로도 수신이 되지 않을 경우, 다른 이메일을 사용하시기 바랍니다. </p>
@@ -152,7 +151,7 @@ function jsPwd1Validation() {
 						<dd>
 							<div class="inp">
 								<input type="password" id="password" name="password" required maxlength="16" title="비밀번호" placeholder="비밀번호를 입력하세요.">
-								<button class="btnDelete">삭제</button>
+								
 							</div>
 							
 							<div class="errorText">

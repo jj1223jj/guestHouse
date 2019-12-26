@@ -6,6 +6,7 @@ function registerForm(obj){
 
 
 
+
 function emailCheck(obj, root){
 	//alert(obj.email.value);
 	
@@ -14,6 +15,8 @@ function emailCheck(obj, root){
 		obj.email.focus();	//커서를 아이디에 놓아줌
 		return false;
 	}
+	
+
 	
 	var url = root +"/member/emailCheck.do?email=" + obj.email.value;	// /homePage/member/idCheck.do?id=0000 id에 0000입력한 경우
 	/*alert(url);*/													// idCheckAction으로 간 다음에 idCheck.jsp로 간다.

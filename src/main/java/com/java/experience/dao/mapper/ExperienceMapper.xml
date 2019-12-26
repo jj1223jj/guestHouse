@@ -59,7 +59,9 @@
 	
 	<select id="reviewList" parameterType="java.util.Map" resultType="com.java.exreview.dto.ExReviewListDto">
 		<![CDATA[
-		SELECT * FROM (select rownum as rnum, A.* from (select exReview.*, experience.exCode, member.email from exReview inner join exReserve on exReview.exReserveCode = exReserve.exReserveCode inner join experience on exReserve.exCode = experience.exCode and exReserve.exCode=#{exCode} inner join member on exReview.memberCode = member.memberCode ORDER BY exReview.revDate Desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
+		SELECT * FROM 
+		(select rownum as rnum, A.* from 
+		(select exReview.*, experience.exCode, member.email from exReview inner join exReserve on exReview.exReserveCode = exReserve.exReserveCode inner join experience on exReserve.exCode = experience.exCode and exReserve.exCode=#{exCode} inner join member on exReview.memberCode = member.memberCode ORDER BY exReview.revDate Desc) A) b WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
 		]]>
 	</select>
 <!-- 이 사람이 이 체험에 예약했는지 갯수 가져오기  -->

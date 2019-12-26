@@ -1,10 +1,11 @@
 @charset "UTF-8";
-#probootstrap-navbar{
+
+/* #probootstrap-navbar{
 	position: 70%;
-	/* border: 3px dotted red; */
+ 	border: 3px dotted red; 
 }
 .container{
-	/* border: 1px dotted green; */
+	 border: 1px dotted green; 
 	width: 100%;
 	position: fixed;
 	background-color: white;
@@ -12,33 +13,59 @@
 	z-index: 999;
 	}
 .logCon{
-	/* border: 1px dotted orange; */
-	width: 300px;
-	margin-left: 200px;
+	border: 1px dotted orange;
+	width: 18.75rem;
+	margin-left: 12.5rem;
+	margin-top: 3.125rem;
 }
 
 .navbar-brand{
-	/* border: 1px solid yellow; */
-	margin: 20px auto;
+	border: 1px solid yellow;
+	margin: 0rem auto;
 }
 .navbar-nav{
 	
-	width:950px;
-	/* border: 3px solid blue;  */
-	margin-left:500px;
-	margin-bottom: 30px;
+	width:59.375rem;
+	 border: 3px solid blue;  
+	margin-left:31.25rem;
+	margin-bottom: 1.875rem;
 	
+}
+.nav-item{
+	list-style: none;
 }
 
 .nav-link{
 	
-	/* border: 1px solid red; */
-	margin-right: 45px;
+	border: 1px solid red;
+	margin-right: 2rem;
 	float: right;
-	
 	
 }
 #probootstrap-menu{
-	/* border: 3px solid red; */
+	border: 3px solid red;
 	
 }
+ */
+ html{
+ font-size: 16px;
+ }
+ 
+.nav-link{
+	
+	color: black;
+	
+}
+.navbar{
+	
+	border-bottom: 0.1rem solid grey;
+	height: 8.9rem;
+}
+
+.loginBox > .col > .form-control{
+	width: 18rem; 
+	margin-bottom: 1rem; 
+	margin-top: 1rem; 
+	
+}
+
