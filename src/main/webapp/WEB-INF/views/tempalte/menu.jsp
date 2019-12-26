@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<br/><br/>
+	  <br/><br/>
 
-	<%-- <a href="${root}/ys">윤수</a><br/>
+	<!-- <a href="${root}/ys">윤수</a><br/>
 
 
 	<br/><br/>
@@ -49,7 +49,7 @@
 	----------------------------------------------------------------<br/>
 	<a href="${root}/guestdelluna/memberUpdate.do">회원수정(완)</a><br/>
 		<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴(완)</a><br/>
-		<a href="${root}/guestdelluna/checkReserve.do">전체예약리스트확인 및 취소(완)</a><br/> <!-- 이건 리스트형태로 내가 예약한거 모두 보여주기 -->
+		<a href="${root}/guestdelluna/checkReserve.do">전체예약리스트확인 및 취소(완)</a><br/> <!-- 이건 리스트형태로 내가 예약한거 모두 보여주기 --> <!--
 		<a href="${root}/guestdelluna/zzimlist.do">찜목록(완)</a><br/>
 	--끝--	--끝--	--끝--	--끝--	--끝--	--끝--	--끝--	--끝--<br/>
 
@@ -66,7 +66,9 @@
 	
 	
 	<!-- 수정 및 삭제는 내가 쓴 리뷰를 들어가야 볼 수 있다. 그래서 내가 쓴 리뷰에 있는 js에서 보내주는 게 나을 수도? -->
+	<!--
 	<a href="${root}/guestdelluna/reviewUpdate.do">후기 수정</a><br/>	<!-- updateOk도  -->
+	<!--
 	<a href="${root}/guestdelluna/reviewDelete.do">후기 삭제</a><br/>
 
 	----------아래 두개는 좀 까다로움?????????????????????????????------------<br/>
@@ -84,7 +86,9 @@
 	<br/>
 	
 	----------------------------------------------------------------<br/>
-	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스</a> --%>
+
+	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스</a>
+-->
 
 </body>
 </html>

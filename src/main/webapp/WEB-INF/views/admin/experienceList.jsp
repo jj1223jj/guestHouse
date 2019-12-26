@@ -7,21 +7,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="${root}/resources/javascript/admin/admin.js" type="text/javascript" charset="utf-8"></script>
-		
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${root}/resources/javascript/admin/admin.js" type="text/javascript" charset="utf-8"></script>
+	
+	
 <title>List</title>
 </head>
 <body>
 
 			<input type="hidden" name ="memberCode" value="${memberCode}"/>
 			<input type="hidden" name ="pageNumber" value="${pageNumber}"/>
-	<table width = "500" height ="20" align="center">
+	<table class="table">
 		<tr>
 			<td align = "center" bgcolor="khaki">
-				<div>체험 이름을 클릭하시면 체험 페이지로 이동합니다.</div>
+				<div>해당 체험 페이지로 이동하여 승인여부를 결정해주세요.</div>
 			</td>
 		</tr>
 	</table>
@@ -34,58 +36,70 @@
          </table>
       </c:if>
       
-      <c:if test="${count > 0 }">
-		<table border="1" style="width:600px; cellpadding:2; cellspacing:0; align:center;margin: 100px auto;">
-			<tr>
-				<td align="center" width="100">체험 이름</td>
-				<td align="center" width="40">회원코드</td>
-				<td align="center" width="100">위치</td>
-				<td align="center" width="70">체험 승인여부</td>
-			</tr>
-			<c:forEach var="experienceDto" items="${experienceList}">
-				<tr>
-					<td>
-					<button onclick="window.open('${root}/experience/exPage.do?memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')">${experienceDto.exName}</button>
-					
-					<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>
-					-->
-					</td>
-					<td>${experienceDto.memberCode}</td>
-					<!--address나 local 둘 중 ?  -->
-					<td>${experienceDto.exAddress}</td>
-					<td>${experienceDto.exApproval}</td>
-					
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
+       <div class="container">
+	      <c:if test="${count > 0 }">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<td>체험 이름</td>
+						<td>회원코드</td>
+						<td>위치</td>
+						<td>체험 승인여부</td>
+						<td>체험페이지로 이동</td>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<c:forEach var="experienceDto" items="${experienceList}">
+						<tr>
+							<td>
+							<%-- <button onclick="window.open('${root}/experience/exPage.do?memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')">${experienceDto.exName}</button>
+							 --%>
+							<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>
+							-->
+							${experienceDto.exName}
+							</td>
+							<td>${experienceDto.memberCode}</td>
+							<!--address나 local 둘 중 ?  -->
+							<td>${experienceDto.exAddress}</td>
+							<td>${experienceDto.exApproval}</td>
+							<td><p><button class="btn btn-outline-primary btn-lg" data-toggle="modal" onclick="window.open('${root}/experience/exPage.do?exApp=1&memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')"><i class="pencil-alt"></i></button></p></td>
+	    
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		  </c:if>
+		</div>
 	<br/>
 	<div align = "center">
-		<c:if test="${count > 0 }">
-			<c:set var="pageBlock" value="${10}"/>
-			<c:set var="pageCount" value="${count/boardSize+(count%boardSize==0 ? 0:1)}"/>
+		<ul class="pagination justify-content-center">
+			<c:if test="${count > 0 }">
+				<c:set var="pageBlock" value="${10}"/>
+				<c:set var="pageCount" value="${count/boardSize+(count%boardSize==0 ? 0:1)}"/>
+				
+				<fmt:parseNumber var = "result" value = "${(currentPage-1)/pageBlock}" integerOnly="true"/>
+				<c:set var="startPage" value = "${result*pageBlock+1}"/>
+				<c:set var="endPage" value = "${startPage+pageBlock-1}"/>
+				
+				<c:if test="${endPage > pageCount}">
+					<c:set var="endPage" value="${pageCount}"/>
+				</c:if>
+				
+				<c:if test="${startPage > pageBlock}">
+					<li class="page-item"><a class="page-link" href="${root}/admin/experienceList.do?pageNumber=${startPage-pageBlock}">이전</a></li>
+				</c:if>
+				
+				<c:forEach var = "i" begin="${startPage}" end="${endPage}">
+					<li class="page-item"><a class="page-link" href="${root}/admin/experienceList.do?pageNumber=${i}">${i}</a></li>
+				</c:forEach>  
+				
+				<c:if test="${endPage > pageCount}">
+					<li class="page-item"><a class="page-link" href="${root}/admin/experienceList.do?pageNumber=${startPage+pageBlock}">다음</a></li>
+				</c:if>
 			
-			<fmt:parseNumber var = "result" value = "${(currentPage-1)/pageBlock}" integerOnly="true"/>
-			<c:set var="startPage" value = "${result*pageBlock+1}"/>
-			<c:set var="endPage" value = "${startPage+pageBlock-1}"/>
-			
-			<c:if test="${endPage > pageCount}">
-				<c:set var="endPage" value="${pageCount}"/>
 			</c:if>
-			
-			<c:if test="${startPage > pageBlock}">
-				<a href="${root}/admin/experienceList.do?pageNumber=${startPage-pageBlock}">[이전]</a>
-			</c:if>
-			
-			<c:forEach var = "i" begin="${startPage}" end="${endPage}">
-				<a href="${root}/admin/experienceList.do?pageNumber=${i}">[${i}]</a>
-			</c:forEach>  
-			
-			<c:if test="${endPage > pageCount}">
-				<a href="${root}/admin/experienceList.do?pageNumber=${startPage+pageBlock}">[다음]</a>
-			</c:if>
-		
-		</c:if>
+		</ul>
 	</div>
 </body>
 </html>

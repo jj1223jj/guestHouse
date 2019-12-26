@@ -63,7 +63,8 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		
-		mav.setViewName("member/login.tiles");
+		 mav.setViewName("member/login.tiles"); 
+		
 		
 		return mav;
 	}

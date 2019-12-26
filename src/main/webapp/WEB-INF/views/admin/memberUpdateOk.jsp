@@ -13,7 +13,7 @@
 	<c:if test="${check > 0}">	<!-- 제대로 수정되었으면 1, 아니면 00  -->
 		<script type="text/javascript">
 			alert("수정되었습니다");
-			self.close();
+			location.href="${root}/admin/memberList.do";
 	
 		</script>
 	</c:if>
@@ -21,7 +21,7 @@
 	<c:if test="${check == 0}">
 		<script type="text/javascript">
 			alert("수정되지 않았습니다");
-			self.close();
+			location.href="${root}/admin/memberList.do";
 	
 		</script>
 	</c:if>

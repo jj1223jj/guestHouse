@@ -84,10 +84,10 @@ public class AdminServiceImp implements AdminService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
 		
-		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		//int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 		 
 		HomeAspect.logger.info(HomeAspect.logMsg +" memberDto: "+ memberDto.toString());
-		HomeAspect.logger.info(HomeAspect.logMsg +" memberCode: "+ memberCode);
+		//HomeAspect.logger.info(HomeAspect.logMsg +" memberCode: "+ memberCode);
 		
 		int check = adminDao.memberUpdateOk(memberDto);
 		
