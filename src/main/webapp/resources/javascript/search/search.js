@@ -5,6 +5,44 @@ var root;
 function setRoot(r){
 	root=r;
 }
+function setHouseList(jsonHouseList){
+	var house=JSON.parse(jsonHouseList).houseJson;
+	for(var i=0;i<house.length;i++){
+		$(".houseContainer").prepend('<div class="house">' +
+									 '		<div class="_gig1e7">' +
+									 '			<div class="_ylefn59">' +
+									 '				<div class="_houseCode" style="display:none;">'+house[i].houseCode+'</div>' +
+									 '				<div class="_houseImg">' +
+									 '					<div class="swiper-container">' +
+									 '						<div class="swiper-wrapper">' +
+									 '							<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/house1.png"/></div>' +
+									 '							<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/house2.png"/></div>' +
+									 '							<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/house3.png"/></div>' +
+									 '						</div>' +
+									 '' +
+									 '						<div class="swiper-pagination"></div>' +
+									 '						<div class="swiper-button-next"></div>' +
+									 '						<div class="swiper-button-prev"></div>' +
+									 '					</div>' +
+									 '					<div class="_heartButton">' +
+									 '						<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
+									 '					</div>' +
+									 '				</div>' +
+									 '				<div class="_houseInfo">' +
+									 '					<div class="_starRate"><span class="_60dc7z"><span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:0.75rem;width:0.75rem;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span><span class="reviewRate"> '+house[i].revRate+'</span><span class="reviewCount">('+house[i].revCount+')</span></span></div>' +
+									 '					<div class="_houseName">'+ house[i].houseName +'</div>' +
+									 '					<div class="_houseFacilities" style="margin-top: 0.75rem">인원 '+house[i].people+'명 · 침대 1개 · 욕실 1개</div>' +
+									 '					<div class="_houseFacilities" style="margin-top: 0.25rem">온수 '+house[i].hotWater+' · 무료주차공간 '+house[i].parking+' · 난방 '+house[i].aircon+' · 주방 '+house[i].kitchen+'</div>' +
+									 '					<div class="_priceContainer"><span class="_price">₩'+house[i].price+'</span><span class="_oneNight">/1박</span></div>' +
+									 '				</div>' +
+									 '			</div>' +
+									 '		</div>' +
+									 '</div>');
+		
+	}
+	
+}
+
 function setCheckIn(checkIn){
 	$("#checkIn").prop("placeholder",checkIn);
 	$("#checkIn").prop("value",checkIn);
@@ -37,21 +75,22 @@ function dateToString(date){
 //하트 클릭
 function heart(memberCode){
 	if(memberCode!='') {
-		$("._r0agyd").click(function(){
-			var heart=$(this).attr("class").split(" ")[1];
+		$("._heartButton").click(function(){
+			var heart=$(this).children().children();
 			var data;
-			if($("."+heart).children().attr("fill")=="currentColor"){
-				$("."+heart).children().attr("fill", "#FF385C");
-				$("."+heart).children().attr("fill-opacity", "1");
-				$("."+heart).children().attr("stroke","#FF385C");
-				$("."+heart).children().attr("stroke-width","1");
-				data= { memberCode: memberCode, zzim: memberCode, houseCode: $(this).parent().children("div[class='houseCode']").text()};
+			var houseCode=$(this).parent().parent().children("div[class='_houseCode']").text();
+			if(heart.children().attr("fill")=="currentColor"){
+				heart.children().attr("fill", "#FF385C");
+				heart.children().attr("fill-opacity", "1");
+				heart.children().attr("stroke","#FF385C");
+				heart.children().attr("stroke-width","1");
+				data= { memberCode: memberCode, zzim: memberCode, houseCode: houseCode};
 			}else{
-				$("."+heart).children().attr("fill", "currentColor");
-				$("."+heart).children().attr("fill-opacity", "0");
-				$("."+heart).children().attr("stroke","#222222");
-				$("."+heart).children().attr("stroke-width","1.4");
-				data= { memberCode: memberCode, houseCode: $(this).parent().children("div[class='houseCode']").text()};
+				heart.children().attr("fill", "currentColor");
+				heart.children().attr("fill-opacity", "0");
+				heart.children().attr("stroke","#222222");
+				heart.children().attr("stroke-width","1.4");
+				data= { memberCode: memberCode, houseCode: houseCode};
 			}
 			//$(this).parent(".overlaybox").css("display","block");
 			$.ajax({
@@ -66,9 +105,9 @@ function heart(memberCode){
 			
 		});
 	}else{
-		$("._r0agyd").click(function(){
+		$("._heartButton").click(function(){
 			//alert( $("#price" ).slider( "values" ));
-			alert("로그인 해주세요");
+			console.log("로그인해주세요");
 			//로그인 모달 띄워주기
 		});
 	}

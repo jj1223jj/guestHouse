@@ -95,11 +95,11 @@ form{
 }
 .filterBoxContainer{
 	position: relative;
-	top :250px;
-	left:1000px;
-	width:500px;
-	height:400px;
-	border-radius: 25px;
+	top :15.625rem;
+	left:62.5rem;
+	width:31.25rem;
+	height:25rem;
+	border-radius: 1.563rem;
 	border: 1px white solid;
 	background-color: white;
 }
@@ -107,22 +107,22 @@ form{
 	height: 100%
 }
 .checkInLabel, .checkOutLabel{
-	font-size: 24px;
+	font-size: 1.5rem;
 }
 .checkInContainer, .checkOutContainer{
-	width:200px;
+	width:12.5rem;
 	display:inline-block;
 }
 .localAll, .localJeju, .localSeoguipo{
-	width: 140px;
-	font: 16px bold;
+	width: 8.75rem;
+	font: 1rem bold;
 }
 .form-control{
 	display:inline-block;
-	width: 150px;
+	width: 9.375rem;
 }
 .calender::before{
-	margin-top: 10px;
+	margin-top: 0.625rem;
 }
 .checkInInput, .checkOutInput{
 	position: relative;
@@ -130,50 +130,50 @@ form{
 }
 i{
 	position: absolute;
-	right:-4px;
-	top:-9px;
+	right:-0.25rem;
+	top:-0.563rem;
 }
 .custom-control{
-	margin-bottom: 0px !important;
+	margin-bottom: 0rem !important;
 }
 
 .localContainer{
 	position: absolute;
-	top : 100px;
-	left : 40px;
+	top : 6.25rem;
+	left : 2.5rem;
 }
 
 .peopleContainer{
 	position: absolute;
-	top : 200px;
-	left: 30px;
-	font-size: 20px;
+	top : 12.5rem;
+	left: 1.875rem;
+	font-size: 1.25rem;
 }
 
 .searchContainer{
 	position: absolute;
-	top : 200px;
-	right: 35px;
-	font-size: 20px;
+	top : 12.5rem;
+	right: 2.188rem;
+	font-size: 1.25rem;
 }
 .container{
 	position: relative;
 }
 .checkOutContainer{
 	position: absolute;
-	right: 35px;
+	right: 2.188rem;
 }
 
 .searchBtn{
-	margin-left:10px;
-	margin-bottom: 3.5px;
+	margin-left:0.625rem;
+	margin-bottom: 0.219rem;
 }
 .checkInOutContainer{
-	margin-top: 40px;	
-	margin-left: 15px;
+	margin-top: 2.5rem;	
+	margin-left: 0.938rem;
 }
 .backImg{
-	height: 1000px;
+	height: 62.5rem;
 	background-image: url("${root}/resources/images/JEJU STAY.jpg");
 }
 
@@ -181,7 +181,6 @@ i{
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/tempalte/header.jsp"></jsp:include>
 	<div class="backImg">
 	<div class="filterBoxContainer">
 		<div class="filterBox container">

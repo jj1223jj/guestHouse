@@ -131,7 +131,6 @@ public class DellunaDaoImp implements DellunaDao {
 	}
 
 	@Override
-
 	public int doZzim(Map<String, Object> dataMap, String zzim) {
 		if(zzim!=null)
 			return sqlSessionTemplate.insert("dao.dellunaMapper.doZzim", dataMap);
@@ -581,7 +580,7 @@ public class DellunaDaoImp implements DellunaDao {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		return sqlSessionTemplate.selectList("host.dao.mapper.getMyExReviewListScroll" ,map);
-
+	}
 	public List<NewExpReviewDto> myExpreviewList(int memberCode) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.myExpreviewList", memberCode);
