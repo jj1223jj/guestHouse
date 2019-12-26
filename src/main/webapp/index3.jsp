@@ -90,10 +90,14 @@
 </script>
 
 <style type="text/css">
+html{
+	font-size: 16px;
+}
 form{
 	height: 100%;
 }
 .filterBoxContainer{
+	box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px !important;
 	position: relative;
 	top :15.625rem;
 	left:62.5rem;
@@ -173,8 +177,8 @@ i{
 	margin-left: 0.938rem;
 }
 .backImg{
-	height: 62.5rem;
-	background-image: url("${root}/resources/images/JEJU STAY.jpg");
+	height: 70.5rem;
+	background-image: url("${root}/resources/images/JEJU_STAY.jpg");
 }
 
 </style>

@@ -26,7 +26,7 @@ public class SearchServiceImp implements SearchService {
 
 	@Override
 	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, Integer memberCode, String sort) {
-		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", memberCode: "+memberCode+", sort: "+sort);
+		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", pageNumber: "+pageNumber+", memberCode: "+memberCode+", sort: "+sort);
 		ModelAndView mav = new ModelAndView();
 		
 		//myBatis에 넘겨줄 data, Map에 넣기
@@ -50,7 +50,7 @@ public class SearchServiceImp implements SearchService {
 			dataMap.put("searchHouseName",searchHouseName);
 
 		//페이징
-		int currentPage=Integer.parseInt(pageNumber);
+		int currentPage=pageNumber==null? 1:Integer.parseInt(pageNumber);
 		
 		//검색조건 결과가 0인지 확인
 		GetCountDto getCountDto = searchDao.getCount(dataMap);
