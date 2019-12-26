@@ -276,6 +276,33 @@
     and f.mainimgname is not null
 </select>
 
+<select id="newHouseReserve" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.NewHouseReserveDto">
+	 select r.reservecode , h.housename , r.state , r.checkin , r.checkout from reservation r , house h
+    where r.housecode = h.housecode
+   and r.membercode = #{memberCode}
+    and r.state= #{state}
+</select>
+
+<select id="newExpReserve" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.NewExpReserveDto">
+	   select r.exreservecode , e.exname , r.state, r.exdate from exreserve r, experience e 
+    where e.excode = r.excode
+    and r.membercode = #{memberCode}
+    and r.state= #{state}
+</select>
+
+
+<select id="newNewExpReserve" parameterType="int" resultType="com.java.guestdelluna.dto.NewExpReserveDto">
+	select r.exreservecode , e.exname , r.exdate , r.state from experience e , exreserve r
+	where r.excode = e.excode
+	and r.membercode = #{memberCode}
+</select>
+
+<select id="newNewHouseReserve" parameterType="int" resultType="com.java.guestdelluna.dto.NewHouseReserveDto">
+	select r.reservecode , e.housename , r.checkIn , r.checkout , r.state from house e ,reservation r
+	where r.housecode = e.housecode
+	and r.membercode=#{memberCode}
+</select>
+
 <!-- <select id="houseInfo2" parameterType="int" resultType="com.java.guestdelluna.dto.NewDto">
 	select * from reservation r , house h where r.houseCode = h.houseCode and r.memberCode = #{memberCode};
 </select> --> 

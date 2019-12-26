@@ -20,6 +20,8 @@ import com.java.guestdelluna.dto.MyExReviewList;
 import com.java.guestdelluna.dto.MyHouseReviewList;
 
 import com.java.guestdelluna.dto.NewExpReviewDto;
+import com.java.guestdelluna.dto.NewHouseReserveDto;
+import com.java.guestdelluna.dto.NewExpReserveDto;
 import com.java.guestdelluna.dto.NewHouseReviewDto;
 
 import com.java.guestdelluna.dto.PointAccumulate;
@@ -177,5 +179,13 @@ public interface DellunaDao {
 	List<MyHouseReviewList> getMyHouseReviewListScroll(int memberCode, int startRow, int endRow);
 
 	List<MyExReviewList> getMyExReviewListScroll(int memberCode, int startRow, int endRow);
+
+	List<NewExpReserveDto> newExpReserve(int memberCode, String state);	//o
+
+	List<NewHouseReserveDto> newHouseReserve(int memberCode, String state);	//o
+
+	List<NewExpReserveDto> newNewExpReserve(int memberCode);	//o
+	
+	List<NewHouseReserveDto> newNewHouseReserve(int memberCode);	//o
 
 }
