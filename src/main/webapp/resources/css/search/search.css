@@ -1,14 +1,23 @@
 @charset "UTF-8";
-
+html{
+	font-size: 16px;
+}
 body{
 	margin: 0rem;
 }
 
 
+
+
+._overlayImgContainer .swiper-container {
+	border-radius: 0.5rem 0.5rem 0rem 0rem;
+	width: 17.125rem;
+	height: 11.416rem;
+}
+
 .swiper-container {
 	width: 18.75rem;
 	height: 12.5rem;
-	border: solid #cccccc 0.063rem;
 	margin-left: unset !important;
 }
 .swiper-slide {
@@ -35,7 +44,8 @@ body{
   height:calc(100% - 11.438rem);
   position: fixed;
   right: 0rem;
-  top: 6.25rem;
+  top: 11.45rem;
+/*   top: 18.45rem; */
 }
 #filterContent{
 	display:none;

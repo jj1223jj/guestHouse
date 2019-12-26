@@ -428,27 +428,28 @@
 			
 			<c:if test="${endPage>pageCount}">
 					<c:set var="endPage" value="${pageCount}"/>
-				</c:if>
+			</c:if>
+		
+			<c:if test="${startPage>1}">
+				<a href="${root}/search?pageNumber=1&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[처음]</a>
+				<a href="${root}/search?pageNumber=${startPage-pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[이전]</a>
+			</c:if>
 			
-				<c:if test="${startPage>1}">
-					<a href="${root}/search?pageNumber=1&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[처음]</a>
-					<a href="${root}/search?pageNumber=${startPage-pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[이전]</a>
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<c:if test="${i==currentPage}">
+					<a href="#" style="font-weight: bold;" id="${i}" class="n">${i}</a>
 				</c:if>
-				
-				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<c:if test="${i==currentPage}">
-						<a href="#" style="font-weight: bold;" id="${i}" class="n">${i}</a>
-					</c:if>
-					<c:if test="${i!=currentPage}">
-						<a href="${root}/search?pageNumber=${i}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}" id="${i}" class="n">${i}</a>
-					</c:if>
-				</c:forEach>
-				
-				<c:if test="${endPage<pageCount}">
-					<a href="${root}/search?pageNumber=${startPage+pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[다음]</a>
-					<a href="${root}/search?pageNumber=${pageCount}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[끝]</a>
+				<c:if test="${i!=currentPage}">
+					<a href="${root}/search?pageNumber=${i}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}" id="${i}" class="n">${i}</a>
 				</c:if>
+			</c:forEach>
+			
+			<c:if test="${endPage<pageCount}">
+				<a href="${root}/search?pageNumber=${startPage+pageBlock}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[다음]</a>
+				<a href="${root}/search?pageNumber=${pageCount}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort=${sort}">[끝]</a>
+			</c:if>
 		</c:if>
 	</div>
+	
 </body>
 </html>
