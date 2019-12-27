@@ -583,6 +583,7 @@ public class DellunaDaoImp implements DellunaDao {
 		map.put("endRow", endRow);
 		return sqlSessionTemplate.selectList("host.dao.mapper.getMyExReviewListScroll" ,map);
 	}
+
 	public List<NewExpReviewDto> myExpreviewList(int memberCode) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.myExpreviewList", memberCode);
