@@ -59,4 +59,6 @@ public interface DellunaService {
 
 	void houseReviewUpdateOk(ModelAndView mav);
 
+	void pointManageAjax(ModelAndView mav);
+
 }

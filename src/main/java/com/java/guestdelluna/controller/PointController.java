@@ -27,7 +27,18 @@ public class PointController {
 		dellunaService.pointManage(mav);
 		
 		return mav;
+	}
 		
+	@RequestMapping(value="guestdelluna/managePointAjax.do" , method=RequestMethod.GET)
+	public void managePointAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.pointManageAjax(mav);
+			
 	}
 	
 	@RequestMapping(value="guestdelluna/payList.do" , method=RequestMethod.GET)
