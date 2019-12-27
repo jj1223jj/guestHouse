@@ -342,13 +342,17 @@ public class DellunaServiceImp implements DellunaService {
 
 		int useStartRow = (currentPage - 1) * boardSize + 1;
 		int useEndRow = startRow * boardSize;
+		
+		MemberDto memberDto = dellunaDao.selectForUpdate(email);
+		
 
 		List<PointAccumulate> accuPoint = dellunaDao.myAccuPoint(memberCode, startRow, endRow);
 		HomeAspect.logger.info(HomeAspect.logMsg + "포인트적립내역 리스트 : " + accuPoint);
 
 		List<PointUse> usePoint = dellunaDao.myUsePoint(memberCode, useStartRow, useEndRow);
 		HomeAspect.logger.info(HomeAspect.logMsg + "포인트사용내역 리스트 : " + usePoint);
-
+		
+		mav.addObject("memberDto", memberDto);
 		mav.addObject("accuPoint", accuPoint);
 		mav.addObject("usePoint", usePoint);
 		mav.addObject("countAccu", countAccu);
