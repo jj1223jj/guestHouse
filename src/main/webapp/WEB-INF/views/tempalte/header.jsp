@@ -66,11 +66,11 @@
         
          <ul class="nav navbar-nav navbar-right" style="margin-right: 5rem;">
           	
-          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=6">체험 페이지</a></li>
 	          	<c:if test="${memberLevel == null}">
 		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
 		            <%-- <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li> --%>
 	            	<li id="log"><button class="btn" data-toggle="modal" data-target="#login">로그인/회원가입<!-- <i class="fa fa-user"></i> --></button></li>
+          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=27">체험 페이지</a></li>
 	            </c:if>
           
 	            <c:if test="${memberLevel != null}">
@@ -108,6 +108,7 @@
 				    	</li>
 				    </c:if>
 			    </c:if>
+			   </c:if>
           </ul>
       </div>
     </nav>
