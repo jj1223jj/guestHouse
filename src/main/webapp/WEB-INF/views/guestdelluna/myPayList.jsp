@@ -17,6 +17,10 @@
 	src="${root}/resources/javascript/guestdelluna/mypaylist.js"></script>
 <link rel="stylesheet"
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
+<link rel="stylesheet"
+	href="${root}/resources/css/guestdelluna/bootstrap.css">
+<script type="text/javascript"
+	src="${root}/resources/javascript/guestdelluna/bootstrap.js"></script>
 </head>
 <body>
 
@@ -33,75 +37,74 @@
 
 		<div id="fragment-1">
 
-						<div>
-							<input type="checkBox" name="allCheck" id="allCheck" />모두선택
-						</div>
-		
+			<div>
+				<input type="checkBox" name="allCheck" id="allCheck" />모두선택
+			</div>
 
-			<c:forEach var="exList" items="${expList}" varStatus="status">
+			<table class="table"
+				style="vertical-align: middle; text-align: center">
+				<thead class="thead-light">
+					<tr style="font-weight: 800;">
+						<td>번호</td>
+						<td>체험이름</td>
+						<td>체험날짜</td>
+						<td>예약여부</td>
+					</tr>
+				</thead>
+			</table>
 
-				
-				
-						<input type="checkbox" name="expCheck" class="expCheck"
-							value="${exList.exReserveCode}" />
-						
-							<div>번호</div>
-							<div class="seqRes">${status.count}</div>
-					
-				
-					<input type="hidden" name="exReserveCode"
-						value="${exList.exReserveCode}" />
-			
+			<c:forEach var="exList" items="${newExpReserveDto}"
+				varStatus="status">
 
-			</c:forEach>
+				<input type="checkbox" name="expCheck" class="expCheck"
+					value="${exList.exReserveCode}" />
 
-			<c:forEach var="exName" items="${expName}" varStatus="status">
-				
-							<div>체험이름</div>
-							<div>
-								${exName}
-							</div>
-			</c:forEach>
+				<input type="hidden" name="exReserveCode"
+					value="${exList.exReserveCode}" />
 
-			<c:forEach var="exList" items="${expList}" varStatus="status">
-				
-							<div>체험 날짜</div>
-							<div>
-								<fmt:formatDate value="${exList.exDate}" pattern="yyyy-MM-dd" />
-							</div>
-						
-
-						
-							<div>예약여부</div>
+				<table class="table"
+					style="text-align: center; vertical-align: middle; margin-bottom: auto;">
+					<tbody>
+						<tr>
+							<td>${status.count}</td>
+							<td>$${exList.exName}</td>
+							<td><fmt:formatDate value="${exList.exDate}" pattern="yyyy-MM-dd" /></td>
+							<td>
 							<div class="exResState">
 
-								<fmt:formatDate var="startTime" value="${now}"
-									pattern="yyyy-MM-dd" />
-								<fmt:formatDate var="endTime" value="${exList.exDate}"
-									pattern="yyyy-MM-dd" />
+					<fmt:formatDate var="startTime" value="${now}" pattern="yyyy-MM-dd" />
+					<fmt:formatDate var="endTime" value="${exList.exDate}"
+						pattern="yyyy-MM-dd" />
 
-								<c:if test="${startTime < endTime}">
-									<script type="text/javascript">
-										var exResState = document.getElementsByClassName("exResState");
-										exResState['${status.index}'].innerHTML = "예약완료"
-									</script>
-								</c:if>
+					<c:if test="${startTime < endTime}">
+						<script type="text/javascript">
+							var exResState = document
+									.getElementsByClassName("exResState");
+							exResState['${status.index}'].innerHTML = "예약완료"
+						</script>
+					</c:if>
 
 
-								<c:if test="${startTime > endTime}">
-									<script type="text/javascript">
-										var exResState = document.getElementsByClassName("exResState");
-										exResState['${status.index}'].innerHTML = "이용완료"
-									</script>
-								</c:if>
+					<c:if test="${startTime > endTime}">
+						<script type="text/javascript">
+							var exResState = document
+									.getElementsByClassName("exResState");
+							exResState['${status.index}'].innerHTML = "이용완료"
+						</script>
+					</c:if>
 
-								<c:if test="${startTime == endTime}">
-									<script type="text/javascript">
-										var exResState = document.getElementsByClassName("exResState");
-										exResState['${status.index}'].innerHTML = "체험 날짜입니다"
-									</script>
-								</c:if>
-							</div>
+					<c:if test="${startTime == endTime}">
+						<script type="text/javascript">
+							var exResState = document
+									.getElementsByClassName("exResState");
+							exResState['${status.index}'].innerHTML = "체험 날짜입니다"
+						</script>
+					</c:if>
+				</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</c:forEach>
 
 			<button id="opener">체험 결제 취소</button>
@@ -111,69 +114,71 @@
 
 		<div id="fragment-2">
 
-						<div>
-							<input type="checkBox" name="checkAll" id="checkAll" />모두선택
-						</div>
-			<c:forEach var="houseList" items="${houseList}" varStatus="status">
+			<div>
+				<input type="checkBox" name="checkAll" id="checkAll" />모두선택
+			</div>
 
-				<input type="checkbox" name="houseCheck"
-							class="houseCheck" value="${houseList.reserveCode}" /></td>
-						<td>
-							<div>번호</div>
-							<div class="seqRes">${status.count}</div>
-						
+			<table class="table"
+				style="vertical-align: middle; text-align: center">
+				<thead class="thead-light">
+					<tr style="font-weight: 800;">
+						<td>번호</td>
+						<td>게스트하우스 이름</td>
+						<td>체크인날짜</td>
+						<td>체크아웃날짜</td>
+						<td>예약여부</td>
+					</tr>
+				</thead>
+			</table>
 
-					<input type="hidden" name="houseReserveCode"
-						value="${houseList.reserveCode}" />
-				
-			</c:forEach>
-
-			<c:forEach var="houseName" items="${houseName}">
-				
-							<div>게스트하우스 이름</div>
-							<div>
-								${houseName}
-							</div>
-						
-			</c:forEach>
-
-			<c:forEach var="houseList" items="${houseList}" varStatus="status">
-				
-							<div>체크인날짜</div>
-							<div class="resDate">
-								<fmt:formatDate value="${houseList.checkIn}"
-									pattern="yyyy-MM-dd" />
-							</div>
-						
-							<div>체크아웃날짜</div>
-							<div class="resDate">
-								<fmt:formatDate value="${houseList.checkOut}"
-									pattern="yyyy-MM-dd" />
-							</div>
-						
-							<div>예약여부</div>
-							<div class="houseResState">
-
-								<fmt:formatDate var="startTime" value="${now}"
-									pattern="yyyy-MM-dd" />
-								<fmt:formatDate var="endTime" value="${houseList.checkOut}"
-									pattern="yyyy-MM-dd" />
-
-								<c:if test="${startTime < endTime}">
-									<script type="text/javascript">
-										var houseResState = document.getElementsByClassName("houseResState");
-										houseResState['${status.index}'].innerHTML = "예약완료"
-									</script>
-								</c:if>
+			<c:forEach var="houseList" items="${newHouseReserveDto}"
+				varStatus="status">
 
 
-								<c:if test="${startTime > endTime}">
-									<script type="text/javascript">
-										var houseResState = document.getElementsByClassName("houseResState");
-										houseResState['${status.index}'].innerHTML = "이용완료"
-									</script>
-								</c:if>
-							</div>
+				<table class="table"
+					style="text-align: center; vertical-align: middle; margin-bottom: auto;">
+					<tbody>
+						<tr>
+							<td><input type="checkbox" name="houseCheck"
+								class="houseCheck" value="${houseList.reserveCode}" /></td>
+							<td>${status.count}</td>
+							<td>$${houseList.houseName}</td>
+							<td><fmt:formatDate value="${houseList.checkIn}"
+									pattern="yyyy-MM-dd" /></td>
+							<td></td>
+							<td><fmt:formatDate value="${houseList.checkOut}"
+									pattern="yyyy-MM-dd" /></td>
+							<td>
+								<div class="houseResState">
+
+									<fmt:formatDate var="startTime" value="${now}"
+										pattern="yyyy-MM-dd" />
+									<fmt:formatDate var="endTime" value="${houseList.checkOut}"
+										pattern="yyyy-MM-dd" />
+
+									<c:if test="${startTime < endTime}">
+										<script type="text/javascript">
+											var houseResState = document
+													.getElementsByClassName("houseResState");
+											houseResState['${status.index}'].innerHTML = "예약완료"
+										</script>
+									</c:if>
+
+
+									<c:if test="${startTime > endTime}">
+										<script type="text/javascript">
+											var houseResState = document
+													.getElementsByClassName("houseResState");
+											houseResState['${status.index}'].innerHTML = "이용완료"
+										</script>
+									</c:if>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" name="houseReserveCode"
+					value="${houseList.reserveCode}" />
 			</c:forEach>
 
 			<button id="opener2">게스트하우스 결제 취소</button>
@@ -184,7 +189,6 @@
 </body>
 
 <script type="text/javascript">
-
 	var str = "";
 
 	$("#allCheck").click(function() {
@@ -225,7 +229,7 @@
 
 									str += expCheck[i].value + ",";
 									++cnt
-									
+
 								}
 							}
 
