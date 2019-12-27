@@ -27,13 +27,16 @@
 		<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
 		<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
 	</c:if>
-	<div class="wrap" style="margin:0px auto;">
+	<div class="wrap" style="margin:0px auto; width: 70rem; border: 1px solid black;">
+	
 <!-- 이미지 -->		
-		<div>체험 이미지</div>
+		<div></div>
 	         	<div class="img">
 	         		<c:forEach var="exFileDto" items="${exFileList}">
 	         			<c:if test="${exFileDto.mainImgName!=null}">
-	         				<img alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
+	         				<div style="width: 25rem; height: 25rem; overflow: hidden; border: 0.01rem solid red;">
+	         					<img style="width: 25rem; height: 30rem;" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
+	         				</div>
 	         			</c:if>
 	         			<c:if test="${exFileDto.fileName!=null}">
 	         				<img alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>

@@ -47,14 +47,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/emailCheck.do", method = RequestMethod.GET)
-	public ModelAndView memberIdCheck(HttpServletRequest request, HttpServletResponse response) {
+	public void memberIdCheck(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("Email Check");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
+		mav.addObject("response",response);
 		memberService.memberEmailCheck(mav);
 		
-		return mav;
 	}
 	
 	@RequestMapping(value="/member/login.do", method = RequestMethod.GET)

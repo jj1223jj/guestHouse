@@ -23,6 +23,7 @@
 		<link rel="stylesheet" href="${root}/resources/css/register/test3.css"/> --%>
 		
 		
+		<link rel="stylesheet" href="${root}/resources/css/register/register.css"/>
 		
 		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
 		
@@ -37,198 +38,279 @@
 	
 
 	<body>
+	
+	
+<script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
+<!-- <script type="text/javascript">
+	function toServer(root) {
+		//alert(root);
+		var email = document.getElementById("emailAA").value;
+		alert(email);
 		
-	
-	
-<script type="text/javascript">
-var emailFormat = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-var blank_pattern = /[\s]/g;
-
-$(document).ready(function() {
-	
-	//if($("#email").length > 0)      { addInputHandler({input:$("#email")      , dataType:"HA"}); }
-	
-	 
-	// 아이디, 비밀번호, 비밀번호  확인 유효성 실시간 검사
-	/* try {
-		addInputHandler({input:$("#email"), dataType:"HA", handler:jsIdValidation});
-	} catch(e) {
-		console.log(e);
-	} */
-
-	/* try {
-		addInputHandler({input:$("#password"), dataType:"N", handler:jsPwd1Validation});
-	} catch(e) {
-		console.log(e);
+		var url = root + "/member/emailCheck.do?";
+		var params = "email=" + email;
+		$.ajax({
+			url:url+params,
+			method:"get",
+			success:function(check){
+				
+				$(".form-group #usedEmail").val(email);
+				
+				if(check==1)
+				$(".form-group #container").text("이미 존재하는 아이디입니다.");
+				$(".id #chEmail").text("이미 존재하는 아이디입니다.");
+				else{
+				$(".form-group #container").text("사용가능한 아이디입니다.");
+					
+				}
+			}
+		});
+		
 	}
-
-	$("#USER_PWD2").on("change", function() {
-		jsPwd2Validation();
-	});
-
-	try {
-		addInputHandler({input:$("#email"), dataType:"AP", handler:function() {
-			$("#email").closest("dd").removeClass("error");
-		}});
-	} catch(e) {
-		console.log(e);
-	}
-
-	if($("#email").length > 0) {
-		try {
-			addInputHandler({input:$("#phone"), dataType:"N", handler:function() {
-				$("#phone").closest("dd").removeClass("error");
-			}});
-		} catch(e) {
-			console.log(e);
+	
+	function fromServer() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			//alert(xhr.responseText);
+			/* document.getElementById("container").innerHTML = xhr.responseText; */
+			document.getElementById("container").innerHTML = xhr.responseText;
 		}
-	} */
-	
-
-});
-
-
-
-
-function jsPwd1Validation() {
-	$("#password").closest("dd").removeClass("error");
-	
-	var rtn = $("#form1").validate();
-	if(rtn.msg == "비밀번호" && rtn.isValid == false) {
-		$("#USER_PWD1").closest("dd").addClass("error");
-		$("#USER_PWD1").closest("div.inp").next(".errorText").text("영문, 숫자, 특수 기호 조합으로 8~16자 이내로 입력해주세요.");
 	}
-	$("#USER_PWD1").focus();
-}
+	
+</script> -->
 
-
-
-
-
-/*
-
-
-
-
-
-*/
-
+<script>
+$(document).ready(function(){
+	$("#emailAA").blur(function(){
+		var email = document.getElementById("emailAA").value;
+		//alert(email);
+		
+		var url =  "${root}/member/emailCheck.do?";
+		var params = "email=" + email;
+		
+		$.ajax({
+			url:url+params,
+			method:"get",
+			success:function(check){
+				//console.log("중복이면 0: " + check);
+				
+				if(check==1){
+					$("#idid #id_check").text("이미 존재하는 이메일입니다. 다른 이메일을 사용하시길 바랍니다.");
+					$("#idid #id_check").css("color","red");
+					$("#btnSubmit").attr("disabled",true);
+				}
+				else{
+					$("#idid #id_check").text("사용가능한 이메일입니다.");
+					$("#idid #id_check").css("color","blue");
+					
+				}
+			}
+		});
+		
+	});
+	
+	$(".pwd #USER_PWD2").blur(function(){
+		var pwd = document.getElementById("password99").value;
+		var pwd2 = document.getElementById("USER_PWD2").value;
+		//alert(pwd + pwd2);
+		
+		if(pwd!=pwd2){
+			$(".pwd #pwsame").text("비밀번호를 잘못 입력하셨습니다.");
+			$(".pwd #pwsame").css("color","red");
+			$("#btnSubmit").attr("disabled",true);
+		}else{
+			//$("#btnSubmit").attr("disabled",false);
+		}
+		
+	});
+	
+	$(".inp #memberName").blur(function(){
+		var memberName = document.getElementById("memberName").value;
+		var hName = /^[가-힣]+$/;
+		
+		if(memberName ==""){
+			alert("이름을 입력해주세요");
+			//$('#memberName').focus();
+		}else if(!hName.test(memberName)){
+			alert("이름을 한글로 정확히 입력하세요.");
+			$("#btnSubmit").attr("disabled",true);
+			//$('#memberName').focus();
+		}
+	});
+	$(".inp #phone").blur(function () {
+		var phone = document.getElementById("phone").value;
+		var pattern = /^[0-9]*$/;
+		
+		if(!pattern.test(phone)){
+			alert("휴대폰 번호를 정확히 입력해주세요.");
+			$("#btnSubmit").attr("disabled",true);
+		}else{
+			$("#btnSubmit").attr("disabled",false);
+		}
+		
+	});
+});
 
 </script>
 
+
 <!-- 컨텐츠 영역 -->
-<form action="${root}/member/registerOk.do" method="post" name="createForm" >
+<form action="${root}/member/registerOk.do" method="post" name="createForm"  class="form-horiaontal">
+
 <section id="container">
-	<div class="loginWrap">
+	<div class="control-group" style="width:70rem;/*  border: 1px solid red; */ margin:2rem auto; height: 75rem;">
 		<div class="innerBox"> <!-- 가로값이 1280으로 설정되어진 아이 -->
-			<h1><span>회원가입</span>게스트하우스 멤버십 회원만을 위한<br />다양한 혜택과 서비스를 누려보세요.</h1>
+			<h1 style="text-align: center;"><span id="register">Sign up</span></h1><br/>
+			<h5 style="text-align: center; font-size: 1rem; color:#484848;">제주스테이 회원만을 위한 다양한 혜택과 서비스를 누려보세요.</h5>
 			
 		</div>
 	
 		<div class="fullBg">
-			<div class="innerBox formJoinWrap">
+			<div class="innerBox formJoinWrap" style="margin: 0 auto; height: 31rem;">
 				<!-- 아이디 및 비밀번호 -->
-				<div class="formJoin">
-					<h2>아이디 및 비밀번호</h2>
-					<p class="formImportant"><span class="color">*</span> 필수 입력항목</p>
+				<div class="form-group" style="margin: 0 auto; /* border: 0.1rem solid blue; */ height: 29rem; ">
+					<dt><label for="userName" style="width:45rem; height:3rem; background-color: #edf6f6; margin-left: 13rem; margin-top: 3rem; margin-bottom: 1rem; line-height: 3rem; margin-bottom: 3rem; padding-left: 1rem;">아이디 및 비밀번호</label></dt>
 					<dl class="id">
-						<dt><label for="USER_ID">아이디 (이메일) <span class="color">*</span></label></dt>
-						<dd>
+						<dt><label for="USER_ID" style="margin-left:20rem;">아이디 (이메일) </label></dt>
+						<dd id="idid">
 							<div class="inp">
-								<input type="email" id="email" name="email" required maxlength="200" placeholder="guesthouse@guesthouse.com" title="아이디" >
-								<input type="button" value="중복확인" style="position: absolute; width: 83px; margin-left: 20px;"onclick="emailCheck(createForm,'${root}')">
+								<input class="form-control email" type="email" id="emailAA" name="email" required maxlength="200" placeholder="jeju@stay.com" title="아이디" style="margin-left: 20rem;" >
+								<%-- <button class="btn btn-secondary emailBtn"  type="button" value="중복확인" data-target="#emailModal" data-toggle="modal" style="position: relative; width: 5.188rem; width: 10rem; margin-left: 0.5rem;" onclick="toServer('${root}')">중복확인</button> --%>
 							</div>
-							<p class="text"> - 일부 도메인은 수신에 제한이 있을 수 있습니다. <br />스팸메일함으로도 수신이 되지 않을 경우, 다른 이메일을 사용하시기 바랍니다. </p>
-							<div class="errorText">
-								<!-- 에러 메시지 -->
+							<br/><br/>
+							<div>
+								<div id="id_check" style="margin-left: 20rem;"></div>
 							</div>
 						</dd>
 					</dl>
 					
 					<dl class="pwd">
-						<dt><label for="USER_PWD1">비밀번호 <span class="color">*</span></label></dt>
+						<dt><label for="USER_PWD1" style="margin-left: 20rem;">비밀번호 </label></dt>
 						<!-- 에러시 dd의 error 클래스 추가 -->
-						<dd>
+						<dd style="">
 							<div class="inp">
-								<input type="password" id="password" name="password" required maxlength="16" title="비밀번호" placeholder="비밀번호를 입력하세요.">
+								<input class="form-control" style="margin-left: 20rem;" type="password" id="password99" name="password" required maxlength="16" title="비밀번호" placeholder="비밀번호를 입력하세요.">
 								
 							</div>
 							
-							<div class="errorText">
-								<!-- 에러 메시지 -->
-							</div>
 						</dd>
 					</dl>
-					<dl class="pwd">
-						<dt><label for="USER_PWD2">비밀번호 확인 <span class="color">*</span></label></dt>
+					<br/><br/>
+					<dl class="pwd" id="passwordChk">
+						<dt style="margin-left: 20rem;"><label for="USER_PWD2">비밀번호 확인</label></dt>
+						
 						<!-- 에러시 dd의 error 클래스 추가 -->
 						<dd>
 							<div class="inp">
-								<input type="password" id="USER_PWD2" name="USER_PWD2" required maxlength="16" title="비밀번호 확인">
-								<p id="pwsame" style="color:red;"></p>
-
-								<button class="btnDelete">삭제</button>
+								<input class="form-control" style="margin-left: 20rem;" type="password" id="USER_PWD2" name="USER_PWD2" required maxlength="16" title="비밀번호 확인" placeholder="비밀번호를 확인하세요.">
 							</div>
-							<div class="errorText">
-								<!-- 에러 메시지 -->
-							</div>	
+							<br/><br/>
+							<div>
+								<div id="pwsame" style="margin-left: 20rem;"></div>
+							</div>
+							
 						</dd>
 					</dl>
 				</div>
 				<!-- //아이디 및 비밀번호 -->
+				<div style="width: 46rem; height: 0.1rem; border-bottom: 0.01rem solid #c6c6c6; margin-top: 3rem; margin-left: 12rem;" align="center"></div>
 				
+				<br/><br/>
 				<!-- 기본정보 -->
-				<div class="formInfo clearFixed">
-					<h2>기본 정보</h2>
-					<p class="formImportant"><span class="color">*</span> 필수 입력항목</p>
+				<div class="form-group">
+					<dt><br/><label for="userInfo" style="width:45rem; height:3rem; background-color: #edf6f6; margin-left: 13rem; margin-top: 0.5rem; margin-bottom: 3rem; line-height: 3rem; padding-left: 1rem;">기본 정보</label></dt>
 					
 					
 					<div class="left">
 						<dl class="nameType1">
-							<dt><label for="USER_NM">이름(한글) <span class="color">*</span></label></dt>
+							<dt><label for="USER_NM" style="margin-left: 20rem;">이름(한글) </label></dt>
 							<!-- 에러시 dd의 error 클래스 추가 -->
 							<dd>
 								<div class="ui-select-wrapper">
 									<div class="inp">
-										<input type="text" id="memberName" name="memberName" required maxlength="14" title="이름(한글)" style="width: 543px;">
+										<input class="form-control" type="text" id="memberName" name="memberName" required maxlength="14" title="이름(한글)" style="width: 30rem; margin-left: 20rem;">
 										
 									</div>
 								</div>
 							</dd>
 						</dl>
 					</div>
+					<br/>
 					<div class="right">
 					
 						<dl class="phone">
-							<dt><label for="Phone">휴대폰 번호 <span class="color">*</span></label></dt>
+							<dt><label for="Phone" style="margin-left: 20rem; margin-top: 2rem;">휴대폰 번호 </label></dt>
 							<dd>
 								<div class="inp">
-									<input type="tel" id="phone" name="phone" value="" required maxlength="11" placeholder="" title="휴대 전화 번호" style="width: 540px;" >
+									<input class="form-control" type="tel" id="phone" name="phone" value="" required maxlength="11" placeholder="" title="휴대 전화 번호" style="width: 30rem; margin-left: 20rem;" >
 									
 								</div>
 								
-								<div class="errorText">
-									<!-- 에러 메시지 -->
-								</div>
 							</dd>
 						</dl>
 						
 					</div>	
+					
+					
 				</div>
+				
+				
 			</div>
-			<div class="btnJoin">
-				<!-- 비활성화 시  disabled="disabled" 추가 -->
-				<button class="btn btnFull" type="submit" id="btnPwd" disabled="disabled"><span>확인</span></button>
-			</div>
+			
+			
+			<br/><br/>
 		</div>
+		<br/>
+		<div class="btn" style="margin-top: 9rem; margin-bottom: 5rem; /* border: 0.1rem solid green; */ width: 50rem; padding-left: 20rem;">
+				<!-- 비활성화 시  disabled="disabled" 추가 -->
+				<button class="btn btn-success" type="submit" id="btnSubmit">확인</button>
+				<button class="btn btn-light" type="submit" id="btnPwd" style="margin-left: 1rem;">취소</button>
+			</div>
+		
+		
 		
 	</div>
+	
 </section>
+
+	
 </form>
 <!-- //컨텐츠 영역 -->
 		
-		
-		
+		<!-- 모달페이지 -->
+	 <div class="modal fade" id="emailModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="${root}/admin/memberUpdateOk.do" method = "post" onsubmit = "return boardForm(this)" name="createForm">
+					 <!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">아이디 중복확인</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+					 <!-- Modal body -->
+						<div class="form-group">
+												
+							<div align="center" height="20" width="125">
+								<p align="center" height="20" width="125">아이디(email)</p>
+								<input type="text" class="form-control" id="usedEmail" style="width: 10rem;" name="email" />
+							</div>
+												
+							<div id="container"class="container" align="center" style="width: 20rem; height: 5rem;">
+								
+							</div>
+							
+							
+						</div>
+								        
+					<!-- Modal footer -->
+						<div class="modal-footer">
+							<button id="modalSubmit" type="submit" class="btn btn-info">확인</button>
+							<button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 <script>
 	
 	
@@ -254,18 +336,18 @@ function jsPwd1Validation() {
 				$("#USER_PWD2").val("");
 				$("#USER_PWD2").focus();
 				focusTgt = "#USER_PWD2";*/
-				var btn = $('#btnPwd');
+				var btn = $('#btnSubmit');
 				btn.Attr("disabled",true);
 				//btn.css("background-color","pink");   
 				
 			}
 			else{
 				// 비번 제대로 입력
-				var btn = $('#btnPwd');
+				var btn = $('#btnSubmit');
 				//btn.css("background-color","blue");   
 				document.getElementById('pwsame').innerHTML = '';
 				if(email != "" && name != "" && id != "" && phone !== ""){
-					var btn = $('#btnPwd');
+					var btn = $('#btnSubmit');
 					btn.removeAttr("disabled");
 				}
 			

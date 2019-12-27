@@ -57,8 +57,8 @@
       <div class="container-fluid">
       	<div class="navbar-header">
       		<img src="${root}/resources/images/logo.jpg" style="width: 3.125rem; height: 5rem;"/>
-      		<img src="${root}/resources/images/logo1.png" style="width: 3.125rem; height: 3.125rem;"/>
-        	<a class="active" href="#" style="font-size: 2rem; font-weight: bold; color:black;">제주 스테이</a>
+      		<%-- <img src="${root}/resources/images/logo1.png" style="width: 3.125rem; height: 3.125rem;"/> --%>
+        	<a class="active" href="#" style="font-size: 2rem; font-weight: bold; color:black; margin-left: 1rem;">JEJU STAY</a>
         </div>
         <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
@@ -66,10 +66,11 @@
         
          <ul class="nav navbar-nav navbar-right" style="margin-right: 5rem;">
           	
+          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=6">체험 페이지</a></li>
 	          	<c:if test="${memberLevel == null}">
 		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
-		            <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li>
-	            	<li id="log"><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#login"><i class="fa fa-user"></i></button></li>
+		            <%-- <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li> --%>
+	            	<li id="log"><button class="btn" data-toggle="modal" data-target="#login">로그인/회원가입<!-- <i class="fa fa-user"></i> --></button></li>
 	            </c:if>
           
 	            <c:if test="${memberLevel != null}">
@@ -222,7 +223,7 @@
 					
 											<div>
 												<div class="modal-footer" style="text-align: center; margin-top: 3rem;">
-													<a style="size:10rem; margin-right: 2rem;">아직 회원이 아니신가요?</a>
+													<a style="font-size:1rem; margin-right: 2rem;">아직 회원이 아니신가요?</a>
 													<button class="btn btn-outline-success" onclick="location.href='${root}/member/register.do'" type="button">회원가입</button>
 												</div>
 											</div>
