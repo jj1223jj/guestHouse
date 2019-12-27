@@ -1,8 +1,10 @@
 package com.java.search.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,19 @@ public class SearchDaoImp implements SearchDao {
 	@Override
 	public int dataInputOk(HostDto hostDto) {
 		return session.insert("dao.searchMapper.dataInput", hostDto);
+	}
+
+	@Override
+	public HostImgDto overlay(int houseCode, Integer memberCode) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("houseCode", houseCode);
+		map.put("memberCode", memberCode);
+		
+		HostImgDto hostImgDto = session.selectOne("dao.searchMapper.overlay", map);
+		List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());
+		hostImgDto.setFileList(fileList);
+		
+		return hostImgDto;
 	}
 
 

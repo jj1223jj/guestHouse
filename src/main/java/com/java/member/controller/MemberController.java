@@ -63,7 +63,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		
-		 mav.setViewName("member/login.tiles"); 
+		mav.setViewName("member/login.tiles"); 
 		
 		
 		return mav;
@@ -71,11 +71,13 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/loginOk.do", method = RequestMethod.POST)
 	public ModelAndView memberLoginOk(HttpServletRequest request, HttpServletResponse response) {
-		
 		System.out.println("member LoginOk");
+
+		String beforeURL = request.getHeader("REFERER");
+		System.out.println(request.getRequestURL());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
-		
+		mav.addObject("beforeURL", beforeURL);
 		memberService.memberLoginOk(mav);
 		
 		return mav;

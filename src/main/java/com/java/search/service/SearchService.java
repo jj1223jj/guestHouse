@@ -10,4 +10,6 @@ public interface SearchService {
 	//테스트 용으로 데이터 넣기 위한 함수
 	public void dataInputOk(HostDto hostDto);
 
+	public String overlay(int houseCode, Integer memberCode);
+
 }

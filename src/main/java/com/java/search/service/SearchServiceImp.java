@@ -141,6 +141,14 @@ public class SearchServiceImp implements SearchService {
 	}
 
 
+	@Override
+	public String overlay(int houseCode, Integer memberCode) {
+		HostImgDto hostImgDto = searchDao.overlay(houseCode, memberCode);
+		
+		return null;
+	}
+
+
 
 
 

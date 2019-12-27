@@ -21,7 +21,7 @@
 		 Kakao.init('5a47c72d35ab36aa08feca719cb2bccf');
 		 Kakao.Auth.logout();
 		 
-		location.href="${root}/guestHouse.do";	
+		location.href="${root}/";	
 </script>
 </body>
 </html>
