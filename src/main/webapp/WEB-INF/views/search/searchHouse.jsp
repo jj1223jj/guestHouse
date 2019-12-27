@@ -36,7 +36,7 @@
 		setRoot('${root}');
 		
 		var house=JSON.parse('${jsonHouseList}').houseJson
-		setHouseList(house);
+		setHouseList(house,'${memberCode}');
 		
 		var height = house.length*15.625+1.25;
 		//alert(height);
@@ -102,8 +102,26 @@
 				'				<div class="swiper-button-next"></div>' +
 				'				<div class="swiper-button-prev"></div>' +
 				'			</div>' +
-				'			<div class="_heartButton">' +
-				'				<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
+				'			<div class="_heartButton _heartButton'+i+'">';
+
+				if('${memberCode}'>0){
+					if(house[i].zzimed!=null){
+						overlayContent[i]+=
+				'				<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
+					}else{
+						overlayContent[i]+=
+				'				<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
+					}
+				}else{
+					overlayContent[i]+=
+				'				<button data-toggle="modal" data-target="#login" aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+i+'"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
+				}
+				
+// 				overlayContent[i]+=
+// 				'				<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart${index.index}"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>';
+				
+				
+				overlayContent[i]+=
 				'			</div>' +
 		 		'		</div>' +
 		 		'		<a href="#'+house[i].houseCode+'" style="display:block;">' +
@@ -123,6 +141,7 @@
 				customOverlay.setContent(overlayContent[i]);
 				swiper = setSwiper();
 				map.panTo(marker[i].getPosition());
+				heart('${memberCode}');
 			});
 			kakao.maps.event.addListener(marker[i], 'mouseover', function(){
 				var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
@@ -142,7 +161,6 @@
 				marker[i].setImage(markerImage);
 				marker[i].setZIndex(0);
 			});
-			
 		}
 		
 		kakao.maps.event.addListener(map, 'click', function() {
@@ -184,7 +202,7 @@
 		//가격 필터
 
 		//하트 클릭
-		heart('3');
+		heart('${memberCode}');
 		
 		//검색 조건 띄워주는 창
 		$("#filter").click(function(){
@@ -294,7 +312,7 @@
 		});
 		setPaging('${checkIn}','${checkOut}','${local}','${people}','${searchHouseName}',$("#sort").val());
 		
-		$( "#checkIn" ).datepicker( "show" );
+		//$( "#checkIn" ).datepicker( "show" );
 		
 	});
 
@@ -592,6 +610,7 @@ i{
 /* 	background-color: #ffddee; */
 	display: inline-block;
 	position: absolute;
+	top: 0rem;
 	right: 0rem;
 }
 ._starRate{
@@ -676,6 +695,7 @@ i{
 				</div>
 			</div>
 			<div class="sortContainer">
+				<button class="btn btn-outline-success" data-toggle="modal" data-target="#login">가격검색</button>
 				<button class="btn btn-outline-success" id="priceHigh">가격높은순</button>
 				<button class="btn btn-outline-success" id="priceLow">가격낮은순</button>
 				<button class="btn btn-outline-success" id="rateSort">별점높은순</button>
