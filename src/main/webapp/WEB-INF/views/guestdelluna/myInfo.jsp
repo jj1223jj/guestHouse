@@ -334,9 +334,9 @@ html {
 
 	<div>
 		<div>
-			<img alt="img loading" width="200" height="200"
+			<%-- <img alt="img loading" width="200" height="200"
 						src="<spring:url value='/image/${memberDto.memberImgName}'/>">
-						
+			 --%>			
 		</div>
 		<div>${memberDto.memberInfo}</div>
 		<div><a href="${root}/guestdelluna/allMyReview.do">내가 쓴 후기</a></div>

@@ -15,7 +15,8 @@
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
 <script type="text/javascript">
 	function toServer(root, param) {
-		var selectHouse = document.getElementById("houseList").value;
+		var selectHouse = document.getElementById("houseList").value
+		;
 		
 		var url = root + "/host/reservationOkView.do";
 		
