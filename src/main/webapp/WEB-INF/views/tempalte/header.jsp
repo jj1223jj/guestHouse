@@ -70,19 +70,20 @@
 		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
 		            <%-- <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li> --%>
 	            	<li id="log"><button class="btn" data-toggle="modal" data-target="#login">로그인/회원가입<!-- <i class="fa fa-user"></i> --></button></li>
-          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=27">체험 페이지</a></li>
 	            </c:if>
           
 	            <c:if test="${memberLevel != null}">
-			        <li class="nav-item"><a class="nav-link" href="${root}/guestHousePage/guestHouse.do">호스팅하기</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="#">게스트 하우스 검색</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="#">체험 검색</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=27">체험 페이지</a></li>
+			        <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
 			       
-		            <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
+		            <%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
 			            <li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/myInfo.do">마이페이지</a></li>
 			            <li class="nav-item"><a class="nav-link" href="${root}/member/logout.do">로그아웃</a></li>
 		            	<li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/zzimlist.do">장바구니</a></li>
-			        </c:if>
+			        </c:if> --%>
 		            <c:if test="${memberLevel =='Host'}">
-			            <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
 		            	 <li class="nav-item"><a class="nav-link" href="${root}/experience/exHost.do">체험 등록하기</a></li>
 		            </c:if>
 		            
