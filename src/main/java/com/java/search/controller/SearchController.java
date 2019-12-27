@@ -1,5 +1,8 @@
 package com.java.search.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,13 +29,27 @@ public class SearchController {
 	
 	@RequestMapping(value="/overlay", method=RequestMethod.GET)
 	public void overlay(HttpServletRequest request, HttpServletResponse response) {
+		
+		//customOverlay에 띄울 houseCode
 		String houseCodeStr= request.getParameter("houseCode");
 		int houseCode= houseCodeStr==null? 0 : Integer.parseInt(houseCodeStr);
-			
 		
+		//login되어 있으면 zzimed가져와야함
 		Integer memberCode= (Integer)request.getSession().getAttribute("memberCode");
 		HomeAspect.logger.info(HomeAspect.logMsg+"ajax houseCode: "+houseCode+", memberCode: "+memberCode);
+		
 		String overlay= searchService.overlay(houseCode, memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax dto결과물: "+overlay);
+		
+		response.setContentType("application/x-json;charset=utf-8");
+		try {
+			PrintWriter out =response.getWriter();
+			out.print(overlay);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)

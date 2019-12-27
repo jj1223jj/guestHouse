@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.java.aop.HomeAspect;
 import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
@@ -52,8 +53,9 @@ public class SearchDaoImp implements SearchDao {
 		map.put("memberCode", memberCode);
 		
 		HostImgDto hostImgDto = session.selectOne("dao.searchMapper.overlay", map);
-		List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());
+		List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",houseCode);
 		hostImgDto.setFileList(fileList);
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax Dto: "+hostImgDto);
 		
 		return hostImgDto;
 	}
