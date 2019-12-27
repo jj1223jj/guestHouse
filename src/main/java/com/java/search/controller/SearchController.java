@@ -24,6 +24,17 @@ public class SearchController {
 		return "search/ys.tiles";
 	}
 	
+	@RequestMapping(value="/overlay", method=RequestMethod.GET)
+	public void overlay(HttpServletRequest request, HttpServletResponse response) {
+		String houseCodeStr= request.getParameter("houseCode");
+		int houseCode= houseCodeStr==null? 0 : Integer.parseInt(houseCodeStr);
+			
+		
+		Integer memberCode= (Integer)request.getSession().getAttribute("memberCode");
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax houseCode: "+houseCode+", memberCode: "+memberCode);
+		String overlay= searchService.overlay(houseCode, memberCode);
+	}
+	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();

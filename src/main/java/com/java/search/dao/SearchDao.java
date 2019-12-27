@@ -15,4 +15,6 @@ public interface SearchDao {
 	public int dataInputOk(HostDto hostDto);
 
 	public GetCountDto getCount(Map<String, Object> dataMap);
+
+	public HostImgDto overlay(int houseCode, Integer memberCode);
 }
