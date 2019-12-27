@@ -2,15 +2,19 @@ package com.java.guestdelluna.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.logging.Log;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -972,9 +976,10 @@ public class DellunaServiceImp implements DellunaService {
 	}
 
 	@Override
-	public void scroll(ModelAndView mav) {
+	public String scroll(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpServletResponse response = (HttpServletResponse) map.get("response");
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
@@ -1013,30 +1018,31 @@ public class DellunaServiceImp implements DellunaService {
 			}
 		}
 		
-		List<MyHouseReviewList> myHouseReviewList = null;
-		if (status.equals("myHouseReview")) {
-			myHouseReviewList = dellunaDao.getMyHouseReviewListScroll(memberCode, startRow, endRow);
-			for(int i = 0; i<myHouseReviewList.size(); i++) {
-				HomeAspect.logger.info(HomeAspect.logMsg + "myHouseReviewList: " + myHouseReviewList.get(i).toString());
-			}
+		JSONArray arr = new JSONArray();
+		for (HouseReviewListDto houseReviewListDto: houseReviewList) {
+			HashMap<String, Object> commonMap = new HashMap<String, Object>();
+			commonMap.put("houseName", houseReviewListDto.getHouseName());
+			commonMap.put("mainImgName", houseReviewListDto.getMainImgName());
+			commonMap.put("revContent", houseReviewListDto.getRevContent());
+			commonMap.put("revRate", houseReviewListDto.getRevRate());
+			commonMap.put("revDate", houseReviewListDto.getRevDate());
+			commonMap.put("memberImgName", houseReviewListDto.getMemberImgName());
+			commonMap.put("memberName", houseReviewListDto.getMemberName());
+			
+			arr.add(commonMap);
+			HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + commonMap.toString());
 		}
 		
-		List<MyExReviewList> myExReviewList = null;
-		if (status.equals("myExReview")) {
-			myExReviewList = dellunaDao.getMyExReviewListScroll(memberCode, startRow, endRow);
-			for(int i = 0; i<myExReviewList.size(); i++) {
-				HomeAspect.logger.info(HomeAspect.logMsg + "myExReviewList: " + myExReviewList.get(i).toString());
-			}
-		}
+		String jsonText = JSONValue.toJSONString(arr);
 		
-		mav.addObject("myExReviewList", myExReviewList);
-		mav.addObject("myHouseReviewList", myHouseReviewList);
-		mav.addObject("exReviewList", exReviewList);
-
-
-
-		mav.addObject("houseReviewList", houseReviewList);
-		mav.setViewName("guestdelluna/scroll.empty");
+		
+		return jsonText;
+		
+		
+		
+//		mav.addObject("exReviewList", exReviewList);
+//		mav.addObject("houseReviewList", houseReviewList);
+		//mav.setViewName("guestdelluna/scroll.empty");
 
 	}
 

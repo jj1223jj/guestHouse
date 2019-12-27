@@ -1,5 +1,8 @@
 package com.java.guestdelluna.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -96,15 +99,29 @@ public class DellunaController {
 	}
 	
 	@RequestMapping(value="guestdelluna/scroll.do", method=RequestMethod.GET)
-		public ModelAndView scroll(HttpServletRequest request , HttpServletResponse response) {
+		public void scroll(HttpServletRequest request , HttpServletResponse response) {
 			
 			ModelAndView mav = new ModelAndView();
 
 			mav.addObject("request", request);
+			mav.addObject("response", response);
 
-			dellunaService.scroll(mav);
+			String jsonText = dellunaService.scroll(mav);
 			
-			return mav;
+			if (jsonText != null) {
+				response.setContentType("application/x-json;charset=utf-8");
+		         try {
+		            PrintWriter out;
+		            out = response.getWriter();
+		            out.print(jsonText);
+		            out.close();
+		         } catch (IOException e) {
+		            e.printStackTrace();
+		         }
+			}
+			
+			
+			//return mav;
 
 		}
 	@RequestMapping(value="guestdelluna/msgAllDelete.do" , method=RequestMethod.GET)
