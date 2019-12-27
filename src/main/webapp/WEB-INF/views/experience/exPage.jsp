@@ -58,14 +58,19 @@ $(document).ready(function(){
 #exinfo> ul > li{
 list-style: none;
 float: left;
-margin-right: 2.7rem;
+margin-right: 10rem; 
+border: 0.1rem solid purple;
+width: 3rem;
+height: 5rem;
 
 }
 #exinfo> ul > li >p{
+text-align: center;
 }
 
-#exinfo> ul > li >label{
+ul > li >label{
 font-size: 1rem;
+text-align: center;
 }
 </style>
 
@@ -123,12 +128,27 @@ font-size: 1rem;
 	    <ul>	
 	    	<li>	
 	    		<label>진행시간</label>
-	    		<p class="text-secondary">${experienceDto.exTime}</p>
+	    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}</p>
 	    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
-	    		
+	    	</li>
+	    	<li>	
 	    		<label>인원</label>
 	    		<p class="text-secondary">${experienceDto.exPeople}</p>
 	    	</li>
+	    	
+	    	<li>	
+	    		<label>가격</label>
+	    		<p class="text-secondary">${experienceDto.exPrice}</p>
+	    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
+	    	</li>
+	    	
+	    	<li>	
+	    		<label>위치</label>
+	    		<p class="text-secondary">${experienceDto.exAddress}</p>
+	    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
+	    		
+	        </li>
+	    	
 	    	<li>	
 	    		<label>체험날짜</label>
 	    		<!-- view를 위한 날짜 포맷-->
@@ -148,17 +168,7 @@ font-size: 1rem;
 	    	</li>
 	    	
 	    	
-	    	<li>	
-	    		<label>가격</label>
-	    		<p class="text-secondary">${experienceDto.exPrice}</p>
-	    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
-	    	</li>
-	    	<li>	
-	    		<label>위치</label>
-	    		<p class="text-secondary">${experienceDto.exAddress}</p>
-	    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
-	    		
-	        </li>
+	    	
 	        
 	         <li>
 	         	<label>프로그램설명</label>
@@ -167,7 +177,7 @@ font-size: 1rem;
 	    		
 	         </li>
 <!-- 달력 -->		         
-	       	<li>
+	       	<li style="margin-top: 10rem; margin-left: 10rem; width: 10rem; height: auto;">
 	       		<label>예약가능날짜</label>
 	            <div type="text" id="date" name="date"></div>
 	        </li>
