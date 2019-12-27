@@ -101,9 +101,9 @@
 	<select id="exPageImgList" parameterType="java.util.Map" resultType="com.java.exfile.dto.ExFileDto">
 		select * from exFileList where exCode=#{exCode}
 	</select>
-	
+	<!-- 12/27 수정 -->
 	<select id="exHostInfo" parameterType="int" resultType="com.java.member.dto.MemberDto">
-		select * from member where memberCode=#{memberCode}
+		select member.* from member,experience where experience.memberCode = member.memberCode and exCode=#{exCode}
 	</select>
 	
 	<!-- 체험예약 -->

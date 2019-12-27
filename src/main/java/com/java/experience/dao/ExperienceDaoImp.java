@@ -119,8 +119,8 @@ public class ExperienceDaoImp implements ExperienceDao {
 		return sqlSessionTemplate.selectList("dao.ExperienceMapper.exPageImgList", hMap);
 	}
 	@Override
-	public MemberDto exHostInfo(int memberCode) {
-		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.exHostInfo", memberCode);
+	public MemberDto exHostInfo(int exCode) {
+		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.exHostInfo", exCode);
 	}
 	@Override
 	public int exPayment(int exPeople, int exCode) {

@@ -483,20 +483,21 @@ public class ExperienceServiceImp implements ExperienceService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
 		HttpSession session = request.getSession();
+		
 		String email = (String) session.getAttribute("email");
-		int memberCode = (Integer) session.getAttribute("memberCode");
-		HomeAspect.logger.info(HomeAspect.logMsg + "email : " + email + "	memberCode:" + memberCode);
-
+		int memberCode=0;
+		int exCode = Integer.parseInt(request.getParameter("exCode"));
+		
+		if(email!=null) {
+			
+		
 		// 선택된 체험 코드에 해당하는 페이지로 이동
 		/* int exCode = 41; */
 		/* int exCode = 6; */
-
-		int exCode = Integer.parseInt(request.getParameter("exCode"));
-
-		if (exCode == 0) {
-			exCode = 41;
+		memberCode = (Integer) session.getAttribute("memberCode");
+		HomeAspect.logger.info(HomeAspect.logMsg + "email : " + email + "	memberCode:" + memberCode);
 		}
-
+		
 		ExperienceDto experienceDto = experienceDao.exPage(exCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "체험 정보 : " + experienceDto.toString());
 
@@ -505,7 +506,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "exPageImgList : " + exFileList.toString());
 
 		// 해당 호스트의 memberDto 불러서 호스트 정보 제공
-		MemberDto memberDto = experienceDao.exHostInfo(memberCode);
+		MemberDto memberDto = experienceDao.exHostInfo(exCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "호스트 정보 : " + memberDto.toString());
 
 		////////////////////////// 후기 리스트 exReview///////////////////////////////
@@ -706,10 +707,13 @@ public class ExperienceServiceImp implements ExperienceService {
 		mav.addObject("experienceDto", experienceDto);
 		mav.addObject("exFileList", exFileList);
 		mav.addObject("memberDto", memberDto);
-
+		
+		
+		// 체험을 관리자가 보는 경우 exApp에 1을 임의로 넘겨줌
 		String exApp = request.getParameter("exApp");
 		
 		if(exApp!=null) {
+			// 관리자가 보는 페이지는 헤더 x
 			mav.setViewName("experience/exPage.empty");
 		}else {
 			mav.setViewName("experience/exPage.tiles");

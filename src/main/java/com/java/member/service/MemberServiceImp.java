@@ -1,11 +1,15 @@
 package com.java.member.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.Printer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,6 +57,7 @@ public class MemberServiceImp implements MemberService {
 		Map <String, Object> map = mav.getModelMap();
 		
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
 		String email = request.getParameter("email");
 		HomeAspect.logger.info(HomeAspect.logMsg +"입력한 email: " + email);
@@ -60,10 +65,16 @@ public class MemberServiceImp implements MemberService {
 		int check = memberDao.emailCheck(email);
 		HomeAspect.logger.info(HomeAspect.logMsg +"기존에 있는 이메일이면 1 / 아니면 0: " + check);
 		
-		mav.addObject("check", check);
-		mav.addObject("email", email);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		mav.setViewName("member/emailCheck.empty");
+		//mav.setViewName("member/emailAjax.empty");
 		
 	}
 	
