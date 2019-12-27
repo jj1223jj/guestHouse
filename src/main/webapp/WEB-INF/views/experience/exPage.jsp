@@ -20,6 +20,54 @@
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 <script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
 
+<script>
+$(document).ready(function(){
+	var divs = document.querySelectorAll('.img div');
+
+	for(var i=0; i<divs.length;++i){
+		var div = divs[i];
+		var divAspect = div.offsetHeight/div.offsetWidth;
+		div.style.overflow='hidden';
+		
+		var img = div.querySelector('#exImg');
+		var imgAspect = div.height / div.width;
+		
+		
+		if(imgAspect <= divAspect){
+			// 이미지가 div보다 작은경우 세로를 div에 맞추고 잘라낸다
+			var imgWidthActual = div.offsetHeight/ imgAspect;
+			var imgWidthToBe = div.offsetHeight / divAspect;
+			var marginLeft = -Math.round((imgWidthActual - imgWidthToBe)/2);
+			img.style.cssText = 'width: auto; height: 100%; margin-left:'+marginLeft+'rem;'
+			
+		}else{
+			//이미지가 div보다 긴 경우 가로를 div에 맞추고 세로를 잘라냄
+			img.style.cssText='width:100% height:auto; margin-left:0;';
+		}
+	}
+	
+});
+</script>
+<style type="text/css">
+#exImg{
+	object-fit:cover;
+	width: 100%;
+	height: 100%;
+}
+
+#exinfo> ul > li{
+list-style: none;
+float: left;
+margin-right: 2.7rem;
+
+}
+#exinfo> ul > li >p{
+}
+
+#exinfo> ul > li >label{
+font-size: 1rem;
+}
+</style>
 
 </head>
 <body>
@@ -27,36 +75,59 @@
 		<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
 		<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
 	</c:if>
-	<div class="wrap" style="margin:0px auto; width: 70rem; border: 1px solid black;">
+	<div class="wrap" style="margin:0px auto; width: 80rem; border: 1px solid black;">
 	
 <!-- 이미지 -->		
-		<div></div>
-	         	<div class="img">
-	         		<c:forEach var="exFileDto" items="${exFileList}">
-	         			<c:if test="${exFileDto.mainImgName!=null}">
-	         				<div style="width: 25rem; height: 25rem; overflow: hidden; border: 0.01rem solid red;">
-	         					<img style="width: 25rem; height: 30rem;" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
-	         				</div>
-	         			</c:if>
-	         			<c:if test="${exFileDto.fileName!=null}">
-	         				<img alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
-	         			</c:if>
+			<div align="center" style="width: 78rem; border: 0.1rem dotted yellow; margin-left: 1.5rem;">
+	         	<div class="img" style="overflow: hidden;">
+	         		<c:forEach var="exFileDto"  varStatus="list" items="${exFileList}">
+	         			<!-- 사진은 최소 5개  -->
+	         		
+		         			<c:if test="${exFileDto.mainImgName!=null}">
+		         				<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid red; margin-right: 0.5rem;">
+		         					<img id="exImg" style="width: 100%; height: 100%;/* position:static !important; top:0rem !important; right:0rem !important; left:0rem !important; bottom:0rem !important; object-fit:cover; */" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
+		         				</div>
+		         			</c:if>
+		         				
+			         		<c:if test="${exFileDto.fileName!=null}">
+			         			
+			         			<c:if test="${list.index<3}">
+				         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+				         				<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
+				         			</div>
+			         			</c:if>
+			         			<!--  exFileList.size() > 3-->
+			         			<c:if test="${list.index>=3}">
+			         				<div style="float:left; width: 15rem; height: 13.5rem; margin-bottom:0.3rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+				         				<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
+				         			</div>
+	         					</c:if>
+			         		</c:if>
+			         		
+			         		
+		         		
 	         		</c:forEach>
 	         	</div>
-	         
+	         </div>
 		
 	     
 <!-- 체험정보 -->	
-		<div style="margin-left: 100px; margin-top: 50px;">
-		 <ul> 
-	         <li>
+		<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; width: 76rem; height: auto; border: 0.1rem solid pink; float: left;">
+		 <ul style="width: 15rem; height:20rem; border: 0.1rem dotted orange; float: left; margin-right: 3rem;" > 
+	         <li style="width: 10rem; height: auto;">
 	            <label>체험이름</label>
-	    		<input type="text" name="exName" id="exName" value="${experienceDto.exName}"/>
+	            <p class="text-secondary">${experienceDto.exName}</p>
+	    		<input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
 	    	</li>
+	    </ul>
+	    <ul>	
 	    	<li>	
 	    		<label>진행시간</label>
-	    		<input type="text" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
-	    		<a>인원: ${experienceDto.exPeople}</a>
+	    		<p class="text-secondary">${experienceDto.exTime}</p>
+	    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
+	    		
+	    		<label>인원</label>
+	    		<p class="text-secondary">${experienceDto.exPeople}</p>
 	    	</li>
 	    	<li>	
 	    		<label>체험날짜</label>
@@ -64,8 +135,11 @@
 	    		<fmt:formatDate var="startDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exStartDate}"/>
 	    		<fmt:formatDate var="endDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exEndDate}"/>
 	    		
-	    		<input type="text" name="exStartDate" id="exStartDate" value="${startDate}"/>
-	    		<input type="text" name="exEndDate" id="exEndDate" value="${endDate}"/>
+	    		<input type="hidden" name="exStartDate" id="exStartDate" value="${startDate}"/>
+	    		<input type="hidden" name="exEndDate" id="exEndDate" value="${endDate}"/>
+	    		
+	    		<p class="text-secondary">${startDate}</p>
+	    		<p class="text-secondary">${endDate}</p>
 	    		
 	    		<!-- 달력 표시를 위한 날짜 포맷 -->
 	    		<fmt:formatDate var="startDateC" pattern="yyyy-MM-dd" value="${experienceDto.exStartDate}"/>
@@ -74,22 +148,22 @@
 	    	</li>
 	    	
 	    	
-	    	
-	    	
-	    	
 	    	<li>	
 	    		<label>가격</label>
-	    		<input type="text" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
+	    		<p class="text-secondary">${experienceDto.exPrice}</p>
+	    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
 	    	</li>
 	    	<li>	
 	    		<label>위치</label>
-	    		<input type="text" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
+	    		<p class="text-secondary">${experienceDto.exAddress}</p>
+	    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
 	    		
 	        </li>
 	        
 	         <li>
 	         	<label>프로그램설명</label>
-	    		<input type="text" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
+	         	<p class="text-secondary">${experienceDto.exExplain}</p>
+	    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
 	    		
 	         </li>
 <!-- 달력 -->		         
@@ -149,9 +223,10 @@
 			</script>
 	       </ul>
 	     </div>
+	     
 <!-- 예약하기 -->
 <form action="${root}/experience/exReserve.do"  method="get" name="exForm">
-	<div style="width:500px; margin:20px 100px; border: 1px solid red;">
+	<div style="width:30rem;/*  border: 1px solid red; */">
 	
 		<p>예약하기</p>
 		<p>날짜선택</p>
