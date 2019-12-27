@@ -51,14 +51,16 @@
 	 		'		<div class="_overlayImgContainer">' +
 			'			<div class="swiper-container">' +
 			'				<div class="swiper-wrapper">' +
-			'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+house[0].fileList[0].fileName+'"/></div>' +	
+// 			'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+house[0].fileList[0].fileName+'"/></div>' +	
+			'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/resources/image/1576456333406_dd.jpg"/></div>' +	
 			'				</div>' +
 			'				<div class="swiper-pagination"></div>' +
 			'				<div class="swiper-button-next"></div>' +
 			'				<div class="swiper-button-prev"></div>' +
 			'			</div>' +
 			'			<div class="_heartButton _heartButton'+0+'">' +
-			'				<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+0+'"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
+// 			'				<button aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+0+'"><svg viewBox="0 0 24 24" fill="#FF385C" fill-opacity="1" stroke="#FF385C" stroke-width="1" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
+			'				<button data-toggle="modal" data-target="#login" aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+0+'"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
 			'			</div>' +
 	 		'		</div>' +
 	 		'		<a href="#'+house[0].houseCode+'" style="display:block;">' +
@@ -91,32 +93,38 @@
 				$.ajax({
 					url:'${root}/overlay?houseCode='+house[i].houseCode,
 					method:"get",
-					success:function(){
-						
-					}
+					success:function(overlay){
+						$("._overlaybox ._houseName").text(overlay.houseName);
+						$("._overlaybox ._reviewRate").text(overlay.revRate);
+						$("._overlaybox ._reviewCount").text("("+overlay.revCount+")");
+						$("._overlaybox ._people").text(overlay.people);
+						$("._overlaybox ._houseCode").text(overlay.houseCode);
+						$("._overlaybox a").attr("href","#"+overlay.houseCode);
+						$("._overlaybox ._heartButton").attr("class", "_heartButton _heartButton"+i);
+						$("._overlaybox ._heart").attr("class", "_heart _r0agyd heart"+i);
+						var overlayHeart= $("._overlaybox ._heart svg");
+						console.log(overlayHeart);
+						if(overlay.zzimed!=null){
+							overlayHeart.attr("fill", "#FF385C");
+							overlayHeart.attr("fill-opacity", "1");
+							overlayHeart.attr("stroke","#FF385C");
+							overlayHeart.attr("stroke-width","1");
+						}else{
+							overlayHeart.attr("fill", "currentColor");
+							overlayHeart.attr("fill-opacity", "0");
+							overlayHeart.attr("stroke","#222222");
+							overlayHeart.attr("stroke-width","1.4");
+						}
+					}	
 					
 				});
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				customOverlay.setPosition(new kakao.maps.LatLng(house[i].lat,house[i].lng));
-				customOverlay.setContent(overlayContent[i]);
+				//customOverlay.setContent(overlayContent[i]);
 				swiper = setSwiper();
 				map.panTo(marker[i].getPosition());
 				heart('${memberCode}');
+				$("._overlaybox").css("display","block");
 			});
 			kakao.maps.event.addListener(marker[i], 'mouseover', function(){
 				var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
@@ -143,10 +151,9 @@
 		});
 		
 
-		//$(".overlaybox").css("display","block");
 		var swiper = setSwiper();
 		
-		//$("._overlaybox").css("display","none");
+		$("._overlaybox").css("display","none");
 		
 		
 		

@@ -5,9 +5,26 @@
 
 	<select id="overlay" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
 		
-select h.houseCode, houseName, people, revRate, revCount from house h left outer join (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount from (select reservation.houseCode, revRate from reservation, review where reservation.reserveCode=review.reservecode) a group by houseCode) r on h.houseCode= r.houseCode left outer join wishList c
-			on h.houseCode=c.houseCode
-			and c.memberCode=62;
+
+		select a.houseCode, houseName, people, revRate, revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from 
+		
+		(select houseName,houseCode,people from house) a
+		
+		left outer join
+		
+		(select houseCode, round(nvl(avg(revRate),0),2) revRate, count(houseCode) revCount from reservation rs, review r where rs.reserveCode= r.reserveCode group by houseCode) b
+		
+		on a.houseCode= b.houseCode
+		
+		<if test="memberCode!=null">
+		left outer join wishList c
+		on a.houseCode= c.houseCode
+		and c.memberCode=#{memberCode}
+		</if>
+		
+		where a.houseCode=#{houseCode}
+
+
 	
 	
 	</select>

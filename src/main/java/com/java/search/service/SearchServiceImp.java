@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.aop.HomeAspect;
 import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
@@ -144,8 +148,33 @@ public class SearchServiceImp implements SearchService {
 	@Override
 	public String overlay(int houseCode, Integer memberCode) {
 		HostImgDto hostImgDto = searchDao.overlay(houseCode, memberCode);
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			System.out.println("objectMapper: "+mapper.writeValueAsString(mapper));
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		return null;
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("houseCode", hostImgDto.getHouseCode());
+		map.put("houseName", hostImgDto.getHouseName());
+		map.put("people", hostImgDto.getPeople());
+		map.put("revRate", hostImgDto.getRevRate());
+		map.put("revCount", hostImgDto.getRevCount());
+		map.put("zzimed", hostImgDto.getZzimed());
+		JSONArray fileArr= new JSONArray();
+		for(FileDto fileDto: hostImgDto.getFileList()) {
+			HashMap<String,String> fileMap = new HashMap<String,String>();
+			fileMap.put("fileName", fileDto.getFileName());
+			fileArr.add(fileMap);
+		}
+		map.put("fileList", fileArr);
+		System.out.println("jsonValue: "+JSONValue.toJSONString(map));
+		System.out.println("jsonObject: "+JSONObject.toJSONString(map));
+		
+		return JSONObject.toJSONString(map);
 	}
 
 
