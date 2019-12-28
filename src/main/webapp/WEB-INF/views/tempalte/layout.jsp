@@ -10,7 +10,7 @@
 <body>
 	<t:insertAttribute name="header"/>
 
-	<hr color="blue" style="margin-top: 7rem;"/>
+	<hr color="blue" style="margin-top: 5rem;"/>
 
 <%-- 	<t:insertAttribute name="menu"/> --%>
 <!-- 	<hr color="pink"/> -->
