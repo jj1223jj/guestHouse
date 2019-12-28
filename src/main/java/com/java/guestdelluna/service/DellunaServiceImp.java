@@ -362,20 +362,23 @@ public class DellunaServiceImp implements DellunaService {
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonList = "";
 		
-		
+		//얻은 데이터를 json형식으로 바꾸기
 		try {
 			jsonList= mapper.writeValueAsString(accuPoint);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+		HomeAspect.logger.info(HomeAspect.logMsg + "pointJsonList : " + jsonList);
 
+		//[{"":""},{"":""},{"":""}]
+		
+		// json형식을 jsp페이지로 보내기
 		response.setContentType("application/text;charset=utf-8");
 		PrintWriter out;
 		try {
 			out = response.getWriter();
 			out.print(jsonList);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -860,6 +863,7 @@ public class DellunaServiceImp implements DellunaService {
 //			memberDto.setMemberImgName(memberDto.getMemberImgName().substring(index));
 //			HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
 //		}
+		
 
 		mav.addObject("memberDto", memberDto);
 

@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<c:set var="root" value="${pageContext.request.contextPath }" />
-<c:set var="pageBlock" value="${3}"/>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+<!-- 1.맨 위에 페이지 블록 -->
+<c:set var="pageBlock" value="${3}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +46,10 @@ html {
 
 
 
-
+// 2.jquery 온로드
 	$(function(){
 		
+// 		3.페이징에 필요한 변수들 선언
 		var pageBlock=${pageBlock};
 
 		var result=parseInt('${countAccu/boardSize}');
@@ -58,61 +60,58 @@ html {
 		var endPage = startPage+pageBlock-1;
 
 		
-		
+// 		4. function setPaging, pageClick 함수를 선언
+//		5. 페이지숫자를 담을 div,ul 선언
 		setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-		
 		pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
 		
 		
 	});
 
+//4-2 pageClic함수
 function pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage){
-	$(".pagination li[class='page-item']").click(function(){
-		var accuPageNumber=$(this).children().text();
-		$.ajax({
-			url: "${root}/guestdelluna/managePointAjax.do?accuPageNumber="+accuPageNumber,
-			method: "get",
-			success:function(d){
-				var list=JSON.parse(d);
-				alert(list.length);
-				console.log(list);
-				var tr= $(".pointInfo tr");
-				for(var i=0; i<list.length;i++){
-					var date = new Date(list[i].accuDate);
-					var dateString = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-					$(tr[i]).children( ":nth-child(1)").text((accuPageNumber-1)*'${boardSize}'+(i+1));
-					$(tr[i]).children( ":nth-child(2)").text(list[i].accuPlace);
-					$(tr[i]).children( ":nth-child(3)").text(dateString);
-					$(tr[i]).children( ":nth-child(4)").text(list[i].accuPoint);
-				}
-				currentPage = accuPageNumber;
-				result2= parseInt((currentPage-1)/pageBlock);
-				startPage = result2*pageBlock+1;
-				endPage = startPage+pageBlock-1;
-				setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-				pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-			}
-			
-		});
-	})
 	
-	$(".pagination li[class='page-item pointFirstPage']").click(function(){
-		var accuPageNumber=1;
+	
+	$(".pagination li[class!='page-item active']").click(function(){
+		var liClass=$(this).attr("class");
+		var accuPageNumber=0;
+		if(liClass=='page-item')
+			accuPageNumber=$(this).children().text();
+		else if(liClass=='page-item pointFirstPage')
+			accuPageNumber=1;
+		else if(liClass=='page-item pointBeforePage')
+			accuPageNumber=startPage-pageBlock;
+		else if(liClass=='page-item pointNextPage')
+			accuPageNumber=startPage+pageBlock;
+		else if(liClass=='page-item pointEndPage')
+			accuPageNumber=pageCount;
+		// 6. 컨트롤러에서 받을 url과 requestMapping 만들기
+		// 7. 현재페이지를 넘겨줘서 해당 컨트롤러와 서비스imp확인하기
 		$.ajax({
 			url: "${root}/guestdelluna/managePointAjax.do?accuPageNumber="+accuPageNumber,
 			method: "get",
+			//8. 서비스imp에서 ajax로 받을 데이터를 json으로 만들어주기
+			//9. PrintWriter로 json형식 데이터를 넘겨주기
 			success:function(d){
+				//10. [{"":""},{"":""},{"":""}] 친구를 JSON.parse하기
 				var list=JSON.parse(d);
-				alert(list.length);
-				console.log(list);
+				
+				//alert(list.length);
+				//console.log(list);
 				var tr= $(".pointInfo tr");
+				tr.remove();
+				var tbody= $(".pointInfo");
 				for(var i=0; i<list.length;i++){
 					var date = new Date(list[i].accuDate);
 					var dateString = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-					$(tr[i]).children( ":nth-child(1)").text((accuPageNumber-1)*'${boardSize}'+(i+1));
-					$(tr[i]).children( ":nth-child(2)").text(list[i].accuPlace);
-					$(tr[i]).children( ":nth-child(3)").text(dateString);
-					$(tr[i]).children( ":nth-child(4)").text(list[i].accuPoint);
+					tbody.append(
+					'	<tr>' +
+					'		<td>'+((accuPageNumber-1)*'${boardSize}'+(i+1))+'</td>' +
+					'		<td>'+list[i].accuPlace+'</td>' +
+					'		<td>'+dateString+'</td>' +
+					'		<td>'+list[i].accuPoint+'</td>' +
+					'	</tr>'
+					);
 				}
 				currentPage = accuPageNumber;
 				result2= parseInt((currentPage-1)/pageBlock);
@@ -120,105 +119,18 @@ function pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endP
 				endPage = startPage+pageBlock-1;
 				setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
 				pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
+			},
+			error:function(a,b,c){
+				console.log(a);
+				alert(b);
+				alert(c);
 			}
-			
 		});
 	});
-	$(".pagination li[class='page-item pointBeforePage']").click(function(){
-		var accuPageNumber=startPage-pageBlock;
-		$.ajax({
-			url: "${root}/guestdelluna/managePointAjax.do?accuPageNumber="+accuPageNumber,
-			method: "get",
-			success:function(d){
-				var list=JSON.parse(d);
-				alert(list.length);
-				console.log(list);
-				var tr= $(".pointInfo tr");
-				for(var i=0; i<list.length;i++){
-					var date = new Date(list[i].accuDate);
-					var dateString = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-					$(tr[i]).children( ":nth-child(1)").text((accuPageNumber-1)*'${boardSize}'+(i+1));
-					$(tr[i]).children( ":nth-child(2)").text(list[i].accuPlace);
-					$(tr[i]).children( ":nth-child(3)").text(dateString);
-					$(tr[i]).children( ":nth-child(4)").text(list[i].accuPoint);
-				}
-				currentPage = accuPageNumber;
-				result2= parseInt((currentPage-1)/pageBlock);
-				startPage = result2*pageBlock+1;
-				endPage = startPage+pageBlock-1;
-				setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-				pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-			}
-			
-		});
-	});
-	$(".pagination li[class='page-item pointNextPage']").click(function(){
-		var accuPageNumber=startPage+pageBlock;
-		$.ajax({
-			url: "${root}/guestdelluna/managePointAjax.do?accuPageNumber="+accuPageNumber,
-			method: "get",
-			success:function(d){
-				var list=JSON.parse(d);
-				alert(list.length);
-				console.log(list);
-				var tr= $(".pointInfo tr");
-				for(var i=0; i<list.length;i++){
-					var date = new Date(list[i].accuDate);
-					var dateString = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-					$(tr[i]).children( ":nth-child(1)").text((accuPageNumber-1)*'${boardSize}'+(i+1));
-					$(tr[i]).children( ":nth-child(2)").text(list[i].accuPlace);
-					$(tr[i]).children( ":nth-child(3)").text(dateString);
-					$(tr[i]).children( ":nth-child(4)").text(list[i].accuPoint);
-				}
-				if(accuPageNumber==pageCount){
-					for(var i=list.length;i<5;i++){
-						$(tr[i]).remove();
-					}
-				}
-				currentPage = accuPageNumber;
-				result2= parseInt((currentPage-1)/pageBlock);
-				startPage = result2*pageBlock+1;
-				endPage = startPage+pageBlock-1;
-				setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-				pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-			}
-			
-		});
-	});
-	$(".pagination li[class='page-item pointEndPage']").click(function(){
-		var accuPageNumber=pageCount;
-		$.ajax({
-			url: "${root}/guestdelluna/managePointAjax.do?accuPageNumber="+accuPageNumber,
-			method: "get",
-			success:function(d){
-				var list=JSON.parse(d);
-				alert(list.length);
-				console.log(list);
-				var tr= $(".pointInfo tr");
-				for(var i=0; i<list.length;i++){
-					var date = new Date(list[i].accuDate);
-					var dateString = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-					$(tr[i]).children( ":nth-child(1)").text((accuPageNumber-1)*'${boardSize}'+(i+1));
-					$(tr[i]).children( ":nth-child(2)").text(list[i].accuPlace);
-					$(tr[i]).children( ":nth-child(3)").text(dateString);
-					$(tr[i]).children( ":nth-child(4)").text(list[i].accuPoint);
-				}
-				for(var i=list.length;i<5;i++){
-					$(tr[i]).remove();
-				}
-				currentPage = accuPageNumber;
-				result2= parseInt((currentPage-1)/pageBlock);
-				startPage = result2*pageBlock+1;
-				endPage = startPage+pageBlock-1;
-				setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-				pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage);
-			}
-			
-		});
-	});
+	
 }
-	
 
+//4.setPaging 함수
 function setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage){
     
 	$(".pagination").children().remove();
@@ -232,9 +144,6 @@ function setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endP
     		   '<li class="page-item pointFirstPage"><a class="page-link">[처음]</a></li>' +
                '<li class="page-item pointBeforePage"><a class="page-link">[이전]</a></li>'
        );
-    }else{
-    	$(".pagination").remove('li [class="page-item pointFirstPage"]');
-    	$(".pagination").remove('li [class="page-item pointBeforePage"]');
     }
     for(var i=startPage; i<=endPage;i++){
        if(i==currentPage){
@@ -252,9 +161,6 @@ function setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endP
              '<li class="page-item pointNextPage"><a class="page-link">[다음]</a></li>'+
              '<li class="page-item pointEndPage"><a class="page-link">[끝]</a></li>'
        );
-    }else{
-    	$(".pagination").remove('li [class="page-item pointNextPage"]');
-    	$(".pagination").remove('li [class="page-item pointEndPage"]');
     }
  }
 </script>
@@ -343,64 +249,32 @@ function setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endP
 											<td>적립포인트</td>
 										</tr>
 									</thead>
-								</table>
-								<c:if test="${countAccu>0 }">
-									<c:forEach var="accuPoint" items="${accuPoint}"
-										varStatus="status">
-										<table class="table pointInfo"
-											style="text-align: center; vertical-align: middle; margin-bottom: auto;">
-											<tbody>
-												<tr>
-													<td>${status.count}</td>
-													<td>${accuPoint.accuPlace}</td>
-													<td><fmt:formatDate value="${accuPoint.accuDate}"
-															pattern="yyyy-MM-dd" /></td>
-													<td>${accuPoint.accuPoint}</td>
-												</tr>
-											</tbody>
-										</table>
-									</c:forEach>
-								</c:if>
-
-								<div align="center">
-									<c:if test="${countAccu >0 }">									
-										<fmt:parseNumber var="pageCount"
-											value="${countAccu/boardSize + (countAccu%boardSize==0 ? 0 : 1) }" />
-										
-										
-
-										<fmt:parseNumber var="result"
-											value="${(accuCurrentPage-1)/pageBlock }" integerOnly="true" />
-										<c:set var="startPage" value="${result * pageBlock+1 }" />
-										<c:set var="endPage" value="${startPage + pageBlock -1 }" />
-
-										<c:if test="${endPage > pageCount }">
-											<c:set var="endPage" value="${pageCount }" />
-										</c:if>
-
-										<c:if test="${startPage > pageBlock}">
-											<button type="button" class="btn btn-light btn-sm">[이전]</button>
-										</c:if>
-
-										<c:forEach var="i" begin="${startPage }" end="${endPage }">
-											<button type="button" class="btn btn-light btn-sm">[${i}]</button>					
-										</c:forEach>
-
-										<c:if test="${endPage < pageCount }">
-											<button type="button" class="btn btn-light btn-sm">[다음]</button>
-										</c:if>
+									<c:if test="${countAccu>0 }">
+										<tbody class="pointInfo">
+											<c:forEach var="accuPoint" items="${accuPoint}"
+												varStatus="status">
+													<tr>
+														<td>${status.count}</td>
+														<td>${accuPoint.accuPlace}</td>
+														<td><fmt:formatDate value="${accuPoint.accuDate}"
+																pattern="yyyy-MM-dd" /></td>
+														<td>${accuPoint.accuPoint}</td>
+													</tr>
+											</c:forEach>
+										</tbody>
 									</c:if>
-								</div>
-								
+								</table>
+
+<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
 								<div class="pointPageContainer">
-									 <ul class="pagination">
-									   
-									  </ul>
+									<ul class="pagination">
+
+									</ul>
 								</div>
 							</div>
 						</div>
 
-<script type="text/javascript">
+						<script type="text/javascript">
 
 	function scrollPage(root){
 		
