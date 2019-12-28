@@ -130,8 +130,8 @@ function heart(memberCode){
 	$("._heartButton").attr('onclick', '').unbind('click');
 
 	
-	if(memberCode!='') {
-		$("._heartButton").click(function(){
+	$("._heartButton").click(function(){
+		if(memberCode!='') {
 			var button = $(this).attr("class").split(" ")[1];
 			var heart=$("."+button).children().children();
 			console.log(heart);
@@ -161,14 +161,12 @@ function heart(memberCode){
 				  }
 				})
 			
-		});
-	}else{
-		$("._heartButton").click(function(){
-			//alert( $("#price" ).slider( "values" ));
-			console.log("로그인해주세요");
-			//로그인 모달 띄워주기
-		});
-	}
+		}else{
+				//alert( $("#price" ).slider( "values" ));
+				console.log("로그인해주세요");
+				//로그인 모달 띄워주기
+		}
+	});
 }
 function heart2(memberCode){
 

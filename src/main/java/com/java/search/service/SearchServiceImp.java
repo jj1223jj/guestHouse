@@ -76,50 +76,51 @@ public class SearchServiceImp implements SearchService {
 			searchHouseList = searchDao.searchHouse(dataMap); 
 			HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 개수: " +searchHouseList.size());
 			HomeAspect.logger.info(HomeAspect.logMsg+"검색결과 : " +searchHouseList.toString());
-		}
-		
-		//검색 결과 list -> JSON으로
-		JSONArray arr = new JSONArray();
-		for(HostImgDto hostDto : searchHouseList) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("houseName",hostDto.getHouseName());
-			map.put("houseCode",hostDto.getHouseCode());
-			map.put("lat",hostDto.getLatLng().split(",")[0]);
-			map.put("lng",hostDto.getLatLng().split(",")[1]);
-			map.put("people",hostDto.getPeople());
-			map.put("price",hostDto.getPrice());
-			map.put("revRate",hostDto.getRevRate());
-			map.put("revCount",hostDto.getRevCount());
-			map.put("zzimed",hostDto.getZzimed());
-			map.put("parking",hostDto.getParking());
-			map.put("kitchen",hostDto.getKitchen());
-			map.put("aircon",hostDto.getAircon());
-			map.put("hotWater",hostDto.getHotWater());
 			
-			
-			JSONArray fileArr = new JSONArray();
-			for(FileDto fileDto : hostDto.getFileList()) {
-				HashMap<String, Object> fileMap = new HashMap<String, Object>();
-				fileMap.put("filePath",fileDto.getFilePath());
-				fileMap.put("fileName",fileDto.getFileName());
-				fileArr.add(fileMap);
+			//검색 결과 list -> JSON으로
+			JSONArray arr = new JSONArray();
+			for(HostImgDto hostDto : searchHouseList) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("houseName",hostDto.getHouseName());
+				map.put("houseCode",hostDto.getHouseCode());
+				map.put("lat",hostDto.getLatLng().split(",")[0]);
+				map.put("lng",hostDto.getLatLng().split(",")[1]);
+				map.put("people",hostDto.getPeople());
+				map.put("price",hostDto.getPrice());
+				map.put("revRate",hostDto.getRevRate());
+				map.put("revCount",hostDto.getRevCount());
+				map.put("zzimed",hostDto.getZzimed());
+				map.put("parking",hostDto.getParking());
+				map.put("kitchen",hostDto.getKitchen());
+				map.put("aircon",hostDto.getAircon());
+				map.put("hotWater",hostDto.getHotWater());
+				
+				
+				JSONArray fileArr = new JSONArray();
+				for(FileDto fileDto : hostDto.getFileList()) {
+					HashMap<String, Object> fileMap = new HashMap<String, Object>();
+					fileMap.put("filePath",fileDto.getFilePath());
+					fileMap.put("fileName",fileDto.getFileName());
+					fileArr.add(fileMap);
+				}
+				map.put("fileList", fileArr);
+				arr.add(map);
+				HomeAspect.logger.info(HomeAspect.logMsg+"hostDto Json: " +map.toString());
 			}
-			map.put("fileList", fileArr);
-			arr.add(map);
-			HomeAspect.logger.info(HomeAspect.logMsg+"hostDto Json: " +map.toString());
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("houseJson", arr);
+			String jsonText = JSONValue.toJSONString(map);
+			HomeAspect.logger.info(HomeAspect.logMsg+"JsonText: " +jsonText);
+			
+			mav.addObject("houseJson", jsonText);
+			mav.addObject("jsonHouseList", jsonText);
 		}
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("houseJson", arr);
-		String jsonText = JSONValue.toJSONString(map);
-		HomeAspect.logger.info(HomeAspect.logMsg+"JsonText: " +jsonText);
 		
 		//물어보기
 		
 		mav.addObject("pageNumber", 1);
 		mav.addObject("min", min);
 		mav.addObject("max", max);
-		mav.addObject("houseJson", jsonText);
-		mav.addObject("jsonHouseList", jsonText);
 		mav.addObject("searchHouseList", searchHouseList);
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
