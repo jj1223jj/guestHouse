@@ -3,18 +3,23 @@ package com.java.experience.service;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -241,14 +246,73 @@ public class ExperienceServiceImp implements ExperienceService {
 
 	// 리뷰 작성하기
 	@Override
-	public void exReview(ModelAndView mav) {
+	public String exReview(ModelAndView mav) {
 		// write, list
 		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		  HttpServletRequest request = (HttpServletRequest) map.get("request");
+		  HttpServletResponse response = (HttpServletResponse) map.get("response");
+		 
 
-		int exCode = Integer.parseInt(request.getParameter("exCode"));
-		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		/* int exCode = 6; */
+		 int exCode = Integer.parseInt(request.getParameter("exCode")); 
+		//int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 
+		
+		
+			//////////////////////////후기 리스트 exReview///////////////////////////////
+			
+			String pageNumber = request.getParameter("pageNumber");
+			if (pageNumber == null)
+			pageNumber = "1";
+			
+			int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
+			
+			int boardSize = 1; // 2) 페이지당 출력할 게시물 수
+			// 시작 번호
+			int startRow = (currentPage - 1) * boardSize + 1;
+			
+			// 끝 번호
+			int endRow = boardSize * currentPage;
+			
+			int count = experienceDao.getReviewCnt(exCode);
+			
+			HomeAspect.logger.info(HomeAspect.logMsg + "이 회원의 댓글 갯수: " + count);
+			
+			List<ExReviewListDto> reviewList = null;
+			
+			if (count > 0) { // 이 페이지에 저장된 방명록이 존재 할 경우
+			
+			reviewList = experienceDao.getExReviewList(startRow, endRow, exCode);
+			HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " + reviewList.size());
+			// HomeAspect.logger.info(HomeAspect.logMsg + reviewList.get(0).toString());
+			}
+
+		//json
+		  JSONArray arr = new JSONArray(); for (ExReviewListDto exReviewListDto :
+		  reviewList) { HashMap<String, String> CommonMap = new HashMap<String,
+		  String>(); CommonMap.put("exReserveCode",
+		  Integer.toString(exReviewListDto.getExReserveCode()));
+		  CommonMap.put("memberCode",
+		  Integer.toString(exReviewListDto.getMemberCode())); CommonMap.put("revDate",
+		  exReviewListDto.getRevDate().toString()); CommonMap.put("revContent",
+		  exReviewListDto.getRevContent()); CommonMap.put("revRate",
+		  Integer.toString(exReviewListDto.getRevRate())); CommonMap.put("email",
+		  exReviewListDto.getEmail());
+		  
+		  arr.add(CommonMap);
+		  
+		  HomeAspect.logger.info(HomeAspect.logMsg + "리뷰 정보 : " +
+		  exReviewListDto.toString()); } String jsonText = JSONValue.toJSONString(arr);
+		  HomeAspect.logger.info(HomeAspect.logMsg + "jsonText 정보 : " + jsonText);
+		  
+		  return jsonText;
+		 
+			
+			
+			
+			
+		
 		/*
 		 * int count = experienceDao.getReviewCnt(exCode);
 		 * 
@@ -298,9 +362,60 @@ public class ExperienceServiceImp implements ExperienceService {
 		 */
 
 		// mav.addObject("exReviewDto", exReviewDto);
+		
+	
+		/*
+		 * mav.setViewName("experience/exReview.tiles");
+		 */
 
-		mav.setViewName("experience/exReview.tiles");
+	}
+	
+	// 잭슨
+	@Override
+	public Map<String, Object> exReview(HttpServletRequest request) {
+		
+		// jackson
+		
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  
+		  // 세션
+		  HttpSession session = request.getSession();
+		  String sessionEmail = (String) session.getAttribute("email");
 
+		/* int exCode = 6; */
+			 int exCode = Integer.parseInt(request.getParameter("exCode")); 
+			//int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+
+				//////////////////////////후기 리스트 exReview///////////////////////////////
+				
+				String pageNumber = request.getParameter("pageNumber");
+				if (pageNumber == null)
+				pageNumber = "1";
+				
+				int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
+				
+				int boardSize = 3; // 2) 페이지당 출력할 게시물 수
+				// 시작 번호
+				int startRow = (currentPage - 1) * boardSize + 1;
+				
+				// 끝 번호
+				int endRow = boardSize * currentPage;
+				
+				int count = experienceDao.getReviewCnt(exCode);
+				
+				HomeAspect.logger.info(HomeAspect.logMsg + "이 회원의 댓글 갯수: " + count);
+				
+				List<ExReviewListDto> reviewList = null;
+				
+				if (count > 0) { // 이 페이지에 저장된 방명록이 존재 할 경우
+				
+				reviewList = experienceDao.getExReviewList(startRow, endRow, exCode);
+				HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " + reviewList.size());
+				// HomeAspect.logger.info(HomeAspect.logMsg + reviewList.get(0).toString());
+				}
+		  
+				map.put("reviewList", reviewList);
+				return map;
 	}
 
 	@Override
@@ -486,8 +601,12 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		String email = (String) session.getAttribute("email");
 		int memberCode=0;
-		int exCode = Integer.parseInt(request.getParameter("exCode"));
 		
+		// 12-27 
+		//int exCode = 6;
+		
+		  int exCode = Integer.parseInt(request.getParameter("exCode"));
+		 
 		if(email!=null) {
 			
 		
@@ -511,31 +630,30 @@ public class ExperienceServiceImp implements ExperienceService {
 
 		////////////////////////// 후기 리스트 exReview///////////////////////////////
 
-		String pageNumber = request.getParameter("pageNumber");
-		if (pageNumber == null)
-			pageNumber = "1";
-
-		int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
-
-		int boardSize = 3; // 2) 페이지당 출력할 게시물 수
-		// 시작 번호
-		int startRow = (currentPage - 1) * boardSize + 1;
-
-		// 끝 번호
-		int endRow = boardSize * currentPage;
-
-		int count = experienceDao.getReviewCnt(exCode);
-
-		HomeAspect.logger.info(HomeAspect.logMsg + "이 회원의 댓글 갯수: " + count);
-
-		List<ExReviewListDto> reviewList = null;
-
-		if (count > 0) { // 이 페이지에 저장된 방명록이 존재 할 경우
-
-			reviewList = experienceDao.getExReviewList(startRow, endRow, exCode);
-			HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " + reviewList.size());
-			// HomeAspect.logger.info(HomeAspect.logMsg + reviewList.get(0).toString());
-		}
+		/*
+		 * String pageNumber = request.getParameter("pageNumber"); if (pageNumber ==
+		 * null) pageNumber = "1";
+		 * 
+		 * int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
+		 * 
+		 * int boardSize = 3; // 2) 페이지당 출력할 게시물 수 // 시작 번호 int startRow = (currentPage
+		 * - 1) * boardSize + 1;
+		 * 
+		 * // 끝 번호 int endRow = boardSize * currentPage;
+		 * 
+		 * int count = experienceDao.getReviewCnt(exCode);
+		 * 
+		 * HomeAspect.logger.info(HomeAspect.logMsg + "이 회원의 댓글 갯수: " + count);
+		 * 
+		 * List<ExReviewListDto> reviewList = null;
+		 * 
+		 * if (count > 0) { // 이 페이지에 저장된 방명록이 존재 할 경우
+		 * 
+		 * reviewList = experienceDao.getExReviewList(startRow, endRow, exCode);
+		 * HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: " +
+		 * reviewList.size()); // HomeAspect.logger.info(HomeAspect.logMsg +
+		 * reviewList.get(0).toString()); }
+		 */
 
 		// 날짜 ////////////////////////////////
 
@@ -691,13 +809,34 @@ public class ExperienceServiceImp implements ExperienceService {
 		  // 예약 테이블에서 후기 댓글쓰기가 가능한지 여부 확인
 		// ExReserveDto exReserveDto = experienceDao.exReserveDto(memberCode, exCode);
 		//  HomeAspect.logger.info(HomeAspect.logMsg + "예약정보 : " + exReserveDto.toString());
+		  
+		  
+		/*
+		 * JSONArray arr = new JSONArray(); for (ExReviewListDto exReviewListDto :
+		 * reviewList) { HashMap<String, String> CommonMap = new HashMap<String,
+		 * String>(); CommonMap.put("exReserveCode",
+		 * Integer.toString(exReviewListDto.getExReserveCode()));
+		 * CommonMap.put("memberCode",
+		 * Integer.toString(exReviewListDto.getMemberCode())); CommonMap.put("revDate",
+		 * exReviewListDto.getRevDate().toString()); CommonMap.put("revContent",
+		 * exReviewListDto.getRevContent()); CommonMap.put("revRate",
+		 * Integer.toString(exReviewListDto.getRevRate())); CommonMap.put("email",
+		 * exReviewListDto.getEmail());
+		 * 
+		 * arr.add(CommonMap);
+		 * 
+		 * HomeAspect.logger.info(HomeAspect.logMsg + "리뷰 정보 : " +
+		 * exReviewListDto.toString()); } String jsonText = JSONValue.toJSONString(arr);
+		 * HomeAspect.logger.info(HomeAspect.logMsg + "jsonText 정보 : " + jsonText);
+		 */
+		
 
 		  
-		mav.addObject("reviewList", reviewList);
-		mav.addObject("currentPage", currentPage);
-		mav.addObject("boardSize", boardSize);
-		mav.addObject("count", count);
-
+		//mav.addObject("reviewList", reviewList);
+		/*
+		 * mav.addObject("currentPage", currentPage); mav.addObject("boardSize",
+		 * boardSize); mav.addObject("count", count);
+		 */
 		// mav.addObject("exReviewDto", exReviewDto);
 
 		// mav.setViewName("experience/exReview.tiles");
@@ -710,14 +849,17 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		
 		// 체험을 관리자가 보는 경우 exApp에 1을 임의로 넘겨줌
-		String exApp = request.getParameter("exApp");
 		
-		if(exApp!=null) {
-			// 관리자가 보는 페이지는 헤더 x
-			mav.setViewName("experience/exPage.empty");
-		}else {
-			mav.setViewName("experience/exPage.tiles");
-		}
+		  String exApp = request.getParameter("exApp");
+		  
+		  if(exApp!=null) { // 관리자가 보는 페이지는 헤더 x
+			  mav.setViewName("experience/exPage.empty");
+		  }else {
+			  mav.setViewName("experience/exPage.tiles"); 
+			  }
+		 
+		
+		
 	}
 
 	@Override

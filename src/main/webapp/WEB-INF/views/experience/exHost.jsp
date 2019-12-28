@@ -64,7 +64,7 @@
 	            <label>장소선택</label>
 	            <select name="exAddress" id="exAddress" style="width: 500px;">
         			<c:forEach var="hostDto" items="${hostChkList}">
-        				<c:if test="${hostDto.approvalStatus eq '승인 완료'}" >
+        				<c:if test="${hostDto.approvalStatus eq '승인완료'}" >
         			<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
 	               		<option value="${hostDto.address}">${hostDto.houseName}</option>
 	               		<%-- <input type="hidden" name="exAddress" value="${hostDto.address}"/>

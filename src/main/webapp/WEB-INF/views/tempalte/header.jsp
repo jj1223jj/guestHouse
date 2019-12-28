@@ -75,7 +75,7 @@
 	            <c:if test="${memberLevel != null}">
 	          		<li class="nav-item"><a class="nav-link" href="#">게스트 하우스 검색</a></li>
 	          		<li class="nav-item"><a class="nav-link" href="#">체험 검색</a></li>
-	          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=27">체험 페이지</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=6">체험 페이지</a></li>
 			        <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
 			       
 		            <%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
