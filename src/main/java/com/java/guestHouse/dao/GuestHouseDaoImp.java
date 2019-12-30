@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.java.file.dto.FileDto;
+import com.java.guestReserve.dto.GHouseReviewListDto;
 import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.guestReserve.dto.RemainDto;
+import com.java.guestdelluna.dto.HouseReviewDto;
 import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
@@ -145,5 +146,71 @@ public class GuestHouseDaoImp implements GuestHouseDao{
 	public int insertMsg(MsgDto msgDto) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.insert("dao.GuestHouseMapper.insertMsg",msgDto);
+	}
+	
+	@Override
+	public int getReviewCnt(int houseCode) {
+		return sqlSessionTemplate.selectOne("dao.GuestHouseMapper.reviewCnt",houseCode);
+	}
+	
+	@Override
+	public List<GHouseReviewListDto> getReviewList(int startRow, int endRow, int houseCode) {
+		Map<String, Integer> hMap = new HashMap<String, Integer>();
+		hMap.put("startRow", startRow);
+		hMap.put("endRow", endRow);
+		hMap.put("houseCode", houseCode);
+		
+		return sqlSessionTemplate.selectList("dao.GuestHouseMapper.reviewList",hMap);
+	}
+	
+	@Override
+	public int reserveCodeCnt(int memberCode, int houseCode) {
+		Map<String, Integer> hMap = new HashMap<String, Integer>();
+		hMap.put("memberCode", memberCode);
+		hMap.put("houseCode", houseCode);
+		
+		return sqlSessionTemplate.selectOne("dao.GuestHouseMapper.reserveCodeCnt",hMap);
+	}
+	
+	@Override
+	public List<GuestReserveDto> reserveCode(int houseCode, int memberCode) {
+		Map<String, Integer> hMap = new HashMap<String, Integer>();
+		hMap.put("memberCode", memberCode);
+		hMap.put("houseCode", houseCode);
+
+		return  sqlSessionTemplate.selectList("dao.GuestHouseMapper.reserveCode",hMap);
+	}
+	
+	@Override
+	public int reviewChk(int reserveCode) {
+		
+		return sqlSessionTemplate.selectOne("dao.GuestHouseMapper.reviewChk",reserveCode);
+	}
+	
+	@Override
+	public int writeReview(HouseReviewDto reviewDto) {
+	
+		return sqlSessionTemplate.insert("dao.GuestHouseMapper.writeReview",reviewDto);
+	}
+	
+	@Override
+	public HouseReviewDto reviewUpdate(int memberCode, int reserveCode) {
+		Map<String, Integer> hMap = new HashMap<String, Integer>();
+		hMap.put("memberCode", memberCode);
+		hMap.put("reserveCode", reserveCode);
+		
+		return sqlSessionTemplate.selectOne("dao.GuestHouseMapper.reviewUpdate",hMap);
+	}
+	
+	@Override
+	public int reviewUpdateOk(HouseReviewDto reviewDto) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update("dao.GuestHouseMapper.reviewUpdateOk",reviewDto);
+	}
+	
+	@Override
+	public int reviewDelete(int reserveCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.delete("dao.GuestHouseMapper.reviewDelete",reserveCode);
 	}
 }

@@ -85,10 +85,10 @@
 				<p id="price">금액                        	₩${hostDto.price} X ${night}박 X ${people}명</p>
 				<p id="total">총합계(KRW)     ₩${total}</p>
 			</div>
-			<hr color="#CCCCCC"/>
+			
 		</div>
 		
-		
+		<hr color="#CCCCCC"/>
 		
 		<div class="mid">
 			<div class="notice">

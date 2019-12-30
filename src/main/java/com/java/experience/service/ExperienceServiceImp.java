@@ -487,6 +487,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		String email = (String) session.getAttribute("email");
 		int memberCode=0;
 		int exCode = Integer.parseInt(request.getParameter("exCode"));
+
 		
 		if(email!=null) {
 			

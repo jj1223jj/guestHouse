@@ -86,6 +86,54 @@
 		values(seq_msgCode_num.nextval,#{memberCode},#{msgContent},#{msgDate},#{msgCheck})
 	</insert>
 	
+	<select id="reviewCnt" parameterType="int" resultType="int">
+		select count(*) from REVIEW 
+		inner join RESERVATION on REVIEW.RESERVECODE=RESERVATION.RESERVECODE 
+		and RESERVATION.HOUSECODE=#{houseCode}
+	</select>
+	
+	<select id="reviewList" parameterType="java.util.Map" resultType="com.java.guestReserve.dto.GHouseReviewListDto">
+		<![CDATA[
+		SELECT * FROM 
+		(select rownum as rnum, A.* from 
+		(select REVIEW.*, HOUSE.HOUSECODE, member.email from REVIEW 
+		inner join RESERVATION on REVIEW.RESERVECODE = RESERVATION.RESERVECODE 
+		inner join HOUSE on RESERVATION.HOUSECODE = HOUSE.HOUSECODE and RESERVATION.HOUSECODE=#{houseCode} 
+		inner join member on REVIEW.memberCode = member.memberCode ORDER BY REVIEW.revDate Desc) A) b 
+		WHERE b.rnum >=#{startRow} and b.rnum <=#{endRow}
+		]]>
+	</select>
+	
+	<select id="reserveCodeCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from RESERVATION where memberCode=#{memberCode} and HOUSECODE=#{houseCode}
+	</select>
+	
+	<select id="reserveCode" parameterType="java.util.Map" resultType="com.java.guestReserve.dto.GuestReserveDto">
+		select reserveCode from RESERVATION where HOUSECODE=#{houseCode} and memberCode=#{memberCode}
+	</select>
+	
+	<select id="reviewChk" parameterType="int" resultType="int">
+		select count(*) from REVIEW where reserveCode=#{reserveCode}
+	</select>
+	
+	<insert id="writeReview" parameterType="com.java.guestdelluna.dto.HouseReviewDto">
+		insert into REVIEW(RESERVECODE, memberCode, revDate, revContent, revRate) 
+		values(#{reserveCode}, #{memberCode}, #{revDate}, #{revContent}, #{revRate})
+	</insert>
+	
+	<select id="reviewUpdate" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.HouseReviewDto">
+		select * from REVIEW where memberCode=#{memberCode} and RESERVECODE=#{reserveCode}
+	</select>
+	
+	<update id="reviewUpdateOk" parameterType="com.java.guestdelluna.dto.HouseReviewDto">
+		update REVIEW set RESERVECODE=#{reserveCode}, revDate=#{revDate}, revContent=#{revContent}, revRate=#{revRate}
+		where memberCode=#{memberCode}
+	</update>
+	
+	<delete id="reviewDelete" parameterType="int">
+		delete from REVIEW where RESERVECODE=#{reserveCode}
+	</delete>
+	
 </mapper>
 
 

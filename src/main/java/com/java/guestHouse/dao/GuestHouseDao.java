@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.java.file.dto.FileDto;
+import com.java.guestReserve.dto.GHouseReviewListDto;
 import com.java.guestReserve.dto.GuestReserveDto;
 import com.java.guestReserve.dto.RemainDto;
+import com.java.guestdelluna.dto.HouseReviewDto;
 import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
@@ -46,5 +48,21 @@ public interface GuestHouseDao {
 	
 	public int insertMsg(MsgDto msgDto);
 	
- 
+	public int getReviewCnt(int houseCode);
+	
+	public List<GHouseReviewListDto> getReviewList(int startRow, int endRow, int houseCode);
+	
+	public int reserveCodeCnt(int memberCode, int houseCode);
+	
+	public List<GuestReserveDto> reserveCode(int houseCode, int memberCode);
+	
+	public int reviewChk(int reserveCode);
+	
+	public int writeReview(HouseReviewDto reviewDto);
+	
+	public HouseReviewDto reviewUpdate(int memberCode, int reserveCode);
+	
+	public int reviewUpdateOk(HouseReviewDto reviewDto);
+	
+	public int reviewDelete(int reserveCode);
 }
