@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.java.aop.HomeAspect;
+import com.java.exfile.dto.ExFileDto;
+import com.java.experience.dto.ExperienceImgDto;
 import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
@@ -23,7 +25,7 @@ public class SearchDaoImp implements SearchDao {
 	
 	@Override
 	public List<HostImgDto> searchHouse(Map<String, Object> dataMap) {
-		System.out.println(dataMap.get("sort"));
+		HomeAspect.logger.info(HomeAspect.logMsg+"sort: "+dataMap.get("sort"));
 		List<HostImgDto> hostImgList = session.selectList("dao.searchMapper.searchHouse", dataMap);
 		for(HostImgDto hostImgDto : hostImgList) {
 			List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());
@@ -35,7 +37,7 @@ public class SearchDaoImp implements SearchDao {
 	@Override
 	public GetCountDto getCount(Map<String, Object> dataMap) {
 		GetCountDto getCountDto= session.selectOne("dao.searchMapper.getCount", dataMap);
-		System.out.println(getCountDto.getMax()+","+getCountDto.getMin());
+		//System.out.println(getCountDto.getMax()+","+getCountDto.getMin());
 		
 		return getCountDto; 
 	}
@@ -59,6 +61,23 @@ public class SearchDaoImp implements SearchDao {
 		
 		return hostImgDto;
 	}
+
+	@Override
+	public List<ExperienceImgDto> searchEx(Map<String, Object> dataMap) {
+		HomeAspect.logger.info(HomeAspect.logMsg+"sort: "+dataMap.get("sort"));
+		List<ExperienceImgDto> exImgList = session.selectList("dao.searchMapper.searchEx", dataMap);
+		for(ExperienceImgDto exImgDto : exImgList) {
+			List<ExFileDto> exFileList = session.selectList("dao.searchMapper.getExImg",exImgDto.getExCode());
+			exImgDto.setExFileList(exFileList);
+		}
+		return exImgList;
+	}
+
+	@Override
+	public int getExCount(Map<String, Object> dataMap) {
+		return session.selectOne("dao.searchMapper.getExCount", dataMap);
+	}
+	
 
 
 }

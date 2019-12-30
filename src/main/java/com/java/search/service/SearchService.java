@@ -12,4 +12,7 @@ public interface SearchService {
 
 	public String overlay(int houseCode, Integer memberCode);
 
+	public ModelAndView searchEx(String checkIn, String checkOut, String local, String people, String searchExName,
+			String pageNumber, Integer memberCode, String sort);
+
 }
