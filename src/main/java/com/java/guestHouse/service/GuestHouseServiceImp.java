@@ -1,7 +1,5 @@
 ﻿package com.java.guestHouse.service;
 
-
-import java.net.Inet4Address;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,13 +20,13 @@ import com.java.aop.HomeAspect;
 import com.java.file.dto.FileDto;
 import com.java.guestHouse.dao.GuestHouseDao;
 import com.java.guestReserve.dto.GuestReserveDto;
+import com.java.guestReserve.dto.GHouseReviewListDto;
 import com.java.guestReserve.dto.RemainDto;
-import com.java.guestdelluna.dto.HouseDto;
+import com.java.guestdelluna.dto.HouseReviewDto;
 import com.java.guestdelluna.dto.MsgDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.host.dto.HostDto;
-import com.java.host.dto.ReservationListDto;
 import com.java.member.dto.MemberDto;
 
 @Component
@@ -48,7 +46,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 
-//		int houseCode = Integer.Parse(request.getParameter("houseCode"));
+//		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 		
 		int houseCode=13;
 //		int houseCode = 101;
@@ -67,10 +65,14 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		System.out.println("email: "+ email);
 		if(email!=null) {
 			
-			int memberCode = guestHouseDao.getMemberCode(email);
-			HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
+			//int memberCode = guestHouseDao.getMemberCode(email);
 			
-			mav.addObject("memberCode",memberCode);
+			MemberDto member = guestHouseDao.getMemberInfo(email);
+			
+			HomeAspect.logger.info(HomeAspect.logMsg + member.getMemberCode() + member.getMemberLevel());
+			
+			mav.addObject("memberCode",member.getMemberCode());
+			mav.addObject("memberLevel",member.getMemberLevel());
 		}
 		
 		
@@ -151,6 +153,29 @@ public class GuestHouseServiceImp implements GuestHouseService {
 //			}
 //		}
 		
+		/* 후기 리스트 */
+		String pageNumber = request.getParameter("pageNumber");
+		if (pageNumber == null) pageNumber = "1";
+		
+		int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
+
+		int boardSize = 3; // 2) 페이지당 출력할 게시물 수
+		// 시작 번호
+		int startRow = (currentPage - 1) * boardSize + 1;
+
+		// 끝 번호
+		int endRow = boardSize * currentPage;
+		
+		int count = guestHouseDao.getReviewCnt(houseCode);
+		HomeAspect.logger.info(HomeAspect.logMsg +"댓글 수: "+count);
+		
+		List<GHouseReviewListDto> reviewList = null;
+		if(count>0) {
+			reviewList = guestHouseDao.getReviewList(startRow,endRow,houseCode);
+			HomeAspect.logger.info(HomeAspect.logMsg + "이 페이지에 저장된 댓글  갯수: "+ reviewList.size());
+		}
+		
+		
 		mav.addObject("hostDto",hostDto);
 		mav.addObject("fileList",fileList);
 		mav.addObject("host",host);
@@ -159,9 +184,143 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		mav.addObject("lng",lng);
 		mav.addObject("remainDtoList",remainDtoList);
 		mav.addObject("email",email);
+		
+		
+		mav.addObject("reviewList", reviewList);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		 
 		 		
 		mav.setViewName("guestHousePage/guestPage.tiles");
 		
+	}
+	
+	@Override
+	public void review(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		HomeAspect.logger.info(HomeAspect.logMsg + "memberCode: "+memberCode);
+		
+		mav.setViewName("guestHousePage/review.tiles");
+	}
+	
+	@Override
+	public void reviewOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+		HomeAspect.logger.info(HomeAspect.logMsg + "houseCode: "+houseCode);
+		int memberCode = (Integer)(request.getSession().getAttribute("memberCode"));
+		HomeAspect.logger.info(HomeAspect.logMsg + "memberCode: "+memberCode);
+		
+		HouseReviewDto reviewDto = (HouseReviewDto)map.get("reviewDto");
+		
+		int getReserveCode = guestHouseDao.reserveCodeCnt(memberCode,houseCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "getReserveCode: "+getReserveCode);
+		
+		if(getReserveCode!=0) {
+			List<GuestReserveDto> reserveList = guestHouseDao.reserveCode(houseCode,memberCode);
+			HomeAspect.logger.info(HomeAspect.logMsg + "exReserveList: " + reserveList);
+			
+			for(int i=0; i<reserveList.size(); i++) {
+				if(reserveList.get(i)!=null) {
+					int reserveCode = reserveList.get(i).getReserveCode();
+					
+					// 예약코드로 리뷰를 작성했는지 확인
+					int reviewChk = guestHouseDao.reviewChk(reserveCode);
+					
+					// 이미 작성했을 경우
+					if(reviewChk!=0) {
+						mav.addObject("reviewChk",reviewChk);
+						mav.addObject("houseCode",houseCode);
+						
+						mav.setViewName("guestHousePage/reviewOk.tiles");
+					}else {
+						reviewDto.setMemberCode(memberCode);
+						reviewDto.setRevDate(new Date());
+						reviewDto.setRevContent(request.getParameter("revContent"));
+						reviewDto.setRevRate(Integer.parseInt(request.getParameter("revRate")));
+						reviewDto.setReserveCode(reserveCode);
+						HomeAspect.logger.info(HomeAspect.logMsg + "reviewDto: "+reviewDto.toString());
+						
+						int check = guestHouseDao.writeReview(reviewDto);
+						HomeAspect.logger.info(HomeAspect.logMsg + "write-Check: "+check);
+						
+						mav.addObject("check",check);
+						mav.addObject("houseCode",houseCode);
+						mav.setViewName("guestHousePage/reviewOk.tiles");
+					}
+				}
+			}
+		}else { // 게스트하우스 예약 번호가 없으면
+			mav.addObject("getReserveCode",getReserveCode);
+			mav.addObject("houseCode",houseCode);
+			mav.setViewName("guestHousePage/reviewOk.tiles");
+		}
+		
+	}
+	
+	@Override
+	public void reviewUpdate(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		int reserveCode = Integer.parseInt(request.getParameter("reserveCode"));
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		
+		String revContent = request.getParameter("revContent");
+		HomeAspect.logger.info(HomeAspect.logMsg + "reserveCode: " +reserveCode+", memberCode: "+memberCode);
+		
+		HouseReviewDto reviewDto = guestHouseDao.reviewUpdate(memberCode, reserveCode);
+		
+		mav.addObject("reviewDto",reviewDto);
+		mav.addObject("reserveCode",reserveCode);
+		mav.addObject("memberCode",memberCode);
+		mav.addObject("revContent",revContent);
+		
+		mav.setViewName("guestHousePage/reviewUpdate.empty");
+		
+	}@Override
+	public void reviewUpdateOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		HouseReviewDto reviewDto = (HouseReviewDto)map.get("reviewDto");
+		reviewDto.setRevDate(new Date());
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + reviewDto.toString());
+		
+		int check = guestHouseDao.reviewUpdateOk(reviewDto);
+		
+		mav.addObject("check");
+		
+		mav.setViewName("guestHousePage/reviewUpdateOk.empty");
+	}
+
+	@Override
+	public void reviewDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		int reserveCode = Integer.parseInt(request.getParameter("reserveCode"));
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + "reserveCode : " + reserveCode + ", "+houseCode);
+
+		int check = guestHouseDao.reviewDelete(reserveCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "check : " + check);
+
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("check", check);
+		mav.addObject("exCode",houseCode);
+		
+		mav.setViewName("guestHousePage/reviewDelete.tiles");
 	}
 	
 	/* 예약 가능 인원 확인 */

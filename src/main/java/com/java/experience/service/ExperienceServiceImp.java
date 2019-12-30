@@ -1,4 +1,4 @@
-package com.java.experience.service;
+﻿package com.java.experience.service;
 
 import java.awt.Point;
 import java.io.File;
@@ -601,6 +601,9 @@ public class ExperienceServiceImp implements ExperienceService {
 		
 		String email = (String) session.getAttribute("email");
 		int memberCode=0;
+
+		int exCode = Integer.parseInt(request.getParameter("exCode"));
+
 		
 		// 12-27 
 		//int exCode = 6;

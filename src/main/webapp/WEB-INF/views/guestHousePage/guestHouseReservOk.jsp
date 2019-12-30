@@ -15,15 +15,18 @@
 		<h3 align="center">예약 완료</h3>
 		<hr color="#CCCCCC"/>
 		<div id="wrap">
+			
 			<div id="mainImg">
 				<img src="<spring:url value='/image/${mainImg}' />" />
 			</div>
+			
 			<div id="info">
 				<p id="name">${houseName}</p>
 				<p id="explain">${explain}</p>	
 				<span id="reserveCode">예약번호: ${reserveCode}</span>&nbsp;&nbsp;&nbsp;
 				<span id="payment">결제금액: ${payment}</span>
 			</div>
+			
 		</div>
 	</div>
 	<!-- <hr color="#CCCCCC"/> -->

@@ -8,6 +8,8 @@ body{
 }
 #wrap{
 	margin-bottom: 1rem;
+	margin: auto;
+	width: 50rem;
 }
 
 
@@ -22,9 +24,15 @@ h3{
 }
 
 #mainImg{
-	display: inline; float: left;
+	display: inline-block; float: left; margin-right: 3rem;
 }
 
 #info{
-	display: inline;
+	display: inline-block;
+	border: 2px soild;
+}
+
+#name{
+	font-weight: bold;
+	font-size: 1.5rem; /* 24px */
 }

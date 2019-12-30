@@ -9,4 +9,9 @@ public interface GuestHouseService {
 	public void kakaoPaySuccess(ModelAndView mav);
 	public void kakaoPayCompleteOk(ModelAndView mav);
 	public void limitCheck(ModelAndView mav);
+	public void review(ModelAndView mav);
+	public void reviewOk(ModelAndView mav);
+	public void reviewUpdate(ModelAndView mav);
+	public void reviewUpdateOk(ModelAndView mav);
+	public void reviewDelete(ModelAndView mav);
 }
