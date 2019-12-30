@@ -41,6 +41,18 @@ public class PointController {
 			
 	}
 	
+	@RequestMapping(value="guestdelluna/managePointUseAjax.do" , method=RequestMethod.GET)
+	public void managePointUseAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.pointManageUseAjax(mav);
+			
+	}
+	
 	@RequestMapping(value="guestdelluna/payList.do" , method=RequestMethod.GET)
 	public ModelAndView payList(HttpServletRequest request , HttpServletResponse response) {
 		
@@ -52,6 +64,30 @@ public class PointController {
 		
 		return mav;
 		
+	}
+	
+	@RequestMapping(value="guestdelluna/payExpAjax.do" , method=RequestMethod.GET)
+	public void payExpAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.payExpAjax(mav);
+			
+	}
+	
+	@RequestMapping(value="guestdelluna/payHouseAjax.do" , method=RequestMethod.GET)
+	public void payHouseAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.payHouseAjax(mav);
+			
 	}
 	
 	@RequestMapping(value="guestdelluna/deleteExpPayList.do" , method=RequestMethod.GET)

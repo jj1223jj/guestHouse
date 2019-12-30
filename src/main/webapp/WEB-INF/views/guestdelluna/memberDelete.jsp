@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 탈퇴</title>
 </head>
 <body>
 
@@ -24,8 +24,8 @@
 	</div>
 	
 	<div>다음 문자를 그대로 입력해주세요</div>
-	<div>게스트 델루나를 탈퇴합니다</div>
-	<input type="text" class="deleteMsg" placeholder="게스트 델루나를 탈퇴합니다">
+	<h3 style="color: #008489">제주 스테이를 탈퇴합니다</h3>
+	<input type="text" class="deleteMsg" placeholder="제주 스테이를 탈퇴합니다">
 	<br>
 
 	<input type="submit" value="탈퇴" 	onclick="deleteCheck('${root}','${email}')" />
@@ -46,7 +46,7 @@ function deleteCheck(root, getEmail) {
 	var getEmail = document.getElementById("email");
 	var email = getEmail.value;
 
-	if (str == "게스트 델루나를 탈퇴합니다") {
+	if (str == "제주 스테이를 탈퇴합니다") {
 		location.href = root
 				+ "/guestdelluna/memberDeleteOk.do?password="
 				+ password + "&email=" + email;

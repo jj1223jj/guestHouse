@@ -81,6 +81,30 @@ public class ReviewController {
 		return mav;
 		
 	}
+	
+	@RequestMapping(value="guestdelluna/revExpAjax.do" , method=RequestMethod.GET)
+	public void revExpAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.revExpAjax(mav);
+			
+	}
+	
+	@RequestMapping(value="guestdelluna/revHouseAjax.do" , method=RequestMethod.GET)
+	public void revHouseAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.revHouseAjax(mav);
+			
+	}
 
 	//내가 쓴 후기
 	@RequestMapping(value="guestdelluna/allMyReview.do" , method=RequestMethod.GET)

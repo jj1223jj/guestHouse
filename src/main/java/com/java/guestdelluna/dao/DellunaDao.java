@@ -18,12 +18,14 @@ import com.java.guestdelluna.dto.MsgDto;
 
 import com.java.guestdelluna.dto.MyExReviewList;
 import com.java.guestdelluna.dto.MyHouseReviewList;
-
+import com.java.guestdelluna.dto.NewExpResDto;
 import com.java.guestdelluna.dto.NewExpReviewDto;
+import com.java.guestdelluna.dto.NewExpZzimDto;
+import com.java.guestdelluna.dto.NewHouseResDto;
 import com.java.guestdelluna.dto.NewHouseReserveDto;
 import com.java.guestdelluna.dto.NewExpReserveDto;
 import com.java.guestdelluna.dto.NewHouseReviewDto;
-
+import com.java.guestdelluna.dto.NewHouseZzimDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.guestdelluna.dto.HouseReviewDto;
@@ -170,9 +172,9 @@ public interface DellunaDao {
 
 	int updateHouseReview(int memberCode, int reserveCode, String revContent);	//ㅐ
 
-	List<NewExpReviewDto> myExpreviewList(int memberCode);	//ㅐ
+	List<NewExpReviewDto> myExpreviewList(int memberCode,int startRow, int endRow);	//ㅐ
 
-	List<NewHouseReviewDto> myHousereviewList(int memberCode);	//ㅐ
+	List<NewHouseReviewDto> myHousereviewList(int memberCode,int useStartRow,int useEndRow);	//ㅐ
 
 	List<ExReviewListDto> getExReviewListScroll(int memberCode, int startRow, int endRow);
 
@@ -187,5 +189,23 @@ public interface DellunaDao {
 	List<NewExpReserveDto> newNewExpReserve(int memberCode);	//o
 	
 	List<NewHouseReserveDto> newNewHouseReserve(int memberCode);	//o
+
+	List<PointAccumulate> allAccuPoint(int memberCode);	//o
+
+	List<NewExpZzimDto> newExpZzimDto(int memberCode, int startRow, int endRow);	//o
+
+	List<NewHouseZzimDto> newHouseZzimDto(int memberCode, int useStartRow, int useEndRow);	//o
+
+	int countExpZzim(int memberCode);	//ㅐ
+
+	int countHouseZzim(int memberCode);	//ㅐ
+
+	int countPayExp(int memberCode,String state);	//o
+
+	int countPayHouse(int memberCode,String state);	//o
+
+	List<NewExpResDto> newExpResDto(int memberCode, String state, int startRow, int endRow);	//o
+
+	List<NewHouseResDto> newHouseResDto(int memberCode, String state, int useStartRow, int useEndRow);	//o
 
 }

@@ -60,6 +60,30 @@ public class DellunaController {
 		
 	}
 	
+	@RequestMapping(value="guestdelluna/zzimExpAjax.do" , method=RequestMethod.GET)
+	public void zzimExpAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.zzimExpAjax(mav);
+			
+	}
+	
+	@RequestMapping(value="guestdelluna/zzimHouseAjax.do" , method=RequestMethod.GET)
+	public void zzimHouseAjax(HttpServletRequest request , HttpServletResponse response) {
+		
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("request", request);
+			mav.addObject("response", response);
+			
+			dellunaService.zzimHouseAjax(mav);
+			
+	}
+	
 	//찜쉬초
 	@RequestMapping(value="guestdelluna/zzimhouseCancel.do" , method=RequestMethod.GET)
 	public void zzimCancle(HttpServletRequest request , HttpServletResponse response) {
