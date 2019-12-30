@@ -175,6 +175,16 @@ public class HostController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/host/houseNameCheck.do", method = RequestMethod.GET)
+	public void houseNameCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		hostService.houseNameCheck(mav);
+		
+	}
+	
 	
 	
 	

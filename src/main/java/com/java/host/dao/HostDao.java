@@ -53,7 +53,7 @@ public interface HostDao {
 	public List<SearchDateList> searchDateList(int memberCode, String startDate, String endDate, int startRow,
 			int endRow);
 
-	public MemberDto selectMemberDto(String email);
+	public MemberDto selectMemberDto(int memberCode);
 
 	public List<HostDto> ahouseList(int memberCode);
 
@@ -68,5 +68,7 @@ public interface HostDao {
 	public List<ExReservationListDto> exReserveViewList(int exCode, int startRow, int endRow);
 
 	public String getLocal(String localName);
+
+	public int houseNameCheck(String houseName);
 
 }

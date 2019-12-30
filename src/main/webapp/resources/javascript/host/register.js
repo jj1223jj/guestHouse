@@ -11,10 +11,10 @@ $(document).ready(function(){
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			$('#profileView').attr('src', e.target.result);
-			alert(e.target.result);
-			$('#profileView').css({
-				'width': '300px'
-			});
+			//alert(e.target.result);
+//			$('#profileView').css({
+//				'width': '300px'
+//			});
 		}
 		reader.readAsDataURL(file);
 	});
@@ -38,10 +38,10 @@ function mainImgPreview(input) {
 		        return false;
 		    }else {
 		    	$('#mainImgView').attr('src', e.target.result);
-		    	alert(e.target.result);
-		    	$('#mainImgView').css({
-		    		'width': '200px'
-		    	});
+//		    	alert(e.target.result);
+//		    	$('#mainImgView').css({
+//		    		'width': '320px'
+//		    	});
 		    }
 			// alert(e.target.result);
 		}
@@ -79,11 +79,42 @@ function handleImgFileSelect(e) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			//var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\"><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove'></a>";
-			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='130px'/></a>";
+			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='140px'/></a>";
 			$(".subImgDiv").append(html);
 			index++;
 		}
 		reader.readAsDataURL(f);
+	});
+}
+
+function houseNameCheck(root) {
+	var houseName = document.getElementById('houseName');
+	if (houseName.value == "") {
+		alert("숙소이름을 입력해주세요.")
+		houseName.focus();
+		return false;
+	}
+	var url = root + "/host/houseNameCheck.do?";
+	var params = "houseName=" + houseName.value;
+	$.ajax({
+		url: url + params,
+		method: "get",
+		success: function(data) {
+			var text;
+			if (data == 0) {
+				text = '사용가능한 숙소 이름입니다.';
+			} else {
+				text = '이미 존재하는 숙소 이름입니다.';
+				houseName.focus();
+			}
+			$('.houseCheckBox').text(text);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(jqXHR);
+			alert(textStatus);
+			alert(errorThrown);
+		}
+	
 	});
 }
 
@@ -110,7 +141,6 @@ function register() {
 	var price = document.getElementById("price");
 	var etc = document.getElementById("etc");
 	var regex= /[^0-9]/g;
-	
 	
 	
 //	if (profileImg.value == "") {

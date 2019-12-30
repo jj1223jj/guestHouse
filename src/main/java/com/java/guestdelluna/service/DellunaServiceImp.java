@@ -848,18 +848,17 @@ public class DellunaServiceImp implements DellunaService {
 
 		String memberLevel = (String) session.getAttribute("memberLevel");
 		HomeAspect.logger.info(HomeAspect.logMsg + memberLevel);
-
-		int memberCode = dellunaDao.selectMemberCode(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + session.getAttribute("memberCode"));
+		int memberCode;
+		if (request.getParameter("memberCode") != null) {
+			memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		} else {
+			memberCode = (Integer) session.getAttribute("memberCode");
+		}
 		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
 
-		MemberDto memberDto = dellunaDao.selectForUpdate(email);
-//
-//		if (memberDto.getMemberImgName() != null) {
-//
-//			int index = memberDto.getMemberImgName().indexOf("_") + 1;
-//			memberDto.setMemberImgName(memberDto.getMemberImgName().substring(index));
-//			HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
-//		}
+		//MemberDto memberDto = dellunaDao.selectForUpdate(email);
+		MemberDto memberDto = dellunaDao.selectMemberDto(memberCode);
 
 		mav.addObject("memberDto", memberDto);
 
@@ -984,7 +983,16 @@ public class DellunaServiceImp implements DellunaService {
 		// 내가 쓴 게스트하우스 리뷰 리스트 (using newDto)
 		List<NewHouseReviewDto> myHousereviewList = dellunaDao.myHousereviewList(memberCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "내가 쓴 게하 후기 myHousereviewList " + myHousereviewList);
+		
+		//숙소 후기 개수
+		int houseReviewCount = dellunaDao.getHouseReviewCount(memberCode);
+		
+		//체험 후기 개수
+		int exReviewCount = dellunaDao.getExReviewCount(memberCode);
 
+		
+		mav.addObject("houseReviewCount", houseReviewCount);
+		mav.addObject("exReviewCount", exReviewCount);
 		mav.addObject("myExpreviewList", myExpreviewList);
 		mav.addObject("myHousereviewList", myHousereviewList);
 		mav.addObject("allMsgDto", allMsgDto);
@@ -1065,8 +1073,8 @@ public class DellunaServiceImp implements DellunaService {
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
-		int memberCode = dellunaDao.selectMemberCode(email);
-		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		HomeAspect.logger.info(HomeAspect.logMsg + "memberCode: " +memberCode);
 
 		String pageNumber = request.getParameter("page");
 		if (pageNumber == null) {
@@ -1083,11 +1091,33 @@ public class DellunaServiceImp implements DellunaService {
 		HomeAspect.logger.info(HomeAspect.logMsg + status);
 
 		List<HouseReviewListDto> houseReviewList = null;
+		String jsonText = null;
+		
 		if (status.equals("house")) {
 			houseReviewList = dellunaDao.getHouseReviewListScroll(memberCode, startRow, endRow);
 			for (int i = 0; i < houseReviewList.size(); i++) {
 				HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + houseReviewList.get(i).toString());
 			}
+			
+			JSONArray arr = new JSONArray();
+			for (HouseReviewListDto houseReviewListDto: houseReviewList) {
+				HashMap<String, String> commonMap = new HashMap<String, String>();
+				commonMap.put("code",Integer.toString(houseReviewListDto.getHouseCode()));
+				commonMap.put("name", houseReviewListDto.getHouseName());
+				commonMap.put("mainImgName", houseReviewListDto.getMainImgName());
+				commonMap.put("revContent", houseReviewListDto.getRevContent());
+				commonMap.put("revRate", Integer.toString(houseReviewListDto.getRevRate()));
+				commonMap.put("revDate", houseReviewListDto.getRevDate().toString());
+				commonMap.put("memberCode",Integer.toString(houseReviewListDto.getMemberCode()));
+				commonMap.put("memberImgName", houseReviewListDto.getMemberImgName());
+				commonMap.put("memberName", houseReviewListDto.getMemberName());
+				
+				arr.add(commonMap);
+				HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + commonMap.toString());
+			}
+			
+			jsonText = JSONValue.toJSONString(arr);
+			HomeAspect.logger.info(HomeAspect.logMsg + "jsonText: " + jsonText);
 		}
 
 		
@@ -1097,33 +1127,30 @@ public class DellunaServiceImp implements DellunaService {
 			for(int i = 0; i<exReviewList.size(); i++) {
 				HomeAspect.logger.info(HomeAspect.logMsg + "exReviewList: " + exReviewList.get(i).toString());
 			}
-		}
-		
-		JSONArray arr = new JSONArray();
-		for (HouseReviewListDto houseReviewListDto: houseReviewList) {
-			HashMap<String, Object> commonMap = new HashMap<String, Object>();
-			commonMap.put("houseName", houseReviewListDto.getHouseName());
-			commonMap.put("mainImgName", houseReviewListDto.getMainImgName());
-			commonMap.put("revContent", houseReviewListDto.getRevContent());
-			commonMap.put("revRate", houseReviewListDto.getRevRate());
-			commonMap.put("revDate", houseReviewListDto.getRevDate());
-			commonMap.put("memberImgName", houseReviewListDto.getMemberImgName());
-			commonMap.put("memberName", houseReviewListDto.getMemberName());
 			
-			arr.add(commonMap);
-			HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + commonMap.toString());
+			JSONArray arr = new JSONArray();
+			for (ExReviewListDto exReviewListDto: exReviewList) {
+				HashMap<String, String> commonMap = new HashMap<String, String>();
+				commonMap.put("code",Integer.toString(exReviewListDto.getExCode()));
+				commonMap.put("name", exReviewListDto.getExName());
+				commonMap.put("mainImgName", exReviewListDto.getMainImgName());
+				commonMap.put("revContent", exReviewListDto.getRevContent());
+				commonMap.put("revRate", Integer.toString(exReviewListDto.getRevRate()));
+				commonMap.put("revDate", exReviewListDto.getRevDate().toString());
+				commonMap.put("memberCode",Integer.toString(exReviewListDto.getMemberCode()));
+				commonMap.put("memberImgName", exReviewListDto.getMemberImgName());
+				commonMap.put("memberName", exReviewListDto.getMemberName());
+				
+				arr.add(commonMap);
+				HomeAspect.logger.info(HomeAspect.logMsg + "exReviewListDto: " + commonMap.toString());
+			}
+			
+			jsonText = JSONValue.toJSONString(arr);
+			HomeAspect.logger.info(HomeAspect.logMsg + "jsonText: " + jsonText);
+			
 		}
-		
-		String jsonText = JSONValue.toJSONString(arr);
-		
 		
 		return jsonText;
-		
-		
-		
-//		mav.addObject("exReviewList", exReviewList);
-//		mav.addObject("houseReviewList", houseReviewList);
-		//mav.setViewName("guestdelluna/scroll.empty");
 
 	}
 

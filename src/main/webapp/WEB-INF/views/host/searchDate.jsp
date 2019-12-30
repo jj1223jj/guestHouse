@@ -10,14 +10,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>기간조회</h3>
 		 <div align="center">
 		 <c:if test="${searchDateList.size() == 0 || count == 0}">
-		 	<table border="1">
-		 		<tr>
-		 			<td>예약 목록이 존재하지 않습니다.</td>
-		 		</tr>
-		 	</table>
+		 	<h5>예약목록이 존재하지 않습니다.</h5>
 		 </c:if>
 		 
 		<c:if test="${count > 0}"> 
@@ -45,9 +40,12 @@
 	      </c:forEach>
 	      </tbody>
 		</table>
+		<div class="totalPayment">
+			<span>건 수: ${searchDateListCount.count}</span>
+			<br/>
+			<span>총금액: ${searchDateListCount.payment}</span>
+		</div>
 		</c:if>
-		<h3>건 수: ${searchDateListCount.count}</h3>
-		<h3>총금액: ${searchDateListCount.payment}</h3>
 		<div align="center">
 		<c:if test="${count>0 }">
 			<fmt:parseNumber var="pageCount" integerOnly="true" 
@@ -67,13 +65,13 @@
 				<a onclick="searchDate('${root}','${startPage-pageBlock}')">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a onclick="searchDate('${root}', '${i}')">[${i}]</a>
+				<a onclick="searchDate('${root}', '${i}')" id="${i}">${i}</a>
 			</c:forEach>
 			<c:if test="${endPage < pageCount}">
 				<a onclick="searchDate('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
-		
+		<input type="hidden" value="${currentPage}" id="currentPage"/>
 	</div>
    
    </div>

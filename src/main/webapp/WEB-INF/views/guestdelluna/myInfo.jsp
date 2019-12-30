@@ -23,11 +23,6 @@ html {
 	font-size: 16px;
 }
 
-#wrap {
-	width: 70rem;
-	margin: 0 auto;
-	overflow: hidden;
-}
 
 /* The Modal (background) */
 .modal {
@@ -214,8 +209,10 @@ html {
 	src="${root}/resources/javascript/guestdelluna/scroll.js"></script>
 <link rel="stylesheet"
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="${root}/resources/css/guestdelluna/scroll.css">
+	<link rel="stylesheet"
+	href="${root}/resources/css/guestdelluna/menuLayout.css">
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/myReview.js"></script>
 <script type="text/javascript"
@@ -225,9 +222,10 @@ html {
 </head>
 
 <body onload="rootPage('${root}', '${memberLevel}')">
+<input type="hidden" value="${memberDto.memberCode}" id="memberCode"/>
 <div id="wrap">
 	<div class="menuL">
-	<button id="opener">알림종그림이라는 뜻</button>
+	<%-- <button id="opener">알림종그림이라는 뜻</button>
 	<!-- <div id="dialog" title="메시지 확인"> -->
 
 
@@ -334,30 +332,50 @@ html {
 
 	<div>
 		<div>
-			<%-- <img alt="img loading" width="200" height="200"
+			<img alt="img loading" width="200" height="200"
 						src="<spring:url value='/image/${memberDto.memberImgName}'/>">
-			 --%>			
+						
 		</div>
 		<div>${memberDto.memberInfo}</div>
 		<div><a href="${root}/guestdelluna/allMyReview.do">내가 쓴 후기</a></div>
-	</div>
-	<br />
-	<a href="${root}/guestdelluna/myInfo.do">내정보</a>
-	<a href="${root}/guestdelluna/memberUpdate.do">회원수정</a>
-	<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a>
-	<br />
-	<a href="${root}/guestdelluna/managePoint.do">포인트관리</a>
-	<a href="${root}/guestdelluna/payList.do">결제내역</a>
-	<a href="${root}/guestdelluna/allMyReview.do">내가 쓴 후기</a>
-	<br />
-	<c:if test="${memberLevel == 'Host'}">
-	<a href="${root}/host/reservationView.do">숙소예약현황</a>
-	<a href="${root}/host/exReservationView.do">체험예약현황</a>
-	<a href="${root}/host/salesView.do">매출조회</a>
-	<br/>
-	<a href="${root}/host/houseManagement.do">게스트하우스 관리</a>
-	<a href="${root}/host/exManagement.do">체험 관리</a>
-	</c:if>
+	</div> --%>
+	<ul>
+		<li>
+			<a href="${root}/guestdelluna/allMyReview.do">후기</a>
+		</li>
+		<c:if test="${memberCode == memberDto.memberCode}">
+		<li>
+			<a href="${root}/guestdelluna/memberUpdate.do">회원수정</a>
+		</li>
+		<li>
+			<a href="${root}/guestdelluna/managePoint.do">포인트관리</a>
+		</li>
+		<li>
+			<a href="${root}/guestdelluna/payList.do">결제내역</a>
+		</li>
+		<c:if test="${memberLevel == 'Host'}">
+		<hr style="border: 0.0315rem solid #ddd;"/>
+			<li>
+				<a href="${root}/host/reservationView.do">숙소예약현황</a>
+			</li>
+		<li>
+			<a href="${root}/host/exReservationView.do">체험예약현황</a>
+		</li>
+		<li>
+			<a href="${root}/host/salesView.do">매출조회</a>
+		</li>
+		<li>
+			<a href="${root}/host/houseManagement.do">게스트하우스 관리</a>
+		</li>
+		<li>
+			<a href="${root}/host/exManagement.do">체험 관리</a>
+		</li>
+		</c:if>
+		<li>
+			<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a>
+		</li>
+		</c:if>
+	</ul>
 	</div>
 
 	<div class="menuR">
@@ -374,10 +392,11 @@ html {
 		<div class="memberInfo">${memberDto.memberInfo}</div>
 	</div>
 	
-	<c:if test="${memberLevel == 'Host'}">
+	<c:if test="${memberDto.memberLevel == 'Host'}">
 		<div class="houseList">
 		<h3> ${memberDto.memberName}님의 숙소</h3>
 			<c:forEach var="hostHouseList" items="${hostHouseList}">
+				<a href="${root}/">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
@@ -403,12 +422,14 @@ html {
 						 <span>( ${hostHouseList.reviewCount} )</span> 
 					</div><div class="houseName">${hostHouseList.houseName}</div>
 				</div>
+				</a>
 			</c:forEach>
 		</div>
 
-		<div class="houseList">
+		<div class="exList">
 		<h3> ${memberDto.memberName}님의 체험</h3>
 			<c:forEach var="hostExList" items="${hostExList}">
+			<a href="${root}/">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
@@ -434,27 +455,21 @@ html {
 						<span>( ${hostExList.reviewCount} )</span> 
 					</div> <div class="houseName">${hostExList.exName}</div>
 				</div>
+				</a>
 			</c:forEach>
 		</div>
-	</c:if>
-	
-		<c:if test="${memberLevel == 'Host'}">
 	<div class="reviewWrap">
-		<button type="button" id="houseBtn" class="reviewBtn">숙소</button>
-		<button type="button" id="exBtn" class="reviewBtn">체험</button>
+		<button type="button" id="houseBtn" class="reviewBtn">숙소 후기 (${houseReviewCount})</button>
+		<button type="button" id="exBtn" class="reviewBtn">체험 후기 (${exReviewCount})</button>
 		<div id="houseReview">
 		</div>
-		<div id="exReview">
-		</div>
-		<div id="myHouseReview">
-		</div>
-		<div id="myExReview">
+		<div id="exReview" style="display: none">
 		</div>
 	</div>
 	<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
-  </div>
 		</c:if>
-  
+  </div>
+		
   </div>
   
   <div style="clear:both;"></div>

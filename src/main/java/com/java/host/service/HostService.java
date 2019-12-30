@@ -33,6 +33,8 @@ public interface HostService {
 
 	public void exReservationOkView(ModelAndView mav);
 
+	public void houseNameCheck(ModelAndView mav);
+
 
 
 }

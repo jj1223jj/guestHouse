@@ -1,6 +1,7 @@
 package com.java.host.dto;
 
 public class HostHouseListDto {
+	private int houseCode;
 	private String houseName;
 	private String mainImgName;
 	private int revRate;
@@ -10,7 +11,8 @@ public class HostHouseListDto {
 		
 	}
 
-	public HostHouseListDto(String houseName, String mainImgName, int revRate, int reviewCount) {
+	public HostHouseListDto(int houseCode, String houseName, String mainImgName, int revRate, int reviewCount) {
+		this.houseCode = houseCode;
 		this.houseName = houseName;
 		this.mainImgName = mainImgName;
 		this.revRate = revRate;
@@ -48,11 +50,19 @@ public class HostHouseListDto {
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
+	
+	public int getHouseCode() {
+		return houseCode;
+	}
+
+	public void setHouseCode(int houseCode) {
+		this.houseCode = houseCode;
+	}
 
 	@Override
 	public String toString() {
-		return "HostHouseList [houseName=" + houseName + ", mainImgName=" + mainImgName + ", revRate=" + revRate
-				+ ", reviewCount=" + reviewCount + "]";
+		return "HostHouseListDto [houseCode=" + houseCode + ", houseName=" + houseName + ", mainImgName=" + mainImgName
+				+ ", revRate=" + revRate + ", reviewCount=" + reviewCount + "]";
 	}
 	
 	

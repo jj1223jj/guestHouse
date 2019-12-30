@@ -303,6 +303,10 @@
 	and r.membercode=#{memberCode}
 </select>
 
+ <select id="selectMemberDto" parameterType="int" resultType="com.java.guestdelluna.dto.MemberDto">
+ 	select * from member where memberCode = #{memberCode}
+ </select>
+
 <!-- <select id="houseInfo2" parameterType="int" resultType="com.java.guestdelluna.dto.NewDto">
 	select * from reservation r , house h where r.houseCode = h.houseCode and r.memberCode = #{memberCode};
 </select> --> 

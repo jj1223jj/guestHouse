@@ -168,8 +168,8 @@ public class HostDaoImp implements HostDao {
 	}
 
 	@Override
-	public MemberDto selectMemberDto(String email) {
-		return sqlSession.selectOne("host.dao.mapper.selectMemberDto", email);
+	public MemberDto selectMemberDto(int memberCode) {
+		return sqlSession.selectOne("host.dao.mapper.selectMemberDto", memberCode);
 	}
 
 	@Override
@@ -180,6 +180,15 @@ public class HostDaoImp implements HostDao {
 	@Override
 	public String getLocal(String localName) {
 		return sqlSession.selectOne("host.dao.mapper.getLocal", localName);
+	}
+
+	@Override
+	public int houseNameCheck(String houseName) {
+		int check = 0;
+		String checkHouseName = sqlSession.selectOne("host.dao.mapper.houseNameCheck", houseName);
+		if(checkHouseName != null) check =1;
+		
+		return check;
 	}
 
 	

@@ -188,4 +188,10 @@ public interface DellunaDao {
 	
 	List<NewHouseReserveDto> newNewHouseReserve(int memberCode);	//o
 
+	int getHouseReviewCount(int memberCode);
+
+	int getExReviewCount(int memberCode);
+
+	MemberDto selectMemberDto(int memberCode);
+
 }

@@ -3,11 +3,13 @@ package com.java.host.dto;
 import java.util.Date;
 
 public class ExReviewListDto {
+	private int exCode;
 	private String exName;
 	private String mainImgName;
 	private String revContent;
 	private int revRate;
 	private Date revDate;
+	private int memberCode;
 	private String memberImgName;
 	private String memberName;
 	
@@ -15,13 +17,15 @@ public class ExReviewListDto {
 		
 	}
 
-	public ExReviewListDto(String exName, String mainImgName, String revContent, int revRate, Date revDate,
-			String memberImgName, String memberName) {
+	public ExReviewListDto(int exCode, String exName, String mainImgName, String revContent, int revRate, Date revDate,
+			int memberCode, String memberImgName, String memberName) {
+		this.exCode = exCode;
 		this.exName = exName;
 		this.mainImgName = mainImgName;
 		this.revContent = revContent;
 		this.revRate = revRate;
 		this.revDate = revDate;
+		this.memberCode = memberCode;
 		this.memberImgName = memberImgName;
 		this.memberName = memberName;
 	}
@@ -82,11 +86,27 @@ public class ExReviewListDto {
 		this.memberName = memberName;
 	}
 
+	public int getExCode() {
+		return exCode;
+	}
+
+	public void setExCode(int exCode) {
+		this.exCode = exCode;
+	}
+
+	public int getMemberCode() {
+		return memberCode;
+	}
+
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
+	}
+
 	@Override
 	public String toString() {
-		return "ExReviewListDto [exName=" + exName + ", mainImgName=" + mainImgName + ", revContent=" + revContent
-				+ ", revRate=" + revRate + ", revDate=" + revDate + ", memberImgName=" + memberImgName + ", memberName="
-				+ memberName + "]";
+		return "ExReviewListDto [exCode=" + exCode + ", exName=" + exName + ", mainImgName=" + mainImgName
+				+ ", revContent=" + revContent + ", revRate=" + revRate + ", revDate=" + revDate + ", memberCode="
+				+ memberCode + ", memberImgName=" + memberImgName + ", memberName=" + memberName + "]";
 	}
 	
 	

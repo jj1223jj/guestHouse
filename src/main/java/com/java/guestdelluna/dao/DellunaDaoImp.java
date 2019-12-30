@@ -626,5 +626,20 @@ public class DellunaDaoImp implements DellunaDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newNewHouseReserve", memberCode);
 	}
+
+	@Override
+	public int getHouseReviewCount(int memberCode) {
+		return sqlSessionTemplate.selectOne("host.dao.mapper.getHouseReviewCount" ,memberCode);
+	}
+
+	@Override
+	public int getExReviewCount(int memberCode) {
+		return sqlSessionTemplate.selectOne("host.dao.mapper.getExReviewCount" ,memberCode);
+	}
+
+	@Override
+	public MemberDto selectMemberDto(int memberCode) {
+		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectMemberDto" ,memberCode);
+	}
 	
 }
