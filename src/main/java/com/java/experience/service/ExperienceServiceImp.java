@@ -609,7 +609,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 12-27 
 		//int exCode = 6;
 		
-		  int exCode = Integer.parseInt(request.getParameter("exCode"));
+		 // int exCode = Integer.parseInt(request.getParameter("exCode"));
 		 
 		if(email!=null) {
 			

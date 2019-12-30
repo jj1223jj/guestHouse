@@ -70,7 +70,7 @@ function moreView() {
 					'<span class="reviewContent">'+json[i].revContent+'</span>'+
 					'<a href="myInfo.do?memberCode='+ json[i].memberCode + '">' +
 					'<div  class="reviewMemberImg">'+
-					'<img alt="img loading"src="<spring:url value=\'/profileImg/' + json[i].memberImgName + '\' />"/>' +
+					'<img alt="img loading"src="' + root + "/profileImg/" + json[i].memberImgName + '"/>' +
 					'</div>'+
 					'</a>' +
 					'<span>' + json[i].memberName + '</span>'+
