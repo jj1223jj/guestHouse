@@ -15,4 +15,6 @@ public interface SearchService {
 	public ModelAndView searchEx(String checkIn, String checkOut, String local, String people, String searchExName,
 			String pageNumber, Integer memberCode, String sort);
 
+	public String exOverlay(int exCode, Integer memberCode);
+
 }

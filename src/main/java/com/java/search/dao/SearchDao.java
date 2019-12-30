@@ -22,4 +22,6 @@ public interface SearchDao {
 	public List<ExperienceImgDto> searchEx(Map<String, Object> dataMap);
 
 	public int getExCount(Map<String, Object> dataMap);
+
+	public ExperienceImgDto exOverlay(int exCode, Integer memberCode);
 }

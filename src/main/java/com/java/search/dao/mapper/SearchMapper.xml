@@ -23,9 +23,28 @@
 		</if>
 		
 		where a.houseCode=#{houseCode}
-
-
 	
+	</select>
+	<select id="exOverlay" parameterType="java.util.Map" resultType="com.java.experience.dto.ExperienceImgDto">
+		
+
+		select a.exCode, exName, exPeople, revRate, revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from 
+		
+		(select exName,exCode,exPeople from experience) a
+		
+		left outer join
+		
+		(select exCode, round(nvl(avg(revRate),0),2) revRate, count(exCode) revCount from exReserve rs, exReview r where rs.exReserveCode= r.exReserveCode group by exCode) b
+		
+		on a.exCode= b.exCode
+		
+		<if test="memberCode!=null">
+		left outer join exWishList c
+		on a.exCode= c.exCode
+		and c.memberCode=#{memberCode}
+		</if>
+		
+		where a.exCode=#{exCode};
 	
 	</select>
 

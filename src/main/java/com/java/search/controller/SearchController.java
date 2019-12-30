@@ -52,6 +52,31 @@ public class SearchController {
 		
 	}
 	
+	@RequestMapping(value="/exOverlay", method=RequestMethod.GET)
+	public void exOverlay(HttpServletRequest request, HttpServletResponse response) {
+		
+		//customOverlay에 띄울 houseCode
+		String exCodeStr= request.getParameter("exCode");
+		int exCode= exCodeStr==null? 0 : Integer.parseInt(exCodeStr);
+		
+		//login되어 있으면 zzimed가져와야함
+		Integer memberCode= (Integer)request.getSession().getAttribute("memberCode");
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax exCode: "+exCode+", memberCode: "+memberCode);
+		
+		String overlay= searchService.exOverlay(exCode, memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax dto결과물: "+overlay);
+		
+		response.setContentType("application/x-json;charset=utf-8");
+		try {
+			PrintWriter out =response.getWriter();
+			out.print(overlay);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
