@@ -58,7 +58,7 @@ public class SearchController {
 
 		//session
 		Integer memberCode = (Integer) request.getSession().getAttribute("memberCode");
-		System.out.println(memberCode);
+		HomeAspect.logger.info(HomeAspect.logMsg+"sessionMemberCode: "+memberCode);
 		
 		//페이징
 		String pageNumber= request.getParameter("pageNumber");
@@ -75,6 +75,33 @@ public class SearchController {
 		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber, memberCode, sort);
 		
 		mav.setViewName("search/searchHouse.tiles");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="/experience", method=RequestMethod.GET)
+	public ModelAndView experience(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		
+		//session
+		Integer memberCode = (Integer) request.getSession().getAttribute("memberCode");
+		HomeAspect.logger.info(HomeAspect.logMsg+"sessionMemberCode: "+memberCode);
+		
+		//페이징
+		String pageNumber= request.getParameter("pageNumber");
+		if(pageNumber==null) pageNumber="1";
+		// 게스트 하우스 검색 조건
+		String sort = request.getParameter("sort");
+		String checkIn = request.getParameter("checkIn");
+		String checkOut = request.getParameter("checkOut");
+		String local = request.getParameter("local");
+		String people = request.getParameter("people");
+		String searchExName = request.getParameter("searchExName");
+		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchExName: "+searchExName +", sort: "+sort);
+		
+		mav = searchService.searchEx(checkIn, checkOut, local, people, searchExName, pageNumber, memberCode, sort);
+		
+		mav.setViewName("search/searchExperience.tiles");
 		return mav;
 	}
 	

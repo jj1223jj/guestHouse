@@ -3,6 +3,7 @@ package com.java.search.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.java.experience.dto.ExperienceImgDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
 import com.java.search.dto.GetCountDto;
@@ -17,4 +18,8 @@ public interface SearchDao {
 	public GetCountDto getCount(Map<String, Object> dataMap);
 
 	public HostImgDto overlay(int houseCode, Integer memberCode);
+
+	public List<ExperienceImgDto> searchEx(Map<String, Object> dataMap);
+
+	public int getExCount(Map<String, Object> dataMap);
 }
