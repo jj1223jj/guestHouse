@@ -14,7 +14,8 @@ function deleteExpState(root,value){
 function deleteStateFromServer(){
 	if(xhr.readyState==4 && xhr.status==200){
 		
-		//alert("콜백함수임");
+		alert("제거 완료됐습니다.");
+		location.reload();
 		
 	}
 }	

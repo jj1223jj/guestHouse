@@ -19,6 +19,8 @@
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <link rel="stylesheet"
 	href="${root}/resources/css/guestdelluna/bootstrap.css">
+<link rel="stylesheet"
+	href="${root}/resources/css/guestdelluna/menuLayout.css">
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/bootstrap.js"></script>
 <title>포인트 관리</title>
@@ -26,9 +28,11 @@
 html {
 	font-size: 16px;
 }
+
 .infoMenu {
 	margin-left: 2rem;
 }
+
 .vl {
 	border-left: 0.0625rem solid #dddddd;
 	height: 16rem;
@@ -36,13 +40,14 @@ html {
 	margin-left: 6rem;
 	margin-top: 4.4rem;
 }
+
 .page-link {
 	background-color: #008489;
 	border-color: #008489;
 }
 
-.aMenu{
-color : #333;
+.aMenu {
+	color: #333;
 }
 </style>
 
@@ -281,169 +286,160 @@ function useSetPaging(pageBlock,useResult,usePageCount,useCurrentPage,useResult2
 
 </head>
 <body>
-
-	<c:set var="accuPointVal" value="${accuPoint}" />
-	<c:set var="usePointVal" value="${usePoint}" />
-	<input type="hidden" name="accuPoint" value="${accuPoint}" />
-	<input type="hidden" name="usePoint" value="${usePoint}" />
-
-	<div class="row">
-		<div class="span9">
-			<div
-				style="margin-left: 28rem; text-align: center;">
-				${memberDto.memberName}님의 현재 사용가능 포인트는 <span
-					style="text-decoration: underline;"> <c:forEach
-						items="${accuPoint}" var="ap">
-						<c:set var="accSum" value="${accSum + ap.accuPoint}" />
-					</c:forEach> <c:set var="pointSum" value="${accSum}" /> <c:forEach
-						items="${usePoint}" var="up">
-						<c:set var="useSum" value="${useSum + up.usePoint}" />
-					</c:forEach> <c:set var="pointUse" value="${useSum}" /> <c:if
-						test="${pointSum - pointUse > 0}">
-						<c:out value="${pointSum - pointUse}" />
-					</c:if> <c:if test="${pointSum - pointUse < 0}">
-						<span>없습니다.</span>
+	<div id="wrap">
+		<div style="text-align: center;">
+			${memberDto.memberName}님의 현재 사용가능 포인트는 <span
+				style="text-decoration: underline;"> <c:forEach
+					items="${accuPoint}" var="ap">
+					<c:set var="accSum" value="${accSum + ap.accuPoint}" />
+				</c:forEach> <c:set var="pointSum" value="${accSum}" /> <c:forEach
+					items="${usePoint}" var="up">
+					<c:set var="useSum" value="${useSum + up.usePoint}" />
+				</c:forEach> <c:set var="pointUse" value="${useSum}" /> <c:if
+					test="${pointSum - pointUse > 0}">
+					<c:out value="${pointSum - pointUse}" />
+				</c:if> <c:if test="${pointSum - pointUse < 0}">
+					<span>없습니다.</span>
+				</c:if>
+			</span> <span>포인트 입니다.</span>
+		</div>
+		<div class="menuL">
+			<ul>
+				<li><a href="${root}/guestdelluna/allMyReview.do">후기</a></li>
+				<c:if test="${memberCode == memberDto.memberCode}">
+					<li><a href="${root}/guestdelluna/memberUpdate.do">회원수정</a></li>
+					<li><a href="${root}/guestdelluna/managePoint.do">포인트관리</a></li>
+					<li><a href="${root}/guestdelluna/payList.do">결제내역</a></li>
+					<c:if test="${memberLevel == 'Host'}">
+						<hr style="border: 0.0315rem solid #ddd;" />
+						<li><a href="${root}/host/reservationView.do">숙소예약현황</a></li>
+						<li><a href="${root}/host/exReservationView.do">체험예약현황</a></li>
+						<li><a href="${root}/host/salesView.do">매출조회</a></li>
+						<li><a href="${root}/host/houseManagement.do">게스트하우스 관리</a></li>
+						<li><a href="${root}/host/exManagement.do">체험 관리</a></li>
 					</c:if>
-				</span> <span>포인트 입니다.</span>
-			</div>
+					<li><a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a></li>
+				</c:if>
+			</ul>
+		</div>
 
-			<div class="row">
-				<div class="span2">
-					<div style="float: left; margin-left: 6rem; margin-top: 6rem;">
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/myInfo.do">내 정보</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/memberUpdate.do">회원 수정</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/memberDelete.do">회원 탈퇴</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/managePoint.do">포인트 관리</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/payList.do">결제 내역</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/allMyReview.do">내가 쓴 후기</a>
+		<div class="menuR">
+			<div id="tabs" class="container"
+				style="width: 70rem; margin-top: 1.5rem;">
+				<ul style="border: 0px; background: #ffffff;">
+					<li
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: -1rem"><a
+						href="#fragment-1"><span>포인트 적립 내역</span></a></li>
+					<li
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: 9rem;"><a
+						href="#fragment-2"><span>포인트 사용 내역</span></a></li>
+				</ul>
+				<div id="fragment-1">
+					<div>
+						<c:if test="${countAccu==0 }">
+							<span>적립된 포인트가 없습니다.</span>
+						</c:if>
+						<c:if test="${countAccu>0}">
+							<table class="table"
+								style="vertical-align: middle; text-align: center;">
+								<thead class="thead-light">
+									<tr style="font-weight: 800;">
+										<td>번호</td>
+										<td>적립장소</td>
+										<td>적립날짜</td>
+										<td>적립포인트</td>
+									</tr>
+								</thead>
+								<tbody class="pointInfo">
+									<c:forEach var="accuPoint" items="${accuPoint}"
+										varStatus="status">
+										<tr>
+											<td>${status.count}</td>
+											<td>${accuPoint.accuPlace}</td>
+											<td><fmt:formatDate value="${accuPoint.accuDate}"
+													pattern="yyyy-MM-dd" /></td>
+											<td>${accuPoint.accuPoint}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+
+							</table>
+						</c:if>
+						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
+						<div class="pointPageContainer">
+							<ul class="pagination">
+
+							</ul>
 						</div>
 					</div>
 				</div>
 
-				<div class="span1">
-					<div class="vl"></div>
-				</div>
-
-				<div class="span6" style="margin-top: 4rem">
-					<div id="tabs" class="container"
-						style="width: 70rem; margin-top: 1.5rem; margin-left: 8rem;">
-						<ul style="border: 0px; background: #ffffff;">
-							<li
-								style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: -1rem"><a
-								href="#fragment-1"><span>포인트 적립 내역</span></a></li>
-							<li
-								style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: 9rem;"><a
-								href="#fragment-2"><span>포인트 사용 내역</span></a></li>
-						</ul>
-						<div id="fragment-1">
-							<div>
-								<c:if test="${countAccu==0 }">
-									<span>적립된 포인트가 없습니다.</span>
-								</c:if>
-								<c:if test="${countAccu>0}">
-								<table class="table"
-									style="vertical-align: middle; text-align: center;">
-									<thead class="thead-light">
-										<tr style="font-weight: 800;">
-											<td>번호</td>
-											<td>적립장소</td>
-											<td>적립날짜</td>
-											<td>적립포인트</td>
+				<div id="fragment-2">
+					<div>
+						<c:if test="${countUse==0 }">
+							<span>사용된 포인트가 없습니다.</span>
+						</c:if>
+						<c:if test="${countUse>0 }">
+							<table class="table"
+								style="vertical-align: middle; text-align: center;">
+								<thead class="thead-light">
+									<tr style="font-weight: 800;">
+										<td>번호</td>
+										<td>사용장소</td>
+										<td>사용날짜</td>
+										<td>사용포인트</td>
+									</tr>
+								</thead>
+								<tbody class="useInfo">
+									<c:forEach var="usePoint" items="${usePoint}"
+										varStatus="status">
+										<tr>
+											<td>${status.count}</td>
+											<td>${usePoint.usePlace}</td>
+											<td><fmt:formatDate value="${usePoint.useDate}"
+													pattern="yyyy-MM-dd" /></td>
+											<td>${usePoint.usePoint}</td>
 										</tr>
-									</thead>
-									<c:if test="${countAccu>0 }">
-
-										<tbody class="pointInfo">
-											<c:forEach var="accuPoint" items="${accuPoint}"
-												varStatus="status">
-													<tr>
-														<td>${status.count}</td>
-														<td>${accuPoint.accuPlace}</td>
-														<td><fmt:formatDate value="${accuPoint.accuDate}"
-																pattern="yyyy-MM-dd" /></td>
-														<td>${accuPoint.accuPoint}</td>
-													</tr>
-											</c:forEach>
-										</tbody>
-
-								</table>
-								</c:if>
-<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-								<div class="pointPageContainer">
-									<ul class="pagination">
-
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<div id="fragment-2">
-								<div>
-								<c:if test="${countUse==0 }">
-									<span>사용된 포인트가 없습니다.</span>
-								</c:if>
-								<c:if test="${countUse>0 }">
-								<table class="table"
-									style="vertical-align: middle; text-align: center;">
-									<thead class="thead-light">
-										<tr style="font-weight: 800;">
-											<td>번호</td>
-											<td>사용장소</td>
-											<td>사용날짜</td>
-											<td>사용포인트</td>
-										</tr>
-									</thead>
-										<tbody class="useInfo">
-											<c:forEach var="usePoint" items="${usePoint}"
-												varStatus="status">
-													<tr>
-														<td>${status.count}</td>
-														<td>${usePoint.usePlace}</td>
-														<td><fmt:formatDate value="${usePoint.useDate}"
-																pattern="yyyy-MM-dd" /></td>
-														<td>${usePoint.usePoint}</td>
-													</tr>
-											</c:forEach>
-										</tbody>
-								</table>
-								</c:if>
-<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-								<div class="usePageContainer">
-									<ul class="pagination point" >
-
-									</c:if>
-								</table>
-
-<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-								<div class="pointPageContainer">
-									<ul class="pagination">
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
+						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
+						<div class="usePageContainer">
+							<ul class="pagination point">
 
 
-									</ul>
-								</div>
-							</div>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 

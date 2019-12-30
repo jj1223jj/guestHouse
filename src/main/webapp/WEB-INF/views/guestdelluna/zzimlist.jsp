@@ -320,139 +320,179 @@ html {
 </script>
 </head>
 <body>
-	<div class="row">
-		<div class="span9">
-			<div style="margin-left: 28rem; text-align: center;">
-				${memberDto.memberName}님의 장바구니 목록입니다</div>
+	<div id="wrap">
+		<div style="text-align: center;">${memberDto.memberName}님의 장바구니
+			목록입니다</div>
+		<div class="menuL">
+			<ul>
+				<li><a href="${root}/guestdelluna/allMyReview.do">후기</a></li>
+				<c:if test="${memberCode == memberDto.memberCode}">
+					<li><a href="${root}/guestdelluna/memberUpdate.do">회원수정</a></li>
+					<li><a href="${root}/guestdelluna/managePoint.do">포인트관리</a></li>
+					<li><a href="${root}/guestdelluna/payList.do">결제내역</a></li>
+					<c:if test="${memberLevel == 'Host'}">
+						<hr style="border: 0.0315rem solid #ddd;" />
+						<li><a href="${root}/host/reservationView.do">숙소예약현황</a></li>
+						<li><a href="${root}/host/exReservationView.do">체험예약현황</a></li>
+						<li><a href="${root}/host/salesView.do">매출조회</a></li>
+						<li><a href="${root}/host/houseManagement.do">게스트하우스 관리</a></li>
+						<li><a href="${root}/host/exManagement.do">체험 관리</a></li>
+					</c:if>
+					<li><a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a></li>
+				</c:if>
+			</ul>
+		</div>
 
-			<div class="row">
-				<div class="span2">
-					<div style="float: left; margin-left: 6rem; margin-top: 6rem;">
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/myInfo.do">내 정보</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/memberUpdate.do">회원
-								수정</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/memberDelete.do">회원
-								탈퇴</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/managePoint.do">포인트
-								관리</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/payList.do">결제 내역</a>
-						</div>
-						<br />
-						<div class="infoMenu">
-							<a class="aMenu" href="${root}/guestdelluna/allMyReview.do">내가
-								쓴 후기</a>
+		<div class="menuR">
+			<div id="tabs" class="container"
+				style="width: 70rem; margin-top: 1.5rem;">
+				<ul style="border: 0px; background: #ffffff;">
+					<li
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: -1rem"><a
+						href="#fragment-1"><span>체험 장바구니 내역</span></a></li>
+					<li
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: 9rem;"><a
+						href="#fragment-2"><span>게스트하우스 장바구니 내역</span></a></li>
+				</ul>
+				<div id="fragment-1">
+					<div>
+						<c:if test="${countExpZzim==0 }">
+							<span>장바구니에 등록된 체험이 없습니다. 지금 체험들을 둘러보세요!</span>
+						</c:if>
+
+						<c:if test="${countExpZzim>0 }">
+							<table class="table"
+								style="vertical-align: middle; text-align: center;">
+								<thead class="thead-light">
+									<tr style="font-weight: 800;">
+										<td>번호</td>
+										<td>체험 이름</td>
+										<td>체험 날짜</td>
+										<td></td>
+									</tr>
+								</thead>
+
+								<tbody class="pointInfo">
+									<c:forEach var="newExpZzimDto" items="${newExpZzimDto}"
+										varStatus="status">
+										<tr>
+											<td>${status.count}</td>
+											<td>${newExpZzimDto.exName}</td>
+											<td><fmt:formatDate value="${newExpZzimDto.exStartDate}"
+													pattern="yyyy-MM-dd" /></td>
+											<td><button type="button" class="btn btn-primary btn-lg"
+													data-toggle="modal"
+													style="background: #008489; border: 1px solid #008489;"
+													data-target="#myModal">삭제</button></td>
+										</tr>
+										<!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel"
+															style="text-align: left">장바구니에서 제거</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div>장바구니에서 제거하시겠습니까?</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-primary"
+															style="background: #008489; border: 1px solid #008489;"
+															onclick="deleteExpState('${root}','${newExpZzimDto.exCode}')">네</button>
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">닫기</button>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
+						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
+						<div class="pointPageContainer">
+							<ul class="pagination">
+
+							</ul>
 						</div>
 					</div>
 				</div>
 
-				<div class="span1">
-					<div class="vl"></div>
-				</div>
-
-				<div class="span6" style="margin-top: 4rem">
-					<div id="tabs" class="container"
-						style="width: 70rem; margin-top: 1.5rem; margin-left: 8rem;">
-						<ul style="border: 0px; background: #ffffff;">
-							<li
-								style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: -1rem"><a
-								href="#fragment-1"><span>체험 장바구니 내역</span></a></li>
-							<li
-								style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: 9rem;"><a
-								href="#fragment-2"><span>게스트하우스 장바구니 내역</span></a></li>
-						</ul>
-						<div id="fragment-1">
-							<div>
-								<c:if test="${countExpZzim==0 }">
-									<span>장바구니에 등록된 체험이 없습니다. 지금 체험들을 둘러보세요!</span>
-								</c:if>
-							
-								<c:if test="${countExpZzim>0 }">
-									<table class="table"
-										style="vertical-align: middle; text-align: center;">
-										<thead class="thead-light">
-											<tr style="font-weight: 800;">
-												<td>번호</td>
-												<td>체험 이름</td>
-												<td>체험 날짜</td>
-												<td></td>
-											</tr>
-										</thead>
-
-										<tbody class="pointInfo">
-											<c:forEach var="newExpZzimDto" items="${newExpZzimDto}"
-												varStatus="status">
-												<tr>
-													<td>${status.count}</td>
-													<td>${newExpZzimDto.exName}</td>
-													<td><fmt:formatDate
-															value="${newExpZzimDto.exStartDate}" pattern="yyyy-MM-dd" /></td>
-													<td
-														onclick="deleteExpState('${root}','${newExpZzimDto.exCode}')">삭제</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</c:if>
-								<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-								<div class="pointPageContainer">
-									<ul class="pagination">
-
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<div id="fragment-2">
-							<div>
-								<c:if test="${countHouseZzim==0 }">
-									<span>장바구니에 등록된 게스트하우스가 없습니다. 지금 게스트하우스들을 둘러보세요!</span>
-								</c:if>
-							
-								<c:if test="${countHouseZzim>0 }">
-								<table class="table"
-									style="vertical-align: middle; text-align: center;">
-									<thead class="thead-light">
-										<tr style="font-weight: 800;">
-											<td>번호</td>
-											<td>게스트하우스 이름</td>
-											<td></td>
-										</tr>
-									</thead>
-
-									<tbody class="useInfo">
-										<c:forEach var="newHouseZzimDto" items="${newHouseZzimDto}"
-											varStatus="status">
-											<tr>
-												<td>${status.count}</td>
-												<td>${newHouseZzimDto.houseName}</td>
-												<td
-													onclick="deleteHouse('${root}','${newHouseZzimDto.houseCode}')">삭제</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+				<div id="fragment-2">
+					<div>
+						<c:if test="${countHouseZzim==0 }">
+							<span>장바구니에 등록된 게스트하우스가 없습니다. 지금 게스트하우스들을 둘러보세요!</span>
 						</c:if>
 
-								<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-								<div class="usePageContainer">
-									<ul class="pagination point">
+						<c:if test="${countHouseZzim>0 }">
+							<table class="table"
+								style="vertical-align: middle; text-align: center;">
+								<thead class="thead-light">
+									<tr style="font-weight: 800;">
+										<td>번호</td>
+										<td>게스트하우스 이름</td>
+										<td></td>
+									</tr>
+								</thead>
 
-									</ul>
-								</div>
-							</div>
+								<tbody class="useInfo">
+									<c:forEach var="newHouseZzimDto" items="${newHouseZzimDto}"
+										varStatus="status">
+										<tr>
+											<td>${status.count}</td>
+											<td>${newHouseZzimDto.houseName}</td>
+											<td><button type="button" class="btn btn-primary btn-lg"
+													data-toggle="modal"
+													style="background: #008489; border: 1px solid #008489;"
+													data-target="#myModal" onclick="onModal()"
+													style="background: #008489; border: 1px solid #008489;">삭제</button></td>
+										</tr>
+										<!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel"
+															style="text-align: left">장바구니에서 제거</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div>장바구니에서 제거하시겠습니까?</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-primary"
+															style="background: #008489; border: 1px solid #008489;"
+															onclick="deleteHouse('${root}','${newHouseZzimDto.houseCode}')">네</button>
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">닫기</button>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
+
+						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
+						<div class="usePageContainer">
+							<ul class="pagination point">
+
+							</ul>
 						</div>
 					</div>
 				</div>

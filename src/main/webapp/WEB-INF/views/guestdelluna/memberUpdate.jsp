@@ -143,6 +143,8 @@
 						정보를 수정합니다</h5>
 				</div>
 
+	<input type="hidden" value="${memberDto.email}" name="email" >
+
 				<div class="fullBg">
 					<div class="innerBox formJoinWrap"
 						style="margin: 0 auto; height: 31rem;">
@@ -267,7 +269,7 @@
 							<div class="form-group">
 								<label for="InputSubject1"
 									style="margin-left: 20rem; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont;">
-									회원 이미지</label> <input id="fileInput" filestyle="" type="file"
+									회원 이미지</label> <input id="fileInput" filestyle="" type="file" name="file"
 									data-class-button="btn btn-default"
 									data-class-input="form-control" data-button-text=""
 									data-icon-name="fa fa-upload" class="form-control"
@@ -278,7 +280,7 @@
 									style="margin-left: 20rem; width: 32.5rem">
 
 									<input type="text" id="userfile" class="form-control"
-										name="file" disabled=""> <span
+										name="file" style="background-color: #ffffff"> <span
 										class="group-span-filestyle input-group-btn" tabindex="0">
 
 										<label for="fileInput" class="btn btn-default "> <span

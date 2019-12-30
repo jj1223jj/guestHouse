@@ -222,8 +222,10 @@ html {
 </head>
 
 <body onload="rootPage('${root}', '${memberLevel}')">
+<<<<<<< HEAD
 <input type="hidden" value="${memberDto.memberCode}" id="memberCode"/>
 <div id="wrap">
+
 	<div class="menuL">
 	<%-- <button id="opener">알림종그림이라는 뜻</button>
 	<!-- <div id="dialog" title="메시지 확인"> -->

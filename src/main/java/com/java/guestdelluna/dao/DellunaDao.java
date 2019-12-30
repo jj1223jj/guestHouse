@@ -186,7 +186,7 @@ public interface DellunaDao {
 
 	List<NewHouseReserveDto> newHouseReserve(int memberCode, String state);	//o
 
-	List<NewExpReserveDto> newNewExpReserve(int memberCode);	//o
+	List<NewExpReserveDto> newNewExpReserve(int memberCode);	//o pppp
 	
 	List<NewHouseReserveDto> newNewHouseReserve(int memberCode);	//o
 
