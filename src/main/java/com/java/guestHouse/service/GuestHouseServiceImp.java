@@ -46,8 +46,8 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 
-//		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
-		
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+
 		int houseCode=63;
 //		int houseCode = 101;
 //		int houseCode = 8;

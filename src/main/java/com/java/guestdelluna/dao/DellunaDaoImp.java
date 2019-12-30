@@ -639,6 +639,7 @@ public class DellunaDaoImp implements DellunaDao {
 	}
 
 	@Override
+
 	public List<PointAccumulate> allAccuPoint(int memberCode) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newPointAccu", memberCode);
@@ -716,6 +717,20 @@ public class DellunaDaoImp implements DellunaDao {
 		map.put("useStartRow", useStartRow);
 		map.put("useEndRow", useEndRow);
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newHouseResDto", map);
+
+	public int getHouseReviewCount(int memberCode) {
+		return sqlSessionTemplate.selectOne("host.dao.mapper.getHouseReviewCount" ,memberCode);
+	}
+
+	@Override
+	public int getExReviewCount(int memberCode) {
+		return sqlSessionTemplate.selectOne("host.dao.mapper.getExReviewCount" ,memberCode);
+	}
+
+	@Override
+	public MemberDto selectMemberDto(int memberCode) {
+		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectMemberDto" ,memberCode);
+
 	}
 	
 }

@@ -18,6 +18,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="${root}/resources/css/guestdelluna/menuLayout.css">
 <script type="text/javascript">
 google.charts.load("current", {packages:['corechart']});
 google.charts.setOnLoadCallback(drawChart);
@@ -128,38 +129,121 @@ google.charts.setOnLoadCallback(drawChart);
 	function fromServer() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			document.getElementById("searchDateView").innerHTML = xhr.responseText;
+			var currentPage = $("#currentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
 		}
 	}
   </script>
   <style>
-  	#searchDate {
-  		margin-top: 200px;
+  	.chartDiv, .searchDateDiv {
+  		margin-top: 2rem;
   	}
+  	input, select {
+		padding: 0.3rem 0.6rem;
+		border-radius: 0.3rem;
+		border: 1px solid #ddd;
+		background-color: #ffffff;
+	}
+	button {
+		width: 4rem;
+	    height: 2.3rem;
+		background-color: #008489;
+		color: #ffffff;
+		font-weight: bold;
+		font-size: 1rem;
+		border-radius: 0.3rem;
+		border: none;
+	}
+	#searchDate {
+	    display: inline-block;
+	   	margin-left: 23rem;
+	}
+	#searchDateView {
+		margin-top: 2rem;
+	}
+	.totalPayment {
+		width: 12.5rem;
+		text-align: left;
+	    margin-left: 44rem;
+	}
   </style>
 </head>
 <body onload="selected('${year}')">
-	<h3>숙소매출조회</h3>
+<div id="wrap">
+	<div class="menuL">
+	<ul>
+		<li>
+			<a href="${root}/guestdelluna/allMyReview.do">후기</a>
+		</li>
+		<li>
+			<a href="${root}/guestdelluna/memberUpdate.do">회원수정</a>
+		</li>
+		<li>
+			<a href="${root}/guestdelluna/managePoint.do">포인트관리</a>
+		</li>
+		<li>
+			<a href="${root}/guestdelluna/payList.do">결제내역</a>
+		</li>
+		<c:if test="${memberLevel == 'Host'}">
+		<hr style="border: 0.0315rem solid #ddd;"/>
+			<li>
+				<a href="${root}/host/reservationView.do">숙소예약현황</a>
+			</li>
+		<li>
+			<a href="${root}/host/exReservationView.do">체험예약현황</a>
+		</li>
+		<li>
+			<a href="${root}/host/salesView.do">매출조회</a>
+		</li>
+		<li>
+			<a href="${root}/host/houseManagement.do">게스트하우스 관리</a>
+		</li>
+		<li>
+			<a href="${root}/host/exManagement.do">체험 관리</a>
+		</li>
+		</c:if>
+		<li>
+			<a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a>
+		</li>
+	</ul>
+	</div>
+
+	<div class="menuR">
 	
-	<select id="year" name="year" onchange="toServer('${root}')">
-		<option>${currentYear-3}</option>
-		<option>${currentYear-2}</option>
-		<option>${currentYear-1}</option>
-		<option>${currentYear}</option>
-	</select>
-	
-	<div id="columnchart_values" style="width: 900px; height: 300px;">
+	<h3>년도별 매출조회</h3>
+	<div class="chartDiv">
+		<select id="year" name="year" onchange="toServer('${root}')">
+			<option>${currentYear-3}</option>
+			<option>${currentYear-2}</option>
+			<option>${currentYear-1}</option>
+			<option>${currentYear}</option>
+		</select>
+		
+		<div id="columnchart_values">
+		</div>
 	</div>
 	
-	
-	<form id="searchDate">
-		<label for="from"></label>
-		<input type="text" id="from" name="from">
-		<label for="to">~</label>
-		<input type="text" id="to" name="to">
-	 	<button type="button" onclick="return searchDate('${root}', '')">조회</button>
- 	</form>
- 	
- 	<div id="searchDateView"></div>
+	<h3>기간별 매출 검색</h3>
+	<div class="searchDateDiv">
+		<form id="searchDate">
+			<label for="from"></label>
+			<input type="text" id="from" name="from">
+			<label for="to">~</label>
+			<input type="text" id="to" name="to">
+		 	<button type="button" onclick="return searchDate('${root}', '')">조회</button>
+	 	</form>
+	 	
+	 	<div id="searchDateView" style="text-align:center">
+	 		조회를 원하는 날짜를 선택해주세요.
+	 	</div>
+	</div>
+	</div>
+  </div>
 	
 </body>
 </html>

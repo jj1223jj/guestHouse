@@ -2,12 +2,14 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +41,9 @@ public class HostServiceImp implements HostService {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 		HttpSession session = request.getSession();
-		String email = (String)session.getAttribute("email");
-		int memberCode = hostDao.memberCode(email);
+		int memberCode = (Integer)session.getAttribute("memberCode");
 		
-		MemberDto memberDto = hostDao.selectMemberDto(email);
+		MemberDto memberDto = hostDao.selectMemberDto(memberCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "memberDto :" + memberDto.toString());
 		
 		mav.addObject("memberDto", memberDto);
@@ -246,7 +247,7 @@ public class HostServiceImp implements HostService {
 		int count = hostDao.getReserveCount(houseCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "getReserveCount: " + count);
 		
-		int boardSize = 2;
+		int boardSize = 5;
 		int startRow = (currentPage-1)*boardSize+1;
 		int endRow = currentPage*boardSize;		
 		
@@ -307,7 +308,7 @@ public class HostServiceImp implements HostService {
 		int count = hostDao.getExReserveCount(exCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "getExReserveCount: " + count);
 		
-		int boardSize = 2;
+		int boardSize = 5;
 		int startRow = (currentPage-1)*boardSize+1;
 		int endRow = currentPage*boardSize;		
 		
@@ -383,7 +384,6 @@ public class HostServiceImp implements HostService {
 
 	@Override
 	public void houseManagement(ModelAndView mav) {
-		
 		mav.setViewName("host/houseManagement.tiles");
 	}
 	
@@ -405,7 +405,7 @@ public class HostServiceImp implements HostService {
 		int count = hostDao.getHouseCount(email);
 		HomeAspect.logger.info(HomeAspect.logMsg + "HouseCount: " + count);
 		
-		int boardSize = 2;
+		int boardSize = 5;
 		int startRow = (currentPage-1)*boardSize+1;
 		int endRow = currentPage*boardSize;		
 		
@@ -425,7 +425,6 @@ public class HostServiceImp implements HostService {
 
 	@Override
 	public void exManagement(ModelAndView mav) {
-		
 		mav.setViewName("host/exManagement.tiles");
 	}
 	
@@ -448,7 +447,7 @@ public class HostServiceImp implements HostService {
 		int count = hostDao.getExCount(memberCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "getExCount: " + count);
 		
-		int boardSize = 2;
+		int boardSize = 5;
 		int startRow = (currentPage-1)*boardSize+1;
 		int endRow = currentPage*boardSize;		
 		
@@ -479,8 +478,7 @@ public class HostServiceImp implements HostService {
 		
 		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 		int cancelCheck = hostDao.hostCancel(houseCode);
-		
-		 houseManagement(mav);
+		houseManagement(mav);
 	}
 	
 
@@ -491,8 +489,7 @@ public class HostServiceImp implements HostService {
 		
 		int exCode = Integer.parseInt(request.getParameter("exCode"));
 		int cancelCheck = hostDao.exCancel(exCode);
-		
-		 houseManagement(mav);
+		exManagement(mav);
 	}
 
 
@@ -521,7 +518,7 @@ public class HostServiceImp implements HostService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "getSearchDateCount: " + searchDateListCount.toString());
 		int count = searchDateListCount.getCount();
 		
-		int boardSize = 2;
+		int boardSize = 5;
 		int startRow = (currentPage-1)*boardSize+1;
 		int endRow = currentPage*boardSize;		
 		
@@ -544,6 +541,28 @@ public class HostServiceImp implements HostService {
 		mav.addObject("count", count);
 		mav.addObject("searchDateList", searchDateList);
 		mav.setViewName("host/searchDate.empty");
+	}
+
+	@Override
+	public void houseNameCheck(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpServletResponse response = (HttpServletResponse)map.get("response");
+		
+		String houseName = request.getParameter("houseName");
+		HomeAspect.logger.info(HomeAspect.logMsg +"입력한 houseName: " + houseName);
+		
+		int check = hostDao.houseNameCheck(houseName);
+		HomeAspect.logger.info(HomeAspect.logMsg +"기존에 있는 숙소이름이면 1/ 아니면 0: " + check);
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	

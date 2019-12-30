@@ -208,4 +208,11 @@ public interface DellunaDao {
 
 	List<NewHouseResDto> newHouseResDto(int memberCode, String state, int useStartRow, int useEndRow);	//o
 
+	int getHouseReviewCount(int memberCode);
+
+	int getExReviewCount(int memberCode);
+
+	MemberDto selectMemberDto(int memberCode);
+
+
 }

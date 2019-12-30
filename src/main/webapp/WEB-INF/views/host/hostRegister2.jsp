@@ -19,30 +19,31 @@
 </head>
 <body>
 	<div class="wrap">
+	<div class="width">
 	<form action="${root}/host/guestRoom.do" method="post" enctype="multipart/form-data" onsubmit="return register()">
 		<ul>
 			<c:if test="${empty memberDto.memberImgName}">
 			<li>
 				<label>프로필 사진 추가</label>
-				<div class="profileDiv">
+				<p>게스트는 프로필 사진을 반드시 추가해야합니다. 게스트에게 나를 알릴 수 있는 사진을 등록해주세요</p>
+				<input type="file" id="profileImg" name="profileImg" onchange="profile()" accept="image/*"/>
+				<!-- <input type="button" value="사진 업로드 하기" onclick="profileUpload()"> --> 
+				<div class="profileDiv" onclick="profileUpload()">
 					<img src="" id="profileView"/>
-					<input type="file" id="profileImg" name="profileImg" onchange="profile()" accept="image/*"/>
-					<input type="button" value="파일 업로드 하기" onclick="profileUpload()"> 
 				</div>
-				<textarea rows="20" cols="50" name="memberInfo" id="memberInfo">
+				<label>자기 소개</label>
+				<p>게스트에게 나를 소개해보세요!</p>
+				<textarea rows="10" cols="60" name="memberInfo" id="memberInfo">
 					${memberDto.memberInfo}
 				</textarea>
-				<div>
-					<span> 
-						게스트에게 나를 소개해보세요!
-					</span>
-				</div>
 			</li>
 			</c:if>
 			<li>
 				<label>숙소이름</label>
 		<input type="text" name="houseName" id="houseName" size="50"/>
+		<input type="button" onclick="return houseNameCheck('${root}')" value="숙소이름 확인"/>
 			</li>
+			<p class="houseCheckBox"></p>
 			<li>
 				<label>주소</label>
 				<input type="text" name="zipCode" id="zipCode" placeholder="우편번호" disabled="disabled"/>
@@ -64,7 +65,7 @@
 				</div>
 			</li>
 			<li>
-				<label>사진</label>
+				<label>내부 사진</label>
 				<input multiple="multiple" type="file" name="subImg" id="subImg" accept="image/*"/>
 				<br/>
 				<div class="subImgDiv" onclick="subUpload()">
@@ -87,7 +88,7 @@
 			</li>
 			<li>
 				<label>설명</label>
-				<textarea rows="20" cols="50"name="explain" id="explain"></textarea>
+				<textarea rows="15" cols="60"name="explain" id="explain"></textarea>
 				<br/>
 			</li>
 			<li>
@@ -194,15 +195,15 @@
 			</li>
 			<li>
 				<label>계좌</label>
-				<input type="text" name="account" id="account" placeholder="'-'제외하고 입력해주세요." onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+				<input type="text" name="account" id="account" placeholder="'-'제외하고 입력해주세요." onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" size="30"/>
 			</li>
 			<li>
 				<label>금액</label>
-				<input type="text" name="price" id="price" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+				<input type="text" name="price" id="price" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" size="30"/>
 			</li>
 			<li>
 				<label>기타사항</label>
-				<textarea rows="20" cols="50" name="etc" id="etc"></textarea>
+				<textarea rows="15" cols="60" name="etc" id="etc"></textarea>
 				<br/>
 			</li>
 			<li>
@@ -211,7 +212,7 @@
 		</ul>
 	</form>
 	</div>
-	
+	</div>
 	
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div

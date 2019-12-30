@@ -13,11 +13,7 @@
    <div align="center">
    
 	 <c:if test="${experienceList.size() == 0 || count == 0}">
-	 	<table border="1">
-	 		<tr>
-	 			<td>등록된 체험이 존재하지 않습니다.</td>
-	 		</tr>
-	 	</table>
+	 	<h5>등록된 체험이 존재하지 않습니다.</h5>
 	 </c:if>
    
    <c:if test="${count > 0}"> 
@@ -44,7 +40,7 @@
          <td align="center" height="20"  width="125">${experienceList.exApproval}</td>
          <td align="center" height="20"  width="80">
          <c:if test="${experienceList.exApproval != '삭제'}"> 
-         <a href="#" onclick="return cancel('${root}','${experienceList.exCode}','${experienceList}')">삭제</a>
+         <a href="#" onclick="return cancel('${root}','${experienceList.exCode}')">삭제</a>
          </c:if>
          </td>
       </tr>
@@ -71,12 +67,13 @@
 				<a onclick="toServer('${root}','${startPage-pageBlock}')">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a onclick="toServer('${root}', '${i}')">[${i}]</a>
+				<a onclick="toServer('${root}', '${i}')" id="${i}">${i}</a>
 			</c:forEach>
 			<c:if test="${endPage < pageCount}">
 				<a onclick="toServer('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
+		<input type="hidden" value="${currentPage}" id="currentPage"/>
       </div>
    </div>
 </body>

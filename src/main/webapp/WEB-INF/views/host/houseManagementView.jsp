@@ -16,14 +16,9 @@
 </head>
 <body>
    <div align="center">
-   <h3>${memberCode} </h3>
    
 	 <c:if test="${houseList.size() == 0 || count == 0}">
-	 	<table border="1">
-	 		<tr>
-	 			<td>등록된 숙소가 존재하지 않습니다.</td>
-	 		</tr>
-	 	</table>
+	 	<h5>등록된 숙소가 존재하지 않습니다.</h5>
 	 </c:if>
    
    <c:if test="${count > 0}"> 
@@ -50,7 +45,7 @@
          <td align="center" height="20"  width="125">${houseList.approvalStatus}</td> 
          <td align="center" height="20"  width="80">
          <c:if test="${houseList.approvalStatus != '삭제'}"> 
-         <a href="#" onclick="return cancel('${root}','${houseList.houseCode}','${houseList}')">삭제</a>
+         <a href="#" onclick="return cancel('${root}','${houseList.houseCode}')">삭제</a>
          </c:if>
          </td> 
       </tr>
@@ -77,12 +72,13 @@
 				<a onclick="toServer('${root}','${startPage-pageBlock}')">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a onclick="toServer('${root}', '${i}')">[${i}]</a>
+				<a onclick="toServer('${root}', '${i}')" id="${i}">${i}</a>
 			</c:forEach>
 			<c:if test="${endPage < pageCount}">
 				<a onclick="toServer('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
+		<input type="hidden" value="${currentPage}" id="currentPage"/>
    </div>
 </body>
 </html>

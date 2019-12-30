@@ -10,14 +10,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>예약현황</h3>
 		 <div align="center">
 		 <c:if test="${exReserveViewList.size() == 0 || count == 0}">
-		 	<table>
-		 		<tr>
-		 			<td>예약 목록이 존재하지 않습니다.</td>
-		 		</tr>
-		 	</table>
+		 	<h5>예약목록이 존재하지 않습니다.</h5>
 		 </c:if>
 		 
 		<c:if test="${count > 0}"> 
@@ -70,25 +65,17 @@
 				<c:set var="endPage" value="${pageCount}"/>
 			</c:if>
 			
-			<%-- <c:if test="${startPage>pageBlock}">
-				<a href="${root}/host/reservationOkView.do?pageNumber=${startPage-pageBlock}&houseName=${houseName}">[이전]</a>
-			</c:if>
-			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a href="${root}/host/reservationOkView.do?pageNumber=${i}&houseName=${houseName}">[${i}]</a>
-			</c:forEach>
-			<c:if test="${endPage < pageCount}">
-				<a href="${root}/host/reservationOkView.do?pageNumber=${startPage+pageBlock}&houseName=${houseName}">[다음]</a>
-			</c:if> --%>
 			<c:if test="${startPage>pageBlock}">
 				<a onclick="toServer('${root}','${startPage-pageBlock}')">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<a onclick="toServer('${root}', '${i}')">[${i}]</a>
+				<a onclick="toServer('${root}', '${i}')" id="${i}">${i}</a>
 			</c:forEach>
 			<c:if test="${endPage < pageCount}">
 				<a onclick="toServer('${root}','${startPage+pageBlock}')">[다음]</a>
 			</c:if>
 		</c:if>
+		<input type="hidden" value="${currentPage}" id="currentPage"/>
 	</div>
    </div>
    </div>

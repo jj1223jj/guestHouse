@@ -1,6 +1,7 @@
 package com.java.host.dto;
 
 public class HostExListDto {
+	private int exCode;
 	private String exName;
 	private String mainImgName;
 	private int revRate;
@@ -10,7 +11,8 @@ public class HostExListDto {
 		
 	}
 
-	public HostExListDto(String exName, String mainImgName, int revRate, int reviewCount) {
+	public HostExListDto(int exCode, String exName, String mainImgName, int revRate, int reviewCount) {
+		this.exCode = exCode;
 		this.exName = exName;
 		this.mainImgName = mainImgName;
 		this.revRate = revRate;
@@ -49,10 +51,18 @@ public class HostExListDto {
 		this.reviewCount = reviewCount;
 	}
 
+	public int getExCode() {
+		return exCode;
+	}
+
+	public void setExCode(int exCode) {
+		this.exCode = exCode;
+	}
+
 	@Override
 	public String toString() {
-		return "HostExListDto [exName=" + exName + ", mainImgName=" + mainImgName + ", revRate=" + revRate
-				+ ", reviewCount=" + reviewCount + "]";
+		return "HostExListDto [exCode=" + exCode + ", exName=" + exName + ", mainImgName=" + mainImgName + ", revRate="
+				+ revRate + ", reviewCount=" + reviewCount + "]";
 	}
 	
 	
