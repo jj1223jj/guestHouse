@@ -1546,12 +1546,12 @@ public class DellunaServiceImp implements DellunaService {
 
 
 		// 내가 쓴 체험 리뷰리스트 (using newDto)
-		List<NewExpReviewDto> myExpreviewList = dellunaDao.myExpreviewList(memberCode);
-		HomeAspect.logger.info(HomeAspect.logMsg + "내가 쓴 체험 후기 myExpreviewList  : " + myExpreviewList);
-
-		// 내가 쓴 게스트하우스 리뷰 리스트 (using newDto)
-		List<NewHouseReviewDto> myHousereviewList = dellunaDao.myHousereviewList(memberCode);
-		HomeAspect.logger.info(HomeAspect.logMsg + "내가 쓴 게하 후기 myHousereviewList " + myHousereviewList);
+//		List<NewExpReviewDto> myExpreviewList = dellunaDao.myExpreviewList(memberCode);
+//		HomeAspect.logger.info(HomeAspect.logMsg + "내가 쓴 체험 후기 myExpreviewList  : " + myExpreviewList);
+//
+//		// 내가 쓴 게스트하우스 리뷰 리스트 (using newDto)
+//		List<NewHouseReviewDto> myHousereviewList = dellunaDao.myHousereviewList(memberCode);
+//		HomeAspect.logger.info(HomeAspect.logMsg + "내가 쓴 게하 후기 myHousereviewList " + myHousereviewList);
 		
 		//숙소 후기 개수
 		int houseReviewCount = dellunaDao.getHouseReviewCount(memberCode);
@@ -1562,8 +1562,8 @@ public class DellunaServiceImp implements DellunaService {
 		
 		mav.addObject("houseReviewCount", houseReviewCount);
 		mav.addObject("exReviewCount", exReviewCount);
-		mav.addObject("myExpreviewList", myExpreviewList);
-		mav.addObject("myHousereviewList", myHousereviewList);
+//		mav.addObject("myExpreviewList", myExpreviewList);
+//		mav.addObject("myHousereviewList", myHousereviewList);
 
 		mav.addObject("allMsgDto", allMsgDto);
 		mav.addObject("cntAllMsg", cntAllMsg);
@@ -1696,33 +1696,6 @@ public class DellunaServiceImp implements DellunaService {
 			for (int i = 0; i < exReviewList.size(); i++) {
 				HomeAspect.logger.info(HomeAspect.logMsg + "exReviewList: " + exReviewList.get(i).toString());
 			}
-
-		}
-
-		JSONArray arr = new JSONArray();
-		for (HouseReviewListDto houseReviewListDto : houseReviewList) {
-			HashMap<String, Object> commonMap = new HashMap<String, Object>();
-			commonMap.put("houseName", houseReviewListDto.getHouseName());
-			commonMap.put("mainImgName", houseReviewListDto.getMainImgName());
-			commonMap.put("revContent", houseReviewListDto.getRevContent());
-			commonMap.put("revRate", houseReviewListDto.getRevRate());
-			commonMap.put("revDate", houseReviewListDto.getRevDate());
-			commonMap.put("memberImgName", houseReviewListDto.getMemberImgName());
-			commonMap.put("memberName", houseReviewListDto.getMemberName());
-
-			arr.add(commonMap);
-			HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + commonMap.toString());
-		}
-
-		String jsonText = JSONValue.toJSONString(arr);
-
-		return jsonText;
-
-//		mav.addObject("exReviewList", exReviewList);
-//		mav.addObject("houseReviewList", houseReviewList);
-		// mav.setViewName("guestdelluna/scroll.empty");
-
-			
 			JSONArray arr = new JSONArray();
 			for (ExReviewListDto exReviewListDto: exReviewList) {
 				HashMap<String, String> commonMap = new HashMap<String, String>();
@@ -1744,6 +1717,32 @@ public class DellunaServiceImp implements DellunaService {
 			HomeAspect.logger.info(HomeAspect.logMsg + "jsonText: " + jsonText);
 			
 		}
+//
+//		JSONArray arr = new JSONArray();
+//		for (HouseReviewListDto houseReviewListDto : houseReviewList) {
+//			HashMap<String, Object> commonMap = new HashMap<String, Object>();
+//			commonMap.put("houseName", houseReviewListDto.getHouseName());
+//			commonMap.put("mainImgName", houseReviewListDto.getMainImgName());
+//			commonMap.put("revContent", houseReviewListDto.getRevContent());
+//			commonMap.put("revRate", houseReviewListDto.getRevRate());
+//			commonMap.put("revDate", houseReviewListDto.getRevDate());
+//			commonMap.put("memberImgName", houseReviewListDto.getMemberImgName());
+//			commonMap.put("memberName", houseReviewListDto.getMemberName());
+//
+//			arr.add(commonMap);
+//			HomeAspect.logger.info(HomeAspect.logMsg + "houseReviewList: " + commonMap.toString());
+//		}
+//
+//		String jsonText = JSONValue.toJSONString(arr);
+//
+//		return jsonText;
+
+//		mav.addObject("exReviewList", exReviewList);
+//		mav.addObject("houseReviewList", houseReviewList);
+		// mav.setViewName("guestdelluna/scroll.empty");
+
+			
+		
 		
 		return jsonText;
 

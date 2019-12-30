@@ -717,7 +717,7 @@ public class DellunaDaoImp implements DellunaDao {
 		map.put("useStartRow", useStartRow);
 		map.put("useEndRow", useEndRow);
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newHouseResDto", map);
-
+	}
 	public int getHouseReviewCount(int memberCode) {
 		return sqlSessionTemplate.selectOne("host.dao.mapper.getHouseReviewCount" ,memberCode);
 	}
