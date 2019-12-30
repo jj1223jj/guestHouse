@@ -71,4 +71,9 @@ public class MemberDaoImp implements MemberDao {
 		return sqlSessionTemplate.selectOne("dao.MemberMapper.kakaoEmailChk",email);
 	}
 	
+	@Override
+	public int getMemberCode(String email) {
+		return sqlSessionTemplate.selectOne("dao.MemberMapper.getMemberCode",email);
+	}
+	
 }

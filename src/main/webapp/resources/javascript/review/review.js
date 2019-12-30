@@ -1,6 +1,6 @@
 
-var starRating = function(){
-var $star = $(".star-input"),
+function starRating(){
+	var $star = $(".star-input"),
     $result = $star.find("output>input");
    
      $(document).on("focusin", ".star-input>.input", 
@@ -32,8 +32,41 @@ var $star = $(".star-input"),
           }
      });
 };
+function starRating2(){
+	var $star = $(".mstar-input"),
+	$result = $star.find("output>input");
+	
+	$(document).on("focusin", ".mstar-input>.minput", 
+			function(){
+		$(this).addClass("focus");
+	})
+	
+	.on("focusout", ".mstar-input>.minput", function(){
+		var $this = $(this);
+		setTimeout(function(){
+			if($this.find(":focus").length === 0){
+				$this.removeClass("focus");
+			}
+		}, 100);
+	})
+	
+	.on("change", ".mstar-input :radio", function(){
+		$result.val($(this).next().text());
+	})
+	.on("mouseover", ".mstar-input label", function(){
+		$result.val($(this).text());
+	})
+	.on("mouseleave", ".mstar-input>.minput", function(){
+		var $checked = $star.find(":checked");
+		if($checked.length === 0){
+			$result.val("0");
+		} else {
+			$result.val($checked.next().text());
+		}
+	});
+};
 
-starRating();
+
 
 function updateCheck(root, exReserveCode, memberCode, revContent){
 	var url = root + "/experience/exReviewUpdate.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode +"&revContent="+revContent ;
@@ -134,6 +167,13 @@ var proot = null;
 function load(root ,emailSession, exCode){
 	proot = root;
 	moreView(proot,emailSession,exCode);
+	
+	
+	/*if(emailSession ==null){
+		moreView(proot,"qq",exCode);
+	}else{
+	}*/
+	
 }
 
 
@@ -183,10 +223,10 @@ var pageNumber =0;
 
 function moreView(root,emailSession,exCode){
 	++pageNumber;
-	alert(emailSession);
+	alert(emailSession +"," +exCode);
 	var url = root + "/experience/exReview.do?";
 	var params = "pageNumber="+ pageNumber +"&exCode="+exCode;
-	
+
 	var indexNum = 0;
 	/*var email = '<% (String)session.getAttribute("email")%>';
 	alert(email);*/
@@ -195,15 +235,18 @@ function moreView(root,emailSession,exCode){
 		url: url + params,
 		dataType: "JSON",
 		success: function(data) {
-			console.log(data.reviewList[0]);
-			
-			alert(data.reviewList[0]);
+			console.log(data.count);
+			//console.log(data.reviewList[0]);
+			//alert(data.reviewList[0]);
 			
 			var htmls="";
+			var btn="";
+			var cnt = data.count;
 			
-			if(data.length<1){
-				html.push("등록된 댓글이 없습니다.");
-                alert("data < 1");
+			if(data.count<1){
+				htmls += '<div style="margin:10rem auto;"><strong class="text-gray-dark" style="font-size:1rem; magin-top:3rem;">' + "등록된 후기가 없습니다."  + '</strong></div>';
+               // alert("data < 1");
+				 $("#contentData").append(htmls);
 			}else{
 				$(data.reviewList).each(function(){
 					var day = new Date(data.reviewList[indexNum].revDate);
@@ -214,23 +257,42 @@ function moreView(root,emailSession,exCode){
                     
                     var formatDate = year + "년 " + month + "월 " + date + "일 "; 
 
-                    htmls += '<div class="num'+this.exReserveCode+'media text-muted pt-3" id="rid' + data.reviewList[indexNum] + '">';
+                    htmls += '<div style="border-bottom: 0.063rem solid #dee2e6!important;" class="num'+this.exReserveCode+'media text-muted pt-3" id="rid' + data.reviewList[indexNum] + '">';
                    
+                    //
+                   // htmls += '<p>' + data.length +'</p>'
+                    //
 
-                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 ">';
 
-                    htmls += '<span class="d-block">';
+                    htmls += '<span class="d-block" style="width:15rem; board:0.1rem solid red; float: left;">';
 
-                    htmls += '<strong class="text-gray-dark">' + this.email + '</strong>';
+                    htmls += '<strong class="text-gray-dark" style="font-size:1rem;">' + this.email + '</strong>';
                     
-                    htmls += '<span style="padding-left: 1rem;">'+ formatDate +'</span>';
-
-                    htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+                    htmls += '</span>';
                     
-                  
+                    htmls += '<span style="padding-left: 1rem; border: 0.1rem dotted red; float:left;">'+ formatDate +'</span>';
+
+                    htmls += '<span style="margin-left: 3rem; board: 0.1rem blue solid;text-align:left; width:20rem; height:2rem; float:left; font-size: 1rem;">';
+                    
+                    if(this.revRate==1){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star1.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==2){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star2.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==3){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star3.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==4){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star4.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==5){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star5.PNG" style="width: 7rem;">';
+                    }
+                    
+                   htmls += '<input type="text" id="exReserveCode" name="exReserveCode" value="'+this.exReserveCode+'" />';
                    if (emailSession==this.email) {
-					htmls += '<a href="javascript:updateCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+',\''+this.revContent+'\');">수정</a>';
-					htmls += '<a href="javascript:deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')">삭제</a>';
+					htmls += '<a style="margin-left:3rem;" href="javascript:updateCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+',\''+this.revContent+'\');">수정</a>';
+					htmls += '<a style="margin-left:1rem;" href="javascript:deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')">삭제</a>';
+					htmls += '<div id="updateRe"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">수정모달</button></div>';
+					
 					/*<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}','${experienceDto.exCode}')">삭제</a> 		*/
                    }
                     
@@ -241,38 +303,61 @@ function moreView(root,emailSession,exCode){
 
                     htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.memberCode + ')" >삭제</a>';*/
 
-                    htmls += '</span>';
 
                     htmls += '</span>';
                 
-                    htmls +=  '<span>' + this.revContent +'</span>' ;
+                    htmls +=  '<div style="border:0.1rem solid grey; width: 50rem; height:auto; word-break:break-all; margin-top:1rem; text-align:left;">' + this.revContent +'</div>' ;
                     
-                    htmls+= '<br/>'
+                   // htmls+= '<br/>'
                     
-                    if(this.revRate==1){
-                    	htmls += '<img src="'+proot+'/resources/css/review/star1.PNG" style="width: 50px;">';
-                    }else if(this.revRate==2){
-                    	htmls += '<img src="'+proot+'/resources/css/review/star2.PNG" style="width: 50px;">';
-                    }else if(this.revRate==3){
-                    	htmls += '<img src="'+proot+'/resources/css/review/star3.PNG" style="width: 50px;">';
-                    }else if(this.revRate==4){
-                    	htmls += '<img src="'+proot+'/resources/css/review/star4.PNG" style="width: 50px;">';
-                    }else if(this.revRate==5){
-                    	htmls += '<img src="'+proot+'/resources/css/review/star5.PNG" style="width: 50px;">';
-                    }
+                   
 
                     htmls += '</p>';
 
                     htmls += '</div>';
                     
+                    
                     $("#contentData").append(htmls);
                     htmls="";
                     indexNum++;
-                    	
+                    
+                    
+                    $('#updateRe button').on('click',function(){
+            			var a = $(this).parent().parent();
+            			var rese = $(this).closest('input');
+            			var con = $(this).parent().next('div');
+            			var tex = con.text();
+            			//alert(tex);
+            			
+            			//console.log(a);
+            			
+            			//var span = currentRow.closest('span');
+            			
+            			var revContent = a.find('div:eq(1)').text();
+            			var modalReserveCode = a.find('#exReserveCode').val();
+            			//var revRate = currentRow.find('span:eq(2)').text();
+            			//alert(modalReserveCode);
+            			
+            			//alert(revContent + "," + revRate);
+            			
+            			//console.log($('.modal #modalRevContent'));
+            			$('.modal #modalRevContent').text(revContent);
+            			//$('.modal #revRate').val(revRate);
+            			$('.modal #exReserveCode').val(modalReserveCode);
+            			starRating2();
+            			});
+                    
 
-
+                   
 				});
+				
+				
 			}
+			/*if(indexNum <= cnt){
+				btn += '<button type="button" class="btn btn-light" onclick="moreView('+proot+'/,'+emailSession+','+exCode+')">후기 더보기</button>'; 
+				$("#moreReviewB").append(btn);
+				btn="";
+			}*/
 		},
 		error:function(a,b,c){
 			console.log(a);
@@ -280,7 +365,23 @@ function moreView(root,emailSession,exCode){
 			alert(c);
 		}
 	});
+	starRating();
 }
 
+function reviewModalUpdate(form){
+	console.log(form);
+	var memberCode=form.memberCode;
+	$.ajax({
+		method: 'GET',
+		url: "${root}/experience/exReviewUpdateOk.do?memberCode="+memberCode+"&exReserveCode="+exReserveCode+"&pageNumber="+currentPage,
+		///guestdelluna/experience/exReviewUpdateOk.do?memberCode=42&exReserveCode=8&revContent=ㅂㅂ&mstar-input=5&revRate=5
+		dataType: "JSON",
+		success: function(data) {
+			alert(data);
+			
+		}
+	});
+	
+}
 
 

@@ -48,7 +48,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 
 //		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 		
-		int houseCode=13;
+		int houseCode=63;
 //		int houseCode = 101;
 //		int houseCode = 8;
 
