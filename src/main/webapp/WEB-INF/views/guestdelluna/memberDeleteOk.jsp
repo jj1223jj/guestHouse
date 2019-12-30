@@ -15,7 +15,7 @@
 		<c:remove var="memberLevel" scope="session" />
 		<script type="text/javascript">
 			alert("탈퇴되었습니다.");
-			location.href="${root}/guestHouse.do";
+			setTimeout("location.reload()");
 		</script>
 	</c:if>
 	

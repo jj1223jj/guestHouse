@@ -225,7 +225,7 @@ html {
 </head>
 
 <body onload="rootPage('${root}', '${memberLevel}')">
-<div id="wrap">
+<div id="wrap" style="margin-top: 5rem;">
 	<div class="menuL">
 	<button id="opener">알림종그림이라는 뜻</button>
 	<!-- <div id="dialog" title="메시지 확인"> -->

@@ -13,7 +13,8 @@ function deleteExpPayState(root, exValue) {
 
 function deletePayListFromServer() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
-
+		alert("결제 취소 완료됐습니다.");
+		location.reload();
 	}
 }
 
