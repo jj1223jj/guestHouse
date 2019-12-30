@@ -42,4 +42,8 @@
   	<select id="kakaoEmailChk" parameterType="String" resultType="int">
   		select count(*) from member where email = #{email}
   	</select>
+  	
+  	<select id="getMemberCode" parameterType="String" resultType="int">
+  		select memberCode from member where email = #{email}
+  	</select>
 </mapper>

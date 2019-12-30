@@ -15,7 +15,7 @@
 <script type="text/javascript" src="${root}/resources/javascript/jquery/Blitzer/jquery-ui.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/Blitzer/jquery-ui.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
-
+<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
 
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 <script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
@@ -50,6 +50,17 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+$(function(){
+	load('${root}' ,'${sessionScope.email}','${experienceDto.exCode}');
+
+		
+		});
+	 
+
+</script>
+
+
 
 <style type="text/css">
 #exImg{
@@ -68,6 +79,13 @@ width: 16rem;
 height: 5rem;
 
 }
+body{
+/* position:absolute; */
+margin-top: 3rem;
+text-align: -webit-center;
+
+}
+
 #exinfo> ul > li >p{
 text-align: center;
 }
@@ -76,247 +94,519 @@ ul > li >label{
 font-size: 1rem;
 text-align: center;
 }
+
+li{
+list-style: none;
+}
 </style>
 
+
 </head>
-<body onload="load('${root}' ,'${sessionScope.email}','${experienceDto.exCode}')">
+<body>
 
 	<c:if test="${memberLevel == 'Admin'}">
-		<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
-		<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
+		<button id="btn" type="button" class="btn btn-warning" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
+		<button id="btn" type="button" class="btn btn-light" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
 	</c:if>
-	<div class="wrap" style="margin:0px auto; width: 80rem; border: 1px solid black;">
 	
-<!-- 이미지 -->		
-			<div align="center" style="width: 78rem; border: 0.1rem dotted yellow; margin-left: 1.5rem;">
+	<!-- 전체 -->
+	<div align="center" style="width: 100%; height: 210rem;">
+	
+		<!-- 이미지 -->	
+		<div style="width:100%; height: 35rem; background-color: black; padding-top: 3.5rem;">
+			<div align="center" style="width: 78rem; border: 0.1rem dotted pink; margin-left: 1rem;">
 	         	<div class="img" style="overflow: hidden;">
 	         		<c:forEach var="exFileDto"  varStatus="list" items="${exFileList}">
+	         			
 	         			<!-- 사진은 최소 5개  -->
-	         		
-		         			<c:if test="${exFileDto.mainImgName!=null}">
-		         				<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid red; margin-right: 0.5rem;">
-		         					<img id="exImg" style="width: 100%; height: 100%;/* position:static !important; top:0rem !important; right:0rem !important; left:0rem !important; bottom:0rem !important; object-fit:cover; */" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
-		         				</div>
-		         			</c:if>
+		         		<c:if test="${exFileDto.mainImgName!=null}">
+		         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid red; margin-right: 0.5rem;">
+		         				<img id="exImg" style="width: 100%; height: 100%;/* position:static !important; top:0rem !important; right:0rem !important; left:0rem !important; bottom:0rem !important; object-fit:cover; */" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
+		         			</div>
+		         		</c:if>
 		         				
-			         		<c:if test="${exFileDto.fileName!=null}">
+			         	<c:if test="${exFileDto.fileName!=null}">
 			         			
-			         			<c:if test="${list.index<3}">
-				         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
-				         				<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
-				         			</div>
-			         			</c:if>
-			         			<!--  exFileList.size() > 3-->
-			         			<c:if test="${list.index>=3}">
-			         				<div style="float:left; width: 15rem; height: 13.5rem; margin-bottom:0.3rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
-				         				<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
-				         			</div>
-	         					</c:if>
+			         		<c:if test="${list.index<3}">
+				         		<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+				         			<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
+				         		</div>
 			         		</c:if>
 			         		
-			         		
-		         		
+			         		<!--  exFileList.size() > 3-->
+			         		<c:if test="${list.index>=3}">
+			         			<div style="float:left; width: 15rem; height: 13.5rem; margin-bottom:0.3rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+				         			<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
+				         		</div>
+	         				</c:if>
+			         	</c:if>
 	         		</c:forEach>
 	         	</div>
 	         </div>
-		
+		</div>
 	     
-<!-- 체험정보 -->	
-		<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; width: 76rem; height: auto; border: 0.1rem solid pink; float: left;">
-		 <ul style="width: 15rem; height:20rem; border: 0.1rem dotted orange; float: left; margin-right: 3rem;" > 
-	         <li style="width: 10rem; height: auto;">
-	            <label>체험이름</label>
-	            <p class="text-secondary">${experienceDto.exName}</p>
-	    		<input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
-	    	</li>
-	    </ul>
-	    <ul>	
-	    	<li>	
-	    		<label>진행시간</label>
-	    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}</p>
-	    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
-	    	</li>
-	    	<li>	
-	    		<label>인원</label>
-	    		<p class="text-secondary">${experienceDto.exPeople}</p>
-	    	</li>
-	    	
-	    	<li>	
-	    		<label>가격</label>
-	    		<p class="text-secondary">${experienceDto.exPrice}</p>
-	    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
-	    	</li>
-	    	
-	    	<li>	
-	    		<label>위치</label>
-	    		<p class="text-secondary">${experienceDto.exAddress}</p>
-	    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
-	    		
-	        </li>
-	    	
-	    	<li style="margin-right: 5rem;">	
-	    		<label>체험날짜</label>
-	    		<!-- view를 위한 날짜 포맷-->
-	    		<fmt:formatDate var="startDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exStartDate}"/>
-	    		<fmt:formatDate var="endDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exEndDate}"/>
-	    		
-	    		<input type="hidden" name="exStartDate" id="exStartDate" value="${startDate}"/>
-	    		<input type="hidden" name="exEndDate" id="exEndDate" value="${endDate}"/>
-	    		
-	    		<p class="text-secondary">${startDate}</p>
-	    		<p class="text-secondary">${endDate}</p>
-	    		
-	    		<!-- 달력 표시를 위한 날짜 포맷 -->
-	    		<fmt:formatDate var="startDateC" pattern="yyyy-MM-dd" value="${experienceDto.exStartDate}"/>
-	    		<fmt:formatDate var="endDateC" pattern="yyyy-MM-dd" value="${experienceDto.exEndDate}"/>
-	    		
-	    	</li>
-	    	
-	    	
-	    	
-	        
-	         <li style="width: 54rem">
-	         	<label>프로그램설명</label>
-	         	<p class="text-secondary">${experienceDto.exExplain}</p>
-	    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
-	    		
-	         </li>
-<!-- 달력 -->		         
-	       	<li style="width: 20rem; height: auto;">
-	       		<label>예약가능날짜</label>
-	            <div type="text" id="date" name="date"></div>
-	        </li>
-	        
-	        
-	        <script type="text/javascript">
-	        
-	        var disableDays = new Array();
-	        
-	        <c:forEach var="item" items="${dates}">
-	        	disableDays.push('${item}');
-	        </c:forEach>
-	        function disableSomeDay(date){
-	        	var month = date.getMonth()+1;
-	        	var dates = date.getDate();
-	        	var year = date.getFullYear();
-	        	
-	        	
-	        	for(i=0; i<disableDays.length; i++){
-	    			
-	    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
-	    				return [false];
-	    			}
-	        	}
-	        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
-	    		return [true];
-	        }
-	        
-				$(function(){
-					$("#date").datepicker({
-						dateFormat:"yy-mm-dd",
-						 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-						 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-						 //beforeShowDay: disableSomeDay,
-						 beforeShowDay: disableSomeDay,
-						 minDate:new Date('${startDateC}'),
-						 maxDate:new Date('${endDateC}'),					
-						 
-						 onSelect:function(dateText, inst, root){
-							 
-							 var exDate = $(this).val();
-
-							 alert(exDate + "은 예약이 가능합니다.");
-							 
-							 //var exCode = ${experienceDto.exCode};
-							 //var url="${root}/experience/exReserveCal.do?exDate="+exDate+"&exCode="+exCode;
-							 //alert(url);
-							//location.href=url;
-						 }
+		<!-- 체험정보 -->	
+		<div class="wrap" style="margin:0px auto; width: 80rem; border: 1px dotted black; ">
+			<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; width: 76rem; height: auto; border: 0.1rem solid pink; float: left;">
+			 <ul style="width: 15rem; height:20rem; border: 0.1rem dotted orange; float: left; margin-right: 3rem;" > 
+		         <li style="width: 10rem; height: auto;">
+		            <label>체험이름</label>
+		            <p class="text-secondary">${experienceDto.exName}</p>
+		    		<input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
+		    	 </li>
+		   	 </ul>
+		     <ul style="width: 76rem; height: 23rem; border: 0.1rem dotted khaki;">	
+		    	<li>	
+		    		<label>진행시간</label>
+		    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}</p>
+		    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
+		    	</li>
+		    	<li>	
+		    		<label>인원</label>
+		    		<p class="text-secondary">${experienceDto.exPeople}</p>
+		    	</li>
+		    	
+		    	<li>	
+		    		<label>가격</label>
+		    		<p class="text-secondary">${experienceDto.exPrice}</p>
+		    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
+		    	</li>
+		    	
+		    	<li style="margin-right: 3rem; width: 20rem;">	
+		    		<label>체험날짜</label>
+		    		<!-- view를 위한 날짜 포맷-->
+		    		<fmt:formatDate var="startDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exStartDate}"/>
+		    		<fmt:formatDate var="endDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exEndDate}"/>
+		    		
+		    		<input type="hidden" name="exStartDate" id="exStartDate" value="${startDate}"/>
+		    		<input type="hidden" name="exEndDate" id="exEndDate" value="${endDate}"/>
+		    		
+		    		<p class="text-secondary">${startDate} - ${endDate}</p>
+		    		
+		    		<!-- 달력 표시를 위한 날짜 포맷 -->
+		    		<fmt:formatDate var="startDateC" pattern="yyyy-MM-dd" value="${experienceDto.exStartDate}"/>
+		    		<fmt:formatDate var="endDateC" pattern="yyyy-MM-dd" value="${experienceDto.exEndDate}"/>
+		    		
+		    	</li>
+		    	
+		    	<li style=" width: 31.5rem;">	
+		    		<label>위치</label>
+		    		<p class="text-secondary">${experienceDto.exAddress}</p>
+		    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
+		    		
+		        </li>
+		    	
+		        
+		         <li style="width: 54rem; height: auto; ">
+		         	<label>프로그램설명</label>
+		         	<div class="text-secondary" style="width: 52rem; height: auto; word-break:break-all;">${experienceDto.exExplain}</div>
+		    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
+		    		
+		         </li>
+		         
+				
+			</ul>
+			<!--  -->
+			
+			<!-- 달력 -->	
+			<div style="width: 100%; height: 30rem; border: 0.1rem solid blue; margin-top: 5rem;">
+				<div style="width: 25rem; height: 20rem; border: 0.1rem dotted black; float: left; margin-left: 5rem;margin-top: 5rem;">	         
+			      <div style="width: 20rem; height: auto;">
+			       	<label>예약가능날짜</label>
+			        <div type="text" id="date" name="date"></div>
+			      </div>
+			        
+			      <script type="text/javascript">
+			        
+			        var disableDays = new Array();
+			        
+			        <c:forEach var="item" items="${dates}">
+			        	disableDays.push('${item}');
+			        </c:forEach>
+			        function disableSomeDay(date){
+			        	var month = date.getMonth()+1;
+			        	var dates = date.getDate();
+			        	var year = date.getFullYear();
+			        	
+			        	
+			        	for(i=0; i<disableDays.length; i++){
+			    			
+			    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
+			    				return [false];
+			    			}
+			        	}
+			        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
+			    		return [true];
+			        }
+			        
+						$(function(){
+							$("#date").datepicker({
+								dateFormat:"yy-mm-dd",
+								 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+								 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+								 //beforeShowDay: disableSomeDay,
+								 beforeShowDay: disableSomeDay,
+								 minDate:new Date('${startDateC}'),
+								 maxDate:new Date('${endDateC}'),					
+								 
+								 onSelect:function(dateText, inst, root){
+									 
+									 var exDate = $(this).val();
+		
+									 alert(exDate + "은 예약이 가능합니다.");
+									 
+									 //var exCode = ${experienceDto.exCode};
+									 //var url="${root}/experience/exReserveCal.do?exDate="+exDate+"&exCode="+exCode;
+									 //alert(url);
+									//location.href=url;
+								 }
+								
+							});
+						});
+					</script>
+				</div>
+				
+				<!-- 예약하기 -->
+				<div style="width: 40rem; height: 26rem; border: 0.1rem dotted black; margin-left: 35rem; margin-top: 2rem;">
+					<form action="${root}/experience/exReserve.do"  method="get" name="exForm">
+						<div style="width:30rem; height:auto;  border: 0.1rem solid #e4e4e4; margin-top: 3rem;">
 						
-					});
-				});
-			</script>
-	       </ul>
-	     </div>
-	     
-<!-- 예약하기 -->
-<div style="width: 30rem; height: auto; border: 0.1rem dotted black;">
-<form action="${root}/experience/exReserve.do"  method="get" name="exForm">
-	<div style="width:30rem; height:auto;  border: 1px solid red;">
-	
-		<p>예약하기</p>
-		<p>날짜선택</p>
-		<input type="text" id="exDateS" name="exDateS"/>
-		
-		<script type="text/javascript">
-		
-		 var disableDays = new Array();
-	        
-	        <c:forEach var="item" items="${dates}">
-	        	disableDays.push('${item}');
-	        </c:forEach>
-	        function disableSomeDay(date){
-	        	var month = date.getMonth()+1;
-	        	var dates = date.getDate();
-	        	var year = date.getFullYear();
-	        	
-	        	
-	        	for(i=0; i<disableDays.length; i++){
-	    			
-	    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
-	    				return [false];
-	    			}
-	        	}
-	        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
-	    		return [true];
-	        }
-	        
-		$(function(){
-			$("#exDateS").datepicker({
-				dateFormat:"yy-mm-dd",
-				 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-				 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-				 showOn:"button",
-				 buttonText:"날짜선택",
-				 beforeShowDay: disableSomeDay,
-				 minDate:new Date('${startDateC}'),
-				 maxDate:new Date('${endDateC}'),
-				 onClose:function(selectedDate){
-					 //$("#exEndDateS").datepicker("option","minDate",selectedDate);
+							<p style="width: 20rem; margin-bottom: 4rem; margin-top: 1rem; ">예약하기</p>
+							
+							<div  style="width:28rem;">
+								
+								<div>
+									<p style="width: 5rem; float: left;">날짜선택</p>
+									<input type="text" id="exDateS" name="exDateS" size="12"/>
+									
+									<script type="text/javascript">
+									
+									 var disableDays = new Array();
+								        
+								        <c:forEach var="item" items="${dates}">
+								        	disableDays.push('${item}');
+								        </c:forEach>
+								        function disableSomeDay(date){
+								        	var month = date.getMonth()+1;
+								        	var dates = date.getDate();
+								        	var year = date.getFullYear();
+								        	
+								        	
+								        	for(i=0; i<disableDays.length; i++){
+								    			
+								    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
+								    				return [false];
+								    			}
+								        	}
+								        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
+								    		return [true];
+								        }
+								        
+									$(function(){
+										$("#exDateS").datepicker({
+											dateFormat:"yy-mm-dd",
+											 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+											 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+											 showOn:"button",
+											 buttonText:"날짜 선택",
+											 beforeShowDay: disableSomeDay,
+											 minDate:new Date('${startDateC}'),
+											 maxDate:new Date('${endDateC}'),
+											 onClose:function(selectedDate){
+												 //$("#exEndDateS").datepicker("option","minDate",selectedDate);
+												
+												
+											 }
+										});
+									});
+									</script>
+								</div>
+								<div style="width: 28rem; border: 0.1rem dotted red; margin-top: 3rem;">	
+									<p style="width: 4rem; float: left;">인원</p>
+									<input type="number" name="exPeople" id="exPeople"/>
+									<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
+									<input type="hidden" name="reviewList" id="reviewList" value="${reviewList.size()}"/>
+									
+									<input type="hidden" name="experienceDto" id="experienceDto" value="${experienceDto}"> 
+								</div>
+							</div>
+							<div style="width: 15rem; margin-top: 3rem; margin-bottom: 1rem;">
+								<!-- <input type="submit" id="exReserveBtn" value="예약하기"/> -->
+								<c:if test="${sessionScope.email!= null}">
+									<button type="submit" id="exReserveBtn" class="btn btn-outline-danger">예약하기</button>
+								</c:if>
+								
+								<c:if test="${sessionScope.email== null}">
+									<p>로그인 후에 예약이 가능합니다.</p>
+								</c:if>
+								
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<!-- 후기 전체 -->
+			<div style="width: 70rem; height: auto; border: 0.1rem dotted orange;">
+				<div style="width: 10rem; height: 15rem; border: 0.1rem solid skyblue; float: left;">
+					<div style="margin-top: 5rem;">게스트후기</div>
+				</div>
+				
+				<!-- 후기 작성  -->
+				<c:if test="${memberLevel != null}">
+				  <form action="${root}/experience/exReviewOk.do"  method="get" name="exForm" onsubmit="return check('${revContent}','${revRate}')">  
+					    <div>
+						
+							<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
+							<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/>
+							<input type="text" name="exReserveCode" id ="exReserveCodes" value="${exReviewDto.exReserveCode}"> --%>
+							
+							<!-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 -->
+						
+							<div class="form" style="border: 0.1rem solid black; width: 57rem; margin-left: 12rem; height: 20rem;">
+								<div class="title" style="float: left; width: 18rem; height: 3rem; border: 0.1rem solid gray; margin-top: 2rem; margin-left: 3rem;">
+									<span>e-mail</span>
+									<input type="text" name="email" size="20" value="${email}" disabled="disabled"/>
+							
+								</div>
+								<div style="width: 15rem;height:5rem; border:0.1rem solid black;">
+									<span class="star-input">
+									   <span class="input">
+									       <input type="radio" name="star-input" value="1" id="p1">
+									       <label for="p1">1</label>
+									       <input type="radio" name="star-input" value="2" id="p2">
+									       <label for="p2">2</label>
+									       <input type="radio" name="star-input" value="3" id="p3">
+									       <label for="p3">3</label>
+									       <input type="radio" name="star-input" value="4" id="p4">
+									       <label for="p4">4</label>
+									       <input type="radio" name="star-input" value="5" id="p5">
+									       <label for="p5">5</label>
+									     </span>
+									     
+									     <output for="star-input" name="starValue"><input type="hidden" name="revRate" id="revRate" class="revRate"></output>                  
+									</span>
+								
+								</div>
+								
+			
+							
+								<div class="content" style="width: 55rem; height: auto; border: 0.1rem dotted purple; text-align: left; margin-top: 1rem;">Review
+									<!-- <textarea rows="5" cols="53" name="revContent" id="revContent" class="revContent"></textarea>
+								 -->
+									<div class="form-group">
+										<!-- <label for="comment">Review</label> -->
+										<textarea rows="5" name="revContent" id="revContent" class="revContent" style=" background: #fff;
+										    border: none;
+										 	width: 50rem;
+										    -webkit-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
+										    -moz-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
+										    box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
+										    border-radius: 0.938rem;
+										    display: inline-block;"></textarea>
+									</div>
+								</div>
+																
+								<!-- 별점 스크립트를 위해서 여기에 또 스트립트 선언 해줘야 함  -->
+								<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
+								
+								<div class="bottom" style="text-align: left; margin-left: 300px;">
+										
+									<%-- <button id="exReviewOk" onclick="exReviewChk('${root}')">확인</button> --%>
+									<input type="hidden" name="exCode" value="${experienceDto.exCode}"/>
+									
+									<button type="submit" class="btn btn-light">등록</button>
+									<button type="reset" class="btn link">취소</button>
+									
+									<!-- <input type="submit" value="등록"/>
+									<input type="button" value="취소"/> -->
+									
+									
+								</div>
+							</div>
+						</div>
+					</form>
+				</c:if>
+				
+				<!-- 리스트 뿌리기 -->
+				<div style="width: 55rem; border: 0.1rem dotted green; margin-left: 10rem; margin-top: 3rem;">
 					
+					<div id="contentData" style="width: 55rem; height: auto;">
+						<!-- <p id="exReserveCode"></p>
+						<p id="emailJ"></p>
+						<p id="revDateJ"></p>
+						<p id="revContentJ"></p>
+						<p id="revRateJ"></p> -->
+					</div>	
+					<div id="moreReviewB" style="margin: 3rem;"> 
+						<button type="button" class="btn btn-light" onclick="moreView('${root}','${emailSession}','${experienceDto.exCode}')">후기 더보기</button> 
+					</div>
+				 </div>
+			</div>
+			<!-- 호스트 정보 -->	
+			<div style="width: 70rem; height:auto; border: 0.1rem solid black; margin-top: 3rem; padding-top: 3rem;">
+				<ul style="width: 15rem; height:auto; float: left; border: 0.1rem solid black;">
 					
-				 }
-			});
-		});
-		</script>
-		
-		<p>인원</p>
-		<input type="number" name="exPeople" id="exPeople"/>
-		<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
-		<input type="hidden" name="reviewList" id="reviewList" value="${reviewList.size()}"/>
-		
-		<input type="hidden" name="experienceDto" id="experienceDto" value="${experienceDto}"> 
-		<input type="submit" id="exReserveBtn" value="예약하기"/>
-		
-	</div>
+			        <li style="list-style: none; float: left; width: 10rem;">
+			        	<label>프로필사진</label><br/>
+			        	<!--/profileImg/${memberDto.memberImgName}  -->
+			        	<img src="<spring:url value='' />" class="rounded-circle" alt="이미지 없음"/>
+			        	<br/><br/>
+			        </li>
+			     </ul>
+			     
+			     <ul style="width: 45rem; height: auto; margin-left: 15rem; border: 0.1rem dotted #06ff00;">  
+				     <li style="list-style: none;" >	
+				        <label style="width: 8rem; float: left; border: 0.1rem solid #ff00f3">호스트</label>
+				        <p class="text-secondary" style="width:15rem; border: 0.1rem solid green;text-align: left;">${memberDto.memberName}</p>
+				        <input type="hidden" name="memberName" id="memberName" value="${memberDto.memberName}">
+				     </li>
+				     <li style="width: 45rem; ">	
+				        <label style="width: 9rem; float: left;">회원가입 날짜</label>
+				        <fmt:formatDate var="regDate" pattern="yyyy년 MM월 dd일" value="${memberDto.regDate}"/>
+				    	<p class="text-secondary" style="width: 18rem; text-align: left;">${regDate}</p>
+				        <input type="hidden" name="regDate" id="regDate" value="${regDate}">
+				     </li>
+				     <li>	
+				        <label style="width: 9rem; float: left; ">소개</label>
+				        <p class="text-secondary" style="width: 25rem; margin-left: 10rem; text-align: left; height: auto; word-break: break-all; ">${memberDto.memberInfo}</p>
+				        <input type="hidden" name="memberInfo" id="memberInfo" value="${memberDto.memberInfo}">
+				    </li>
+	         	 </ul>
+          	</div>
+         	 <!-- 체험 지도 -->  
+			 <div style="border: 0.1rem solid black; width: 70rem; margin-top: 3rem; margin-bottom: 5rem;">  
+	      		<div style="width:15rem; float: left;">체험장소</div>
+	      			
+		    	<p style="width: 40rem; height: auto; margin-left: 15rem; word-break: break-all; text-align: left;">위치 : ${experienceDto.exAddress}</p>
+		    		
+		        <div id="exMap" style="width: 40rem;height: 30rem; margin-left: 15rem;"></div>
+						
+				<script>
+					var container = document.getElementById('exMap');
+					var option = {
+						center: new kakao.maps.LatLng(33.450701, 126.570667),
+						level: 3
+					};
+					//var addr = "${experienceDto.exAddress}";
+					// 지도생성
+					var map = new kakao.maps.Map(container, option);
+							
+					// 주소로 좌표 검색
+					var geocoder = new kakao.maps.services.Geocoder();
 	
-	</form>
-</div>
+					geocoder.addressSearch('${experienceDto.exAddress}',function(result, status){
+								
+						// 정상적으로 검색 완료
+						if(status === kakao.maps.services.Status.OK){
+							var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+									
+							// 결과값으로 받은 위치 마커 표시
+							var marker = new kakao.maps.Marker({
+								map:map,
+								position: coords
+										
+								});
+											
+							map.setCenter(coords);
+									
+							}
+						});
+				</script>
+	         </div>
+	         <!-- 지도 -->
+          
+		</div>
+	</div>   
+</div>		
+
 	<br/><br/>
  <!-- 리뷰수 count -->
-			전체 리뷰 수: ${count}, 이 페이지의 리뷰 수 : ${reviewList.size()}, 현재 페이지: ${currentPage}
+			<%-- 전체 리뷰 수: ${count}, 이 페이지의 리뷰 수 : ${reviewList.size()}, 현재 페이지: ${currentPage} --%>
 
+<!-- 모달 -->
 
+	<div class="modal fade" id="updateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">		
+							
+			 <!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">후기 수정</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					
+				</div>
+							
+	<!-- Modal body -->
+		<div class="form-group">
+				<form class="form" action="${root}/experience/exReviewUpdateOk.do?memberCode=${memberCode}&exReserveCode=${exReserveCode}&pageNumber=${currentPage}" 
+			method="get" >
+			<!-- onsubmit="return checkUp()" -->
+			
+				<div class="title">
+				<input type="text" name = "memberCode" value="${memberCode}"/>
+				<input type="text" name="exReserveCode" id="exReserveCode" value="${exReserveCode}"/>
+					<span>이메일</span>
+					<input type="text" name="email" size="20" value="${email}" disabled="disabled" class="form-control"/>
+			
+				</div>
+			
+				<div class="content"> 후기 내용
+					<textarea rows="5" cols="53" name="revContent" id="modalRevContent" class="form-control"><%-- ${revContent} --%></textarea>
+				</div>
+				<div>
+				<link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
+					<span class="mstar-input">
+					   <span class="minput">
+					       <input type="radio" name="mstar-input" value="1" id="mp1">
+					       <label for="mp1">1</label>
+					       <input type="radio" name="mstar-input" value="2" id="mp2">
+					       <label for="mp2">2</label>
+					       <input type="radio" name="mstar-input" value="3" id="mp3">
+					       <label for="mp3">3</label>
+					       <input type="radio" name="mstar-input" value="4" id="mp4">
+					       <label for="mp4">4</label>
+					       <input type="radio" name="mstar-input" value="5" id="mp5">
+					       <label for="mp5">5</label>
+					     </span>
+		
+					     <output for="mstar-input" name="mstarValue"><input type="text" name="revRate" id="revRate" class="revRate"/></output>                  
+					</span>
+				</div>
+					     
+				
+				
+				
+				<!-- Modal footer -->
+						<div class="modal-footer">
+							<button id="modalSubmit" type="button" class="btn btn-info" onclick='reviewModalUpdate(form)'>수정</button>
+							<button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+						</div>
+				
+				
+				<!-- 
+				<div class="modal-footer" style="text-align: right;">
+					<input type="submit" value="확인" />
+					<input type="reset" value="취소" onclick="self.close()"/>
+				</div> -->
+			</form>
+			</div>
+			
+			
+			</div>
+		</div>			
+	</div>
+ 
 
-
+<input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/>
  <!-- 후기 작성 -->   
- <c:if test="${memberLevel != null}">
+ <%-- <c:if test="${memberLevel != null}">
   <form action="${root}/experience/exReviewOk.do"  method="get" name="exForm" onsubmit="return check('${revContent}','${revRate}')">  
 	    <div align="" style="margin: 100px;">
 		
 		<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
-		<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/> --%>
-		<%-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
+		<input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/>
+		후기 갯수가 0개 이거나 현재 페이지가 1일 경우
 		
 			<div class="form">
 				<div class="title">
@@ -346,7 +636,7 @@ text-align: center;
 					     <output for="star-input" name="starValue"><input type="hidden" name="revRate" id="revRate" class="revRate"></output>                  
 					</span>
 				
-				</div>
+				</div> --%>
 		
 				<%-- 
 				전부 0값 들어감
@@ -357,11 +647,11 @@ text-align: center;
 				 --%>
 			
 				<!-- 별점 스크립트를 위해서 여기에 또 스트립트 선언 해줘야 함  -->
-				<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
+				<%-- <script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
 				
 				<div class="bottom" style="text-align: left; margin-left: 300px; margin-top: 50px;">
 						
-					<%-- <button id="exReviewOk" onclick="exReviewChk('${root}')">확인</button> --%>
+					<button id="exReviewOk" onclick="exReviewChk('${root}')">확인</button>
 					<input type="hidden" name="exCode" value="${experienceDto.exCode}"/>
 					<input type="submit" value="확인"/>
 					<input type="button" value="취소"/>
@@ -371,13 +661,13 @@ text-align: center;
 			</div>
 	</div>
 </form>
-</c:if>
+</c:if> --%>
 	
 		
 <!-- 후기 리스트 -->			
 		<%-- 미리 쓴 후기가 존재하는 경우  --%>
 		
-	<div id="exReview">
+<%-- 	<div id="exReview">
 		<c:if test ="${reviewList.size() > 0}">
 			<c:forEach var="exReviewDto" items="${reviewList}">
 				<div class="form" style="margin: 50px 100px; border-width:1px;">
@@ -386,7 +676,7 @@ text-align: center;
 						
 						<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>						
 						<!-- 리뷰 번호  -->
-						<%-- 예약번호: ${exReviewDto.exReserveCode} &nbsp;&nbsp; --%>
+						예약번호: ${exReviewDto.exReserveCode} &nbsp;&nbsp;
 						
 						<input type="hidden" name="exReserveCode" id ="exReserveCodes" value="${exReviewDto.exReserveCode}">
 						
@@ -437,60 +727,51 @@ text-align: center;
 			</c:forEach>
 		</c:if>
 	</div>
+	 --%>
 	
-	 <!-- 후기 -->
-	<div id="contentData">
-		<!-- <p id="exReserveCode"></p>
-		<p id="emailJ"></p>
-		<p id="revDateJ"></p>
-		<p id="revContentJ"></p>
-		<p id="revRateJ"></p> -->
-	</div>	
-	 
-	<button type="button" class="btn btn-light" onclick="moreView('${root}')">후기 더보기</button>
 <!-- 페이징 -->	
 	<%-- 페이지 번호
 			1. 총 페이지수 : 전체 레코드 수(count)와 페이지 당 게시물 수(boardSize)
 			2. 페이지 블럭 : 시작번호, 끝번호 나와야 함  [1][2][3][4][5] [다음]
 			3. 
 	--%> 
-	<div style="margin-left: 150px; margin-bottom: 50px;">
+	<%-- <div style="margin-left: 150px; margin-bottom: 50px;">
 		<c:if test="${count > 0}">
 		
-			<%-- 1. 총 페이지 수  count/boardSize --%>
-			<fmt:parseNumber var="pageCount" integerOnly="true" value="${count/boardSize + (count%boardSize==0 ? 0 : 1)}"/>	<%--딱 떨어지지 않는 페이지 일때  --%>
+			1. 총 페이지 수  count/boardSize
+			<fmt:parseNumber var="pageCount" integerOnly="true" value="${count/boardSize + (count%boardSize==0 ? 0 : 1)}"/>	딱 떨어지지 않는 페이지 일때 
 			
-			<%-- 2. 페이지 블럭이  value값의 갯수만큼 나옴. 1의 경우 [이전] 1 [다음] --%>
+			2. 페이지 블럭이  value값의 갯수만큼 나옴. 1의 경우 [이전] 1 [다음]
 			<c:set var="pageBlock" value="${2}"/>
 			
-			<%-- 2. 페이지 블럭/ 시작, 끝번호 
+			2. 페이지 블럭/ 시작, 끝번호 
 				자바로 짰을 때 :
 				int startPage = (int)((currentPage-1)/pageBlock)*pageBlock+1;
 				int endPage = startPage+pageBlock-1;
-			--%>
+			
 			
 			<fmt:parseNumber var="rs" value="${(currentPage-1)/pageBlock}" integerOnly="true"/> 
 			
 			<c:set var="startPage" value="${rs*pageBlock+1}"/>
 			<c:set var="endPage" value="${startPage+pageBlock-1}"/>
 			
-			<%-- 3. 총 레코드 수: 270/10 = 27페이지 까지 나와야 함. 위의 로직대로면 21~30까지의 페이지 블럭이 나옴. 27페이지까지만 나오게  --%>
+			3. 총 레코드 수: 270/10 = 27페이지 까지 나와야 함. 위의 로직대로면 21~30까지의 페이지 블럭이 나옴. 27페이지까지만 나오게 
 			
 			<c:if test="${endPage > pageCount}">
 				<c:set var="endPage" value="${pageCount}"/>
 			</c:if>
 			
-			<%-- 이전  // startPage=3, pageBlock=2 이면 [이전][3] 출력, 이전을 누르면  1페이지로 이동--%>
+			이전  // startPage=3, pageBlock=2 이면 [이전][3] 출력, 이전을 누르면  1페이지로 이동
 			<c:if test="${startPage > pageBlock}">
 				<a href="${root}/experience/exReview.do?pageNumber=${startPage-pageBlock}">[이전]</a>
 			</c:if>
 			
-			<%-- 페이지 블럭 [1][2][3] --%>
+			페이지 블럭 [1][2][3]
 			<c:forEach var="i" begin = "${startPage}" end = "${endPage}">
 				<a href="${root}/experience/exReview.do?pageNumber=${i}">[${i}]</a>
 			</c:forEach>
 			
-			<%-- 다음  // endPage=2, pageCount=3(총 페이지 갯수)이면 [1][2][다음] 출력, startPage=1, pageBlock=2일때 다음을 누르면 3페이지로 이동--%>
+			다음  // endPage=2, pageCount=3(총 페이지 갯수)이면 [1][2][다음] 출력, startPage=1, pageBlock=2일때 다음을 누르면 3페이지로 이동
 			<c:if test="${endPage < pageCount}">
 				<a href="${root}/experience/exReview.do?pageNumber=${startPage+pageBlock}">[다음]</a>
 			</c:if>
@@ -499,73 +780,14 @@ text-align: center;
 	
 	</div>
 	
-<!-- 호스트 정보 -->	
-		<ul style="margin-left: 100px;">
-	
-	        <li>
-	        	<label>호스트정보</label>
-	        	<input type="text" name="memberName" id="memberName" value="${memberDto.memberName}">
-	        	<label>회원가입 날짜</label>
-	        	<fmt:formatDate var="regDate" pattern="yyyy년 MM월 dd일" value="${memberDto.regDate}"/>
-	    		
-	        	<input type="text" name="regDate" id="regDate" value="${regDate}">
-	        	<label>소개</label>
-	        	<input type="text" name="memberInfo" id="memberInfo" value="${memberDto.memberInfo}">
-	        	
-	        	<label>프로필사진</label>
-	        	<img src="<spring:url value='/profileImg/${memberDto.memberImgName}' />"/>
-	        </li>
-	       
-          </ul>
 
-<!-- 체험 지도 -->  
-		<div style="margin-left: 100px;">  
-      		<h3>체험장소</h3>
-      			
-	    		<p>위치 : ${experienceDto.exAddress}</p>
-	    		
-	    		
-	      
-	        
-       			<div id="exMap" style="width: 500px;height: 400px;"></div>
-					
-					<script>
-						var container = document.getElementById('exMap');
-						var option = {
-							center: new kakao.maps.LatLng(33.450701, 126.570667),
-							level: 3
-						};
-						//var addr = "${experienceDto.exAddress}";
-						// 지도생성
-						var map = new kakao.maps.Map(container, option);
-						
-						// 주소로 좌표 검색
-						var geocoder = new kakao.maps.services.Geocoder();
 
-						geocoder.addressSearch('${experienceDto.exAddress}',function(result, status){
-							
-							// 정상적으로 검색 완료
-							if(status === kakao.maps.services.Status.OK){
-								var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-								
-								// 결과값으로 받은 위치 마커 표시
-								var marker = new kakao.maps.Marker({
-									map:map,
-									position: coords
-									
-								});
-										
-								map.setCenter(coords);
-								
-							}
-						});
-						
-						
-						
-						
-					</script>
-       		
-        </div>
-	 </div>  
+
+	  
+	 
+	 
+	 </div> 
+	 
+	</div> --%>
 </body>
 </html>

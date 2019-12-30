@@ -13,6 +13,8 @@
 <script type="text/javascript" src="${root}/resources/javascript/jquery/Blitzer/jquery-ui.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/Blitzer/jquery-ui.css">
 
+<link rel="stylesheet" href="${root}/resources/css/host/register.css">
+
 <script type="text/javascript">
 	$(function(){
 		$("#exStartDateS").datepicker({
@@ -45,114 +47,126 @@
 	});
 </script>
 
+<style type="text/css">
+li{
+list-style: none;
+}
+#exTotal > li > label{
+	border: 0.1rem solid blue;
+	width: 10rem;
+}
+
+</style>
 </head>
 <body>
-   <form action="${root}/experience/exHostOk.do" method="post" enctype="multipart/form-data"
-    onsubmit="return registerEx()">
-    
-    <!-- '${exName}','${exAddress}','${mainImg}','${subImg}','${exPeople}','${exTime}','${exExplain}','${exStartDateS}','${exEndDateS}','${exBank}','${exAccount}','${exPrice}' -->
-   <div class="wrap" style="margin-left: 300px;">
-      <ul>
-        
-         <li>
-            <label>체험이름</label>
-    		<input type="text" name="exName" id="exName"/>
-         </li>
-         
-         <!-- 장소 선택 -->
+
+	<div style="width:80rem; border: 0.1rem solid black; margin: 0 auto;">
+	   <form action="${root}/experience/exHostOk.do" method="post" enctype="multipart/form-data"
+	    onsubmit="return registerEx()">
+	    
+	    <!-- '${exName}','${exAddress}','${mainImg}','${subImg}','${exPeople}','${exTime}','${exExplain}','${exStartDateS}','${exEndDateS}','${exBank}','${exAccount}','${exPrice}' -->
+	   <div class="wrap" style="width: 70rem; margin: 0 auto; border: 0.1rem solid red;">
+	      
+	      <ul style="width: 50rem; border: 0.1rem dotted black; margin: 0 auto;" id="exTotal">
 	         <li>
-	            <label>장소선택</label>
-	            <select name="exAddress" id="exAddress" style="width: 500px;">
-        			<c:forEach var="hostDto" items="${hostChkList}">
-        				<c:if test="${hostDto.approvalStatus eq '승인완료'}" >
-        			<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
-	               		<option value="${hostDto.address}">${hostDto.houseName}</option>
-	               		<%-- <input type="hidden" name="exAddress" value="${hostDto.address}"/>
-	           			<input type="hidden" name="exLatlng" value="${hostDto.latlng}"/> --%>	
-	           			</c:if>
-         			</c:forEach>
-	            </select>
-	            
+	            <label>체험이름</label>
+	    		<input type="text" name="exName" id="exName"  class="form-control" style="width: 30rem;"/>
 	         </li>
-         
-         
-         <li>
-            <label>메인사진</label>
-            <input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)">
-            <br/>
-            <div id="mainImgDiv">
-               <img src="" id="mainImgView" name="mainImgView"/>
-            </div>
-         </li>
-         <li>
-            <label>사진</label>
-            <input multiple="multiple" type="file" name="subImg" id="subImg"/>
-            <br/>
-            <div class="subImgDiv">
-            </div>
-         </li>
-         <li>
-            <label>인원 수</label>
-            <input type="number" id="exPeople" name="exPeople"/> 
-            <br/>
-         </li>
-         
-         <li>
-            <label>진행 시간</label>
-            <input type="number" id="exTime" name="exTime"/> 
-            <br/>
-         </li>
-        
-         <li>
-            <label>체험소개</label>
-            <textarea rows="20" cols="50"name="exExplain" id="exExplain"></textarea>
-            <br/>
-         </li>
-      
-         
-         <li>
-            <label>진행날짜</label>
-            <input type="text" id="exStartDateS" name="exStartDateS"/>
-		~ <input type="text" id="exEndDateS" name="exEndDateS"/>
-		<br/><br/>
-		
-         </li>
-        
-          <li>
-            <label>은행</label>
-            <select name="exBank" id="exBank">
-               <option value="KEB하나">KEB하나</option>
-               <option value="NH농협">NH농협</option>
-               <option value="외한">외한</option>
-               <option value="국민">국민</option>
-               <option value="기업">기업</option>
-               <option value="신한">신한</option>
-               <option value="우리">우리</option>
-               <option value="우체국">우체국</option>
-               <option value="카카오뱅크">카카오뱅크</option>
-               <option value="새마을금고">새마을금고</option>
-            </select>
-         </li>
-         
-         
-         <li>
-            <label>계좌</label>
-            <input type="number" name="exAccount" id="exAccount" placeholder="'-'제외하고 입력해주세요."/>
-         </li>
-         
-          <li>
-            <label>가격</label>
-    		<input type="number" name="exPrice" id="exPrice">원</input>
-         </li>
-         
-        
-         <li>
-            <input type="submit" id="btn" value="다음">
-         </li>
-      </ul>
+	         
+	         <!-- 장소 선택 -->
+		         <li>
+		            <label>장소선택</label>
+		            <select name="exAddress" id="exAddress" style="padding: 0.313rem 0.625rem; border-radius:0.313rem; border: 0.1rem solid #ddd; background-color: white;">
+	        			<c:forEach var="hostDto" items="${hostChkList}">
+	        				<c:if test="${hostDto.approvalStatus eq '승인완료'}" >
+	        			<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
+		               		<option value="${hostDto.address}">${hostDto.houseName}</option>
+		               		<%-- <input type="hidden" name="exAddress" value="${hostDto.address}"/>
+		           			<input type="hidden" name="exLatlng" value="${hostDto.latlng}"/> --%>	
+		           			</c:if>
+	         			</c:forEach>
+		            </select>
+		            
+		         </li>
+	         
+	         
+	         <li>
+	            <label>메인사진</label>
+	            <input type="file" name="mainImg" id="mainImg" onchange="mainImgPreview(this)" accept="image/*">
+	            <br/>
+	            <div id="mainImgDiv" onclick="mainUpload()">
+	               <img src="" id="mainImgView" name="mainImgView"/>
+	            </div>
+	         </li>
+	         <li>
+	            <label>사진</label>
+	            <input multiple="multiple" type="file" name="subImg" id="subImg"/>
+	            <br/>
+	            <div class="subImgDiv" onclick="subUpload()">
+	            </div>
+	         </li>
+	         <li>
+	            <label>인원 수</label>
+	            <input type="number" id="exPeople" name="exPeople"/> 
+	            <br/>
+	         </li>
+	         
+	         <li>
+	            <label>진행 시간</label>
+	            <input type="number" id="exTime" name="exTime"/> 
+	            <br/>
+	         </li>
+	        
+	         <li>
+	            <label>체험소개</label>
+	            <textarea rows="20" cols="50"name="exExplain" id="exExplain"></textarea>
+	            <br/>
+	         </li>
+	      
+	         
+	         <li>
+	            <label>진행날짜</label>
+	            <input type="text" id="exStartDateS" name="exStartDateS"/>
+			~ <input type="text" id="exEndDateS" name="exEndDateS"/>
+			<br/><br/>
+			
+	         </li>
+	        
+	          <li>
+	            <label>은행</label>
+	            <select name="exBank" id="exBank">
+	               <option value="KEB하나">KEB하나</option>
+	               <option value="NH농협">NH농협</option>
+	               <option value="외한">외한</option>
+	               <option value="국민">국민</option>
+	               <option value="기업">기업</option>
+	               <option value="신한">신한</option>
+	               <option value="우리">우리</option>
+	               <option value="우체국">우체국</option>
+	               <option value="카카오뱅크">카카오뱅크</option>
+	               <option value="새마을금고">새마을금고</option>
+	            </select>
+	         </li>
+	         
+	         
+	         <li>
+	            <label>계좌</label>
+	            <input type="number" name="exAccount" id="exAccount" placeholder="'-'제외하고 입력해주세요."/>
+	         </li>
+	         
+	          <li>
+	            <label>가격</label>
+	    		<input type="number" name="exPrice" id="exPrice">원</input>
+	         </li>
+	         
+	        
+	         <li>
+	            <input type="submit" id="btn" value="다음">
+	         </li>
+	      </ul>
+	   </div>
+	   </form>
    </div>
-   </form>
-   
   
 </body>
 </html>

@@ -20,6 +20,9 @@ $(document).ready(function(){
 	});
 });
 
+function mainUpload() {
+	$("#mainImg").trigger("click");
+}
 
 
 function mainImgPreview(input) {
@@ -38,7 +41,8 @@ function mainImgPreview(input) {
 		    	$('#mainImgView').attr('src', e.target.result);
 		    	alert(e.target.result);
 		    	$('#mainImgView').css({
-		    		'width': '200px'
+		    		'width': '19rem'
+		    			
 		    	});
 		    }
 			// alert(e.target.result);
@@ -46,6 +50,11 @@ function mainImgPreview(input) {
 
 		reader.readAsDataURL(input.files[0]);
 	}
+}
+
+
+function subUpload() {
+	$("#subImg").trigger("click");
 }
 
 var sel_files = [];

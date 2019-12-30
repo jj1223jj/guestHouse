@@ -49,49 +49,64 @@
 
 </head>
 <body>
-	<div align="center">
-		<h3>예약페이지</h3>
-		<br/>
-		
-		<h1>체험 이용규칙 확인하기</h1>
-		<div class="top">
-			<div class="experience">
-				<div id="Info">
-					<p>설명 : ${experienceDto.exExplain}</p>
-					<p>주소: ${experienceDto.exAddress}</p>
-					<p>체험 시간: ${experienceDto.exTime}</p>
-					<img src="<spring:url value='/exImage/${mainImg}' />" />
+	<div align="center" style="width: 70rem; border: 0.1rem solid black; margin: 0 auto;">
+		<!-- <h3>예약페이지</h3>
+		<br/> -->
+		<!--  전체 -->
+		<div style="margin: 0rem auto;">
+			<div>
+				<div style="font-size: 2rem; margin: 5rem; font-weight: bold;">체험 이용규칙 확인하기</div>
+				
+				<div class="top" style="height: 40rem; border: 0.1rem dotted orange;">
+					<div class="experience" style="width: 40rem; border: 0.1rem dotted black; height: 38rem; float: left;">
+						<div id="Info" style="border: 0.1rem solid red; width: 38rem; height: auto; float: left;">
+							<div style="font-weight: bold; float: left; width: 10rem;">체험 이름 </div>
+							<div style="width: 25rem; margin-left: 0.1rem; text-align: left;"> ${experienceDto.exName}</div>
+							
+							<div style="font-weight: bold; float: left; width: 10rem;">주소</div>
+							<div style="width: 25rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left;">${experienceDto.exAddress}</div>
+							
+							<div style="font-weight: bold;float: left; width: 10rem;">체험 시간</div>
+							<div  style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left;">${experienceDto.exTime} 시간</div>
+							
+						</div>
+						<div style="margin-top: 8rem; border: 0.1rem solid green;">
+							<img src="<spring:url value='/exImage/${mainImg}' />" />
+						</div>	
+						<%-- <span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
+						<span id="revCount">후기   ${review}  개</span> --%>
+					</div>
+					<div style="width:25rem; height:38rem; border: 0.1rem dotted purple; margin-left: 40rem; padding-top: 8rem;">
+						<div class="reserve" style="border: 0.1rem solid black; width: 25rem;">
+						
+							<p id="people">게스트 ${exPeople}명</p>
+							<p id="exDate">체험 날짜: ${exDateS}</p>
+							
+							<br/>
+							<p id="price">금액                        	${exPayment/exPeople}원 X ${exPeople} </p>
+							<p id="total">총합계(KRW)     ${exPayment}</p>
+							<p id="savePoint"> 적립 포인트   ${exPayment*0.01}</p>
+						</div>
+					</div>
 					
 				</div>
-				<span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
-				<span id="revCount">후기   ${review}  개</span>
 			</div>
-			<div class="reserve">
-				<p id="people">게스트 ${exPeople}명</p>
-				<p id="exDate">체험 날짜: ${exDateS}</p>
-				
-				<br/>
-				<p id="price">금액                        	${exPayment/exPeople}원 X ${exPeople} </p>
-				<p id="total">총합계(KRW)     ${exPayment}</p>
-				<p id="savePoint"> 적립 포인트   ${exPayment*0.01}</p>
-			</div>
-		</div>
-		
 		
 		<hr color="#CCCCCC"/>
 		
 		<div class="bot">
 			<div id="pay">
-				<h3>결제수단</h3>
+				<div style="font-size: 2rem; margin: 5rem; font-weight: bold;">결제</div>
 				
-				<select name="payment" id="payment">
+				<div>결제수단</div>
+				<select name="payment" id="payment" class="form-control" style="width: 20rem;">
 					<option value="select" selected="selected">선택하세요</option>
 					<option value="account" id="account">무통장입금</option>
 					<option value="card" id="card">카드결제</option>
 				</select>
 				<br/>
 				
-				<span>point  </span>
+				<span style="margin-right: 1rem;">point  </span>
 				<span><input id="usePoint"></span>
 				<script>
 					$(function(){
@@ -104,14 +119,17 @@
 				</script>
 				<%-- <button id="pointBtn" onclick="pointUseFun(${total})">사용</button> --%>
 				
-				<p id="point"> 사용가능 포인트  : ${point}점</p>
+				<p id="point" style="margin: 2rem; width: 20rem;"> 사용가능 포인트는   ${point}점 입니다.</p>
 				<!-- <span id="savePoint">적립 포인트: 0점</span> -->
 				<br/>
 			</div>
 		</div>
 		
 		<%-- <button class="btn" onclick="reserveCompleteFun('${root}','${people}','${checkIn},'${checkOut}','${total}')">예약 요청하기</button> --%>
-		<button class="btn" id="btn" onclick="exReserveOk('${root}', '${exReserveDto.exCode}','${memberCode}','${exDateS}','${exPeople}','${exPayment}')">예약요청하기</button>
+		<div style="margin-bottom: 5rem; margin-top: 2rem;">
+			<button class="btn btn-info" type="button" id="btn" onclick="exReserveOk('${root}', '${exReserveDto.exCode}','${memberCode}','${exDateS}','${exPeople}','${exPayment}')">예약요청하기</button>
+		</div>
+	</div>
 	</div>
 </body>
 </html>

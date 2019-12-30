@@ -140,8 +140,13 @@ public class MemberServiceImp implements MemberService {
 		
 		HomeAspect.logger.info(HomeAspect.logMsg + "check: " + check);
 
+		int memberCode = memberDao.getMemberCode(email);
+		HomeAspect.logger.info(HomeAspect.logMsg + "memberCode: " + memberCode);
+				
 		mav.addObject("check", check);
 		mav.addObject("memberLevel",memberLevel);
+		mav.addObject("email",email);
+		mav.addObject("memberCode",memberCode);
 		
 		mav.setViewName("member/loginOk.tiles");
 		

@@ -107,6 +107,8 @@ public class ExperienceDaoImp implements ExperienceDao {
 	public int exReviewDelete(int exReserveCode) {
 		return sqlSessionTemplate.delete("dao.ExperienceMapper.exReviewDelete", exReserveCode);
 	}
+	
+	// 체험페이지
 	@Override
 	public ExperienceDto exPage(int exCode) {
 		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.exPage", exCode);

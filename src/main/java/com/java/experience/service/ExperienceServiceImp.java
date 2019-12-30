@@ -394,7 +394,7 @@ public class ExperienceServiceImp implements ExperienceService {
 				
 				int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
 				
-				int boardSize = 3; // 2) 페이지당 출력할 게시물 수
+				int boardSize = 1; // 2) 페이지당 출력할 게시물 수
 				// 시작 번호
 				int startRow = (currentPage - 1) * boardSize + 1;
 				
@@ -415,6 +415,7 @@ public class ExperienceServiceImp implements ExperienceService {
 				}
 		  
 				map.put("reviewList", reviewList);
+				map.put("count", count);
 				return map;
 	}
 
@@ -435,7 +436,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "email: " + email + "		memberCode: " + memberCode);
 
 		//int exReserveCode = experienceDao.reserveCode(memberCode);
-		// HomeAspect.logger.info(HomeAspect.logMsg + "exReserveCode: " + exReserveCode);
+		 //HomeAspect.logger.info(HomeAspect.logMsg + "exReserveCode: " + exReserveCode);
 
 		ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
 
@@ -808,7 +809,7 @@ public class ExperienceServiceImp implements ExperienceService {
 
 		  // 예약 테이블에서 후기 댓글쓰기가 가능한지 여부 확인
 		// ExReserveDto exReserveDto = experienceDao.exReserveDto(memberCode, exCode);
-		//  HomeAspect.logger.info(HomeAspect.logMsg + "예약정보 : " + exReserveDto.toString());
+		 //HomeAspect.logger.info(HomeAspect.logMsg + "예약정보 : " + exReserveDto.toString());
 		  
 		  
 		/*
@@ -1092,6 +1093,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		mav.addObject("experienceDto", experienceDto);
 		mav.addObject("mainImg", mainImg);
 		mav.addObject("plusPoint", plusPoint);
+		mav.addObject("resPoint",resPoint);
 
 		mav.setViewName("experience/exPageReserveOk.tiles");
 

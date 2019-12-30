@@ -19,4 +19,6 @@ public interface MemberDao {
 
 	public int kakaoEmailChk(String email);
 
+	public int getMemberCode(String email);
+
 }
