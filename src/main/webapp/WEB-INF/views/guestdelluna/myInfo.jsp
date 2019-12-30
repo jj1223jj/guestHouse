@@ -426,6 +426,7 @@ html {
 			</c:forEach>
 		</div>
 
+		<c:if test="${hostExList.size() > 0}">
 		<div class="exList">
 		<h3> ${memberDto.memberName}님의 체험</h3>
 			<c:forEach var="hostExList" items="${hostExList}">
@@ -434,7 +435,7 @@ html {
 					<div class="houseImg">
 						<img alt="img loading"
 							src="<spring:url value='/ex/${hostExList.mainImgName}' />" />
-					</div>
+					</div>a
 					<div class="houseRate"> <c:if
 							test="${hostExList.revRate==1}">
 							<img src="${root}/resources/css/review/star1.PNG"
@@ -458,15 +459,21 @@ html {
 				</a>
 			</c:forEach>
 		</div>
+		</c:if>
 	<div class="reviewWrap">
 		<button type="button" id="houseBtn" class="reviewBtn">숙소 후기 (${houseReviewCount})</button>
+		<input type="hidden" value="${houseReviewCount}" id="houseReviewCount"/>
 		<button type="button" id="exBtn" class="reviewBtn">체험 후기 (${exReviewCount})</button>
-		<div id="houseReview">
+		<input type="hidden" value="${exReviewCount}"  id="exReviewCount"/>
+		<div class="houseReviewWrap">
+			<div id="houseReview"></div>
+			<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</div>
-		<div id="exReview" style="display: none">
+		<div class="exReviewWrap" style="display: none"> 
+		<div id="exReview"></div>
+		<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</div>
 	</div>
-	<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</c:if>
   </div>
 		

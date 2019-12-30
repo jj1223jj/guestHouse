@@ -24,13 +24,13 @@ function rootPage(root, memberLevel) {
 $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
 
 	$('#houseBtn').click(function() {
-		$('#houseReview').css("display", "block");
-		$('#exReview').css("display", "none");
+		$('.houseReviewWrap').css("display", "block");
+		$('.exReviewWrap').css("display", "none");
 		status = "house";
 	});
 	$('#exBtn').click(function() {
-		$('#houseReview').css("display", "none");
-		$('#exReview').css("display", "block");
+		$('.houseReviewWrap').css("display", "none");
+		$('.exReviewWrap').css("display", "block");
 		status = "ex";
 	});
 	
@@ -51,6 +51,8 @@ function moreView() {
     function getList(page, root, status) {
 		var url = root + "/guestdelluna/scroll.do?";
 		var memberCode = document.getElementById("memberCode").value;
+		var houseReviewCount = document.getElementById("houseReviewCount").value;
+		var exReviewCount = document.getElementById("exReviewCount").value;
 		//alert(memberCode);
 		var params = "page=" + page + "&status=" + status + "&memberCode=" + memberCode;
 		$.ajax({
@@ -61,9 +63,16 @@ function moreView() {
 				var json =data;
 				console.log(json);
 				for(var i=0;i<json.length;i++){
-					var date=new Date("'"+json[i].revDate+"'");
-					//alert(date.getFullYear());
-					
+					var day = new Date(json[i].revDate);
+					alert(json[i].revDate);
+					alert(day);
+					var code;
+					if (status == 'house') {
+						code = '<a href="'+root+'/guestHousePage/guestHouse.do?houseCode='+ json[i].code + '">';
+					}
+					if (status == 'ex') {
+						code = '<a href="'+root+'/experience/exPage.do?exCode='+ json[i].code + '">';
+					}
 					var tagData = '<div class="reviewDiv">'+
 					'<div class="reviewL">'+
 					'<p>'+ json[i].revDate+'</p>'+
@@ -76,7 +85,7 @@ function moreView() {
 					'<span>' + json[i].memberName + '</span>'+
 					'</div>'+
 					'<div class="reviewR">'+
-						'<a href="'+root+'/guestHousePage/guestHouse.do?houseCode='+ json[i].code + '">' +
+						code +
 						'<div class="reviewHouseImg">' +
 							'<img alt="img loading" src="'+root+"/image/" + json[i].mainImgName + '"/>'+
 						'</div>'+
@@ -86,12 +95,18 @@ function moreView() {
 				'</div>';
 					if (status == 'house') {
 						$("#houseReview").append(tagData);
+						if ($("#houseReview > .reviewDiv").length == houseReviewCount || $("#houseReview > .reviewDiv").length == 0){
+							$('.houseReviewWrap > .moreViewDiv').hide();
+						}
 					}
 					if (status == 'ex') {
 						$("#exReview").append(tagData);
+						if ($("#exReview > .reviewDiv").length == exReviewCount || $("#houseReview > .reviewDiv").length == 0){
+							$('.exReviewWrap > .moreViewDiv').hide();
+						}
 					}
-					
 				}
+				
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(jqXHR);

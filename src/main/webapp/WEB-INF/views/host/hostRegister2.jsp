@@ -73,17 +73,17 @@
 			</li>
 			<li>
 				<label>인원 수</label>
-				<input type="number" id="people" name="people" min="1" max="16"/> 
+				<input type="number" id="people" name="people" min="1" max="16" value="1"/> 
 				<br/>
 			</li>
 			<li>
 				<label>침대 수</label>
-				<input type="number" id="bed" name="bed" min="1" max="16"/> 
+				<input type="number" id="bed" name="bed" min="1" max="16" value="1"/> 
 				<br/>
 			</li>
 			<li>
 				<label>욕실 수</label>
-				<input type="number" id="bath" name="bath" min="1" max="16"/> 
+				<input type="number" id="bath" name="bath" min="1" max="16" value="1"/> 
 				<br/>
 			</li>
 			<li>
