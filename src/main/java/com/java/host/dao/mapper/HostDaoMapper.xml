@@ -28,7 +28,7 @@
   </insert>
   
   <insert id="mainImgUpload" parameterType="com.java.file.dto.FileDto">
-  	 insert into FileList(fileCode, mainImgName, filePath, fileSize, houseCode) values(seq_fileList_num.nextval, #{mainImgName}, #{filePath}, #{fileSize}, #{houseCode})
+  	 insert into FileList(fileCode, fileName, mainImgName, filePath, fileSize, houseCode) values(seq_fileList_num.nextval, #{mainImgName}, #{mainImgName}, #{filePath}, #{fileSize}, #{houseCode})
   </insert>
   
   <select id="houseCode" resultType="int">
