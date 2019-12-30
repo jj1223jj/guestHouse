@@ -99,7 +99,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int updateMember(MemberDto memberDto) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub oooo
 
 		int check = 0;
 
