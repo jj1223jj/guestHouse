@@ -133,18 +133,20 @@ function GHdeleteCheck(root, reserveCode, memberCode, currentPage,houseCode){
 
 
 function check(revContent, revRate) {
-		var revContent = $('#revContent').val();
-		var revRate = $('#revRate').val();
 		
-		if(revContent ==''){
-			alert("후기 내용을 작성해주세요.");
-			$('#revContent').focus();
-			return false;
-		}else if(revRate == 0){
-			alert("별점을 선택해 주세요.");
-			return false;
-		}
+		
+	var revContent = $('#revContent').val();
+	var revRate = $('#revRate').val();
+	
+	if(revContent ==''){
+		alert("후기 내용을 작성해주세요.");
+		$('#revContent').focus();
+		return false;
+	}else if(revRate == 0){
+		alert("별점을 선택해 주세요.");
+		return false;
 	}
+}
 
 function checkUp() {
 	

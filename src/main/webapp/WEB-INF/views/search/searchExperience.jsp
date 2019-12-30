@@ -71,7 +71,7 @@
 		 		'					<span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:0.75rem;width:0.75rem;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span><span class="_reviewRate"> '+ex[0].revRate+'</span><span class="_reviewCount">('+ex[0].revCount+')</span>' +
 		 		'	 			</div>' +
 		 		'				<div class="_houseName">'+ex[0].exName+'</div>' +
-		 		'				<div class="_houseFacilities">인원 '+ex[0].people+'명</div>' +
+		 		'				<div class="_houseFacilities _people">인원 '+ex[0].people+'명</div>' +
 		 		'			</div>' +
 		 		'		</a>' +
 				'	</div>' +
@@ -100,7 +100,7 @@
 							$("._overlaybox ._houseName").text(overlay.exName);
 							$("._overlaybox ._reviewRate").text(overlay.revRate);
 							$("._overlaybox ._reviewCount").text("("+overlay.revCount+")");
-							$("._overlaybox ._people").text(overlay.people);
+							$("._overlaybox ._people").text('인원 '+overlay.people+'명');
 							$("._overlaybox ._houseCode").text(overlay.exCode);
 							$("._overlaybox a").attr("href","#"+overlay.exCode);
 							$("._overlaybox ._heartButton").attr("class", "_heartButton _heartButton"+i);
@@ -123,6 +123,7 @@
 								overlayHeart.attr("stroke-width","1.4");
 							}
 							$("._overlaybox .swiper-wrapper .swiper-slide").remove();
+							console.log(overlay);
 							if(overlay.exFileList.length>0){
 								for(let j=0;j<overlay.exFileList.length;j++){
 									var img= '<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+overlay.exFileList[j].exFileName+'"/></div>';
@@ -218,7 +219,7 @@
 		});
 		
 		//검색 조건 기본값 설정
-		$("input[name='searchHouseName']").val("${searchHouseName}");
+		$("input[name='searchExName']").val("${searchExName}");
 		var local='${local}'.split(",");
 		if(local.length>1){
 			$(local).each(function(i,e){
@@ -319,7 +320,7 @@
 				$(".peopleContainer").css("display","none");
 			}
 		});
-		setPaging('${checkIn}','${checkOut}','${local}','${people}','${searchHouseName}',$("#sort").val());
+		setPaging('${checkIn}','${checkOut}','${local}','${people}','${searchExName}',$("#sort").val());
 		
 		//$( "#checkIn" ).datepicker( "show" );
 		
@@ -338,8 +339,8 @@
 	}
 	
 	
-	function setPaging(checkIn,checkOut,local,people,searchHouseName,sort){
-		//alert(checkIn+checkOut+local+people+searchHouseName+sort);
+	function setPaging(checkIn,checkOut,local,people,searchExName,sort){
+		//alert(checkIn+checkOut+local+people+searchExName+sort);
 		var pageBlock=${pageBlock};
 		
 		var result=parseInt('${count/boardSize}');
@@ -355,8 +356,8 @@
 		}
 		if(startPage>1){
 			$(".pagination").append(
-					'<li class="page-item"><a class="page-link" href="${root}/search?pageNumber=1&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchHouseName=${searchHouseName}&sort=${sort}">[처음]</a></li>' +
-					'<li class="page-item"><a class="page-link" href="${root}/search?pageNumber='+(startPage-pageBlock)+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchHouseName=${searchHouseName}&sort=${sort}">[이전]</a></li>'		
+					'<li class="page-item"><a class="page-link" href="${root}/experience?pageNumber=1&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchExName=${searchExName}&sort=${sort}">[처음]</a></li>' +
+					'<li class="page-item"><a class="page-link" href="${root}/experience?pageNumber='+(startPage-pageBlock)+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchExName=${searchExName}&sort=${sort}">[이전]</a></li>'		
 			);
 		}
 		for(var i=startPage; i<=endPage;i++){
@@ -366,14 +367,14 @@
 				);
 			}else{
 				$(".pagination").append(
-						'<li class="page-item"><a class="page-link" href="${root}/search?pageNumber='+i+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchHouseName=${searchHouseName}&sort=${sort}" id="'+i+'" class="n">'+i+'</a></li>'	
+						'<li class="page-item"><a class="page-link" href="${root}/experience?pageNumber='+i+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchExName=${searchExName}&sort=${sort}" id="'+i+'" class="n">'+i+'</a></li>'	
 				);
 			}
 		}
 		if(endPage<pageCount){
 			$(".pagination").append(
-					'<li class="page-item"><a class="page-link" href="${root}/search?pageNumber='+(startPage+pageBlock)+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchHouseName=${searchHouseName}&sort=${sort}">[다음]</a></li>'+
-					'<li class="page-item"><a class="page-link" href="${root}/search?pageNumber='+pageCount+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchHouseName=${searchHouseName}&sort=${sort}">[끝]</a></li>'
+					'<li class="page-item"><a class="page-link" href="${root}/experience?pageNumber='+(startPage+pageBlock)+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchExName=${searchExName}&sort=${sort}">[다음]</a></li>'+
+					'<li class="page-item"><a class="page-link" href="${root}/experience?pageNumber='+pageCount+'&checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchExName=${searchExName}&sort=${sort}">[끝]</a></li>'
 			);
 		}
 	}
@@ -411,7 +412,7 @@
 	
 	
 	function sort(sortValue){
-		location.href=root+"/search?pageNumber=${pageNumber}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchHouseName=${searchHouseName}&sort="+sortValue;
+		location.href=root+"/experience?pageNumber=${pageNumber}&checkIn=${checkIn}&checkOut=${checkOut}&local=${local}&people=${people}&searchExName=${searchExName}&sort="+sortValue;
 	}
 	
 	//검색조건 submit함수
@@ -767,7 +768,7 @@ form{
 				</div>
 			</div>
 			<div class="formContainer">
-				<form name="form" action="${root}/search" method="get" onsubmit="return confirmSubmit()">
+				<form name="form" action="${root}/experience" method="get" onsubmit="return confirmSubmit()">
 					
 					<div class="checkInOutContainer">
 						<div class="checkInContainer">
@@ -829,14 +830,14 @@ form{
 	    				</div>
 					</div>
 					<div class="searchContainer">
-						<input class="form-control" type="text" name="searchHouseName" placeholder="숙소명이름"/><button type="submit" class="searchBtn btn btn-primary" onsubmit="confirmSubmit()">검색</button>
+						<input class="form-control" type="text" name="searchExName" placeholder="숙소명이름"/><button type="submit" class="searchBtn btn btn-primary" onsubmit="confirmSubmit()">검색</button>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="houseListContainer">
 			<div class="houseListCount">
-				숙소 ${count}개
+				체험 ${count}개
 			</div>
 			<div class="houseContainer">
 				<%-- <div class="house">
@@ -878,8 +879,8 @@ form{
 		<div class="mapContainer">
 			<div id="map">
 			<div class="custom_typecontrol radius_border">
-		        <span id="btnGuestHouse" class="_exbtn" onclick="setSearchType('guestHouse')">게하</span>
-		        <span id="btnExperience" class="selected_btn" onclick="setSearchType('experience')">체험</span>
+		        <span id="btnGuestHouse" class="_exbtn" onclick="setSearchType('guestHouse',form)">게하</span>
+		        <span id="btnExperience" class="selected_btn" onclick="setSearchType('experience',form)">체험</span>
 		    </div>
 			
 			</div>
