@@ -1,12 +1,17 @@
 package com.java.search.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.java.aop.HomeAspect;
+import com.java.exfile.dto.ExFileDto;
+import com.java.experience.dto.ExperienceImgDto;
 import com.java.file.dto.FileDto;
 import com.java.host.dto.HostDto;
 import com.java.host.dto.HostImgDto;
@@ -20,7 +25,7 @@ public class SearchDaoImp implements SearchDao {
 	
 	@Override
 	public List<HostImgDto> searchHouse(Map<String, Object> dataMap) {
-		System.out.println(dataMap.get("sort"));
+		HomeAspect.logger.info(HomeAspect.logMsg+"sort: "+dataMap.get("sort"));
 		List<HostImgDto> hostImgList = session.selectList("dao.searchMapper.searchHouse", dataMap);
 		for(HostImgDto hostImgDto : hostImgList) {
 			List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",hostImgDto.getHouseCode());
@@ -32,7 +37,7 @@ public class SearchDaoImp implements SearchDao {
 	@Override
 	public GetCountDto getCount(Map<String, Object> dataMap) {
 		GetCountDto getCountDto= session.selectOne("dao.searchMapper.getCount", dataMap);
-		System.out.println(getCountDto.getMax()+","+getCountDto.getMin());
+		//System.out.println(getCountDto.getMax()+","+getCountDto.getMin());
 		
 		return getCountDto; 
 	}
@@ -42,6 +47,37 @@ public class SearchDaoImp implements SearchDao {
 	public int dataInputOk(HostDto hostDto) {
 		return session.insert("dao.searchMapper.dataInput", hostDto);
 	}
+
+	@Override
+	public HostImgDto overlay(int houseCode, Integer memberCode) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("houseCode", houseCode);
+		map.put("memberCode", memberCode);
+		
+		HostImgDto hostImgDto = session.selectOne("dao.searchMapper.overlay", map);
+		List<FileDto> fileList = session.selectList("dao.searchMapper.getHouseImg",houseCode);
+		hostImgDto.setFileList(fileList);
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax Dto: "+hostImgDto);
+		
+		return hostImgDto;
+	}
+
+	@Override
+	public List<ExperienceImgDto> searchEx(Map<String, Object> dataMap) {
+		HomeAspect.logger.info(HomeAspect.logMsg+"sort: "+dataMap.get("sort"));
+		List<ExperienceImgDto> exImgList = session.selectList("dao.searchMapper.searchEx", dataMap);
+		for(ExperienceImgDto exImgDto : exImgList) {
+			List<ExFileDto> exFileList = session.selectList("dao.searchMapper.getExImg",exImgDto.getExCode());
+			exImgDto.setExFileList(exFileList);
+		}
+		return exImgList;
+	}
+
+	@Override
+	public int getExCount(Map<String, Object> dataMap) {
+		return session.selectOne("dao.searchMapper.getExCount", dataMap);
+	}
+	
 
 
 }

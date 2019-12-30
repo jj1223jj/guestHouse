@@ -3,8 +3,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.searchMapper">
 
+	<select id="overlay" parameterType="java.util.Map" resultType="com.java.host.dto.HostImgDto">
+		
+
+		select a.houseCode, houseName, people, revRate, revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from 
+		
+		(select houseName,houseCode,people from house) a
+		
+		left outer join
+		
+		(select houseCode, round(nvl(avg(revRate),0),2) revRate, count(houseCode) revCount from reservation rs, review r where rs.reserveCode= r.reserveCode group by houseCode) b
+		
+		on a.houseCode= b.houseCode
+		
+		<if test="memberCode!=null">
+		left outer join wishList c
+		on a.houseCode= c.houseCode
+		and c.memberCode=#{memberCode}
+		</if>
+		
+		where a.houseCode=#{houseCode}
+
+
+	
+	
+	</select>
+
+
+
 	<select id="getHouseImg" parameterType="int" resultType="com.java.file.dto.FileDto">
 		select * from fileList where houseCode=#{value}
+	</select>
+
+	<select id="getExImg" parameterType="int" resultType="com.java.exfile.dto.ExFileDto">
+		select * from exFileList where exCode=#{value}
 	</select>
 
 
@@ -29,6 +61,30 @@
 		</if>
 		<if test="searchHouseName!=null">
 			and houseName like '%${searchHouseName}%'
+		</if>
+	</select>
+	
+	<select id="getExCount" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+			select count(*) count from experience h
+								where exCode not in (
+												select exCode from (
+																		select a.*, experience.exPeople-p remain from (
+																													select exCode, resDate, sum(exPeople) p from exRemain
+																														where resDate >= #{checkIn} and resDate < #{checkOut}
+																														group by exCode, resDate order by exCode, resDate
+																												) a, experience where a.exCode=experience.exCode
+																		) where remain < #{people} group by exCode
+														)
+		]]>
+		
+		<if test="localSplit!=null">
+			<foreach collection="localSplit" item="item" open="and (" separator="or" close=")">
+				local=#{item}
+			</foreach>
+		</if>
+		<if test="searchExName!=null">
+			and exName like '%${searchExName}%'
 		</if>
 	</select>
 
@@ -104,6 +160,61 @@
 		</if>
 		<if test="sort=='priceLow'">
 			order by price, revRate desc
+		</if>
+		<if test="sort=='revRate'">
+			order by revRate desc
+		</if>
+		) h
+		
+		
+		<![CDATA[											
+			) where rn>=#{sRow} and rn<=#{eRow}
+		]]>
+		
+		
+	</select>
+	
+
+	<select id="searchEx" parameterType="java.util.Map" resultType="com.java.experience.dto.ExperienceImgDto">
+		select * from(
+		select h.*, rownum rn from (
+			
+			select a.*, nvl(b.revRate,0) revRate, b.revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from (
+			
+			    select h.*, latlng from experience h join house on h.houseCode=house.houseCode
+			                                where exCode not in (
+			    select exCode from (
+			    select a.*, experience.exPeople-p remain from (
+			    select exCode, resDate, sum(exPeople) p from exRemain
+			                                                                    <![CDATA[where resDate >= #{checkIn} and resDate < #{checkOut}
+			                                                                                      group by exCode, resDate order by exCode, resDate
+			    ) a, experience where a.exCode=experience.exCode
+			    ) where remain < #{people} group by exCode]]>
+			    )
+			) a
+			left outer join (select exCode, round(avg(revRate),2) revRate, count(exCode) revCount from (select exReserve.exCode, revRate from exReserve, exReview where exReserve.exReserveCode=exReview.exReservecode) a group by exCode) b
+			on a.exCode=b.exCode
+			<if test="memberCode!=null">
+			left outer join exWishList c
+			on a.exCode=c.exCode
+			and c.memberCode=#{memberCode}
+			</if>
+		
+		<if test="localSplit!=null">
+			where (
+			<foreach collection="localSplit" item="item" separator="or">
+				local=#{item}
+			</foreach>
+			)
+		</if>
+		<if test="searchExName!=null">
+			and exName like '%${searchExName}%'
+		</if>
+		<if test="sort=='priceHigh'">
+			order by exPrice desc, revRate desc
+		</if>
+		<if test="sort=='priceLow'">
+			order by exPrice, revRate desc
 		</if>
 		<if test="sort=='revRate'">
 			order by revRate desc

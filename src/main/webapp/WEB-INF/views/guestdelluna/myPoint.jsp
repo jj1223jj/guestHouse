@@ -66,6 +66,7 @@ color : #333;
 		
 		
 	});
+
 //4-2 pageClic함수
 function pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endPage){
 	
@@ -127,6 +128,7 @@ function pageClick(pageBlock,result,pageCount,currentPage,result2,startPage,endP
 	});
 	
 }
+
 //4.setPaging 함수
 function setPaging(pageBlock,result,pageCount,currentPage,result2,startPage,endPage){
     
@@ -365,6 +367,8 @@ function useSetPaging(pageBlock,useResult,usePageCount,useCurrentPage,useResult2
 											<td>적립포인트</td>
 										</tr>
 									</thead>
+									<c:if test="${countAccu>0 }">
+
 										<tbody class="pointInfo">
 											<c:forEach var="accuPoint" items="${accuPoint}"
 												varStatus="status">
@@ -377,6 +381,7 @@ function useSetPaging(pageBlock,useResult,usePageCount,useCurrentPage,useResult2
 													</tr>
 											</c:forEach>
 										</tbody>
+
 								</table>
 								</c:if>
 <!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
@@ -422,6 +427,14 @@ function useSetPaging(pageBlock,useResult,usePageCount,useCurrentPage,useResult2
 								<div class="usePageContainer">
 									<ul class="pagination point" >
 
+									</c:if>
+								</table>
+
+<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
+								<div class="pointPageContainer">
+									<ul class="pagination">
+
+
 									</ul>
 								</div>
 							</div>
@@ -432,6 +445,7 @@ function useSetPaging(pageBlock,useResult,usePageCount,useCurrentPage,useResult2
 		</div>
 	</div>
 </body>
+
 
 <script type="text/javascript">
 	$(function() {
@@ -468,6 +482,9 @@ function useSetPaging(pageBlock,useResult,usePageCount,useCurrentPage,useResult2
 html {
 	font-size: 16px;
 }
+
+						<script type="text/javascript">
+
 
 #vl {
 	border-left: 0.0625rem solid #dddddd;

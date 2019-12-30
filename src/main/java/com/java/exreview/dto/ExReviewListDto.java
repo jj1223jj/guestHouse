@@ -2,10 +2,12 @@ package com.java.exreview.dto;
 
 import java.util.Date;
 
+
 public class ExReviewListDto {
 	private int exReserveCode;
 	private int memberCode;
 	private Date revDate;
+	
 	private String revContent;
 	private int revRate;
 	private String email;

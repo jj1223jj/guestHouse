@@ -877,8 +877,8 @@ form{
 		<div class="mapContainer">
 			<div id="map">
 			<div class="custom_typecontrol radius_border">
-		        <span id="btnGuestHouse" class="selected_btn" onclick="setSearchType('guestHouse',form)">게하</span>
-		        <span id="btnExperience" class="_exbtn" onclick="setSearchType('experience',form)">체험</span>
+		        <span id="btnGuestHouse" class="selected_btn" onclick="setSearchType('guestHouse')">게하</span>
+		        <span id="btnExperience" class="_exbtn" onclick="setSearchType('experience')">체험</span>
 		    </div>
 			
 			</div>

@@ -35,7 +35,6 @@
 		checkBoxSetting();
 		
 
-		$(".all").attr("checked","");
 		
 		//체크인 달력 띄워주기
 		var yearSuffix = "년";
@@ -81,7 +80,7 @@
 	function confirmSubmit(){
 		
 		//선택한 local지역 합치기
-		$("input[name='local[]'").each(function(i, e){
+		$("input[class='custom-control-input etc']").each(function(i, e){
 			if(e.checked==true){
 				$("#local").val($("#local").val()+e.value+",");
 			}
@@ -204,8 +203,8 @@ i{
     				<div class="localContainer form-check-inline">
 						<div class="localAll">
 							<div class="custom-control custom-checkbox mb-3">
-		     					 <input type="checkbox" class="custom-control-input all" id="all"/>
-		    					 <label class="custom-control-label" for="all">전체</label>
+		     					 <input type="checkbox" class="custom-control-input all" id="all" checked="checked"/>
+		    					 <label  class="custom-control-label" for="all">전체</label>
 		    				</div>
 	    				</div>
 	    				<div class="localJeju">

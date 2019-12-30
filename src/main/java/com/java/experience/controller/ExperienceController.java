@@ -1,5 +1,9 @@
 package com.java.experience.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
@@ -65,19 +70,40 @@ public class ExperienceController {
 		return mav;
 	}
 	
-	// 체험 후기 작성 눌렀을 때 
-		@RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
-		public ModelAndView exReview(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
+	// 체험 후기 리스트
+	/*
+	 * @RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
+	 * public void exReview(HttpServletRequest request, HttpServletResponse
+	 * response, ExReviewDto exReviewDto) {
+	 * 
+	 * System.out.println("exReview write,list");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.addObject("request",request);
+	 * mav.addObject("response",response);
+	 * 
+	 * mav.addObject("exReviewDto",exReviewDto);
+	 * 
+	 * String jsonText = experienceService.exReview(mav);
+	 * 
+	 * if (jsonText != null) {
+	 * response.setContentType("application/x-json;charset=utf-8"); try {
+	 * PrintWriter out; out = response.getWriter(); out.print(jsonText);
+	 * out.close(); } catch (IOException e) { e.printStackTrace(); } }
+	 * 
+	 * // experienceService.exReview(mav);
+	 * 
+	 * 
+	 * //return mav; }
+	 */
 		
-		  System.out.println("exReview write,list");
-		  
-		  ModelAndView mav = new ModelAndView(); mav.addObject("request",request);
-		  mav.addObject("exReviewDto",exReviewDto);
-		  
-		  experienceService.exReview(mav);
-		 
+		// jackson
+		@ResponseBody
+		@RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
+		public Map<String, Object> list(HttpServletRequest request, HttpServletResponse response){
+			System.out.println("@@@@@@@");
 			
-			return mav;
+			return experienceService.exReview(request);
+			
 		}
 	
 	// 체험 후기 작성 완료

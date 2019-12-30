@@ -1,5 +1,9 @@
 package com.java.experience.service;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.servlet.ModelAndView;
 
 public interface ExperienceService {
@@ -8,7 +12,7 @@ public interface ExperienceService {
 
 	public void hostAddress(ModelAndView mav);
 
-	public void exReview(ModelAndView mav);
+	public String exReview(ModelAndView mav);
 
 	public void exReviewOk(ModelAndView mav);
 
@@ -25,6 +29,9 @@ public interface ExperienceService {
 	public void exReserveOk(ModelAndView mav);
 // 달력
 	public void exReserveCal(ModelAndView mav);
+
+	// 잭슨
+	public Map<String, Object> exReview(HttpServletRequest request);
 
 	
 	

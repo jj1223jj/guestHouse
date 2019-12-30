@@ -85,7 +85,6 @@ text-align: center;
 			<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
         </button> -->
-
 			<ul class="nav navbar-nav navbar-right" style="margin-right: 5rem;">
 
 				<c:if test="${memberLevel == null}">
@@ -109,6 +108,23 @@ text-align: center;
 						href="${root}/host/register.do">호스팅하기</a></li>
 
 					<%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
+       
+         <ul class="nav navbar-nav navbar-right" style="margin-right: 5rem;">
+          	
+	          	<c:if test="${memberLevel == null}">
+		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
+		            <%-- <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li> --%>
+	            	<li id="log"><button class="btn" data-toggle="modal" data-target="#login">로그인/회원가입<!-- <i class="fa fa-user"></i> --></button></li>
+	            </c:if>
+          
+	            <c:if test="${memberLevel != null}">
+	          		<li class="nav-item"><a class="nav-link" href="#">게스트 하우스 검색</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="#">체험 검색</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=6">체험 페이지</a></li>
+			        <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
+			       
+		            <%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
+
 			            <li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/myInfo.do">마이페이지</a></li>
 			            <li class="nav-item"><a class="nav-link" href="${root}/member/logout.do">로그아웃</a></li>
 		            	<li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/zzimlist.do">장바구니</a></li>

@@ -8,8 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="${root}/resources/css/guestHouse/guestHouseReserve.css">
+
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/base/jquery-ui.css">
+<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
 <script type="text/javascript">
 
@@ -52,48 +54,41 @@
 		}
 	};
 	
-/* 	function pointUseFun(total){
-		var usePoint =$("#usePoint").val();
-		var resPoint;							// 적립포인트						
-		
-		if(usePoint==0){
-			resPoint = total * 0.01;
-			$("#savePoint").replaceWith("<span>"+resPoint+"점</span>");
-		}else if(usePoint!=0){
-			resPoint = 0;
-			$("#savePoint").replaceWith("<span>"+resPoint+"점</span>");
-		}
-	}; */
-	
 </script>
 </head>
 <body>
-	<div align="center">
-		<h3>예약페이지</h3>
-		<br/>
-		
-		<h1>숙소 이용규칙 확인하기</h1>
+	<div class="rePage">
+		<p>숙소 이용규칙 확인하기</p>
 		<div class="top">
 			<div class="guestHouse">
-				<div id="Info">
-					<span>${hostDto.explain}</span>
+				<div id="explain">
+					<p id="houseName">${hostDto.houseName}</p>
+					<p>${hostDto.explain}</p>
+				</div>
+				<div id="ghImg">
 					<img src="<spring:url value='/image/${mainImg}' />" />
 				</div>
-				<span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
-				<span id="revCount">후기     개</span>
+				<!-- <span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
+				<span id="revCount">후기     개</span> -->
 			</div>
 			<div class="reserve">
-				<p id="people">게스트 ${people}명</p>
-				<span id="checkIn">${checkIn} </span>
-				<span>→</span>
-				<span id="checkOut">${checkOut}</span>
-				<br/>
-				<p id="price">금액                        	${hostDto.price} X ${night} X ${people}</p>
-				<p id="total">총합계(KRW)     ${total}</p>
+				<div id="wrap">
+					<img alt="icon" src="./../resources/css/images/Icon/people.png" width="16px" height="16px">
+					<span id="people">게스트 ${people}명</span>
+				</div>
+				<div id="wrap">
+					<img alt="icon" src="./../resources/css/images/Icon/Calendar.png" width="16px" height="16px">
+					<span id="checkIn">${checkIn} (${hostDto.checkInTime})</span>&nbsp;
+					<img alt="icon" src="./../resources/css/images/Icon/Next.png" width="16px" height="16px">
+					&nbsp;<span id="checkOut">${checkOut} (${hostDto.checkOutTime})</span>
+				</div>
+				<p id="price">금액                        	₩${hostDto.price} X ${night}박 X ${people}명</p>
+				<p id="total">총합계(KRW)     ₩${total}</p>
 			</div>
+			<hr color="#CCCCCC"/>
 		</div>
 		
-		<hr color="#CCCCCC"/>
+		
 		
 		<div class="mid">
 			<div class="notice">
@@ -109,35 +104,47 @@
 		<div class="bot">
 			<div id="pay">
 				<h3>결제수단</h3>
-				
-				<select name="payment" id="payment">
-					<option value="select" selected="selected">선택하세요</option>
-					<option value="account" id="account">무통장입금</option>
-					<option value="card" id="card">카드결제</option>
-				</select>
-				<br/>
-				
-				<span>point  </span>
-				<span><input id="usePoint"></span>
-				<script>
-					$(function(){
-						$("#usePoint").spinner({
-							max: ${point},
-							min:0,
-							step:100
+				<div id="wrap">
+					<div id="paySelect">
+						<span style="font-weight: bold;">결제방법</span>
+					</div>
+					<select name="payment" id="payment">
+						<option value="select" selected="selected">선택하세요</option>
+						<option value="account" id="account">무통장입금</option>
+						<option value="card" id="card">카드결제</option>
+					</select>
+				</div>
+				<div id="wrap">
+					<div id="pointId">
+						<span style="font-weight: bold;">point</span>
+					</div>
+					<div id="usePointDiv">
+						<span><input id="usePoint"></span>
+					</div>
+					<script>
+						$(function(){
+							$("#usePoint").spinner({
+								max: ${point},
+								min:0,
+								step:100
+							});
 						});
-					});
-				</script>
-				<%-- <button id="pointBtn" onclick="pointUseFun(${total})">사용</button> --%>
-				
-				<p id="point"> 사용가능 포인트  : ${point}점</p>
+					</script>
+					
+				</div>
+				<div>
+					<span id="point" style="color: red"> 사용가능 포인트  : ${point}점</span>
+				</div>
 				<!-- <span id="savePoint">적립 포인트: 0점</span> -->
 				<br/>
 			</div>
 		</div>
 		
 		<%-- <button class="btn" onclick="reserveCompleteFun('${root}','${people}','${checkIn},'${checkOut}','${total}')">예약 요청하기</button> --%>
-		<button class="btn" onclick="reserveCompleteFun('${root}', '${hostDto.houseCode}','${memberCode}','${checkIn}','${checkOut}','${people}','${total}')">예약요청하기</button>
+		<button class="btn" style="background-color: #008489; color: white; font-weight: bold;" onclick="reserveCompleteFun('${root}', '${hostDto.houseCode}','${memberCode}','${checkIn}','${checkOut}','${people}','${total}')">예약요청하기</button>
 	</div>
+	
+	<!-- footer 겹침현상 제거 -->
+	<div style="clear:both;"></div>
 </body>
 </html>

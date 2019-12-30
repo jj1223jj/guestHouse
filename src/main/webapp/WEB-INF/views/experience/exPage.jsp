@@ -22,6 +22,7 @@
 
 <script>
 $(document).ready(function(){
+	
 	var divs = document.querySelectorAll('.img div');
 
 	for(var i=0; i<divs.length;++i){
@@ -48,6 +49,8 @@ $(document).ready(function(){
 	
 });
 </script>
+
+
 <style type="text/css">
 #exImg{
 	object-fit:cover;
@@ -58,19 +61,26 @@ $(document).ready(function(){
 #exinfo> ul > li{
 list-style: none;
 float: left;
-margin-right: 2.7rem;
+margin-right: 3rem; 
+margin-bottom: 3rem;
+border: 0.1rem solid purple;
+width: 16rem;
+height: 5rem;
 
 }
 #exinfo> ul > li >p{
+text-align: center;
 }
 
-#exinfo> ul > li >label{
+ul > li >label{
 font-size: 1rem;
+text-align: center;
 }
 </style>
 
 </head>
-<body>
+<body onload="load('${root}' ,'${sessionScope.email}','${experienceDto.exCode}')">
+
 	<c:if test="${memberLevel == 'Admin'}">
 		<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
 		<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
@@ -123,13 +133,28 @@ font-size: 1rem;
 	    <ul>	
 	    	<li>	
 	    		<label>진행시간</label>
-	    		<p class="text-secondary">${experienceDto.exTime}</p>
+	    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}</p>
 	    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
-	    		
+	    	</li>
+	    	<li>	
 	    		<label>인원</label>
 	    		<p class="text-secondary">${experienceDto.exPeople}</p>
 	    	</li>
+	    	
 	    	<li>	
+	    		<label>가격</label>
+	    		<p class="text-secondary">${experienceDto.exPrice}</p>
+	    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
+	    	</li>
+	    	
+	    	<li>	
+	    		<label>위치</label>
+	    		<p class="text-secondary">${experienceDto.exAddress}</p>
+	    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
+	    		
+	        </li>
+	    	
+	    	<li style="margin-right: 5rem;">	
 	    		<label>체험날짜</label>
 	    		<!-- view를 위한 날짜 포맷-->
 	    		<fmt:formatDate var="startDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exStartDate}"/>
@@ -148,26 +173,16 @@ font-size: 1rem;
 	    	</li>
 	    	
 	    	
-	    	<li>	
-	    		<label>가격</label>
-	    		<p class="text-secondary">${experienceDto.exPrice}</p>
-	    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
-	    	</li>
-	    	<li>	
-	    		<label>위치</label>
-	    		<p class="text-secondary">${experienceDto.exAddress}</p>
-	    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
-	    		
-	        </li>
+	    	
 	        
-	         <li>
+	         <li style="width: 54rem">
 	         	<label>프로그램설명</label>
 	         	<p class="text-secondary">${experienceDto.exExplain}</p>
 	    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
 	    		
 	         </li>
 <!-- 달력 -->		         
-	       	<li>
+	       	<li style="width: 20rem; height: auto;">
 	       		<label>예약가능날짜</label>
 	            <div type="text" id="date" name="date"></div>
 	        </li>
@@ -225,8 +240,9 @@ font-size: 1rem;
 	     </div>
 	     
 <!-- 예약하기 -->
+<div style="width: 30rem; height: auto; border: 0.1rem dotted black;">
 <form action="${root}/experience/exReserve.do"  method="get" name="exForm">
-	<div style="width:30rem;/*  border: 1px solid red; */">
+	<div style="width:30rem; height:auto;  border: 1px solid red;">
 	
 		<p>예약하기</p>
 		<p>날짜선택</p>
@@ -285,6 +301,7 @@ font-size: 1rem;
 	</div>
 	
 	</form>
+</div>
 	<br/><br/>
  <!-- 리뷰수 count -->
 			전체 리뷰 수: ${count}, 이 페이지의 리뷰 수 : ${reviewList.size()}, 현재 페이지: ${currentPage}
@@ -293,13 +310,14 @@ font-size: 1rem;
 
 
  <!-- 후기 작성 -->   
+ <c:if test="${memberLevel != null}">
   <form action="${root}/experience/exReviewOk.do"  method="get" name="exForm" onsubmit="return check('${revContent}','${revRate}')">  
 	    <div align="" style="margin: 100px;">
 		
 		<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
 		<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/> --%>
 		<%-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
-		<c:if test="${reviewList.size()==0 || currentPage==1}">
+		
 			<div class="form">
 				<div class="title">
 					<span>이메일</span>
@@ -351,15 +369,15 @@ font-size: 1rem;
 					
 				</div>
 			</div>
-		</c:if>
 	</div>
 </form>
+</c:if>
 	
 		
 <!-- 후기 리스트 -->			
 		<%-- 미리 쓴 후기가 존재하는 경우  --%>
 		
-	<div>
+	<div id="exReview">
 		<c:if test ="${reviewList.size() > 0}">
 			<c:forEach var="exReviewDto" items="${reviewList}">
 				<div class="form" style="margin: 50px 100px; border-width:1px;">
@@ -368,8 +386,9 @@ font-size: 1rem;
 						
 						<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>						
 						<!-- 리뷰 번호  -->
-						예약번호: ${exReviewDto.exReserveCode} &nbsp;&nbsp;
-						<input type="hidden" name="exReserveCode" id ="exReserveCode" value="${exReviewDto.exReserveCode}">
+						<%-- 예약번호: ${exReviewDto.exReserveCode} &nbsp;&nbsp; --%>
+						
+						<input type="hidden" name="exReserveCode" id ="exReserveCodes" value="${exReviewDto.exReserveCode}">
 						
 						<!-- 이메일 -->
 						이메일: ${exReviewDto.email}&nbsp;&nbsp;
@@ -419,6 +438,16 @@ font-size: 1rem;
 		</c:if>
 	</div>
 	
+	 <!-- 후기 -->
+	<div id="contentData">
+		<!-- <p id="exReserveCode"></p>
+		<p id="emailJ"></p>
+		<p id="revDateJ"></p>
+		<p id="revContentJ"></p>
+		<p id="revRateJ"></p> -->
+	</div>	
+	 
+	<button type="button" class="btn btn-light" onclick="moreView('${root}')">후기 더보기</button>
 <!-- 페이징 -->	
 	<%-- 페이지 번호
 			1. 총 페이지수 : 전체 레코드 수(count)와 페이지 당 게시물 수(boardSize)

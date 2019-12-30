@@ -7,7 +7,32 @@ function setRoot(r){
 }
 
 
-
+function setSearchType(searchType,form){
+	console.log(form);
+	var checkIn = form.checkIn.value;
+	var checkOut = form.checkOut.value;
+	var local = form.local.value;
+	var people = form.people.value;
+	//alert(checkIn);
+	//alert(checkOut);
+	//alert(local);
+	//alert(people);
+	//console.log(form.local);
+    var guestHouseControl = document.getElementById('btnGuestHouse');
+    var experienceControl = document.getElementById('btnExperience'); 
+    if (searchType === 'guestHouse') {
+        //alert("to GuestHouse");
+        //alert(window.location.href);
+        //guestHouseControl.className = 'selected_btn';
+        //experienceControl.className = '_exbtn';
+    } else {
+    	//alert("to Experience");
+    	//alert(root+"/experience?"+window.location.href.substring(window.location.href.lastIndexOf("checkIn")));
+    	location.href=root+'/experience?checkIn='+checkIn+'&checkOut='+checkOut+'&local='+local+'&people='+people+'&searchExName=';
+        //experienceControl.className = 'selected_btn';
+        //guestHouseControl.className = '_exbtn';
+    }
+}
 
 
 function setMarker(house, map){
@@ -119,9 +144,17 @@ function checkBoxSetting(){
 	});
 }
 
-function dateToString(date){
+function dateToString(fullDate){
 	//date타입을 "yyyy-mm-dd"형식 문자열로 바꿔주는 함수
-	return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+	var month=(fullDate.getMonth()+1).toString();
+	var date=fullDate.getDate().toString();
+	if(month.length==1){
+		month="0"+month.toString();
+	}
+	if(date.length==1){
+		date="0"+date.toString();
+	}
+	return fullDate.getFullYear()+"-"+month+"-"+date;
 }
 
 //하트 클릭
@@ -130,8 +163,8 @@ function heart(memberCode){
 	$("._heartButton").attr('onclick', '').unbind('click');
 
 	
-	if(memberCode!='') {
-		$("._heartButton").click(function(){
+	$("._heartButton").click(function(){
+		if(memberCode!='') {
 			var button = $(this).attr("class").split(" ")[1];
 			var heart=$("."+button).children().children();
 			console.log(heart);
@@ -161,14 +194,12 @@ function heart(memberCode){
 				  }
 				})
 			
-		});
-	}else{
-		$("._heartButton").click(function(){
-			//alert( $("#price" ).slider( "values" ));
-			console.log("로그인해주세요");
-			//로그인 모달 띄워주기
-		});
-	}
+		}else{
+				//alert( $("#price" ).slider( "values" ));
+				console.log("로그인해주세요");
+				//로그인 모달 띄워주기
+		}
+	});
 }
 function heart2(memberCode){
 
