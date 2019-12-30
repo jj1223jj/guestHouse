@@ -244,8 +244,8 @@ public class SearchServiceImp implements SearchService {
 				map.put("revRate",exDto.getRevRate());
 				map.put("revCount",exDto.getRevCount());
 				map.put("zzimed",exDto.getZzimed());
-				map.put("exStartDate",exDto.getExStartDate());
-				map.put("exEndDate",exDto.getExEndDate());
+				map.put("exStartDate",exDto.getExStartDate().toString());
+				map.put("exEndDate",exDto.getExEndDate().toString());
 				map.put("exTime",exDto.getExTime());
 				
 				
@@ -256,7 +256,7 @@ public class SearchServiceImp implements SearchService {
 					exFileMap.put("exFileName",exFileDto.getFileName());
 					exFileArr.add(exFileMap);
 				}
-				map.put("fileList", exFileArr);
+				map.put("exFileList", exFileArr);
 				arr.add(map);
 				HomeAspect.logger.info(HomeAspect.logMsg+"exDto Json: " +map.toString());
 			}
@@ -284,6 +284,39 @@ public class SearchServiceImp implements SearchService {
 		
 		return mav;
 		
+	}
+
+
+	@Override
+	public String exOverlay(int exCode, Integer memberCode) {
+		ExperienceImgDto exImgDto = searchDao.exOverlay(exCode, memberCode);
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			System.out.println("objectMapper: "+mapper.writeValueAsString(mapper));
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("exCode", exImgDto.getExCode());
+		map.put("exName", exImgDto.getExName());
+		map.put("people", exImgDto.getExPeople());
+		map.put("revRate", exImgDto.getRevRate());
+		map.put("revCount", exImgDto.getRevCount());
+		map.put("zzimed", exImgDto.getZzimed());
+		JSONArray fileArr= new JSONArray();
+		for(ExFileDto exFileDto: exImgDto.getExFileList()) {
+			HashMap<String,String> fileMap = new HashMap<String,String>();
+			fileMap.put("fileName", exFileDto.getFileName());
+			fileArr.add(fileMap);
+		}
+		map.put("fileList", fileArr);
+		System.out.println("jsonValue: "+JSONValue.toJSONString(map));
+		System.out.println("jsonObject: "+JSONObject.toJSONString(map));
+		
+		return JSONObject.toJSONString(map);
 	}
 
 

@@ -77,6 +77,20 @@ public class SearchDaoImp implements SearchDao {
 	public int getExCount(Map<String, Object> dataMap) {
 		return session.selectOne("dao.searchMapper.getExCount", dataMap);
 	}
+
+	@Override
+	public ExperienceImgDto exOverlay(int exCode, Integer memberCode) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("exCode", exCode);
+		map.put("memberCode", memberCode);
+		
+		ExperienceImgDto exImgDto = session.selectOne("dao.searchMapper.exOverlay", map);
+		List<ExFileDto> exFileList = session.selectList("dao.searchMapper.getExImg",exCode);
+		exImgDto.setExFileList(exFileList);
+		HomeAspect.logger.info(HomeAspect.logMsg+"ajax Dto: "+exImgDto);
+		
+		return exImgDto;
+	}
 	
 
 

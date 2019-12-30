@@ -36,19 +36,20 @@
 		setRoot('${root}');
 		
 		var map= setMap();
-		if('${jsonHouseList}'!=''){
-			var house=JSON.parse('${jsonHouseList}').houseJson
-			setHouseList(house,'${memberCode}');
+		if('${jsonExList}'!=''){
+			var ex=JSON.parse('${jsonExList}').exJson;
+			console.log(ex);
+			setExList(ex,'${memberCode}');
 			
-			var height = house.length*15.625+1.25;
+			var height = ex.length*15.625+1.25;
 			//alert(height);
 			$(".houseContainer").css("height",height+"rem");
 			
-			var marker= setMarker(house,map);
+			var marker= setMarker(ex,map);
 			var content =
 				'<div class="_overlaybox">' +
 				'	<div class="_shadowOverlaybox">' +
-				'		<div class="_houseCode" style="display:none;">'+house[0].houseCode+'</div>' +
+				'		<div class="_houseCode" style="display:none;">'+ex[0].exCode+'</div>' +
 		 		'		<div class="_overlayImgContainer">' +
 				'			<div class="swiper-container">' +
 				'				<div class="swiper-wrapper">' +
@@ -64,13 +65,13 @@
 				'				<button data-toggle="modal" data-target="#login" aria-label="목록에 숙소 추가하기" type="button" class="_heart _r0agyd heart'+0+'"><svg viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.3rem; width: 1.3rem; display: block; overflow: visible;"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg></button>' +
 				'			</div>' +
 		 		'		</div>' +
-		 		'		<a href="#'+house[0].houseCode+'" style="display:block;">' +
+		 		'		<a href="#'+ex[0].exCode+'" style="display:block;">' +
 		 		'			<div class="_overlayInfoContainer">' +
 		 		'				<div class="_overlayReviewContainer">' +
-		 		'					<span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:0.75rem;width:0.75rem;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span><span class="_reviewRate"> '+house[0].revRate+'</span><span class="_reviewCount">('+house[0].revCount+')</span>' +
+		 		'					<span class="_starImg"><svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height:0.75rem;width:0.75rem;fill:#FF385C"><path d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"></path></svg></span><span class="_reviewRate"> '+ex[0].revRate+'</span><span class="_reviewCount">('+ex[0].revCount+')</span>' +
 		 		'	 			</div>' +
-		 		'				<div class="_houseName">'+house[0].houseName+'</div>' +
-		 		'				<div class="_houseFacilities">인원 '+house[0].people+'명</div>' +
+		 		'				<div class="_houseName">'+ex[0].exName+'</div>' +
+		 		'				<div class="_houseFacilities">인원 '+ex[0].people+'명</div>' +
 		 		'			</div>' +
 		 		'		</a>' +
 				'	</div>' +
@@ -88,20 +89,20 @@
 			});
 			customOverlay.setMap(map);
 			
-			for(let i=0; i<house.length;i++){
+			for(let i=0; i<ex.length;i++){
 				kakao.maps.event.addListener(marker[i], 'click', function(){
 					//ajax로 해당 집 정보 가져오기
 					$.ajax({
-						url:'${root}/overlay?houseCode='+house[i].houseCode,
+						url:'${root}/exOverlay?exCode='+ex[i].exCode,
 						method:"get",
 						success:function(overlay){
 							//가져오면 오버레이의 값들 바꿔주기
-							$("._overlaybox ._houseName").text(overlay.houseName);
+							$("._overlaybox ._houseName").text(overlay.exName);
 							$("._overlaybox ._reviewRate").text(overlay.revRate);
 							$("._overlaybox ._reviewCount").text("("+overlay.revCount+")");
 							$("._overlaybox ._people").text(overlay.people);
-							$("._overlaybox ._houseCode").text(overlay.houseCode);
-							$("._overlaybox a").attr("href","#"+overlay.houseCode);
+							$("._overlaybox ._houseCode").text(overlay.exCode);
+							$("._overlaybox a").attr("href","#"+overlay.exCode);
 							$("._overlaybox ._heartButton").attr("class", "_heartButton _heartButton"+i);
 							$("._overlaybox ._heart").attr("class", "_heart _r0agyd heart"+i);
 							if('${memberCode}'>0){
@@ -122,9 +123,9 @@
 								overlayHeart.attr("stroke-width","1.4");
 							}
 							$("._overlaybox .swiper-wrapper .swiper-slide").remove();
-							if(overlay.fileList.length>0){
-								for(let j=0;j<overlay.fileList.length;j++){
-									var img= '<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+overlay.fileList[j].fileName+'"/></div>';
+							if(overlay.exFileList.length>0){
+								for(let j=0;j<overlay.exFileList.length;j++){
+									var img= '<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+overlay.exFileList[j].exFileName+'"/></div>';
 									$("._overlaybox .swiper-wrapper").append(img);
 									swiper = setSwiper();
 				                }
@@ -136,7 +137,7 @@
 						
 					});
 					
-					customOverlay.setPosition(new kakao.maps.LatLng(house[i].lat,house[i].lng));
+					customOverlay.setPosition(new kakao.maps.LatLng(ex[i].lat,ex[i].lng));
 					//customOverlay.setContent(overlayContent[i]);
 					map.panTo(marker[i].getPosition());
 					//heart('${memberCode}');
@@ -163,7 +164,7 @@
 			}
 
 			//집리스트 갖다대면 지도 집 아이콘 바뀌게, 클릭하면 해당 글로 가게
-			for(let i=0; i<=house.length;i++){
+			for(let i=0; i<=ex.length;i++){
 				$(".house"+i).mouseover(function(){
 					var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
 				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
@@ -877,8 +878,8 @@ form{
 		<div class="mapContainer">
 			<div id="map">
 			<div class="custom_typecontrol radius_border">
-		        <span id="btnGuestHouse" class="selected_btn" onclick="setSearchType('guestHouse')">게하</span>
-		        <span id="btnExperience" class="_exbtn" onclick="setSearchType('experience')">체험</span>
+		        <span id="btnGuestHouse" class="_exbtn" onclick="setSearchType('guestHouse')">게하</span>
+		        <span id="btnExperience" class="selected_btn" onclick="setSearchType('experience')">체험</span>
 		    </div>
 			
 			</div>
