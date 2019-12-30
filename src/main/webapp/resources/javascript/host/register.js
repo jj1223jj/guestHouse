@@ -143,74 +143,74 @@ function register() {
 	var regex= /[^0-9]/g;
 	
 	
-//	if (profileImg.value == "") {
-//		alert("프로필 사진을 선택해주세요");
-//		return false;
-//	}
-//	
-//	if (memberInfo.value.length < 30) {
-//		alert("소개를 30자 이상 입력해주세요.");
-//		memberInfo.focus();
-//		return false;
-//	}
-//	if (houseName.value.length < 10) {
-//		alert("숙소이름을 10자이상 입력해주세요");
-//		houseName.focus();
-//		return false;
-//	}
-//	if (zipCode.value == "") {
-//		alert("우편번호를 다시 선택해주세요.");
-//		zipCode.focus();
-//		return false;
-//	}
-//	if (detailAddress.value == "") {
-//		alert("상세주소를 입력해주세요.");
-//		detailAddress.focus();
-//		return false;
-//	}
-//	if (mainImg.value == "") {
-//	alert("숙소의 메인사진을 선택해주세요");
-//	return false;
-//	}
-//	if (subImg.files.length < 4) {
-//		alert("숙소의 사진을 4개이상 첨부해주세요.");
-//		return false;
-//	}
-//	if (people == "") {
-//		alert("인원 수를 입력해주세요.");
-//		people.focus();
-//		return false;
-//	}
-//	if (bed == "") {
-//		alert("침대 수를 입력해주세요.");
-//		bed.focus();
-//		return false;
-//	}
-//	if (bath == "") {
-//		alert("욕실 수를 입력해주세요.");
-//		bath.focus();
-//		return false;
-//	}
-//	if (explain.value.length < 30) {
-//	alert("설명을 30자 이상 입력해주세요.");
-//	explain.focus();
-//	return false;
-//	}
-//	if (checkInHH.value == "선택하세요" || checkInMM.value == "선택하세요" ||
-//			checkOutHH.value == "선택하세요" || checkOutMM.value == "선택하세요" ) {
-//		alert("체크인 - 체크아웃 시간을 정확하게 입력해주세요.");
-//		return false;
-//	}
-//	if (regex.test(account.value)) {
-//		alert("계좌번호는 "-"을 제외한 숫자만 입력해주세요.");
-//		account.focus();
-//		return false;
-//	}
-//	if (regex.test(price.value)) {
-//	alert("");
-//	account.focus();
-//	return false;
-//	}
+	if (profileImg.value == "") {
+		alert("프로필 사진을 선택해주세요");
+		return false;
+	}
+	
+	if (memberInfo.value.length < 30) {
+		alert("소개를 30자 이상 입력해주세요.");
+		memberInfo.focus();
+		return false;
+	}
+	if (houseName.value.length < 10) {
+		alert("숙소이름을 10자이상 입력해주세요");
+		houseName.focus();
+		return false;
+	}
+	if (zipCode.value == "") {
+		alert("우편번호를 다시 선택해주세요.");
+		zipCode.focus();
+		return false;
+	}
+	if (detailAddress.value == "") {
+		alert("상세주소를 입력해주세요.");
+		detailAddress.focus();
+		return false;
+	}
+	if (mainImg.value == "") {
+	alert("숙소의 메인사진을 선택해주세요");
+	return false;
+	}
+	if (subImg.files.length < 4) {
+		alert("숙소의 사진을 4개이상 첨부해주세요.");
+		return false;
+	}
+	if (people == "") {
+		alert("인원 수를 입력해주세요.");
+		people.focus();
+		return false;
+	}
+	if (bed == "") {
+		alert("침대 수를 입력해주세요.");
+		bed.focus();
+		return false;
+	}
+	if (bath == "") {
+		alert("욕실 수를 입력해주세요.");
+		bath.focus();
+		return false;
+	}
+	if (explain.value.length < 30) {
+	alert("설명을 30자 이상 입력해주세요.");
+	explain.focus();
+	return false;
+	}
+	if (checkInHH.value == "선택하세요" || checkInMM.value == "선택하세요" ||
+			checkOutHH.value == "선택하세요" || checkOutMM.value == "선택하세요" ) {
+		alert("체크인 - 체크아웃 시간을 정확하게 입력해주세요.");
+		return false;
+	}
+	if (regex.test(account.value)) {
+		alert("계좌번호는 "-"을 제외한 숫자만 입력해주세요.");
+		account.focus();
+		return false;
+	}
+	if (regex.test(price.value)) {
+	alert("");
+	account.focus();
+	return false;
+	}
 
 }
 

@@ -124,7 +124,7 @@ html {
 .active {
 	width: 10px;
 	height: 10px;
-	background: #f60;
+/* 	background: #f60; */
 	color: white;
 }
 
@@ -396,7 +396,7 @@ html {
 		<div class="houseList">
 		<h3> ${memberDto.memberName}님의 숙소</h3>
 			<c:forEach var="hostHouseList" items="${hostHouseList}">
-				<a href="${root}/">
+				<a href="${root}/guestHousePage/guestHouse.do?houseCode=${hostHouseList.houseCode}">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
@@ -429,7 +429,7 @@ html {
 		<div class="exList">
 		<h3> ${memberDto.memberName}님의 체험</h3>
 			<c:forEach var="hostExList" items="${hostExList}">
-			<a href="${root}/">
+			<a href="${root}/experience/exPage.do?exCode=${hostExList.exCode}">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"

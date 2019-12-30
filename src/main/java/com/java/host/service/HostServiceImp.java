@@ -198,7 +198,7 @@ public class HostServiceImp implements HostService {
 			}
 		}
 
-		mav.setViewName("host/hostPage.tiles");
+		mav.setViewName("guestdelluna/myInfo.tiles");
 	}
 
 	@Override

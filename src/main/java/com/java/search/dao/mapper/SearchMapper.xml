@@ -44,7 +44,7 @@
 		and c.memberCode=#{memberCode}
 		</if>
 		
-		where a.exCode=#{exCode};
+		where a.exCode=#{exCode}
 	
 	</select>
 

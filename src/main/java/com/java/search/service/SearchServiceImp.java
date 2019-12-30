@@ -309,10 +309,10 @@ public class SearchServiceImp implements SearchService {
 		JSONArray fileArr= new JSONArray();
 		for(ExFileDto exFileDto: exImgDto.getExFileList()) {
 			HashMap<String,String> fileMap = new HashMap<String,String>();
-			fileMap.put("fileName", exFileDto.getFileName());
+			fileMap.put("exFileName", exFileDto.getFileName());
 			fileArr.add(fileMap);
 		}
-		map.put("fileList", fileArr);
+		map.put("exFileList", fileArr);
 		System.out.println("jsonValue: "+JSONValue.toJSONString(map));
 		System.out.println("jsonObject: "+JSONObject.toJSONString(map));
 		

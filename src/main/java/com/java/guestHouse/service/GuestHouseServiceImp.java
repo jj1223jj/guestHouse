@@ -48,7 +48,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 
 		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 
-//		int houseCode=63;
+//		int houseCode=20;
 //		int houseCode = 101;
 //		int houseCode = 8;
 
@@ -361,7 +361,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		System.out.println(sum);
 		int check =0;
 		int limit = hostDto.getPeople();
-		if(limit > (sum + people)) {
+		if(limit >= (sum + people)) {
 			check=1;
 		}else {
 			check=0;
