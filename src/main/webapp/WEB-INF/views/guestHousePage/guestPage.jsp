@@ -24,7 +24,6 @@
 
 	var disabledDays = [];
 
-
 	<c:forEach items="${dList}" var="i">
 		disabledDays.push("${i}");
 	</c:forEach>
@@ -81,7 +80,7 @@
 		});
 	}); 
 	
-	function reservationFun(root,houseCode,email){
+	function reservationFun(root,houseCode,emailCheck){
 		
 		var inputCheckIn = $('#from').val();
 		var inputCheckOut = $('#to').val();
@@ -116,18 +115,20 @@
 		/* 
 		var url = root+"/guestHousePage/reservation.do?houseCode="+houseCode;
 		url += "&memberCode="+memberCode+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
-		 */
-		alert(email);
+		 *//* 
+		alert(emailCheck);
 		
-		if(email!=""){
-			var url2 = root+"/guestHousePage/limitCheck.do?houseCode="+houseCode;
-			url2 += "&memberCode="+${memberCode}+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
-			alert(url2);
-			
-			location.href=url2;
-		}else if(email==""){
+		if(emailCheck=='1'){ */
+		var url2 = root+"/guestHousePage/limitCheck.do?houseCode="+houseCode;
+		url2 += "&memberCode="+${member.memberCode}+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
+		alert(url2); 
+		
+		location.href=url2;
+	/* 			
+			alert("ㅎㅇ");
+		}else if(emailCheck=='0'){
 			alert("로그인을 해주세요.");
-		};
+		}; */
 		
 	}
 	
@@ -137,10 +138,11 @@
 </head>
 <body>
 
-<%-- 	<c:if test="${memberLevel == 'Admin'}">
-		<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
-		<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
-	</c:if>
+<%-- 	승인/거절 controller 추가
+		<c:if test="${memberLevel == 'Admin'}">
+			<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
+			<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
+		</c:if>
  --%>
 		<div class="top">
 			<div class="img">
@@ -446,8 +448,9 @@
 					<div>
 						<input type="text" id="to">
 					</div>
+					
 					<div style="margin-bottom: 1rem; margin-top: 1rem;">
-						<input id="people">
+						<input id="people" value="1">
 					</div>
 						<script>
 							$(function(){
@@ -457,8 +460,11 @@
 								});
 							});
 							
+							
 						</script>
-					<button class="btn" style="background-color: #008489; color: white; font-weight: bold;" onclick="reservationFun('${root}','${hostDto.houseCode}','${email}')">예약</button>
+					<c:if test="${emailCheck == 1}">
+						<button class="btn" style="background-color: #008489; color: white; font-weight: bold;" onclick="reservationFun('${root}','${hostDto.houseCode}','${emailCheck}')">예약</button>
+					</c:if>
 			</div>
 			<!-- </div> -->
 		</div>

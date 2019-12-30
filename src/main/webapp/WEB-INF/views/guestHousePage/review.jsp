@@ -90,8 +90,8 @@
 						
 						<!-- session의 이메일과 등록한 이메일 같으면 수정, 삭제 화면 보이기 (본인만 수정 삭제 가능)-->
 						<c:if test="${email eq reviewDto.email}"> 
-							<a href="javascript:updateCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}')"	>수정</a>
-							<a href="javascript:deleteCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}','${currentPage}')">삭제</a> 		
+							<a href="javascript:GHupdateCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}')"	>수정</a>
+							<a href="javascript:GHdeleteCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}','${currentPage}')">삭제</a> 		
 						</c:if>
 					</div>
 					<div class="content" >

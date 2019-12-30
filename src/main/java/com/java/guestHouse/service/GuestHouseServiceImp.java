@@ -48,9 +48,9 @@ public class GuestHouseServiceImp implements GuestHouseService {
 
 //		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 		
-		int houseCode=13;
-//		int houseCode = 101;
-//		int houseCode = 8;
+//		int houseCode=13;
+//		int houseCode = 20;
+		int houseCode = 8;
 
 		
 		hostDto = guestHouseDao.getHostInfo(houseCode);
@@ -63,16 +63,18 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpSession session = request.getSession();
 		email = (String)session.getAttribute("email");
 		System.out.println("email: "+ email);
+
+		MemberDto member = guestHouseDao.getMemberInfo(email);
+		mav.addObject("MemberDto",member);
+		
+		int emailCheck = 0;
 		if(email!=null) {
-			
-			//int memberCode = guestHouseDao.getMemberCode(email);
-			
-			MemberDto member = guestHouseDao.getMemberInfo(email);
-			
 			HomeAspect.logger.info(HomeAspect.logMsg + member.getMemberCode() + member.getMemberLevel());
-			
-			mav.addObject("memberCode",member.getMemberCode());
-			mav.addObject("memberLevel",member.getMemberLevel());
+			emailCheck =1;
+			mav.addObject("emailCheck",emailCheck);
+		}else {
+			emailCheck =0;
+			mav.addObject("emailCheck",emailCheck);
 		}
 		
 		
@@ -360,8 +362,8 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		
 		System.out.println(sum);
 		int check =0;
-		int limit = hostDto.getPeople();
-		if(limit > (sum + people)) {
+		int limit = hostDto.getPeople();		// 1
+		if(limit >= (sum + people)) {			// 1 > 0 +
 			check=1;
 		}else {
 			check=0;
@@ -628,8 +630,6 @@ public class GuestHouseServiceImp implements GuestHouseService {
 	/* 결제 방식이 카카오페이 */
 	@Override
 	public void kakaoPaySuccess(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
@@ -645,9 +645,62 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HomeAspect.logger.info(HomeAspect.logMsg + houseCode +", "+memberCode+", "
 		+people+", "+stCheckIn+", "+stCheckOut+", "+total+", "+point+", "+usePoint);
 		
+		int payment = total-usePoint;
+		System.out.println("총금액:" +payment);
+		
+		MemberDto memberDto = guestHouseDao.getMemberInfo(email);
+		
+		mav.addObject("checkIn",stCheckIn);		// 예약체크인날짜
+		mav.addObject("checkOut",stCheckOut);	// 예약체크아웃날짜
+		mav.addObject("people",people);			// 예약인원수
+		mav.addObject("usePoint",usePoint);		// 사용포인트
+		mav.addObject("point",point);			// 적립포인트
+		mav.addObject("memberCode",memberCode); // 예약자 멤버코드
+		
+		mav.addObject("payment",payment);
+		mav.addObject("houseCode",houseCode);
+		mav.addObject("memberDto",memberDto);
+		mav.setViewName("guestHousePage/kakaoPay.tiles");
+		 
+	}
+	
+	/* 카카오 페이 예약 완료 */
+	@Override
+	public void kakaoPayCompleteOk(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");		
+		
+		String imp_uid = request.getParameter("imp_uid");
+		String merchant_uid = request.getParameter("merchant_uid");
+		int total = Integer.parseInt(request.getParameter("paid_amount"));
+		int houseCode = hostDto.getHouseCode();
+		
+		int memberCode =  Integer.parseInt(request.getParameter("memberCode"));
+		String stCheckIn = request.getParameter("checkIn");
+		String stCheckOut = request.getParameter("checkOut");
+		int people = Integer.parseInt(request.getParameter("people"));
+		float point = Float.parseFloat(request.getParameter("point"));
+		int usePoint = Integer.parseInt(request.getParameter("usePoint"));
+		
+		HomeAspect.logger.info(HomeAspect.logMsg 
+				+ "imp_uid: "+imp_uid+", merchant_uid:"+merchant_uid +", paid_amount:"+total);
+		
+		// 게스트하우스 사진
+		String mainImg = null;
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getMainImgName()!=null) {
+				mainImg = fileList.get(i).getMainImgName();
+			}
+		}
+		HomeAspect.logger.info(HomeAspect.logMsg + "mainImg: "+mainImg); 
+		
+		
+		/* 예약된 날짜 추가 */
+		
 		// string타입 Date타입으로 변경
-		Date checkIn=null;
-		Date checkOut=null;
+		Date checkIn = null;
+		Date checkOut = null;
 		try {
 			checkIn = new SimpleDateFormat("yyyy-MM-dd").parse(stCheckIn);
 			checkOut = new SimpleDateFormat("yyyy-MM-dd").parse(stCheckOut);
@@ -655,7 +708,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
 		String[] arrIn = stCheckIn.split("-");
 		String[] arrOut = stCheckOut.split("-");
 		
@@ -695,16 +748,8 @@ public class GuestHouseServiceImp implements GuestHouseService {
 			HomeAspect.logger.info(HomeAspect.logMsg +"remainCheck: "+remainCheck);
 		}
 		
-//		// 게스트하우스 사진
-//		String mainImg = null;
-//		for(int i=0; i<fileList.size(); i++) {
-//			if(fileList.get(i).getMainImgName()!=null) {
-//				mainImg = fileList.get(i).getMainImgName();
-//			}
-//		}
-		
+		// 예약 정보 insert
 		GuestReserveDto guestReserveDto = new GuestReserveDto();
-		
 		guestReserveDto.setHouseCode(houseCode);
 		guestReserveDto.setMemberCode(memberCode);
 		guestReserveDto.setCheckIn(checkIn);
@@ -716,7 +761,6 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		
 		HomeAspect.logger.info(HomeAspect.logMsg +guestReserveDto.toString());
 		
-		// 예약 정보 insert
 		int reCheck = guestHouseDao.insertReserveInfo(guestReserveDto);
 		HomeAspect.logger.info(HomeAspect.logMsg +reCheck);
 		
@@ -725,8 +769,8 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		int reserveCode = guestHouseDao.getReserveCode(houseCode,memberCode,checkIn);
 		HomeAspect.logger.info(HomeAspect.logMsg +"reserveCode: "+reserveCode);
 		
-		int resPoint = (int)point;
-//		System.out.println(resPoint);
+		int resPoint = (int)point;		// 적립포인트
+		System.out.println(resPoint);
 		
 		// 멤버 포인트 수정
 		memberPoint = memberPoint+ resPoint - usePoint;
@@ -758,42 +802,6 @@ public class GuestHouseServiceImp implements GuestHouseService {
 			HomeAspect.logger.info(HomeAspect.logMsg +"usePointCheck: "+usePointCheck);
 		}
 		
-		MemberDto memberDto = guestHouseDao.getMemberInfo(email);
-		
-		mav.addObject("reserveCode",reserveCode);
-		mav.addObject("guestReserveDto",guestReserveDto);
-//		mav.addObject("hostDto",hostDto);
-//		mav.addObject("mainImg",mainImg);
-		mav.addObject("memberDto",memberDto);
-		mav.setViewName("guestHousePage/kakaoPay.tiles");
-		 
-	}
-	
-	/* 카카오 페이 예약 완료 */
-	@Override
-	public void kakaoPayCompleteOk(ModelAndView mav) {
-		
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest)map.get("request");		
-		
-		String imp_uid = request.getParameter("imp_uid");
-		String merchant_uid = request.getParameter("merchant_uid");
-		int paid_amount = Integer.parseInt(request.getParameter("paid_amount"));
-		int reserveCode = Integer.parseInt(request.getParameter("reserveCode"));
-		int houseCode = hostDto.getHouseCode();
-		
-		HomeAspect.logger.info(HomeAspect.logMsg 
-				+ "imp_uid: "+imp_uid+", merchant_uid:"+merchant_uid +", reserveCode:"+reserveCode+", paid_amount:"+paid_amount);
-		
-		// 게스트하우스 사진
-		String mainImg = null;
-		for(int i=0; i<fileList.size(); i++) {
-			if(fileList.get(i).getMainImgName()!=null) {
-				mainImg = fileList.get(i).getMainImgName();
-			}
-		}
-		HomeAspect.logger.info(HomeAspect.logMsg + "mainImg: "+mainImg); 
-		
 		// message테이블
 		MsgDto msgDto = new MsgDto();
 		
@@ -806,7 +814,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "msgInsertCheck: "+msgInsertCheck); 
 		
 		mav.addObject("reserveCode",reserveCode);
-		mav.addObject("payment",paid_amount);
+		mav.addObject("payment",total);
 		mav.addObject("houseName",hostDto.getHouseName());
 		mav.addObject("explain",hostDto.getExplain());
 		mav.addObject("mainImg",mainImg);

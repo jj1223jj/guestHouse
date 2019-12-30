@@ -75,12 +75,17 @@ text-align: center;
 		style="background-color: white;">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<img src="${root}/resources/images/logo.jpg"
-					style="width: 3.125rem; height: 5rem;" />
+				
+				<!--
+					width: 23.125rem;
+    				height: 14rem;
+    				margin-top: 2rem;
+				  -->
 				<%-- <img src="${root}/resources/images/logo1.png" style="width: 3.125rem; height: 3.125rem;"/> --%>
-				<a class="active" href="#"
-					style="font-size: 2rem; font-weight: bold; color: black; margin-left: 1rem;">JEJU
-					STAY</a>
+				<a class="active" href="${root}"
+					style="font-size: 2rem; font-weight: bold; color: black; margin-left: 1rem;">
+					<img src="${root}/resources/images/logoBig2.png" style="width: 23.125rem; height: 14rem; margin-top: 2rem;" />
+				</a>
 			</div>
 			<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
