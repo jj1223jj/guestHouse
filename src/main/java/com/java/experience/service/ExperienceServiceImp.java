@@ -110,16 +110,22 @@ public class ExperienceServiceImp implements ExperienceService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "memberCode: " + memberCode);
 
 		ExperienceDto experienceDto = (ExperienceDto) map.get("experienceDto");
+		// houseCode 추가 12-30
+		// 주소
+		experienceDto.setExAddress(experienceDto.getExAddress().split(":")[0]);
+		
+		//houseCode
+		experienceDto.setHouseCode(Integer.parseInt(experienceDto.getExAddress().split(":")[1]));
 		HomeAspect.logger.info(HomeAspect.logMsg + "experienceDto: " + experienceDto);
 
+		
+		
 		// 회원코드
 		experienceDto.setMemberCode(memberCode);
 
 		// 체험 이름
 		experienceDto.setExName(request.getParameter("exName"));
 
-		// 체험 주소 (주소랑 상세주소 합친 값을 exAddress에, jsp에서 hidden으로 넘겨주는거 재확인)
-		experienceDto.setExAddress(request.getParameter("exAddress") + request.getParameter("detailAddress"));
 
 		// 인원수
 		experienceDto.setExPeople(Integer.parseInt(request.getParameter("exPeople")));
@@ -162,8 +168,9 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 등록 날짜
 		experienceDto.setExRegDate(new Date());
 
-		// 주소
-		experienceDto.setExAddress(request.getParameter("exAddress"));
+		/*
+		 * // 주소 experienceDto.setExAddress(request.getParameter("exAddress"));
+		 */
 
 		int exRegisterChk = experienceDao.exHostRegister(experienceDto);
 
@@ -557,7 +564,8 @@ public class ExperienceServiceImp implements ExperienceService {
 	public void exReviewUpdateOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
+		HttpServletResponse response = (HttpServletResponse) map.get("response");
+		
 		ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
 		exReviewDto.setRevDate(new Date());
 
@@ -566,8 +574,14 @@ public class ExperienceServiceImp implements ExperienceService {
 		int check = experienceDao.exReviewUpdateOk(exReviewDto);
 
 		mav.addObject("check", check);
-
-		mav.setViewName("experience/exReviewUpdateOk.empty");
+		response.setContentType("application/x-json;charset=utf-8");
+		try {
+			PrintWriter out = response.getWriter();
+			out.print(check);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -609,7 +623,9 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 12-27 
 		//int exCode = 6;
 		
+
 		 // int exCode = Integer.parseInt(request.getParameter("exCode"));
+
 
 		if(email!=null) {
 			

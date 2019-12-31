@@ -226,11 +226,12 @@ var pageNumber =0;
 
 function moreView(root,emailSession,exCode){
 	++pageNumber;
-	alert(emailSession +"," +exCode);
+	//alert(emailSession +"," +exCode);
 	var url = root + "/experience/exReview.do?";
 	var params = "pageNumber="+ pageNumber +"&exCode="+exCode;
 
 	var indexNum = 0;
+	var count = 0;
 	/*var email = '<% (String)session.getAttribute("email")%>';
 	alert(email);*/
 	$.ajax({
@@ -245,13 +246,20 @@ function moreView(root,emailSession,exCode){
 			var htmls="";
 			var btn="";
 			var cnt = data.count;
+			//alert("cnt:" + cnt);
+			
 			
 			if(data.count<1){
 				htmls += '<div style="margin:10rem auto;"><strong class="text-gray-dark" style="font-size:1rem; magin-top:3rem;">' + "등록된 후기가 없습니다."  + '</strong></div>';
                // alert("data < 1");
 				 $("#contentData").append(htmls);
-			}else{
+				 $("#reviewBtn").css({
+					display: "none"
+				 });
+				 
+			}else {
 				$(data.reviewList).each(function(){
+					
 					var day = new Date(data.reviewList[indexNum].revDate);
 					
 					var year = day.getFullYear();
@@ -260,7 +268,7 @@ function moreView(root,emailSession,exCode){
                     
                     var formatDate = year + "년 " + month + "월 " + date + "일 "; 
 
-                    htmls += '<div style="border-bottom: 0.063rem solid #dee2e6!important;" class="num'+this.exReserveCode+'media text-muted pt-3" id="rid' + data.reviewList[indexNum] + '">';
+                    htmls += '<div style="border-bottom: 0.063rem solid #dee2e6!important;" class="num'+this.exReserveCode+'media text-muted pt-3" id="rid">';
                    
                     //
                    // htmls += '<p>' + data.length +'</p>'
@@ -274,7 +282,9 @@ function moreView(root,emailSession,exCode){
                     
                     htmls += '</span>';
                     
-                    htmls += '<span style="padding-left: 1rem; border: 0.1rem dotted red; float:left;">'+ formatDate +'</span>';
+                   /* htmls += '<span style="padding-left: 1rem; border: 0.1rem dotted red; float:left;">'+ formatDate +'</span>';*/
+
+                    htmls += '<span style="padding-left: 1rem; float:left;">'+ formatDate +'</span>';
 
                     htmls += '<span style="margin-left: 3rem; board: 0.1rem blue solid;text-align:left; width:20rem; height:2rem; float:left; font-size: 1rem;">';
                     
@@ -290,11 +300,13 @@ function moreView(root,emailSession,exCode){
                     	htmls += '<img src="'+proot+'/resources/css/review/star5.PNG" style="width: 7rem;">';
                     }
                     
-                   htmls += '<input type="text" id="exReserveCode" name="exReserveCode" value="'+this.exReserveCode+'" />';
+                   htmls += '<input type="hidden" id="exReserveCode" name="exReserveCode" value="'+this.exReserveCode+'" />';
+                  
                    if (emailSession==this.email) {
-					htmls += '<a style="margin-left:3rem;" href="javascript:updateCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+',\''+this.revContent+'\');">수정</a>';
-					htmls += '<a style="margin-left:1rem;" href="javascript:deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')">삭제</a>';
-					htmls += '<div id="updateRe"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">수정모달</button></div>';
+					/*htmls += '<a style="margin-left:3rem;" href="javascript:updateCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+',\''+this.revContent+'\');">수정</a>';*/
+					/*htmls += '<a style="margin-left:1rem;" href="javascript:deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')">삭제</a>';*/
+					htmls += '<div id="updateRe" style="width:3rem; float:left; padding-left:2rem;"><button type="button" class="btn btn-light" data-toggle="modal" data-target="#updateModal"><i class="fa fa-pencil"></i></button></div>';
+					htmls += '<div id="deleteRe"><button type="button" class="btn btn-light" onclick="deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')"><i class="fa fa-trash-o"></i></button></div>';
 					
 					/*<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}','${experienceDto.exCode}')">삭제</a> 		*/
                    }
@@ -319,10 +331,24 @@ function moreView(root,emailSession,exCode){
 
                     htmls += '</div>';
                     
+                   
                     
                     $("#contentData").append(htmls);
                     htmls="";
-                    indexNum++;
+                    ++indexNum;
+                    
+                    //alert("개수: "+$('#rid').length);
+                    if($('#rid').length != 1){
+                    	 $("#reviewBtn").css({
+               				display: "none"
+               			 });
+                    }
+                    ++count;
+                  
+                 
+                    
+                    
+                   // alert("indexNum: "+indexNum);
                     
                     
                     $('#updateRe button').on('click',function(){
@@ -332,12 +358,15 @@ function moreView(root,emailSession,exCode){
             			var tex = con.text();
             			//alert(tex);
             			
-            			//console.log(a);
+            			console.log(a);
             			
             			//var span = currentRow.closest('span');
             			
-            			var revContent = a.find('div:eq(1)').text();
+            			var revContent = a.find('div:eq(2)').text();
+            			console.log(revContent);
+            			
             			var modalReserveCode = a.find('#exReserveCode').val();
+            			console.log(modalReserveCode);
             			//var revRate = currentRow.find('span:eq(2)').text();
             			//alert(modalReserveCode);
             			
@@ -350,12 +379,23 @@ function moreView(root,emailSession,exCode){
             			starRating2();
             			});
                     
-
+                  
+                    
+                    
+                    
                    
 				});
-				
-				
+				 //alert("count: "+count); 
+				 if(count ==0){
+              	   $("#reviewBtn").css({
+            				display: "none"
+            			 });
+                 }
 			}
+			
+			
+			
+			
 			/*if(indexNum <= cnt){
 				btn += '<button type="button" class="btn btn-light" onclick="moreView('+proot+'/,'+emailSession+','+exCode+')">후기 더보기</button>'; 
 				$("#moreReviewB").append(btn);
@@ -369,19 +409,52 @@ function moreView(root,emailSession,exCode){
 		}
 	});
 	starRating();
+	
 }
 
 function reviewModalUpdate(form){
 	console.log(form);
-	var memberCode=form.memberCode;
+	var memberCode=form.memberCode.value;
+	var exReserveCode =form.exReserveCode.value;
+	var revContent = form.modalRevContent.value;
+	var revRate = form.revRate.value;
+	
+	console.log(memberCode);
+	console.log(exReserveCode);
+	console.log(revContent);
+	console.log(revRate);
+	
+	var url = proot+"/experience/exReviewUpdateOk.do?memberCode="+memberCode+"&exReserveCode="+exReserveCode+"&revRate="+revRate;
+	var params = "&revContent="+revContent;
+	
 	$.ajax({
+	
 		method: 'GET',
-		url: "${root}/experience/exReviewUpdateOk.do?memberCode="+memberCode+"&exReserveCode="+exReserveCode+"&pageNumber="+currentPage,
+		url: url + params,
 		///guestdelluna/experience/exReviewUpdateOk.do?memberCode=42&exReserveCode=8&revContent=ㅂㅂ&mstar-input=5&revRate=5
 		dataType: "JSON",
 		success: function(data) {
-			alert(data);
 			
+			var div = $(".num"+exReserveCode+"media");
+			var day = new Date();
+			
+			var year = day.getFullYear();
+            var month = day.getMonth() + 1;
+            var date = day.getDate();
+            
+            var formatDate = year + "년 " + month + "월 " + date + "일 ";
+            
+            $($($(div.children()[0]).children()[2]).children("img")[0]).attr("src",proot+'/resources/css/review/star'+revRate+'.PNG');
+			$($(div.children()[0]).children()[1]).text(formatDate);
+			$(div.children("div")[2]).text(revContent);
+			console.log($("#updateModal"));
+			$("#updateModal").modal("hide");
+			
+		},
+		error:function(a,b,c){
+			console.log(a);
+			alert(b);
+			alert(c);
 		}
 	});
 	

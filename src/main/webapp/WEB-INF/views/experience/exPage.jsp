@@ -12,6 +12,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 <script type="text/javascript" src="${root}/resources/javascript/jquery/Blitzer/jquery-ui.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/Blitzer/jquery-ui.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
@@ -74,9 +77,9 @@ list-style: none;
 float: left;
 margin-right: 3rem; 
 margin-bottom: 3rem;
-border: 0.1rem solid purple;
-width: 16rem;
-height: 5rem;
+/* border: 0.1rem solid purple; */
+width: 10rem;
+height: auto;
 
 }
 body{
@@ -88,11 +91,14 @@ text-align: -webit-center;
 
 #exinfo> ul > li >p{
 text-align: center;
+height: 3rem;
 }
 
 ul > li >label{
-font-size: 1rem;
+font-size: 1.3rem;
 text-align: center;
+margin: 2rem;
+font-weight: bold;
 }
 
 li{
@@ -114,13 +120,13 @@ list-style: none;
 	
 		<!-- 이미지 -->	
 		<div style="width:100%; height: 35rem; background-color: black; padding-top: 3.5rem;">
-			<div align="center" style="width: 78rem; border: 0.1rem dotted pink; margin-left: 1rem;">
+			<div align="center" style="width: 78rem; /* border: 0.1rem dotted pink; */ margin-left: 1rem;">
 	         	<div class="img" style="overflow: hidden;">
 	         		<c:forEach var="exFileDto"  varStatus="list" items="${exFileList}">
 	         			
 	         			<!-- 사진은 최소 5개  -->
 		         		<c:if test="${exFileDto.mainImgName!=null}">
-		         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid red; margin-right: 0.5rem;">
+		         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden;/*  border: 0.01rem solid red; */ margin-right: 0.5rem;">
 		         				<img id="exImg" style="width: 100%; height: 100%;/* position:static !important; top:0rem !important; right:0rem !important; left:0rem !important; bottom:0rem !important; object-fit:cover; */" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
 		         			</div>
 		         		</c:if>
@@ -148,15 +154,15 @@ list-style: none;
 		<!-- 체험정보 -->	
 		<div class="wrap" style="margin:0px auto; width: 80rem; border: 1px dotted black; ">
 			<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; width: 76rem; height: auto; border: 0.1rem solid pink; float: left;">
-			 <ul style="width: 15rem; height:20rem; border: 0.1rem dotted orange; float: left; margin-right: 3rem;" > 
-		         <li style="width: 10rem; height: auto;">
+			 <ul style="width: 20rem; height:20rem; /* border: 0.1rem dotted orange; */ float: left; margin-right: 3rem;" > 
+		         <li style="width: 16rem; height: auto;">
 		            <label>체험이름</label>
 		            <p class="text-secondary">${experienceDto.exName}</p>
 		    		<input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
 		    	 </li>
 		   	 </ul>
-		     <ul style="width: 76rem; height: 23rem; border: 0.1rem dotted khaki;">	
-		    	<li>	
+		     <ul style="width: 76rem; /* height: 30rem; */ border: 0.1rem dotted khaki; display: table-header-group;">	
+		    	<li style="width: 10rem;">	
 		    		<label>진행시간</label>
 		    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}</p>
 		    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
@@ -172,7 +178,7 @@ list-style: none;
 		    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
 		    	</li>
 		    	
-		    	<li style="margin-right: 3rem; width: 20rem;">	
+		    	<li style="margin-right: 3rem;">	
 		    		<label>체험날짜</label>
 		    		<!-- view를 위한 날짜 포맷-->
 		    		<fmt:formatDate var="startDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exStartDate}"/>
@@ -189,17 +195,17 @@ list-style: none;
 		    		
 		    	</li>
 		    	
-		    	<li style=" width: 31.5rem;">	
+		    	<%-- <li style=" width: 31.5rem;">	
 		    		<label>위치</label>
 		    		<p class="text-secondary">${experienceDto.exAddress}</p>
 		    		<input type="hidden" name="exAddress" id="exAddress" value="${experienceDto.exAddress}"/>
 		    		
-		        </li>
+		        </li> --%>
 		    	
 		        
-		         <li style="width: 54rem; height: auto; ">
+		         <li style="width: 49rem; height: auto; ">
 		         	<label>프로그램설명</label>
-		         	<div class="text-secondary" style="width: 52rem; height: auto; word-break:break-all;">${experienceDto.exExplain}</div>
+		         	<div class="text-secondary" style="width: 48rem; height: auto; word-break:break-all;">${experienceDto.exExplain}</div>
 		    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
 		    		
 		         </li>
@@ -209,11 +215,11 @@ list-style: none;
 			<!--  -->
 			
 			<!-- 달력 -->	
-			<div style="width: 100%; height: 30rem; border: 0.1rem solid blue; margin-top: 5rem;">
-				<div style="width: 25rem; height: 20rem; border: 0.1rem dotted black; float: left; margin-left: 5rem;margin-top: 5rem;">	         
+			<div style="width: 100%; height: 30rem; border-top: 0.2rem solid #ebebeb;border-bottom: 0.2rem solid #ebebeb; margin-top: 5rem;">
+				<div style="width: 25rem; height: 25rem; /* border: 0.1rem dotted black;  */float: left; margin-left: 5rem;margin-top: 2rem;">	         
 			      <div style="width: 20rem; height: auto;">
-			       	<label>예약가능날짜</label>
-			        <div type="text" id="date" name="date"></div>
+			       	<label style="margin-top: 2rem;">예약가능날짜</label>
+			        <div type="text" id="date" name="date" style="margin-top: 3rem;"></div>
 			      </div>
 			        
 			      <script type="text/javascript">
@@ -246,7 +252,7 @@ list-style: none;
 								 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
 								 //beforeShowDay: disableSomeDay,
 								 beforeShowDay: disableSomeDay,
-								 minDate:new Date('${startDateC}'),
+								 minDate: 'today',
 								 maxDate:new Date('${endDateC}'),					
 								 
 								 onSelect:function(dateText, inst, root){
@@ -267,9 +273,9 @@ list-style: none;
 				</div>
 				
 				<!-- 예약하기 -->
-				<div style="width: 40rem; height: 26rem; border: 0.1rem dotted black; margin-left: 35rem; margin-top: 2rem;">
+				<div style="width: 40rem; height: 26rem; /* border: 0.1rem dotted black; */ margin-left: 35rem; margin-top: 2rem; margin-bottom: 10rem;">
 					<form action="${root}/experience/exReserve.do"  method="get" name="exForm">
-						<div style="width:30rem; height:auto;  border: 0.1rem solid #e4e4e4; margin-top: 3rem;">
+						<div style="width:30rem; height:22rem;  border: 0.1rem solid #e4e4e4; margin-top: 2.8rem;">
 						
 							<p style="width: 20rem; margin-bottom: 4rem; margin-top: 1rem; ">예약하기</p>
 							
@@ -277,7 +283,7 @@ list-style: none;
 								
 								<div>
 									<p style="width: 5rem; float: left;">날짜선택</p>
-									<input type="text" id="exDateS" name="exDateS" size="12"/>
+									<input type="text" id="exDateS" name="exDateS" size="12" class="form-control" style="width:13rem; float: left; margin-left: 3rem;"/>
 									
 									<script type="text/javascript">
 									
@@ -310,7 +316,7 @@ list-style: none;
 											 showOn:"button",
 											 buttonText:"날짜 선택",
 											 beforeShowDay: disableSomeDay,
-											 minDate:new Date('${startDateC}'),
+											 minDate: 'today',
 											 maxDate:new Date('${endDateC}'),
 											 onClose:function(selectedDate){
 												 //$("#exEndDateS").datepicker("option","minDate",selectedDate);
@@ -321,9 +327,9 @@ list-style: none;
 									});
 									</script>
 								</div>
-								<div style="width: 28rem; border: 0.1rem dotted red; margin-top: 3rem;">	
+								<div style="width: 28rem; /* border: 0.1rem dotted red; */ margin-top: 3rem;">	
 									<p style="width: 4rem; float: left;">인원</p>
-									<input type="number" name="exPeople" id="exPeople"/>
+									<input type="number" name="exPeople" id="exPeople" value="1" min="1" class="form-control" style="width:5rem"/>
 									<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
 									<input type="hidden" name="reviewList" id="reviewList" value="${reviewList.size()}"/>
 									
@@ -347,9 +353,9 @@ list-style: none;
 			</div>
 			
 			<!-- 후기 전체 -->
-			<div style="width: 70rem; height: auto; border: 0.1rem dotted orange;">
-				<div style="width: 10rem; height: 15rem; border: 0.1rem solid skyblue; float: left;">
-					<div style="margin-top: 5rem;">게스트후기</div>
+			<div style="width: 70rem; height: auto; /* border: 0.1rem dotted orange; */ margin: 4rem;">
+				<div style="width: 10rem; height: 10rem; /* border: 0.1rem solid skyblue; */ float: left; line-height: 10rem;">
+					<div style="/* margin-top: 5rem; */ height: 10rem; font-weight: bold; font-size: 1.3rem;">게스트 후기</div>
 				</div>
 				
 				<!-- 후기 작성  -->
@@ -358,19 +364,20 @@ list-style: none;
 					    <div>
 						
 							<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
+							
 							<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/>
 							<input type="text" name="exReserveCode" id ="exReserveCodes" value="${exReviewDto.exReserveCode}"> --%>
 							
 							<!-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 -->
 						
-							<div class="form" style="border: 0.1rem solid black; width: 57rem; margin-left: 12rem; height: 20rem;">
+							<div class="form" style="/* border: 0.1rem solid black; */ width: 57rem; margin-left: 12rem; height: 20rem; border-bottom: 0.1rem solid #ebebeb;">
 								<div class="title" style="float: left; width: 18rem; height: 3rem; border: 0.1rem solid gray; margin-top: 2rem; margin-left: 3rem;">
-									<span>e-mail</span>
-									<input type="text" name="email" size="20" value="${email}" disabled="disabled"/>
+									<!-- <span>e-mail</span> -->
+									<input type="text" name="email" size="20" value="${email}" disabled="disabled" class="form-control" width="17rem;"/>
 							
 								</div>
-								<div style="width: 15rem;height:5rem; border:0.1rem solid black;">
-									<span class="star-input">
+								<div style="width: 15rem;height:5rem; /* border:0.1rem solid black; */">
+									<span class="star-input" style="height: 5rem; margin-top: 0.3rem;">
 									   <span class="input">
 									       <input type="radio" name="star-input" value="1" id="p1">
 									       <label for="p1">1</label>
@@ -391,14 +398,14 @@ list-style: none;
 								
 			
 							
-								<div class="content" style="width: 55rem; height: auto; border: 0.1rem dotted purple; text-align: left; margin-top: 1rem;">Review
+								<div class="content" style="width: 50rem; height: auto; /* border: 0.1rem dotted purple; */ text-align: left; margin-top: 1rem;"><!--Review  -->
 									<!-- <textarea rows="5" cols="53" name="revContent" id="revContent" class="revContent"></textarea>
 								 -->
 									<div class="form-group">
 										<!-- <label for="comment">Review</label> -->
 										<textarea rows="5" name="revContent" id="revContent" class="revContent" style=" background: #fff;
 										    border: none;
-										 	width: 50rem;
+										 	width: 48rem;
 										    -webkit-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
 										    -moz-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
 										    box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
@@ -410,7 +417,7 @@ list-style: none;
 								<!-- 별점 스크립트를 위해서 여기에 또 스트립트 선언 해줘야 함  -->
 								<script type="text/javascript" src="${root}/resources/javascript/review/review.js"></script>
 								
-								<div class="bottom" style="text-align: left; margin-left: 300px;">
+								<div class="bottom" style="text-align: left; width: 10rem;">
 										
 									<%-- <button id="exReviewOk" onclick="exReviewChk('${root}')">확인</button> --%>
 									<input type="hidden" name="exCode" value="${experienceDto.exCode}"/>
@@ -429,7 +436,7 @@ list-style: none;
 				</c:if>
 				
 				<!-- 리스트 뿌리기 -->
-				<div style="width: 55rem; border: 0.1rem dotted green; margin-left: 10rem; margin-top: 3rem;">
+				<div style="width: 55rem; /* border: 0.1rem dotted green;  */margin-left: 10rem; margin-top: 3rem;">
 					
 					<div id="contentData" style="width: 55rem; height: auto;">
 						<!-- <p id="exReserveCode"></p>
@@ -439,47 +446,48 @@ list-style: none;
 						<p id="revRateJ"></p> -->
 					</div>	
 					<div id="moreReviewB" style="margin: 3rem;"> 
-						<button type="button" class="btn btn-light" onclick="moreView('${root}','${emailSession}','${experienceDto.exCode}')">후기 더보기</button> 
+					
+						<button id="reviewBtn" type="button" class="btn btn-light" onclick="moreView('${root}','${emailSession}','${experienceDto.exCode}')">후기 더보기</button> 
 					</div>
 				 </div>
 			</div>
 			<!-- 호스트 정보 -->	
-			<div style="width: 70rem; height:auto; border: 0.1rem solid black; margin-top: 3rem; padding-top: 3rem;">
-				<ul style="width: 15rem; height:auto; float: left; border: 0.1rem solid black;">
-					
-			        <li style="list-style: none; float: left; width: 10rem;">
-			        	<label>프로필사진</label><br/>
-			        	<!--/profileImg/${memberDto.memberImgName}  -->
-			        	<img src="<spring:url value='' />" class="rounded-circle" alt="이미지 없음"/>
-			        	<br/><br/>
-			        </li>
-			     </ul>
-			     
-			     <ul style="width: 45rem; height: auto; margin-left: 15rem; border: 0.1rem dotted #06ff00;">  
-				     <li style="list-style: none;" >	
-				        <label style="width: 8rem; float: left; border: 0.1rem solid #ff00f3">호스트</label>
-				        <p class="text-secondary" style="width:15rem; border: 0.1rem solid green;text-align: left;">${memberDto.memberName}</p>
-				        <input type="hidden" name="memberName" id="memberName" value="${memberDto.memberName}">
-				     </li>
-				     <li style="width: 45rem; ">	
-				        <label style="width: 9rem; float: left;">회원가입 날짜</label>
-				        <fmt:formatDate var="regDate" pattern="yyyy년 MM월 dd일" value="${memberDto.regDate}"/>
-				    	<p class="text-secondary" style="width: 18rem; text-align: left;">${regDate}</p>
-				        <input type="hidden" name="regDate" id="regDate" value="${regDate}">
-				     </li>
-				     <li>	
-				        <label style="width: 9rem; float: left; ">소개</label>
-				        <p class="text-secondary" style="width: 25rem; margin-left: 10rem; text-align: left; height: auto; word-break: break-all; ">${memberDto.memberInfo}</p>
-				        <input type="hidden" name="memberInfo" id="memberInfo" value="${memberDto.memberInfo}">
-				    </li>
-	         	 </ul>
-          	</div>
+			<div style="width: 100%; height: auto; border-top: 0.2rem solid #ebebeb; border-bottom: 0.2rem solid #ebebeb;">
+				<div style="width: 70rem; height:auto; /* border: 0.1rem solid black; */ margin-top: 3rem; padding-top: 3rem; margin-bottom: 5rem;">
+					<ul style="width: 15rem; height:auto; float: left; border: 0.1rem solid black;">
+						
+				        <li style="list-style: none; float: left;">
+				        	<label>프로필사진</label><br/>
+				        	<!--/profileImg/${memberDto.memberImgName}  -->
+				        	<img src="<spring:url value='/profileImg/${memberDto.memberImgName}' />" class="rounded-circle" alt="이미지 없음"/>
+				        	<br/><br/>
+				        </li>
+				     </ul>
+				     
+				     <ul style="width: 45rem; height: auto; margin-left: 15rem;/*  border: 0.1rem dotted #06ff00; */">  
+					     <li style="list-style: none;" >	
+					        <label style="width: 8rem; float: left;/*  border: 0.1rem solid #ff00f3; */ margin: 0 auto;">호스트</label>
+					        <p class="text-secondary" style="width:15rem;/*  border: 0.1rem solid green; */text-align: left;">${memberDto.memberName}</p>
+					        <input type="hidden" name="memberName" id="memberName" value="${memberDto.memberName}">
+					     </li>
+					     <li style="width: 45rem; ">	
+					        <label style="width: 9rem; float: left; margin: 0 auto;">회원가입 날짜</label>
+					        <fmt:formatDate var="regDate" pattern="yyyy년 MM월 dd일" value="${memberDto.regDate}"/>
+					    	<p class="text-secondary" style="width: 18rem; text-align: left;">${regDate}</p>
+					        <input type="hidden" name="regDate" id="regDate" value="${regDate}">
+					     </li>
+					     <li>	
+					        <label style="width: 8rem; float: left; margin: 0 auto;">소개</label>
+					        <p class="text-secondary" style="width: 25rem; margin-left: 10rem; text-align: left; height: auto; word-break: break-all; ">${memberDto.memberInfo}</p>
+					        <input type="hidden" name="memberInfo" id="memberInfo" value="${memberDto.memberInfo}">
+					    </li>
+		         	 </ul>
+	          	</div>
+	          </div>	
          	 <!-- 체험 지도 -->  
-			 <div style="border: 0.1rem solid black; width: 70rem; margin-top: 3rem; margin-bottom: 5rem;">  
-	      		<div style="width:15rem; float: left;">체험장소</div>
+			 <div style="/* border: 0.1rem solid black; */ width: 70rem; margin-top: 3rem; margin-bottom: 5rem;">  
+	      		<div style="width:15rem; height:30rem; line-height:30rem; float: left; font-size: 1.3rem; font-weight: bold;">체험장소</div>
 	      			
-		    	<p style="width: 40rem; height: auto; margin-left: 15rem; word-break: break-all; text-align: left;">위치 : ${experienceDto.exAddress}</p>
-		    		
 		        <div id="exMap" style="width: 40rem;height: 30rem; margin-left: 15rem;"></div>
 						
 				<script>
@@ -513,6 +521,8 @@ list-style: none;
 							}
 						});
 				</script>
+				
+				<p style="width: 40rem; height: auto; margin-left: 15rem; word-break: break-all; text-align: left; margin-top: 1.5rem;"> ${experienceDto.exAddress}</p>
 	         </div>
 	         <!-- 지도 -->
           
@@ -544,20 +554,31 @@ list-style: none;
 			<!-- onsubmit="return checkUp()" -->
 			
 				<div class="title">
-				<input type="text" name = "memberCode" value="${memberCode}"/>
-				<input type="text" name="exReserveCode" id="exReserveCode" value="${exReserveCode}"/>
-					<span>이메일</span>
-					<input type="text" name="email" size="20" value="${email}" disabled="disabled" class="form-control"/>
+				<input type="hidden" name = "memberCode" value="${memberCode}"/>
+				<input type="hidden" name="exReserveCode" id="exReserveCode" value="${exReserveCode}"/>
+					<span><!-- 이메일 --></span>
+					<input type="text" name="email" size="20" value="${email}" disabled="disabled" class="form-control" style="width: 20rem; margin-left:5.4rem; margin-top: 3rem;"/>
 			
 				</div>
 			
-				<div class="content"> 후기 내용
-					<textarea rows="5" cols="53" name="revContent" id="modalRevContent" class="form-control"><%-- ${revContent} --%></textarea>
+				<div class="content" style="margin-top: 2rem;"> 
+				
+			<textarea name="revContent" id="modalRevContent" class="form-control" style=" background: #fff;
+										    border: none;
+										 	width: 20rem;
+										 	margin-left:5.4rem;
+										    -webkit-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
+										    -moz-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
+										    box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0,0,0,0.16);
+										    border-radius: 0.938rem;
+										    display: inline-block;"></textarea> 
+								
+					<%-- <textarea rows="3" cols="53" name="revContent" id="modalRevContent" class="form-control">${revContent}</textarea>  --%>
 				</div>
 				<div>
 				<link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 					<span class="mstar-input">
-					   <span class="minput">
+					   <span class="minput" style="margin-left: 9rem; margin-bottom: 5rem;">
 					       <input type="radio" name="mstar-input" value="1" id="mp1">
 					       <label for="mp1">1</label>
 					       <input type="radio" name="mstar-input" value="2" id="mp2">
@@ -570,19 +591,17 @@ list-style: none;
 					       <label for="mp5">5</label>
 					     </span>
 		
-					     <output for="mstar-input" name="mstarValue"><input type="text" name="revRate" id="revRate" class="revRate"/></output>                  
+					     <output for="mstar-input" name="mstarValue"><input type="hidden" name="revRate" id="revRate" class="revRate"/></output>                  
 					</span>
 				</div>
-					     
-				
-				
 				
 				<!-- Modal footer -->
-						<div class="modal-footer">
+					<div class="modal-footer">
+						<div style="width: 10rem; margin-right: 10rem;" align="center">
 							<button id="modalSubmit" type="button" class="btn btn-info" onclick='reviewModalUpdate(form)'>수정</button>
 							<button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
 						</div>
-				
+					</div>
 				
 				<!-- 
 				<div class="modal-footer" style="text-align: right;">
@@ -598,7 +617,7 @@ list-style: none;
 	</div>
  
 
-<input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/>
+
  <!-- 후기 작성 -->   
  <%-- <c:if test="${memberLevel != null}">
   <form action="${root}/experience/exReviewOk.do"  method="get" name="exForm" onsubmit="return check('${revContent}','${revRate}')">  
