@@ -16,7 +16,7 @@
 
 	<insert parameterType="com.java.experience.dto.ExperienceDto" id="exHostRegister">
 		insert into experience 
-		(exCode, memberCode, exName, exPeople,exStartDate, exEndDate,exTime,exPrice,exAddress,exExplain,exApproval,exBank,exAccount,exRegDate)
+		(exCode, memberCode, exName, exPeople,exStartDate, exEndDate,exTime,exPrice,exAddress,exExplain,exApproval,exBank,exAccount,exRegDate, houseCode)
 		values(experience_exCode_seq.nextval, 
 		#{memberCode},
 		#{exName},
@@ -30,11 +30,12 @@
 		#{exApproval},
 		#{exBank},
 		#{exAccount},
-		#{exRegDate}) 
+		#{exRegDate},
+		#{houseCode}) 
 	</insert>
 	
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="exMainImgUpload">
-		insert into ExFileList(fileCode, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval, #{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
+		insert into ExFileList(fileCode, fileName, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval, #{mainImgName} ,#{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
 	</insert>
 	
 	<select id="exCode" resultType="int">
