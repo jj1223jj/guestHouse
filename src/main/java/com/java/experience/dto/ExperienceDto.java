@@ -17,12 +17,13 @@ public class ExperienceDto {
 	private String exBank;
 	private int exAccount;
 	private Date exRegDate;
+	private int houseCode;
 	
 	public ExperienceDto() {}
 
 	public ExperienceDto(int exCode, int memberCode, String exName, int exPeople, Date exStartDate, Date exEndDate,
 			String exTime, int exPrice, String exAddress, String exExplain, String exApproval, String exBank,
-			int exAccount, Date exRegDate) {
+			int exAccount, Date exRegDate, int houseCode) {
 		
 		this.exCode = exCode;
 		this.memberCode = memberCode;
@@ -38,6 +39,7 @@ public class ExperienceDto {
 		this.exBank = exBank;
 		this.exAccount = exAccount;
 		this.exRegDate = exRegDate;
+		this.houseCode = houseCode;
 	}
 
 	public int getExCode() {
@@ -152,14 +154,24 @@ public class ExperienceDto {
 		this.exRegDate = exRegDate;
 	}
 
+	public int getHouseCode() {
+		return houseCode;
+	}
+
+	public void setHouseCode(int houseCode) {
+		this.houseCode = houseCode;
+	}
+
 	@Override
 	public String toString() {
 		return "ExperienceDto [exCode=" + exCode + ", memberCode=" + memberCode + ", exName=" + exName + ", exPeople="
 				+ exPeople + ", exStartDate=" + exStartDate + ", exEndDate=" + exEndDate + ", exTime=" + exTime
 				+ ", exPrice=" + exPrice + ", exAddress=" + exAddress + ", exExplain=" + exExplain + ", exApproval="
-				+ exApproval + ", exBank=" + exBank + ", exAccount=" + exAccount + ", exRegDate=" + exRegDate + "]";
+				+ exApproval + ", exBank=" + exBank + ", exAccount=" + exAccount + ", exRegDate=" + exRegDate
+				+ ", houseCode=" + houseCode + "]";
 	}
 
+	
 	
 	
 	

@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="${root}/resources/javascript/exHost/register.js"></script>
 
@@ -76,13 +81,14 @@ list-style: none;
 	         <!-- 장소 선택 -->
 		         <li>
 		            <label>장소선택</label>
-		            <select name="exAddress" id="exAddress" style="padding: 0.313rem 0.625rem; border-radius:0.313rem; border: 0.1rem solid #ddd; background-color: white;">
+		            <select name="exAddress" id="exAddress" style="padding: 0.313rem 0.625rem; border-radius:0.313rem; border: 0.1rem solid #ddd; background-color: white; width: 30rem;">
 	        			<c:forEach var="hostDto" items="${hostChkList}">
 	        				<c:if test="${hostDto.approvalStatus eq '승인완료'}" >
 	        			<!-- 사용자에게는 게하 이름으로 보여주고 디비에는 주소값 저장 -->
-		               		<option value="${hostDto.address}">${hostDto.houseName}</option>
+		               		<option value="${hostDto.address}:${hostDto.houseCode}">${hostDto.houseName}</option>
 		               		<%-- <input type="hidden" name="exAddress" value="${hostDto.address}"/>
 		           			<input type="hidden" name="exLatlng" value="${hostDto.latlng}"/> --%>	
+		           			<%-- <input type="text" name="houseCode" value="${hostDto.houseCode}"/> --%>
 		           			</c:if>
 	         			</c:forEach>
 		            </select>
@@ -107,13 +113,13 @@ list-style: none;
 	         </li>
 	         <li>
 	            <label>인원 수</label>
-	            <input type="number" id="exPeople" name="exPeople"/> 
+	            <input type="number" id="exPeople" name="exPeople" value="1" min="1"/> 
 	            <br/>
 	         </li>
 	         
 	         <li>
 	            <label>진행 시간</label>
-	            <input type="number" id="exTime" name="exTime"/> 
+	            <input type="number" id="exTime" name="exTime" value="1" min="1"/> 
 	            <br/>
 	         </li>
 	        
@@ -151,12 +157,12 @@ list-style: none;
 	         
 	         <li>
 	            <label>계좌</label>
-	            <input type="number" name="exAccount" id="exAccount" placeholder="'-'제외하고 입력해주세요."/>
+	            <input type="text" size="30" name="exAccount" id="exAccount" placeholder="'-'제외하고 입력해주세요."/>
 	         </li>
 	         
 	          <li>
 	            <label>가격</label>
-	    		<input type="number" name="exPrice" id="exPrice">원</input>
+	    		<input type="text" name="exPrice" id="exPrice">원</input>
 	         </li>
 	         
 	        
