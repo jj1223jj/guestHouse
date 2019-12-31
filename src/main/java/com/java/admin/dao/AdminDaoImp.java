@@ -81,5 +81,16 @@ public class AdminDaoImp implements AdminDao {
 	public int experienceStateNo(int exCode) {
 		return sqlSessionTemplate.update("dao.AdminMapper.experienceStateNo",exCode);
 	}
-
+	
+	@Override
+	public int guestHouseStateOk(int houseCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update("dao.AdminMapper.guestHouseStateOk",houseCode);
+	}
+	
+	@Override
+	public int guestHouseStateNo(int houseCode) {
+		// TODO Auto-generated method stub
+		return  sqlSessionTemplate.update("dao.AdminMapper.guestHouseStateNo",houseCode);
+	}
 }

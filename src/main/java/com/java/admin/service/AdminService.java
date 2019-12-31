@@ -20,7 +20,9 @@ public interface AdminService {
 
 	public void experienceStateNo(ModelAndView mav);
 
-
+	public void guestHouseStateOK(ModelAndView mav);
+	
+	public void guestHouseStateNo(ModelAndView mav);
 
 
 }

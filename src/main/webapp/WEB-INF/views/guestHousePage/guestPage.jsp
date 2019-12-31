@@ -14,10 +14,16 @@
 <script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc"></script>
 <link rel="stylesheet" href="${root}/resources/css/guestHouse/guestHousePage.css"/>
-<link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
-<script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+<script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
+<link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
+
+<style type="text/css">
+html{
+	font-size: 16px;
+}
+</style>
+<script type="text/javascript">	
 	var rangeDate = 31;
 	var setSDate, setEDate;
 	
@@ -80,7 +86,7 @@
 		});
 	}); 
 	
-	function reservationFun(root,houseCode,emailCheck){
+	function reservationFun(root,houseCode,memberCode,emailCheck){
 		
 		var inputCheckIn = $('#from').val();
 		var inputCheckOut = $('#to').val();
@@ -120,7 +126,7 @@
 		
 		if(emailCheck=='1'){ */
 		var url2 = root+"/guestHousePage/limitCheck.do?houseCode="+houseCode;
-		url2 += "&memberCode="+${member.memberCode}+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
+		url2 += "&memberCode="+memberCode+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
 		alert(url2); 
 		
 		location.href=url2;
@@ -138,12 +144,13 @@
 </head>
 <body>
 
-<%-- 	승인/거절 controller 추가
+<%-- 	승인/거절 controller 추가 --%>
+
 		<c:if test="${memberLevel == 'Admin'}">
-			<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
-			<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>
+			<button id="btn" class="btn" name="stateOk" onclick="location.href='${root}/admin/state.do?houseCode='+'${hostDto.houseCode}'">승인</button>
+			<button id="btn" class="btn" name="stateNo" onclick="location.href='${root}/admin/stateNo.do?houseCode='+'${hostDto.houseCode}'">거절</button>
 		</c:if>
- --%>
+
 		<div class="top">
 			<div class="img">
 			<c:forEach var="fileDto" varStatus="list" items="${fileList}">
@@ -152,17 +159,18 @@
 						<img id="exImg" style="width: 100%; height: 100%;" alt="img loading" src="<spring:url value='/image/${fileDto.mainImgName}' />"/>
 					</div>
 				</c:if>
+			</c:forEach>
+			<div id="imagesWrap">
+			<c:forEach var="fileDto" varStatus="list" items="${fileList}">
 				<c:if test="${fileDto.fileName!=null}">
-
-					<c:if test="${list.index<3}">
-						<div id="roomImg" style="display:inline-block; float: left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+					<c:if test="${(list.index)%2!=0}">
+						<div style="width:50%; height:50%; border: 0.2rem solid green; float: left;">
 							<img id="exImg" alt="img loading"
 								src="<spring:url value='/image/${fileDto.fileName}' />" />
 						</div>
 					</c:if>
-					<!--  exFileList.size() > 3-->
-					<c:if test="${list.index>=3}">
-						<div id="roomImg" style="display:inline-block; float: left; width: 15rem; height: 13.5rem; margin-bottom: 0.3rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+					<c:if test="${(list.index)%2==0}">
+						<div style="width:50%; height:50%;border: 0.2rem solid green; display: inline-block;">
 							<img id="exImg" alt="img loading"
 								src="<spring:url value='/image/${fileDto.fileName}' />" />
 						</div>
@@ -170,6 +178,28 @@
 				</c:if>
 			</c:forEach>
 			</div>
+					<%-- <c:if test="${list.index<3}">
+						<div id="roomImg" style="display:inline-block; float: left; width: 20rem; height: 27.42rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+							<img id="exImg" alt="img loading"
+								src="<spring:url value='/image/${fileDto.fileName}' />" />
+						</div>
+					</c:if> --%>
+					<!--  exFileList.size() > 3-->
+					<%-- <c:if test="${list.index>=3}">
+						<div id="roomImg" style="display:inline-block; float: left; width: 15rem; height: 13.5rem; margin-bottom: 0.3rem; overflow: hidden; border: 0.01rem solid blue; margin-right: 0.5rem;">
+							<img id="exImg" alt="img loading"
+								src="<spring:url value='/image/${fileDto.fileName}' />" />
+						</div>
+					</c:if> --%>
+			
+			
+<!-- 			<div id="imagesWrap">
+						<div style="width:50%; height:50%; border: 0.2rem solid green; float: left;"></div>
+						<div style="width:50%; height:50%;border: 0.2rem solid green; display: inline-block;"></div>
+						<div style="width:50%; height:50%;border: 0.2rem solid green; float: left;"></div>
+						<div style="width:50%; height:50%;border: 0.2rem solid green; display: inline-block;"></div>
+					</div>
+			</div> -->
 		</div>
 		
 		<div class="bot">
@@ -248,108 +278,51 @@
 				</script>
 				
 				<hr style="color: #cccccc">
-				<!-- 리뷰수 count -->
-				전체 리뷰 수: ${count}, 이 페이지의 리뷰 수 : ${reviewList.size()}, 현재 페이지: ${currentPage}
-				
-				<!-- 후기 리스트 -->
-				<div>
-				<c:if test ="${reviewList.size() > 0}">
-					<c:forEach var="reviewDto" items="${reviewList}">
-						<div class="form">
-							
-							<div class="title">
-								
-								<input type="hidden" name="houseCode" id="houseCode" value="${hostDto.houseCode}"/>						
-								<!-- 리뷰 번호  -->
-								예약번호: ${reviewDto.reserveCode} &nbsp;&nbsp;
-								<input type="hidden" name="exReserveCode" id ="exReserveCode" value="${reviewDto.reserveCode}">
-								
-								<!-- 이메일 -->
-								이메일: ${email}&nbsp;&nbsp;
-							
-								<!-- 후기 작성 시간 -->
-								<fmt:formatDate value="${reviewDto.revDate}" pattern = "yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;
-								
-								<!-- session의 이메일과 등록한 이메일 같으면 수정, 삭제 화면 보이기 (본인만 수정 삭제 가능)-->
-								<c:if test="${email eq reviewDto.email}"> 
-									<a href="javascript:GHupdateCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}','${reviewDto.revContent}')"	>수정</a>
-									<a href="javascript:GHdeleteCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}','${currentPage}','${hostDto.houseCode}')">삭제</a> 		
-								</c:if>
-							</div>
-							<div class="content" >
-								${reviewDto.revContent}
-							</div>
-							<!-- 별점 출력 -->
-							<div>
-								 ${reviewDto.revRate} 
-								<span class="star-out">
-								   <span class="output">
-								       <input type="hidden" name="star-output" value="${reviewDto.revRate}" id="${reviewDto.revRate}">
-								       <label for="${reviewDto.revRate}"></label>
-								       <c:if test="${reviewDto.revRate==1}">
-								       		<img src="${root}/resources/css/review/star1.PNG" style="width: 50px;">
-								       </c:if>
-								       <c:if test="${reviewDto.revRate==2}">
-								       		<img src="${root}/resources/css/review/star2.PNG" style="width: 50px;">
-								       </c:if>
-								       <c:if test="${reviewDto.revRate==3}">
-								       		<img src="${root}/resources/css/review/star3.PNG" style="width: 50px;">
-								       </c:if>
-								       <c:if test="${reviewDto.revRate==4}">
-								       		<img src="${root}/resources/css/review/star4.PNG" style="width: 50px;">
-								       </c:if>
-								       <c:if test="${reviewDto.revRate==5}">
-								       		<img src="${root}/resources/css/review/star5.PNG" style="width: 50px;">
-								       </c:if>
-					   				</span>
-								</span>
-							</div>
-						</div>
-					</c:forEach>
-				</c:if>
-				</div>
+				<!-- 후기 전체 -->
+				<div style="width: 70rem; height: auto; border: 0.1rem dotted orange;">
+					<div style="width: 10rem; height: 15rem; border: 0.1rem solid skyblue; float: left;">
+						<div style="margin-top: 5rem;">게스트후기</div>
+					</div>
+					<!-- 후기 작성 -->
+					
+					<form action="${root}/guestHousePage/reviewOk.do" method="get"
+						name="Form" onsubmit="return check('${revContent}','${revRate}')">
+						<div id="write">
+							<input type="hidden" name="houseCode" id="houseCode"
+								value="${hostDto.houseCode}" />
+							<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/> --%>
+							<%-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
+							<c:if test="${reviewList.size()==0 || currentPage==1}">
+								<div class="form">
+									<div class="title">
+										<div id="titleEmail">이메일</div>
+										<input type="text" name="email" size="20" value="${email}"
+											disabled="disabled" />
+									</div>
 
-				<!-- 후기 작성 -->
-				<form action="${root}/guestHousePage/reviewOk.do" method="get"
-					name="Form"
-					onsubmit="return check('${revContent}','${revRate}')">
-					<div id="write">
+									<div class="content">
+										<!-- <div id="contentReview">후기 내용</div> -->
+										<textarea rows="5" cols="53" name="revContent" id="revContent"
+											class="revContent"></textarea>
+									</div>
 
-						<input type="hidden" name="houseCode" id="houseCode"
-							value="${hostDto.houseCode}" />
-						<%-- <input type="text" name="exReserveCode" value="${exReserveDto.exReserveCode}"/> --%>
-						<%-- 후기 갯수가 0개 이거나 현재 페이지가 1일 경우 --%>
-						<c:if test="${reviewList.size()==0 || currentPage==1}">
-							<div class="form">
-								<div class="title">
-									<span>이메일</span> <input type="text" name="email" size="20"
-										value="${email}" disabled="disabled" />
+									<div>
+										<span class="star-input"> <span class="input"> <input
+												type="radio" name="star-input" value="1" id="p1"> <label
+												for="p1">1</label> <input type="radio" name="star-input"
+												value="2" id="p2"> <label for="p2">2</label> <input
+												type="radio" name="star-input" value="3" id="p3"> <label
+												for="p3">3</label> <input type="radio" name="star-input"
+												value="4" id="p4"> <label for="p4">4</label> <input
+												type="radio" name="star-input" value="5" id="p5"> <label
+												for="p5">5</label>
+										</span> <output for="star-input" name="starValue"> <input
+												type="hidden" name="revRate" id="revRate" class="revRate">
+											</output>
+										</span>
+									</div>
 
-								</div>
-
-								<div class="content">
-									후기 내용
-									<textarea rows="5" cols="53" name="revContent" id="revContent"
-										class="revContent"></textarea>
-								</div>
-								<div>
-									<span class="star-input"> <span class="input"> <input
-											type="radio" name="star-input" value="1" id="p1"> <label
-											for="p1">1</label> <input type="radio" name="star-input"
-											value="2" id="p2"> <label for="p2">2</label> <input
-											type="radio" name="star-input" value="3" id="p3"> <label
-											for="p3">3</label> <input type="radio" name="star-input"
-											value="4" id="p4"> <label for="p4">4</label> <input
-											type="radio" name="star-input" value="5" id="p5"> <label
-											for="p5">5</label>
-									</span> <output for="star-input" name="starValue">
-										<input type="hidden" name="revRate" id="revRate"
-											class="revRate"></output>
-									</span>
-
-								</div>
-
-								<%-- 
+									<%-- 
 								전부 0값 들어감
 								<input type="hidden" name="exReserveCode" value="${exReviewDto.exReserveCode}">
 								<input type="hidden" name="memberCode" value="${exReviewDto.memberCode}">
@@ -357,36 +330,98 @@
 								<input type="hidden" name="revContent" value="${revContent}">
 								 --%>
 
-								<!-- 별점 스크립트를 위해서 여기에 또 스트립트 선언 해줘야 함  -->
-								<script type="text/javascript"
-									src="${root}/resources/javascript/review/review.js"></script>
+									<!-- 별점 스크립트를 위해서 여기에 또 스트립트 선언 해줘야 함  -->
+									<script type="text/javascript"
+										src="${root}/resources/javascript/review/review.js"></script>
 
-								<div class="bottom"
-									style="text-align: left; margin-left: 300px; margin-top: 50px;">
+									<div class="bottom"
+										style="text-align: left; margin-left: 300px; margin-top: 50px;">
 
-									<%-- <button id="exReviewOk" onclick="exReviewChk('${root}')">확인</button> --%>
-									<input type="hidden" name="houseCode"
-										value="${hostDto.houseCode}" /> <input type="submit"
-										value="확인" /> <input type="button" value="취소" />
-
-
+										<%-- <button id="exReviewOk" onclick="exReviewChk('${root}')">확인</button> --%>
+										<input type="hidden" name="houseCode"
+											value="${hostDto.houseCode}" /> <input type="submit"
+											value="확인" /> <input type="button" value="취소" />
+									</div>
 								</div>
-							</div>
+							</c:if>
+						</div>
+					</form>
+
+					<!-- 후기 리스트 -->
+					<div>
+						<c:if test="${reviewList.size() > 0}">
+							<c:forEach var="reviewDto" items="${reviewList}">
+								<div class="form">
+
+									<div class="title">
+
+										<input type="hidden" name="houseCode" id="houseCode"
+											value="${hostDto.houseCode}" />
+										<!-- 리뷰 번호  -->
+										예약번호: ${reviewDto.reserveCode} &nbsp;&nbsp; <input
+											type="hidden" name="exReserveCode" id="exReserveCode"
+											value="${reviewDto.reserveCode}">
+
+										<!-- 이메일 -->
+										이메일: ${email}&nbsp;&nbsp;
+
+										<!-- 후기 작성 시간 -->
+										<fmt:formatDate value="${reviewDto.revDate}"
+											pattern="yyyy-MM-dd HH:mm:ss" />
+										&nbsp;&nbsp;
+
+										<!-- session의 이메일과 등록한 이메일 같으면 수정, 삭제 화면 보이기 (본인만 수정 삭제 가능)-->
+										<c:if test="${email eq reviewDto.email}">
+											<a
+												href="javascript:GHupdateCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}','${reviewDto.revContent}')">수정</a>
+											<a
+												href="javascript:GHdeleteCheck('${root}','${reviewDto.reserveCode}','${reviewDto.memberCode}','${currentPage}','${hostDto.houseCode}')">삭제</a>
+										</c:if>
+									</div>
+									<div class="content">${reviewDto.revContent}</div>
+									<!-- 별점 출력 -->
+									<div>
+										${reviewDto.revRate} <span class="star-out"> <span
+											class="output"> <input type="hidden"
+												name="star-output" value="${reviewDto.revRate}"
+												id="${reviewDto.revRate}"> <label
+												for="${reviewDto.revRate}"></label> <c:if
+													test="${reviewDto.revRate==1}">
+													<img src="${root}/resources/css/review/star1.PNG"
+														style="width: 50px;">
+												</c:if> <c:if test="${reviewDto.revRate==2}">
+													<img src="${root}/resources/css/review/star2.PNG"
+														style="width: 50px;">
+												</c:if> <c:if test="${reviewDto.revRate==3}">
+													<img src="${root}/resources/css/review/star3.PNG"
+														style="width: 50px;">
+												</c:if> <c:if test="${reviewDto.revRate==4}">
+													<img src="${root}/resources/css/review/star4.PNG"
+														style="width: 50px;">
+												</c:if> <c:if test="${reviewDto.revRate==5}">
+													<img src="${root}/resources/css/review/star5.PNG"
+														style="width: 50px;">
+												</c:if>
+										</span>
+										</span>
+									</div>
+								</div>
+							</c:forEach>
 						</c:if>
 					</div>
-				</form>
+				</div>
+				
 
 				<hr style="color: #cccccc">
 				<div class="host">
-					<p>호스트 소개</p>
 					<div id="hostInfo">	
-						<p id="hostName">호스트 이름 : ${host.memberName}</p>
-						<p id="hostDate">회원가입 : ${regDate}</p>
+						<div id="hostName">호스트: ${host.memberName}</div>
+						<div id="hostDate">회원가입 : ${regDate}</div>
 						<!-- <span id="hStar">별점 : </span>&nbsp;
 						<span id="revCount">리뷰 수 : </span><br/> -->
 						<p id="pHostInfo"> ${host.memberInfo} </p>
 					</div>
-					<div id="hostImg" style="border: 1px solid;">
+					<div id="hostImg" style="border: 1px solid #cccccc;">
 						<img id="hostImgSize" src="<spring:url value='/profileImg/${host.memberImgName}' />"/>
 					</div>
 				</div>
@@ -435,21 +470,24 @@
 			
 			<!-- <div class="wrap" style="display: inline-block;"> -->
 			<div id="reserve">
-				<p>예약하기</p>
-					<div>
-						시작일
-					</div>
-					<div>
-						<input type="text" id="from">
-					</div>
-					<div>
-						종료일
-					</div>
-					<div>
-						<input type="text" id="to">
+				<div id="reserveMargin">
+					<p>예약할 날짜를 입력하세요.</p>
+					
+					<hr style="color: #cccccc">
+					
+					<span id="formToText">날짜</span>
+					<div id="formTo">
+						<div style="float: left;">
+							<input type="text" id="from" value="체크인">
+						</div>
+						<div style="display: inline-block;">
+							<input type="text" id="to" value="체크아웃">
+						</div>
 					</div>
 					
-					<div style="margin-bottom: 1rem; margin-top: 1rem;">
+					
+					<div>
+						<div id="peopleText">인원</div>
 						<input id="people" value="1">
 					</div>
 						<script>
@@ -463,8 +501,147 @@
 							
 						</script>
 					<c:if test="${emailCheck == 1}">
-						<button class="btn" style="background-color: #008489; color: white; font-weight: bold;" onclick="reservationFun('${root}','${hostDto.houseCode}','${emailCheck}')">예약</button>
+						<button class="btn" style="width:100%; margin-top:1.5rem; background-color: #008489; color: white; font-weight: bold;" onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}','${emailCheck}')">예약하기</button>
 					</c:if>
+					<c:if test="${emailCheck==0}">
+						<div id="loginText">예약하려면 로그인을 해주세요.</div>
+						<%-- <li id="log"><button data-toggle="modal" data-target="#login" class="btn" style="width:100%; margin-top:1.5rem; background-color: #008489; color: white; font-weight: bold;" onclick="loginFun('${root}')">로그인을 해주세요</button></li>
+						<!-- 모달페이지 -->
+						<div class="modal fade" id="login">
+							<div class="modal-dialog">
+								<div class="modal-content">
+
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h4 class="modal-title">로그인 / 회원가입</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+
+									<!-- Modal body -->
+									<form action="${root}/member/loginOk.do" method="post"
+										onsubmit="return registForm(this)" name="createForm">
+										<section id="container"> <input type="hidden"
+											id="isCasinoGuide" value="">
+										<div class="loginWrap">
+
+											<div class="fullBg">
+												<div class="innerBox">
+													<div class="reserveLogin clearFixed">
+
+														<div>
+															<!-- <div class="tapBox">
+												<ul class="tab">
+													<li class="current" data-tab="tab1"><a href="#">회원 로그인</a></li>
+													<li data-tab="tab2"><a href="#">카카오 로그인</a></li>
+												</ul>
+											</div> -->
+
+
+															<ul class="nav nav-tabs">
+																<li class="nav-item"><a class="nav-link active"
+																	data-toggle="tab" href="#myLogin">일반회원 로그인</a></li>
+																<li class="nav-item"><a class="nav-link"
+																	data-toggle="tab" href="#kakaoLogin">카카오 로그인</a></li>
+															</ul>
+
+															<div class="tab-content">
+																<div class="tab-pane fade show active" id="myLogin">
+																	<div class="loginBox">
+																		<div class="col" align="center">
+																			<input class="form-control"
+																				style="margin-top: 2.5rem;" type="email" id="email"
+																				name="email" placeholder="이메일을 입력하세요"
+																				required="required">
+
+																		</div>
+																		<div class="col" align="center">
+																			<input class="form-control" type="password"
+																				id="password" name="password"
+																				placeholder="비밀번호를 입력하세요" required="required">
+
+																		</div>
+																		<div align="center">
+																			<button class="btn btn-info btn-block"
+																				style="width: 18rem;"
+																				onclick="location:href='${root}/member/loginOk.do'"
+																				type="submit">로그인</button>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="tab-pane fade" id="kakaoLogin">
+																	<div class="loginBox">
+																		<div class="inp" align="center">
+																			<button type="button" class="btn btn-warning"
+																				style="width: 18rem; margin-top: 3rem;"
+																				onclick="kakaoLogin()" value="카카오 로그인">카카오
+																				로그인</button>
+																			<!-- <a id="kakao-login-btn"></a>
+														    <a href="http://developers.kakao.com/logout"></a>
+														     -->
+																			<script type='text/javascript'>
+														      //<![CDATA[
+														        // 사용할 앱의 JavaScript 키를 설정해 주세요.
+														        Kakao.init('5a47c72d35ab36aa08feca719cb2bccf');
+														        
+														        // 카카오 로그인 버튼을 생성합니다.
+														        function kakaoLogin(){
+														        	Kakao.Auth.loginForm({
+														        		success:function(authObj){
+														        			// 로그인 성공시, API를 호출합니다.
+																            Kakao.API.request({
+																             url: '/v1/user/me',
+																             success: function(res) {
+																            	 var url="";
+																            	 $.ajax({
+																            		 url:url,
+																            	 	type:"get",
+																            	 	dataType: "text",
+																            	 	success:function(data){
+																            	 		window.location.href="${root}"+"/member/kakaoLogin.do?email="+res.kaccount_email+"&memberImgPath="+res.properties.profile_image +"&memberName="+res.properties.nickname;
+																			              
+																            	 	}
+																            	 });
+																             }
+																            	 
+																             });
+														        		}
+														        	});
+														        }										        
+														        
+														     
+														    </script>
+
+																		</div>
+																	</div>
+																</div>
+
+															</div>
+
+
+
+															<div>
+																<div class="modal-footer"
+																	style="text-align: center; margin-top: 3rem;">
+																	<a style="font-size: 1rem; margin-right: 2rem;">아직
+																		회원이 아니신가요?</a>
+																	<button class="btn btn-outline-success"
+																		onclick="location.href='${root}/member/register.do'"
+																		type="button">회원가입</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										</section>
+									</form>
+								</div>
+							</div>
+						</div> --%>
+					</c:if>
+				</div>
 			</div>
 			<!-- </div> -->
 		</div>

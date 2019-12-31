@@ -109,4 +109,27 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/admin/state.do", method = RequestMethod.GET)
+	public ModelAndView guestHouseStateOk(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin exStateOk");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.guestHouseStateOK(mav);
+		 
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/stateNo.do", method = RequestMethod.GET)
+	public ModelAndView guestHouseStateNo(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Admin exStateNO");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		adminService.guestHouseStateNo(mav);
+		 
+		return mav;
+	}
 }

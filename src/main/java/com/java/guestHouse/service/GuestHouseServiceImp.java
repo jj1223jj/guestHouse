@@ -66,10 +66,13 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		MemberDto member = guestHouseDao.getMemberInfo(email);
 		mav.addObject("MemberDto",member);
 		
+		
 		int emailCheck = 0;
 		if(email!=null) {
 			HomeAspect.logger.info(HomeAspect.logMsg + member.getMemberCode() + member.getMemberLevel());
 			emailCheck =1;
+			
+			mav.addObject("memberCode",member.getMemberCode());
 			mav.addObject("emailCheck",emailCheck);
 		}else {
 			emailCheck =0;

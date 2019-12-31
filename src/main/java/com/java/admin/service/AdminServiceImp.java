@@ -215,4 +215,40 @@ public class AdminServiceImp implements AdminService {
 	   mav.setViewName("admin/exState.tiles");
 		
 	}
+	
+	@Override
+	public void guestHouseStateOK(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+
+		int ghStateOk = adminDao.guestHouseStateOk(houseCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + " ghStateOk : " + ghStateOk);
+
+		mav.addObject("houseCode", houseCode);
+		mav.addObject("ghStateOk", ghStateOk);
+
+		mav.setViewName("admin/guestHouseState.tiles");
+		
+	}
+	
+	@Override
+	public void guestHouseStateNo(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+
+		int ghStateNo = adminDao.guestHouseStateNo(houseCode);
+
+		HomeAspect.logger.info(HomeAspect.logMsg + " ghStateNo : " + ghStateNo);
+
+		mav.addObject("houseCode", houseCode);
+		mav.addObject("ghStateNo", ghStateNo);
+
+		mav.setViewName("admin/guestHouseState.tiles");
+		
+	}
+	
 }

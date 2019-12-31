@@ -137,6 +137,7 @@ function check(revContent, revRate) {
 		
 	var revContent = $('#revContent').val();
 	var revRate = $('#revRate').val();
+	alert(revRate);
 	
 	if(revContent ==''){
 		alert("후기 내용을 작성해주세요.");

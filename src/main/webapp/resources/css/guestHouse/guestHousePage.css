@@ -27,7 +27,12 @@ body{
 	float:left; display:inline-block;
 	width: 50%; height: 30rem; 
 	overflow: hidden; border: 0.1rem solid red; 
-	margin-right: 0.5rem;
+	/* margin-right: 0.5rem; */
+}
+
+#imagesWrap{
+	width: 50%; height: 30rem;
+	border: 0.1rem solid red; overflow: hidden;
 }
 /* 
 #roomImg{
@@ -60,8 +65,12 @@ body{
 	margin-bottom: 3rem;
 }
 
-.facilites > p, #calendar > p, .host>p, #map>p, #notice p,#reserve>p{
+.facilites > p, #calendar > p, #hostName, #map>p, #notice p{
 	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+#reserveMargin>p{
 	font-weight: bold;
 }
 
@@ -72,13 +81,28 @@ body{
 #fLeft{
 	display: inline-block;
 }
+
+#titleEmail{
+	width: 6rem;
+}
+
+.title{
+	margin-bottom: 1rem;
+}
+
+.host{
+	overflow: hidden;
+}
+
 #hostInfo{
-	float: left; 
-	border: 1px solid blue;
+/* 	border: 1px solid blue; */
+	float: left;
+	display: inline-block;
 }
 
 #hostImg{
 	display: inline-block;
+	float: right;
 }
 
 #hostImgSize{
@@ -90,7 +114,12 @@ body{
 #reserve{
 	margin-left: 3rem; 
 	display: inline-block;
+	border: 0.05rem solid #cccccc;
+	border-radius: 0.4rem;
+}
 
+#reserveMargin{
+	margin: 1.5rem;
 }
 
 .form{
@@ -102,8 +131,26 @@ body{
 	margin-top: 3rem;
 	margin-bottom: 3rem;
 }
+#formToText,#peopleText{
+	font-size: 1rem;
+	font-weight: bold;
+}
 
+#formTo{
+	margin-bottom: 1.5rem;
+}
 
+#from{
+	width: 7rem; margin-right: 1rem;
+}
 
+#to{
+	width: 7rem;
+}
+
+#loginText{
+	width:100%; margin-top:1.5rem; color: red;
+	font-size: 0.8rem;
+}
 
 
