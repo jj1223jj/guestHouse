@@ -5,54 +5,39 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!-- 1.맨 위에 페이지 블록 -->
-<c:set var="pageBlock" value="${3}" />
+<c:set var="pageBlock" value="${1}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="${root}/resources/css/guestdelluna/menuLayout.css">
 <script type="text/javascript"
 	src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/mypaylist.js"></script>
 <link rel="stylesheet"
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
-<link rel="stylesheet"
-	href="${root}/resources/css/guestdelluna/bootstrap.css">
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/bootstrap.js"></script>
+<script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
 <title>결제 내역</title>
+<script type="text/javascript"
+	src="${root}/resources/javascript/guestdelluna/mypaylist.js"></script>
 <style type="text/css">
 html {
 	font-size: 16px;
 }
-
-.infoMenu {
-	margin-left: 2rem;
-}
-
-.vl {
-	border-left: 0.0625rem solid #dddddd;
-	height: 16rem;
-	float: left;
-	margin-left: 6rem;
-	margin-top: 4.4rem;
-}
-
-.page-link {
-	background-color: #008489;
-	border-color: #008489;
-}
-
-.aMenu {
-	color: #333;
-}
 </style>
-
+<!-- 
 <script>
-	// 2.jquery 온로드
+	
+// 2.jquery 온로드
 	$(function() {
 
 		// 		3.페이징에 필요한 변수들 선언
@@ -349,190 +334,108 @@ html {
 		}
 	}
 </script>
+ -->
 
+<script type="text/javascript">
+	$(function(){
+		$('#tabs').tabs();
+		paging('${root}','','','300000');
+		$(".payExp").click(function(){
+			paging('${root}','','','300000');
+		})
+		$(".payHouse").click(function(){
+			paging('${root}','','500000','');
+		})
+	});
 
+	function paging(root, param, accuCount, useCount) {
+		if(useCount>50000){
+		var url = root + "/guestdelluna/payExpAjax.do";
+
+		var params = "pageNumber=" + param;
+
+		sendRequest("GET", url, accuPOK, params);
+		}
+		
+		if(accuCount>50000){
+			
+			var url = root + "/guestdelluna/payHouseAjax.do";
+
+			var params = "usePageNumber=" + param;
+
+			sendRequest("GET", url, usePOK, params);
+		}
+	}
+
+	function accuPOK() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			document.getElementById("payExpView").innerHTML = xhr.responseText;
+			var currentPage = $("#currentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
+		}
+	}
+	
+	function usePOK(){
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			document.getElementById("payHouseView").innerHTML = xhr.responseText;
+			var currentPage = $("#useCurrentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
+		}
+	}
+</script>
 </head>
 <body>
-	<div id="wrap">
+	<div id="wrap" style="margin-top: 3rem;">
 		<div style="text-align: center;">
 			${memberDto.memberName}님의 결제내역입니다.</div>
 
-		<div class="menuL">
+		<div class="menuL" style="margin-top: 8rem;">
 			<ul>
-				<li><a href="${root}/guestdelluna/allMyReview.do">후기</a></li>
+				<li><a href="${root}/guestdelluna/allMyReview.do" style="color: black;">후기</a></li>
 				<c:if test="${memberCode == memberDto.memberCode}">
-					<li><a href="${root}/guestdelluna/memberUpdate.do">회원수정</a></li>
-					<li><a href="${root}/guestdelluna/managePoint.do">포인트관리</a></li>
-					<li><a href="${root}/guestdelluna/payList.do">결제내역</a></li>
+					<li><a href="${root}/guestdelluna/memberUpdate.do" style="color: black;">회원수정</a></li>
+					<li><a href="${root}/guestdelluna/managePoint.do" style="color: black;">포인트관리</a></li>
+					<li><a href="${root}/guestdelluna/payList.do" style="color: black;">결제내역</a></li>
 					<c:if test="${memberLevel == 'Host'}">
 						<hr style="border: 0.0315rem solid #ddd;" />
-						<li><a href="${root}/host/reservationView.do">숙소예약현황</a></li>
-						<li><a href="${root}/host/exReservationView.do">체험예약현황</a></li>
-						<li><a href="${root}/host/salesView.do">매출조회</a></li>
-						<li><a href="${root}/host/houseManagement.do">게스트하우스 관리</a></li>
-						<li><a href="${root}/host/exManagement.do">체험 관리</a></li>
+						<li><a href="${root}/host/reservationView.do" style="color: black;">숙소예약현황</a></li>
+						<li><a href="${root}/host/exReservationView.do" style="color: black;">체험예약현황</a></li>
+						<li><a href="${root}/host/salesView.do" style="color: black;">매출조회</a></li>
+						<li><a href="${root}/host/houseManagement.do" style="color: black;">게스트하우스 관리</a></li>
+						<li><a href="${root}/host/exManagement.do" style="color: black;">체험 관리</a></li>
 					</c:if>
-					<li><a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a></li>
+					<li><a href="${root}/guestdelluna/memberDelete.do" style="color: black;">회원탈퇴</a></li>
 				</c:if>
 			</ul>
 		</div>
 
-		<div class="menuR">
+		<div class="menuR" style="margin-left: -4rem; margin-top: 6.5rem;">
 			<div id="tabs" class="container"
-				style="width: 70rem; margin-top: 1.5rem;">
+				style="width: 60rem; margin-top: 1.5rem;">
 				<ul style="border: 0px; background: #ffffff;">
-					<li
-						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: -1rem"><a
+					<li class="payExp"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
 						href="#fragment-1"><span>체험 결제 내역</span></a></li>
-					<li
-						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: 9rem;"><a
+					<li class="payHouse"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 9rem;"><a
 						href="#fragment-2"><span>게스트하우스 결제 내역</span></a></li>
 				</ul>
 				<div id="fragment-1">
-					<div>
-						<c:if test="${countPayExp ==0 }">
-							<span>체험 결제 내역이 없습니다.</span>
-						</c:if>
-
-						<c:if test="${countPayExp >0 }">
-							<table class="table"
-								style="vertical-align: middle; text-align: center;">
-								<thead class="thead-light">
-									<tr style="font-weight: 800;">
-										<td>번호</td>
-										<td>이름</td>
-										<td>체험 예약 날짜</td>
-										<td>예약여부</td>
-										<td></td>
-									</tr>
-								</thead>
-								<tbody class="pointInfo">
-									<c:forEach var="newExpResDto" items="${newExpResDto}"
-										varStatus="status">
-										<tr>
-											<td>${status.count}</td>
-											<td>${newExpResDto.exName}</td>
-											<td><fmt:formatDate value="${newExpResDto.reserveDate}"
-													pattern="yyyy-MM-dd" /></td>
-											<td>${newExpResDto.state}</td>
-											<td><button type="button" class="btn btn-primary btn-lg"
-													data-toggle="modal"
-													style="background: #008489; border: 1px solid #008489;"
-													data-target="#myModal">삭제</button></td>
-										</tr>
-										<!-- Modal -->
-										<div class="modal fade" id="myModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h4 class="modal-title" id="myModalLabel"
-															style="text-align: left">결제 취소</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<div>결제를 취소하시겠습니까?</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-primary"
-															style="background: #008489; border: 1px solid #008489;"
-															onclick="deleteExpPayState('${root}','${newExpResDto.exReserveCode}')">네</button>
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">닫기</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-								</tbody>
-							</table>
-						</c:if>
-						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-						<div class="pointPageContainer">
-							<ul class="pagination">
-
-							</ul>
-						</div>
-					</div>
+					<div id="payExpView"></div>
 				</div>
 
 				<div id="fragment-2">
-					<div>
-						<c:if test="${countPayHouse ==0 }">
-							<span>게스트하우스 결제 내역이 없습니다.</span>
-						</c:if>
-
-						<c:if test="${countPayHouse >0 }">
-							<table class="table"
-								style="vertical-align: middle; text-align: center;">
-								<thead class="thead-light">
-									<tr style="font-weight: 800;">
-										<td>번호</td>
-										<td>이름</td>
-										<td>게스트하우스 예약 날짜</td>
-										<td>예약여부</td>
-										<td></td>
-									</tr>
-								</thead>
-								<tbody class="useInfo">
-									<c:forEach var="newHouseResDto" items="${newHouseResDto}"
-										varStatus="status">
-										<tr>
-											<td>${status.count}</td>
-											<td>${newHouseResDto.houseName}</td>
-											<td><fmt:formatDate
-													value="${newHouseResDto.reserveDate}" pattern="yyyy-MM-dd" /></td>
-											<td>${newHouseResDto.state}</td>
-											<td><button type="button" class="btn btn-primary btn-lg"
-													data-toggle="modal" data-target="#myModal"
-													onclick="onModal()"
-													style="background: #008489; border: 1px solid #008489;">삭제</button></td>
-										</tr>
-
-										<!-- Modal -->
-										<div class="modal fade" id="myModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h4 class="modal-title" id="myModalLabel"
-															style="text-align: left">결제 취소</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<div>결제를 취소하시겠습니까?</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-primary"
-															style="background: #008489; border: 1px solid #008489;"
-															onclick="deleteHousePayState('${root}','${newHouseResDto.reserveCode}')">네</button>
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">닫기</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-								</tbody>
-							</table>
-						</c:if>
-						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-						<div class="usePageContainer">
-							<ul class="pagination point">
-
-							</ul>
-						</div>
-					</div>
+					<div id="payHouseView"></div>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <html>
@@ -10,14 +11,14 @@
 <meta charset="UTF-8">
 <style type="text/css">
 #msgAlim {
-margin-top : -0.4rem;
-color : white ;
-border-radius: 30rem;
-border : 1px soild red;
-background : red;
-width : 2rem;
-margin-left : -0.7rem;
-text-align: center;
+	margin-top: -0.4rem;
+	color: white;
+	border-radius: 30rem;
+	border: 1px soild red;
+	background: red;
+	width: 2rem;
+	margin-left: -0.7rem;
+	text-align: center;
 }
 </style>
 <title>Insert title here</title>
@@ -47,28 +48,61 @@ text-align: center;
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
-			  $(function() {
-					$('ul.tab li').click(function() {
-						var activeTab = $(this).attr('data-tab');
-						$('ul.tab li').removeClass('current');
-						$('.tabcontent').removeClass('current');
-						$(this).addClass('current');
-						$('#' + activeTab).addClass('current');
-					})
-				});
-  
-  		</script>
+	$(function() {
+		$('ul.tab li').click(function() {
+			var activeTab = $(this).attr('data-tab');
+			$('ul.tab li').removeClass('current');
+			$('.tabcontent').removeClass('current');
+			$(this).addClass('current');
+			$('#' + activeTab).addClass('current');
+		})
+	});
+</script>
 
 <script>
-    $(function(){
-    	if('${memberLevel}'=='Admin'){
-    		$(".navbar").css("background-color","#ffe6de");
-    	}
-    });
-    </script>
+	$(function() {
+		if ('${memberLevel}' == 'Admin') {
+			$(".navbar").css("background-color", "#ffe6de");
+		}
+	
+	});
+</script>
 
 </head>
-<body>
+<body onload="msgAlim('${root}')">
+
+	<script type="text/javascript">
+		function msgAlim(root) {
+			if ('${memberLevel}' != null) {
+
+				$.ajax({
+					type : "GET",
+					url : root + "/guestdelluna/msgView.do",
+					dataType : "text",
+					error : function() {
+						alert("값못가져옴 ㅠ");
+					},
+					success : function(msgData) {
+						$("#msgCnt").html(msgData); //div에 받아온 값을 넣는다.
+						//alert(msgData);
+						//alert(112);
+						var modal = document.getElementById("myModal");
+						$("#_asdf").click(function() {
+							$("#myModal").css("display", "block");
+						})
+						window.onclick = function(event) {
+							if (event.target == modal) {
+								modal.style.display = "none";
+							}
+						}
+						
+					}
+					
+				});
+
+			}
+		}
+	</script>
 
 	<!-- 헤더영역 -->
 	<nav class="navbar navbar-expand-sm fixed-top"
@@ -114,16 +148,23 @@ text-align: center;
 	          	<c:if test="${memberLevel == null}">
 		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
 		            <%-- <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li> --%>
-	            	<li id="log"><button class="btn" data-toggle="modal" data-target="#login">로그인/회원가입<!-- <i class="fa fa-user"></i> --></button></li>
-	            </c:if>
-          
-	            <c:if test="${memberLevel != null}">
-	          		<li class="nav-item"><a class="nav-link" href="#">게스트 하우스 검색</a></li>
-	          		<li class="nav-item"><a class="nav-link" href="#">체험 검색</a></li>
-	          		<li class="nav-item"><a class="nav-link" href="${root}/experience/exPage.do?exCode=6">체험 페이지</a></li>
-			        <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
-			       
-		            <%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
+					<li id="log"><button class="btn" data-toggle="modal"
+							data-target="#login">
+							로그인/회원가입
+							<!-- <i class="fa fa-user"></i> -->
+						</button></li>
+				</c:if>
+
+				<c:if test="${memberLevel != null}">
+					<li class="nav-item"><a class="nav-link" href="#">게스트 하우스
+							검색</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">체험 검색</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/experience/exPage.do?exCode=6">체험 페이지</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/host/register.do">호스팅하기</a></li>
+
+					<%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
 
 			            <li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/myInfo.do">마이페이지</a></li>
 			            <li class="nav-item"><a class="nav-link" href="${root}/member/logout.do">로그아웃</a></li>
@@ -139,41 +180,16 @@ text-align: center;
 					<li class="nav-item"><a class="nav-link"
 						href="${root}/member/logout.do">로그아웃</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${root}/guestdelluna/myInfo.do">마이페이지</a>
+						href="${root}/guestdelluna/myInfo.do">마이페이지 </a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="#"><button type="button" class="close" id="msgBtn"></button>
-							<h3 id="msgAlim">${cntMsg}</h3></a>
-							
-					
+						href="${root}/guestdelluna/myInfo.do"><img alt="img loading"
+							width="200" height="200"
+							src="<spring:url value='/profileImg/bellllllll'/>"></a></li>
 
-						<div id="myInfoModal" class="infoModal" style="display: none;">
+					<button type="button" id="_asdf" class="btn btn-primary">0</button>
+					<div id="msgCnt"></div>
 
-							<!-- Modal content -->
-							<div class="modal-content">
-								<div style="margin-top: 0px; margin-bottom: 20px">
-									<span style="float: right;" class="closeModalInfo">&times;</span>
-								</div>
-								<div>
-									<a style="float: left;" href="${root}/guestdelluna/myInfo.do">프로필</a>
-									<span style="float: right; margin-right: 10px;"
-										onclick="deleteAllMsg('${root}')">모두삭제</span>
-								</div>
-								<div>
-									<c:forEach varStatus="status" items="${allMsgDto}"
-										var="allMsgDto">
-										<div>
-											<span style="margin-right: 20%"
-												onclick="readMsg('${root}','${allMsgDto.msgCode}')">${allMsgDto.msgContent}</span>
-											<span
-												style="float: right; margin-left: 10%; margin-right: 5%;">${allMsgDto.msgCheck}</span>
-											<span style="float: right"
-												onclick="deleteMsg('${root}','${allMsgDto.msgCode}')">삭제</span>
-										</div>
-									</c:forEach>
-								</div>
-							</div>
 
-						</div></li>
 
 					<c:if test="${memberLevel =='Admin'}">
 						<!-- <li class="nav-item"><a class="nav-link" href="${root}/admin/experienceList.do">체험 관리</a></li>
@@ -195,6 +211,8 @@ text-align: center;
 			</ul>
 		</div>
 	</nav>
+
+
 
 	<!-- //헤더영역 -->
 
@@ -273,37 +291,48 @@ text-align: center;
 														    <a href="http://developers.kakao.com/logout"></a>
 														     -->
 															<script type='text/javascript'>
-														      //<![CDATA[
-														        // 사용할 앱의 JavaScript 키를 설정해 주세요.
-														        Kakao.init('5a47c72d35ab36aa08feca719cb2bccf');
-														        
-														        // 카카오 로그인 버튼을 생성합니다.
-														        function kakaoLogin(){
-														        	Kakao.Auth.loginForm({
-														        		success:function(authObj){
-														        			// 로그인 성공시, API를 호출합니다.
-																            Kakao.API.request({
-																             url: '/v1/user/me',
-																             success: function(res) {
-																            	 var url="";
-																            	 $.ajax({
-																            		 url:url,
-																            	 	type:"get",
-																            	 	dataType: "text",
-																            	 	success:function(data){
-																            	 		window.location.href="${root}"+"/member/kakaoLogin.do?email="+res.kaccount_email+"&memberImgPath="+res.properties.profile_image +"&memberName="+res.properties.nickname;
-																			              
-																            	 	}
-																            	 });
-																             }
-																            	 
-																             });
-														        		}
-														        	});
-														        }										        
-														        
-														     
-														    </script>
+																//<![CDATA[
+																// 사용할 앱의 JavaScript 키를 설정해 주세요.
+																Kakao
+																		.init('5a47c72d35ab36aa08feca719cb2bccf');
+
+																// 카카오 로그인 버튼을 생성합니다.
+																function kakaoLogin() {
+																	Kakao.Auth
+																			.loginForm({
+																				success : function(
+																						authObj) {
+																					// 로그인 성공시, API를 호출합니다.
+																					Kakao.API
+																							.request({
+																								url : '/v1/user/me',
+																								success : function(
+																										res) {
+																									var url = "";
+																									$
+																											.ajax({
+																												url : url,
+																												type : "get",
+																												dataType : "text",
+																												success : function(
+																														data) {
+																													window.location.href = "${root}"
+																															+ "/member/kakaoLogin.do?email="
+																															+ res.kaccount_email
+																															+ "&memberImgPath="
+																															+ res.properties.profile_image
+																															+ "&memberName="
+																															+ res.properties.nickname;
+
+																												}
+																											});
+																								}
+
+																							});
+																				}
+																			});
+																}
+															</script>
 
 														</div>
 													</div>
@@ -335,70 +364,44 @@ text-align: center;
 	</div>
 	<!-- //컨텐츠 영역 -->
 
+
 	<script type="text/javascript">
-var modal = document.getElementById("myInfoModal");
+		function deleteAllMsg(root) {
 
-// Get the button that opens the modal
-var btn = document.getElementById("msgBtn");
+			var url = root + "/guestdelluna/msgAllDelete.do";
+			var params = "";
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("closeModalInfo")[0];
+			sendRequest("GET", url, callBackFromServer, params);
+		}
 
-// When the user clicks the button, open the modal 
-msgBtn.onclick = function() {
-	modal.style.display = "block";
-}
+		function callBackFromServer() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				alert("메시지가 삭제 됐습니다");
+				setTimeout("location.reload()");
+			}
+		}
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-	modal.style.display = "none";
-}
+		function deleteMsg(root, msgCode) {
+			var url = root + "/guestdelluna/msgDelete.do";
+			var params = "msgCode=" + msgCode;
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
-}
+			sendRequest("GET", url, callBackFromServer, params);
+		}
 
-function deleteAllMsg(root) {
+		function readMsg(root, msgCode) {
+			//읽음으로 상태변경
+			var url = root + "/guestdelluna/msgUpdate.do";
+			var params = "msgCode=" + msgCode;
 
-	var url = root + "/guestdelluna/msgAllDelete.do";
-	var params = "";
+			sendRequest("POST", url, updateCallBackFromServer, params);
+		}
 
-	sendRequest("GET", url, callBackFromServer, params);
-}
-
-function callBackFromServer() {
-	if (xhr.readyState == 4 && xhr.status == 200) {
-		alert("메시지가 삭제 됐습니다");
-		setTimeout("location.reload()");
-	}
-}
-
-function deleteMsg(root, msgCode) {
-	var url = root + "/guestdelluna/msgDelete.do";
-	var params = "msgCode=" + msgCode;
-
-	sendRequest("GET", url, callBackFromServer, params);
-}
-
-function readMsg(root, msgCode) {
-	//읽음으로 상태변경
-	var url = root + "/guestdelluna/msgUpdate.do";
-	var params = "msgCode=" + msgCode;
-
-	sendRequest("POST", url, updateCallBackFromServer, params);
-}
-
-function updateCallBackFromServer() {
-	if (xhr.readyState == 4 && xhr.status == 200) {
-		var modal = document.getElementById("myModal");
-		modal.style.display = "none";
-		window.scrollBy(900, 900);
-	}
-}
-			</script>
+		function updateCallBackFromServer() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				location.href = root + "/guestdelluna/payList.do";
+			}
+		}
+	</script>
 
 
 </body>
