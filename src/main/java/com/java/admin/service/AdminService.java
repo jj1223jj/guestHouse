@@ -21,6 +21,4 @@ public interface AdminService {
 	public void experienceStateNo(ModelAndView mav);
 
 
-
-
 }

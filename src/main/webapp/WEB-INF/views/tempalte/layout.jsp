@@ -17,6 +17,7 @@
 	
 	<t:insertAttribute name="content"/>
 	
+	
 	<hr color="red"/>
 	
 	<t:insertAttribute name="foot"/>

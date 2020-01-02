@@ -12,6 +12,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
 <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="${root}/resources/javascript/jquery/jquery-ui.css"/>
 <script type="text/javascript" src="${root}/resources/javascript/search/search.js"></script>
@@ -19,6 +21,9 @@
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+
+
+ 
 <script src="https://kit.fontawesome.com/0fcdcb00af.js" crossorigin="anonymous"></script>
 
 <script>
@@ -179,8 +184,9 @@ i{
 	margin-left: 0.938rem;
 }
 .backImg{
-	height: 70.5rem;
-	background-image: url("${root}/resources/images/JEJU_STAY.jpg");
+	height: 55rem;
+	/* background-image: url("${root}/resources/images/JEJU_STAY.jpg"); */
+	background-image: url("https://images.unsplash.com/photo-1519808511465-c935152e1cf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
 }
 
 </style>
@@ -263,5 +269,87 @@ i{
 	</div>
 	</div>
 	
+	<div style="width: 150rem; height: 60rem; margin: 0 auto;"  >
+		<div align="center">
+			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU GUEST HOUSE</div>
+		</div>
+		
+		<c:forEach var="i" begin="0" end="3">
+			<div id="demo" class="carousel slide" data-ride="carousel" style="width: 30rem; height: 30rem; float: left; margin-left: 5rem; margin-top: 5rem;">
+		
+				  <!-- Indicators -->
+				  <ul class="carousel-indicators">
+				    <li data-target="#demo" data-slide-to="0" class="active"></li>
+				    <li data-target="#demo" data-slide-to="1"></li>
+				    <li data-target="#demo" data-slide-to="2"></li>
+				  </ul>
+				
+				  <!-- The slideshow -->
+				  <div class="carousel-inner" style="width: 30rem; height: 30rem;">
+				    <div class="carousel-item active" style="width: 30rem; height: 30rem;">
+				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1558006297-a916366218d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Los Angeles">
+				    </div>
+				    <div class="carousel-item">
+				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1523149394814-4649a15b95fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chicago">
+				    </div>
+				    <div class="carousel-item">
+				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1551062526-7405947cbca9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" alt="New York">
+				    </div>
+				  </div>
+				
+				  <!-- Left and right controls -->
+				  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+				    <span class="carousel-control-prev-icon"></span>
+				  </a>
+				  <a class="carousel-control-next" href="#demo" data-slide="next">
+				    <span class="carousel-control-next-icon"></span>
+				  </a>
+		
+			</div>
+		</c:forEach>
+	</div>
+	
+	<div style="width: 150rem; height: 60rem; margin: 0 auto;" >
+		<div align="center">
+			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
+		</div>
+		
+		<c:forEach var="i" begin="0" end="3">
+			<div id="demo" class="carousel slide" data-ride="carousel" style="width: 30rem; height: 30rem; float: left; margin-left: 5rem; margin-top: 5rem;">
+		
+				  <!-- Indicators -->
+				  <ul class="carousel-indicators">
+				    <li data-target="#demo" data-slide-to="0" class="active"></li>
+				    <li data-target="#demo" data-slide-to="1"></li>
+				    <li data-target="#demo" data-slide-to="2"></li>
+				  </ul>
+				
+				  <!-- The slideshow -->
+				  <div class="carousel-inner" style="width: 30rem; height: 30rem;">
+				    <div class="carousel-item active" style="width: 30rem; height: 30rem;">
+				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1558006297-a916366218d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Los Angeles">
+				    </div>
+				    <div class="carousel-item">
+				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1523149394814-4649a15b95fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chicago">
+				    </div>
+				    <div class="carousel-item">
+				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1551062526-7405947cbca9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" alt="New York">
+				    </div>
+				  </div>
+				
+				  <!-- Left and right controls -->
+				  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+				    <span class="carousel-control-prev-icon"></span>
+				  </a>
+				  <a class="carousel-control-next" href="#demo" data-slide="next">
+				    <span class="carousel-control-next-icon"></span>
+				  </a>
+		
+			</div>
+		</c:forEach>
+	</div>
+	
+	<!-- footer 겹침현상 제거 -->
+	<div style="clear:both;"></div>
 </body>
 </html>

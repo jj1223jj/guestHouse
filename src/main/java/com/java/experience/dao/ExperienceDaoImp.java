@@ -210,4 +210,10 @@ public class ExperienceDaoImp implements ExperienceDao {
 		
 		return sqlSessionTemplate.insert("dao.ExperienceMapper.message", hMap);
 	}
+	
+	// 카카오 페이에서 개인 정보 가져오기
+	@Override
+	public MemberDto getMemberInfo(String email) {
+		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.getMemberInfo",email);
+	}
 }

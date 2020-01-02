@@ -44,15 +44,57 @@
 	url += "&memberCode="+memberCode+"&exDateS="+ exDateS +"&exPeople="+exPeople;
 	url += "&exPayment="+realTotal+"&point="+resPoint+"&usePoint="+usePoint;
 	
-	alert(url);
+	var url2 = root+"/experience/kakaoPay.do?exCode="+exCode;
+	url2 += "&memberCode="+memberCode+"&exDateS="+ exDateS +"&exPeople="+exPeople;
+	url2 += "&exPayment="+realTotal+"&point="+resPoint+"&usePoint="+usePoint;
 	
-	location.href=url;
+	alert($("#payment option:selected").val());
+	
+	var account =$("#payment option:selected").val();
+	
+	if(account=='account'){
+		alert(url);
+		location.href=url;
+	}else{
+		location.href=url2;
+	}
 };
 </script>
 
+<script>
+$(document).ready(function(){
+	
+	var divs = document.querySelectorAll('#img');
+
+	for(var i=0; i<divs.length;++i){
+		var div = divs[i];
+		var divAspect = div.offsetHeight/div.offsetWidth;
+		div.style.overflow='hidden';
+		
+		var img = div.querySelector('#exImg');
+		var imgAspect = div.height / div.width;
+		
+		
+		if(imgAspect <= divAspect){
+			// 이미지가 div보다 작은경우 세로를 div에 맞추고 잘라낸다
+			var imgWidthActual = div.offsetHeight/ imgAspect;
+			var imgWidthToBe = div.offsetHeight / divAspect;
+			var marginLeft = -Math.round((imgWidthActual - imgWidthToBe)/2);
+			img.style.cssText = 'width: auto; height: 100%; margin-left:'+marginLeft+'rem;'
+			
+		}else{
+			//이미지가 div보다 긴 경우 가로를 div에 맞추고 세로를 잘라냄
+			img.style.cssText='width:100% height:auto; margin-left:0;';
+		}
+	}
+	
+});
+</script>
+
+
 </head>
 <body>
-	<div align="center" style="width: 70rem; border: 0.1rem solid black; margin: 0 auto;">
+	<div align="center" style="width: 70rem; border: 0.1rem solid #00000059; margin: 0 auto;">
 		<!-- <h3>예약페이지</h3>
 		<br/> -->
 		<!--  전체 -->
@@ -60,35 +102,52 @@
 			<div>
 				<div style="font-size: 2rem; margin: 5rem; font-weight: bold;">체험 이용규칙 확인하기</div>
 				
-				<div class="top" style="height: 40rem; border: 0.1rem dotted orange;">
-					<div class="experience" style="width: 40rem; border: 0.1rem dotted black; height: 38rem; float: left;">
-						<div id="Info" style="border: 0.1rem solid red; width: 38rem; height: auto; float: left;">
+				<div class="top" style="height: auto;/*  border: 0.1rem dotted orange; */">
+					<div class="experience" style="width: 40rem; /* border: 0.1rem dotted black; */ height: 50rem; float: left;">
+						<div id="Info" style="/* border: 0.1rem solid red; */ width: 38rem; height: auto; float: left; margin-left: 3rem;">
 							<div style="font-weight: bold; float: left; width: 10rem;">체험 이름 </div>
-							<div style="width: 25rem; margin-left: 0.1rem; text-align: left;"> ${experienceDto.exName}</div>
+							<div style="width: 20rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 1.5rem;"> ${experienceDto.exName}</div>
 							
 							<div style="font-weight: bold; float: left; width: 10rem;">주소</div>
-							<div style="width: 25rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left;">${experienceDto.exAddress}</div>
+							<div style="width: 25rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem;">${experienceDto.exAddress}</div>
 							
 							<div style="font-weight: bold;float: left; width: 10rem;">체험 시간</div>
-							<div  style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left;">${experienceDto.exTime} 시간</div>
+							<div style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem">${experienceDto.exTime} 시간</div>
 							
 						</div>
-						<div style="margin-top: 8rem; border: 0.1rem solid green;">
-							<img src="<spring:url value='/exImage/${mainImg}' />" />
+						<div id="img" style="margin-top: 13rem; /* border: 0.1rem solid green; */">
+							<img id="exImg" style="width: 30rem; height: 30rem; " src="<spring:url value='/exImage/${mainImg}' />" />
 						</div>	
 						<%-- <span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
 						<span id="revCount">후기   ${review}  개</span> --%>
 					</div>
-					<div style="width:25rem; height:38rem; border: 0.1rem dotted purple; margin-left: 40rem; padding-top: 8rem;">
-						<div class="reserve" style="border: 0.1rem solid black; width: 25rem;">
+					<div style="width:25rem; height:50rem; /* border: 0.1rem dotted purple; */ margin-left: 40rem; padding-top: 8rem;">
+						<div class="reserve" style="/* border: 0.1rem solid black; */ width: 25rem; height: 30rem; margin-top: 5rem;">
 						
-							<p id="people">게스트 ${exPeople}명</p>
+							
+							<div id="Info" style="border: 0.1rem solid #ebebeb; width: 23rem; height: auto; float: left; margin-left: 1rem; padding-top: 3rem;">
+								<div style="font-weight: bold; float: left; width: 10rem;">게스트 </div>
+								<div id="people" style="width: 25rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 4rem;"> ${exPeople}명</div>
+								
+								<div style="font-weight: bold; float: left; width: 10rem;">체험 날짜</div>
+								<div id="exDate" style="width: 25rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 4rem;"> ${exDateS}</div>
+								
+								<div style="font-weight: bold;float: left; width: 10rem;">금액</div>
+								<div id="price" style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 4rem">  	${exPayment/exPeople}원 X ${exPeople}명</div>
+								
+								<div style="font-weight: bold;float: left; width: 10rem;">총합계(KRW)</div>
+								<div id="total" style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 4rem"> ${exPayment} 원</div>
+								
+							</div>
+							
+							<%-- <p id="people">게스트:		 ${exPeople}명</p>
+							
 							<p id="exDate">체험 날짜: ${exDateS}</p>
 							
 							<br/>
 							<p id="price">금액                        	${exPayment/exPeople}원 X ${exPeople} </p>
 							<p id="total">총합계(KRW)     ${exPayment}</p>
-							<p id="savePoint"> 적립 포인트   ${exPayment*0.01}</p>
+							<p id="savePoint"> 적립 포인트   ${exPayment*0.01}</p> --%>
 						</div>
 					</div>
 					
@@ -101,16 +160,15 @@
 			<div id="pay">
 				<div style="font-size: 2rem; margin: 5rem; font-weight: bold;">결제</div>
 				
-				<div>결제수단</div>
 				<select name="payment" id="payment" class="form-control" style="width: 20rem;">
-					<option value="select" selected="selected">선택하세요</option>
+					<option value="select" selected="selected">결제 수단을 선택하세요</option>
 					<option value="account" id="account">무통장입금</option>
 					<option value="card" id="card">카드결제</option>
 				</select>
 				<br/>
 				
 				<span style="margin-right: 1rem;">point  </span>
-				<span><input id="usePoint" value="1" min="1"></span>
+				<span><input id="usePoint" value="0" min="0"></span>
 				<script>
 					$(function(){
 						$("#usePoint").spinner({

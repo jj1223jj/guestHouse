@@ -45,11 +45,11 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
-//		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
 		
 //		int houseCode=13;
 //		int houseCode = 20;
-		int houseCode = 8;
+//		int houseCode = 8;
 
 		
 		hostDto = guestHouseDao.getHostInfo(houseCode);
@@ -193,7 +193,19 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		mav.addObject("count", count);
 		 
 		 		
-		mav.setViewName("guestHousePage/guestPage.tiles");
+		//mav.setViewName("guestHousePage/guestPage.tiles");
+		
+		// 게하를 관리자가 보는 경우 exApp에 1을 임의로 넘겨줌
+		
+		  String exApp = request.getParameter("exApp");
+		  
+		  if(exApp!=null) { // 관리자가 보는 페이지는 헤더 x
+			  mav.setViewName("guestHousePage/guestPage.empty");
+		  }else {
+			  mav.setViewName("guestHousePage/guestPage.tiles");
+			  }
+		 
+		
 		
 	}
 	

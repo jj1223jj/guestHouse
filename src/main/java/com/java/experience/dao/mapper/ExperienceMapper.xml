@@ -135,7 +135,7 @@
 	</insert>
 	
 	<insert id="usePointUp" parameterType="com.java.guestdelluna.dto.PointUse">
-		insert into pointUse (useCode, memberCode, usePlace, useDate, usePoint) values(seq_useCode_num.nextval,#{memberCode},#{usePlace},#{useDate},#{usePoint})
+		insert into pointUse (useCode, memberCode, usePlace, useDate, usePoint) values(POINTUSE_USECODE_SEQ.nextval,#{memberCode},#{usePlace},#{useDate},#{usePoint})
 	</insert>
 	
 	<!-- 메세지 보관함 -->
@@ -161,4 +161,8 @@
 	<insert id="insertExRemain" parameterType="java.util.Map">
 		insert into exRemain (resDate, exPeople,exCode) values(#{exDate},#{exPeople},#{exCode})
 	</insert>
+	
+	<select id="getMemberInfo" resultType="com.java.member.dto.MemberDto">
+		select * from member where email=#{email}
+	</select>
 </mapper>
