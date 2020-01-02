@@ -1,6 +1,8 @@
 package com.java.guestHouse.controller;
 
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,18 +40,13 @@ public class GuestHouseController {
 	}
 	
 	// 후기 작성 눌렀을 때 
+	@ResponseBody
 	@RequestMapping(value = "/guestHousePage/review.do", method = RequestMethod.GET)
-	public ModelAndView guestHousePageReview(HttpServletRequest request, HttpServletResponse response, HouseReviewDto reviewDto) {
+	public Map<String, Object> guestHousePageReview(HttpServletRequest request, HttpServletResponse response, HouseReviewDto reviewDto) {
 
-		System.out.println("review write,list");
+		System.out.println("r@@@@@@@");
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mav.addObject("reviewDto", reviewDto);
-
-		guestHouseService.review(mav);
-
-		return mav;
+		return guestHouseService.review(request);
 	}
 	
 	// 체험 후기 작성 완료
@@ -77,6 +74,7 @@ public class GuestHouseController {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
+		
 		mav.addObject("reviewDto", reviewDto);
 
 		guestHouseService.reviewUpdate(mav);
@@ -86,18 +84,18 @@ public class GuestHouseController {
 
 	// 수정 완료 눌렀을 때
 	@RequestMapping(value = "/guestHousePage/reviewUpdateOk.do", method = RequestMethod.GET)
-	public ModelAndView exReviewUpdateOk(HttpServletRequest request, HttpServletResponse response,
+	public void exReviewUpdateOk(HttpServletRequest request, HttpServletResponse response,
 			HouseReviewDto reviewDto) {
 		System.out.println("exReview 수정완료");
 
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
+		mav.addObject("response",response);
 		mav.addObject("reviewDto", reviewDto);
 
 		guestHouseService.reviewUpdateOk(mav);
 
-		return mav;
 	}
 
 	// 삭제 눌렀을 때

@@ -14,7 +14,7 @@ body{
 }
 
 #exImg{
-	object-fit:cover;
+	/* object-fit:cover; */
 	width: 100%;
 	height: 100%;
 }
@@ -63,6 +63,7 @@ body{
 
 .facilites, #calendar, .host, #map, #notice{
 	margin-bottom: 3rem;
+	margin-top: 3rem;
 }
 
 .facilites > p, #calendar > p, #hostName, #map>p, #notice p{
@@ -153,4 +154,18 @@ body{
 	font-size: 0.8rem;
 }
 
+#reveiwAll{
+	border: 1px solid red;
+}
 
+#revContent{
+	background: #fff; border: none; width: 45rem; 
+	-webkit-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0, 0, 0, 0.16); 
+	-moz-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0, 0, 0, 0.16); 
+	box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0, 0, 0, 0.16); 
+	border-radius: 0.938rem; display: inline-block;
+}
+
+#moreReviewB{
+	margin-top:1rem; margin-bottom: 1rem;
+}

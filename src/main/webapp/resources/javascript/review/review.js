@@ -132,19 +132,19 @@ function GHdeleteCheck(root, reserveCode, memberCode, currentPage,houseCode){
 	}*/
 
 
-function check(revContent, revRate) {
+function check(form) {
 		
 		
 	var revContent = $('#revContent').val();
 	var revRate = $('#revRate').val();
+	alert(revContent);
 	alert(revRate);
-	
 	if(revContent ==''){
 		alert("후기 내용을 작성해주세요.");
 		$('#revContent').focus();
 		return false;
 	}else if(revRate == 0){
-		alert("별점을 선택해 주세요.");
+		alert("별점을 선택해 주세요22.");
 		return false;
 	}
 }
@@ -178,7 +178,11 @@ function load(root ,emailSession, exCode){
 	}*/
 	
 }
-
+function ghLoad(root, emailSession, houseCode){
+//	alert(emailSession+houseCode);
+	proot=root;
+	ghMoreView(proot,emailSession,houseCode);
+}
 
 var pageNumber =0;
 /*function moreView(root){
@@ -460,4 +464,202 @@ function reviewModalUpdate(form){
 	
 }
 
+function ghMoreView(root,emailSession,houseCode){
+//	alert("root:"+root+ emailSession+ houseCode);
+	++pageNumber;
+	//alert(emailSession +"," +exCode);
+	var url = root + "/guestHousePage/review.do?";
+	var params = "pageNumber="+ pageNumber +"&houseCode="+houseCode;
 
+	var indexNum = 0;
+	var count = 0;
+	/*var email = '<% (String)session.getAttribute("email")%>';
+	alert(email);*/
+	$.ajax({
+		method: 'GET',
+		url: url + params,
+		dataType: "JSON",
+		success: function(data) {
+			console.log(data.count);
+			console.log(data.reviewList[0]);
+			alert(data.reviewList[0]);
+			
+			var htmls="";
+			var btn="";
+			var cnt = data.count;
+			alert("cnt:" + cnt);
+			
+			
+			if(data.count<1){
+				htmls += '<div style="margin:10rem auto;"><strong class="text-gray-dark" style="font-size:1rem; magin-top:3rem;">' + "등록된 후기가 없습니다."  + '</strong></div>';
+               // alert("data < 1");
+				 $("#contentData").append(htmls);
+				 $("#reviewBtn").css({
+					display: "none"
+				 });
+				 
+			}else {
+				$(data.reviewList).each(function(){
+					
+					var day = new Date(data.reviewList[indexNum].revDate);
+					
+					var year = day.getFullYear();
+                    var month = day.getMonth() + 1;
+                    var date = day.getDate();
+                    
+                    var formatDate = year + "년 " + month + "월 " + date + "일 "; 
+
+                    htmls += '<div style="border-bottom: 0.063rem solid #dee2e6!important;" class="num'+this.exReserveCode+'media text-muted pt-3" id="rid">';
+
+                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 ">';
+
+                    htmls += '<span class="d-block" style="width:15rem; board:0.1rem solid red; float: left;">';
+
+                    htmls += '<strong class="text-gray-dark" style="font-size:1rem;">' + this.email + '</strong>';
+                    
+                    htmls += '</span>';
+                    
+                   /* htmls += '<span style="padding-left: 1rem; border: 0.1rem dotted red; float:left;">'+ formatDate +'</span>';*/
+
+                    htmls += '<span style="padding-left: 1rem; float:left;">'+ formatDate +'</span>';
+
+                    htmls += '<span style="margin-left: 3rem; board: 0.1rem blue solid;text-align:left; width:20rem; height:2rem; float:left; font-size: 1rem;">';
+                    
+                    if(this.revRate==1){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star1.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==2){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star2.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==3){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star3.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==4){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star4.PNG" style="width: 7rem;">';
+                    }else if(this.revRate==5){
+                    	htmls += '<img src="'+proot+'/resources/css/review/star5.PNG" style="width: 7rem;">';
+                    }
+                    
+                   htmls += '<input type="hidden" id="reserveCode" name="reserveCode" value="'+this.reserveCode+'" />';
+                  
+                   if (emailSession==this.email) {
+					/*htmls += '<a style="margin-left:3rem;" href="javascript:updateCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+',\''+this.revContent+'\');">수정</a>';*/
+					/*htmls += '<a style="margin-left:1rem;" href="javascript:deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')">삭제</a>';*/
+					
+                	htmls += '<div id="upAndDel" style="float: right; width:5.6rem; margin-top:1rem;"><div id="updateRe" style="width:3rem; float:left;"><button type="button" class="btn btn-light" data-toggle="modal" data-target="#updateModal"><i class="fa fa-pencil"></i></button></div>';
+					htmls += '<div id="deleteRe"><button type="button" class="btn btn-light" onclick="GHdeleteCheck('+proot+'/,'+this.reserveCode+','+this.memberCode+','+pageNumber+','+houseCode+')"><i class="fa fa-trash-o"></i></button></div></div>';
+					
+					/*<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}','${experienceDto.exCode}')">삭제</a> 		*/
+                   }
+
+                    htmls += '</span>';
+                
+                    htmls +=  '<div id="contentReview" style="border:0.1rem solid grey; width: 38rem; height:auto; word-break:break-all; margin-top:1rem; margin-bottom:1rem; text-align:left; display:inline-block; padding:0.3rem;">' + this.revContent +'</div>' ;
+
+                    htmls += '</p>';
+
+                    htmls += '</div>';  
+
+                    $("#contentData").append(htmls);
+                    htmls="";
+                    ++indexNum;
+                    
+                    //alert("개수: "+$('#rid').length);
+                    if($('#rid').length != 1){
+                    	 $("#reviewBtn").css({
+               				display: "none"
+               			 });
+                    }
+                    ++count;
+ 
+                   // alert("indexNum: "+indexNum);
+                    
+                    $('#updateRe button').on('click',function(){
+            			var a = $(this).parent().parent().parent();
+            			var rese = $(this).closest('input');
+            			var con = $(this).parent().next('div');
+            			var tex = con.text();
+            			//alert(tex);
+            			
+            			console.log(a);
+            			
+            			//var span = currentRow.closest('span');
+            			
+            			var revContent = a.find('#contentReview').text();
+            			console.log(revContent);
+            			
+            			var modalReserveCode = a.find('#reserveCode').val();
+            			console.log(modalReserveCode);
+            			//var revRate = currentRow.find('span:eq(2)').text();
+            			//alert(modalReserveCode);
+            			
+            			//alert(revContent + "," + revRate);
+            			
+            			//console.log($('.modal #modalRevContent'));
+            			$('.modal #modalRevContent').text(revContent);
+            			//$('.modal #revRate').val(revRate);
+            			$('.modal #reserveCode').val(modalReserveCode);
+            			starRating2();
+            			});
+				});
+				 //alert("count: "+count); 
+				 if(count ==0){
+              	   $("#reviewBtn").css({
+            				display: "none"
+            			 });
+                 }
+			}
+		},
+		error:function(a,b,c){
+			console.log(a);
+			alert(b+"여기");
+			alert(c);
+		}
+	});
+	starRating();
+	
+}
+
+function ghReviewModalUpdate(form){
+	console.log(form);
+	var memberCode=form.memberCode.value;
+	var reserveCode =form.reserveCode.value;
+	var revContent = form.modalRevContent.value;
+	var revRate = form.revRate.value;
+	
+	console.log(memberCode);
+	console.log(reserveCode);
+	console.log(revContent);
+	console.log(revRate);
+	
+	var url = proot+"/guestHousePage/reviewUpdateOk.do?memberCode="+memberCode+"&reserveCode="+reserveCode+"&revRate="+revRate;
+	var params = "&revContent="+revContent;
+	
+	$.ajax({
+	
+		method: 'GET',
+		url: url + params,
+		dataType: "JSON",
+		success: function(data) {
+			
+			var div = $(".num"+reserveCode+"media");
+			var day = new Date();
+			
+			var year = day.getFullYear();
+            var month = day.getMonth() + 1;
+            var date = day.getDate();
+            
+            var formatDate = year + "년 " + month + "월 " + date + "일 ";
+            
+            $($($(div.children()[0]).children()[2]).children("img")[0]).attr("src",proot+'/resources/css/review/star'+revRate+'.PNG');
+			$($(div.children()[0]).children()[1]).text(formatDate);
+			$(div.children("div")[2]).text(revContent);
+			console.log($("#updateModal"));
+			$("#updateModal").modal("hide");
+			
+		},
+		error:function(a,b,c){
+			console.log(a);
+			alert(b);
+			alert(c);
+		}
+	});
+	
+}

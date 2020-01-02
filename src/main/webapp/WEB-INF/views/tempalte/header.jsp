@@ -66,7 +66,7 @@ color:#484848;
 	<!-- 헤더영역 -->
 
 	<nav class="navbar navbar-expand-sm fixed-top"
-		style="background-color: white;">
+		style="background-color: white; height: 7rem;">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				
@@ -78,7 +78,7 @@ color:#484848;
 				<%-- <img src="${root}/resources/images/logo1.png" style="width: 3.125rem; height: 3.125rem;"/> --%>
 				<a class="active" href="${root}"
 					style="font-size: 2rem; font-weight: bold; color: black; margin-left: 1rem;">
-					<img src="${root}/resources/images/logoBig2.png" style="width: 23.125rem; height: 14rem; margin-top: 2rem;" />
+					<img src="${root}/resources/images/logoFinal.png" style="width: 11rem;" />
 				</a>
 			</div>
 			<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
