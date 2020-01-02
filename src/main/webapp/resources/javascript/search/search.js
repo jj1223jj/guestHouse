@@ -132,7 +132,7 @@ function setExList(ex, memberCode){
 			'						<div class="swiper-wrapper">';
 		for(let j=0;j<ex[i].exFileList.length;j++){
 			exContent+=
-				'							<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+ex[i].exFileList[j].exFileName+'"/></div>';		
+				'							<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/ex/'+ex[i].exFileList[j].exFileName+'"/></div>';		
 		}
 		exContent+=
 			'						</div>' +
