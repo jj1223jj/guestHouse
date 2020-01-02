@@ -17,9 +17,13 @@
 
 label {
 	font-size: 1.188rem;
-	display: block;
+	display: block !important;
 	padding: 0.5rem;
 	font-weight: bold;
+}
+.custom-control-label {
+	padding: 0;	
+	font-weight: normal;
 }
 input, select {
 	padding: 0.3rem 0.6rem;
@@ -48,6 +52,7 @@ textarea {
 	cursor: pointer;
 	background: url("user.png") no-repeat center 4rem;
 	background-size: 16rem;
+    margin-bottom: 2rem;
 }
 #profileView {
 	width: 20rem;
@@ -112,4 +117,11 @@ input[type="submit"] {
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 1rem;
+}
+.textColor, .houseCheckBox {
+	color: red;
+}
+.custom-control{
+	width: 11rem !important;
+	float: left;
 }
