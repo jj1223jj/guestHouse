@@ -38,7 +38,6 @@
 		var map= setMap();
 		if('${jsonExList}'!=''){
 			var ex=JSON.parse('${jsonExList}').exJson;
-			console.log(ex);
 			setExList(ex,'${memberCode}');
 			
 			var height = ex.length*15.625+1.25;
@@ -54,7 +53,7 @@
 				'			<div class="swiper-container">' +
 				'				<div class="swiper-wrapper">' +
 	// 			'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+house[0].fileList[0].fileName+'"/></div>' +	
-				'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/resources/image/1576456333406_dd.jpg"/></div>' +	
+				'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src=""/></div>' +	
 				'				</div>' +
 				'				<div class="swiper-pagination"></div>' +
 				'				<div class="swiper-button-next"></div>' +
@@ -110,7 +109,6 @@
 								$("._overlaybox ._heart").attr("data-target","");
 							}
 							var overlayHeart= $("._overlaybox ._heart svg");
-							console.log(overlayHeart);
 							if(overlay.zzimed!=null){
 								overlayHeart.attr("fill", "#FF385C");
 								overlayHeart.attr("fill-opacity", "1");
@@ -123,10 +121,9 @@
 								overlayHeart.attr("stroke-width","1.4");
 							}
 							$("._overlaybox .swiper-wrapper .swiper-slide").remove();
-							console.log(overlay);
 							if(overlay.exFileList.length>0){
 								for(let j=0;j<overlay.exFileList.length;j++){
-									var img= '<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+overlay.exFileList[j].exFileName+'"/></div>';
+									var img= '<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/ex/'+overlay.exFileList[j].exFileName+'"/></div>';
 									$("._overlaybox .swiper-wrapper").append(img);
 									swiper = setSwiper();
 				                }
@@ -137,10 +134,10 @@
 						}	
 						
 					});
-					
+					customOverlay.setZIndex(4);
 					customOverlay.setPosition(new kakao.maps.LatLng(ex[i].lat,ex[i].lng));
 					//customOverlay.setContent(overlayContent[i]);
-					map.panTo(marker[i].getPosition());
+					map.setCenter(marker[i].getPosition());
 					//heart('${memberCode}');
 					$("._overlaybox").css("display","block");
 				});
@@ -658,6 +655,8 @@
 }
 ._houseName{
 	font-size:1.125rem !important;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 ._houseFacilities{
 	font-size: 0.875rem;
