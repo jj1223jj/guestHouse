@@ -35,4 +35,7 @@ public interface AdminDao {
 
 	public int experienceStateNo(int exCode);
 
+	// 메인 페이지 
+	public List<ExperienceDto> mainPage();
+
 }

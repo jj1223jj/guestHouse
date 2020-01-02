@@ -216,6 +216,7 @@ public class AdminServiceImp implements AdminService {
 		
 	}
 	
+
 	@Override
 	public void guestHouseStateOK(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -251,4 +252,5 @@ public class AdminServiceImp implements AdminService {
 		
 	}
 	
+
 }
