@@ -18,7 +18,7 @@
 		<c:set var="memberCode" value="${memberCode}" scope="session"/>
 		<script type="text/javascript">
 			alert("로그인 되었습니다.");
-			 if('${beforeURL}'!=null){
+			 if('${beforeURL}'==null){
 				location.href="${root}/";
 			}else{
 				location.href="${beforeURL}";
