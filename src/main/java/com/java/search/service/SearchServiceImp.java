@@ -1,5 +1,6 @@
 package com.java.search.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -244,8 +245,9 @@ public class SearchServiceImp implements SearchService {
 				map.put("revRate",exDto.getRevRate());
 				map.put("revCount",exDto.getRevCount());
 				map.put("zzimed",exDto.getZzimed());
-				map.put("exStartDate",exDto.getExStartDate().toString());
-				map.put("exEndDate",exDto.getExEndDate().toString());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				map.put("exStartDate",sdf.format(exDto.getExStartDate()));
+				map.put("exEndDate",sdf.format(exDto.getExEndDate()));
 				map.put("exTime",exDto.getExTime());
 				
 				

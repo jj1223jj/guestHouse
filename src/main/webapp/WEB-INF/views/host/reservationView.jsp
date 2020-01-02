@@ -22,7 +22,10 @@
 		var url = root + "/host/reservationOkView.do";
 		
 		if(selectHouse != "숙소를 선택하세요") {
-			var params = "houseName=" + selectHouse + "&pageNumber=" + param;
+			var params = "houseName=" + selectHouse
+			params= params.replace(/&/g,"%26"); 
+			params= params.replace(/\+/g,"%2B");
+			params= params + "&pageNumber=" + param;
 			sendRequest("GET", url, fromServer, params);
 		}
 	}

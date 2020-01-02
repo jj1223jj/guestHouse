@@ -10,13 +10,13 @@
 	width: 30%;
 }
 .menuL > ul {
-	width: 300px;
+	width: 18.75rem;
 	list-style: none;
 	border: 0.063rem solid #ddd;
-	padding: 20px;
+	padding: 1.25rem;
 }
 .menuL > ul > li {
-	padding: 10px;
+	padding: 0.625rem;
 }
 .menuR {
 	float: left;

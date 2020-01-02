@@ -41,7 +41,7 @@ body{
 
 #map {
   width: calc(100% - 52.5rem);
-  height:calc(100% - 11.438rem);
+  height:calc(100% - 8.83rem);
   position: fixed;
   right: 0rem;
   top: 8.8rem;

@@ -107,12 +107,13 @@ form{
 	box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px !important;
 	position: relative;
 	top :15.625rem;
-	left:62.5rem;
+	left:75%;
 	width:31.25rem;
 	height:25rem;
 	border-radius: 1.563rem;
 	border: 1px white solid;
 	background-color: white;
+	margin-left: -15rem;
 }
 .filterBox{
 	height: 100%

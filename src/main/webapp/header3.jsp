@@ -7,52 +7,53 @@
 <head>
 <meta charset="UTF-8">
 <title>Header</title>
-<link rel="stylesheet" href="${root}/resources/css/tiles/header.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+	
+</script>
+
+<style type="text/css">
+.modal-backdrop{
+	background: none;
+}
+</style>
 </head>
 <body>
-	<header>
-		
-		<div class="headerContainer">
-			<div class="logoContainer">
-				<div class="logo"><img src="${root}/resources/css/images/common/logo.png"" alt="logo준비중"></div>
-			</div>
-			<div class="titleContainer">
-				<div class="title">title</div>
-			</div>
-			<div class="menuContainer">
-				<div class="menu">
-				<c:choose>
-         			<c:when test="${memberCode==null}">
-						<div class="loginContainer">
-							<div class="login">로그인</div>
-						</div>
-						<div class="registerContainer">
-							<div class="register">회원가입</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="myInfoContainer">
-							<div class="myInfo">내정보</div>
-						</div>
-						<div class="logoutContainer">
-							<div class="logout">로그아웃</div>
-						</div>
-						<div class="hostContainer">
-							<div class="beHost">호스트신청</div>
-						</div>
-						<div class="zzimContainer">
-							<div class="zzim">찜목록</div>
-						</div>
-						<div class="reserveListContainer">
-							<div class="reserveList">예약목록</div>
-						</div>
-		        	</c:otherwise>
-		        </c:choose>
-				</div>
-			</div>
-		</div>
-	</header>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Modal body..
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
 	
 </body>
 </html>
