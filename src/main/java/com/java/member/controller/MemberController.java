@@ -74,11 +74,14 @@ public class MemberController {
 		System.out.println("member LoginOk");
 
 		String beforeURL = request.getHeader("REFERER");
-		System.out.println(request.getRequestURL());
+		//System.out.println(request.getRequestURL());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		mav.addObject("beforeURL", beforeURL);
 		memberService.memberLoginOk(mav);
+		
+		mav.setViewName("member/loginOk.tiles");
+
 		
 		return mav;
 	}
@@ -98,11 +101,15 @@ public class MemberController {
 	  @RequestMapping(value = "/member/kakaoLogin.do", method =RequestMethod.GET)
 	  public ModelAndView KakaoLogin(HttpServletRequest request, HttpServletResponse response)  {
 		  System.out.println("kakao login");
+		  
+		  String beforeURL = request.getHeader("REFERER");
+		  
 		  ModelAndView mav = new ModelAndView();
 		  mav.addObject("request",request);
+		  mav.addObject("beforeURL", beforeURL);
 		  
 		  memberService.kakaoLogin(mav);
-			
+		  mav.setViewName("member/loginOk.tiles");
 	  return mav; 
 	  
 	  }
