@@ -87,6 +87,8 @@
 	</div>
 
 	<div class="menuR">
+	<h3>체험 관리</h3>
+	<p>현재 승인여부 조회와 등록 취소를 할 수 있습니다.</p>
 		<div id="listView">
    		</div>
 	</div>

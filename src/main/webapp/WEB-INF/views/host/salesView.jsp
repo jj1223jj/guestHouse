@@ -79,7 +79,11 @@ google.charts.setOnLoadCallback(drawChart);
           defaultDate: "+1w",
           changeMonth: true,
           dateFormat: 'yy-mm-dd',
-          numberOfMonths: 1
+          onClose: function(selectedDate){
+        	  $('#to').datepicker("option", "minDate", selectedDate);
+          },
+          numberOfMonths: 1,
+          maxDate: 'today'
         })
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
@@ -88,7 +92,11 @@ google.charts.setOnLoadCallback(drawChart);
         defaultDate: "+1w",
         changeMonth: true,
         dateFormat: 'yy-mm-dd',
-        numberOfMonths: 1
+        numberOfMonths: 1,
+        maxDate: 'today',
+        onClose: function(selectedDate){
+      	  $('#from').datepicker("option", "maxDate", selectedDate);
+        }
       })
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );

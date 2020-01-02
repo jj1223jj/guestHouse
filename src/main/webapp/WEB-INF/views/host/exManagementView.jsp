@@ -21,10 +21,10 @@
    <table class="table table-hover">
    <thead align="center">
       <tr>
-         <th align="center" height="20"  width="125">체험명</th> 
-         <th align="center" height="20"  width="300">주소</th> 
-         <th align="center" height="20"  width="125">등록일</th> 
-         <th align="center" height="20"  width="125">승인여부</th> 
+         <th align="center" height="20"  width="250">체험명</th> 
+         <th align="center" height="20"  width="250">주소</th> 
+         <th align="center" height="20"  width="100">등록일</th> 
+         <th align="center" height="20"  width="100">승인여부</th> 
          <th align="center" height="20"  width="80">관리</th>
       </tr>
       </thead>
@@ -32,15 +32,15 @@
       <tbody>
       <c:forEach var="experienceList" items="${experienceList}">
       <tr>
-         <td align="center" height="20"  width="125">${experienceList.exName}</td> 
-         <td align="center" height="20"  width="300">${experienceList.exAddress}</td> 
+         <td align="center" height="20"  width="200">${experienceList.exName}</td> 
+         <td align="center" height="20"  width="200">${experienceList.exAddress}</td> 
          <td align="center" height="20"  width="125">
          	<fmt:formatDate value="${experienceList.exRegDate}" pattern="yyyy-MM-dd"/>
          </td>
          <td align="center" height="20"  width="125">${experienceList.exApproval}</td>
          <td align="center" height="20"  width="80">
          <c:if test="${experienceList.exApproval != '삭제'}"> 
-         <a href="#" onclick="return cancel('${root}','${experienceList.exCode}')">삭제</a>
+         <a href="#" onclick="return cancel('${root}','${experienceList.exCode}')" class="deleteBtn">삭제</a>
          </c:if>
          </td>
       </tr>
