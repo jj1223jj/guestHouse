@@ -76,7 +76,7 @@ function handleImgFileSelect(e) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			//var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\"><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove'></a>";
-			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='140px'/></a>";
+			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='8.75rem'/></a>";
 			$(".subImgDiv").append(html);
 			index++;
 		}
@@ -145,13 +145,13 @@ function register() {
 		return false;
 	}
 	
-	if (memberInfo.value.length < 30) {
-		alert("소개를 30자 이상 입력해주세요.");
+	if (memberInfo.value.length < 10) {
+		alert("소개를 10자 이상 입력해주세요.");
 		memberInfo.focus();
 		return false;
 	}
-	if (houseName.value.length < 10) {
-		alert("숙소이름을 10자이상 입력해주세요");
+	if (houseName.value.length < 5) {
+		alert("숙소이름을 5자이상 입력해주세요");
 		houseName.focus();
 		return false;
 	}
@@ -188,8 +188,8 @@ function register() {
 		bath.focus();
 		return false;
 	}
-	if (explain.value.length < 30) {
-	alert("설명을 30자 이상 입력해주세요.");
+	if (explain.value.length < 10) {
+	alert("설명을 10자 이상 입력해주세요.");
 	explain.focus();
 	return false;
 	}

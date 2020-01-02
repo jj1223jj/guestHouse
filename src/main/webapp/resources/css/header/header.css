@@ -58,7 +58,7 @@
 }
 .navbar{
 	
-	border-bottom: 0.1rem solid grey;
+	border-bottom: 0.063rem solid #ccc;
 	height: 8.9rem;
 }
 
@@ -68,4 +68,5 @@
 	margin-top: 1rem; 
 	
 }
+
 
