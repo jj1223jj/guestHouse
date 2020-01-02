@@ -8,10 +8,7 @@ body{
 	color: #484848;
 }
 
-.top{
-	border: 0.1rem dotted yellow; 
-	margin-left: 1.5rem;
-}
+
 
 #exImg{
 	/* object-fit:cover; */
@@ -25,14 +22,14 @@ body{
 
 #mainImg{
 	float:left; display:inline-block;
-	width: 50%; height: 30rem; 
-	overflow: hidden; border: 0.1rem solid red; 
+	width: 50%; height: 40rem; 
+	overflow: hidden;/*  border: 0.1rem solid red;  */
 	/* margin-right: 0.5rem; */
 }
 
 #imagesWrap{
-	width: 50%; height: 30rem;
-	border: 0.1rem solid red; overflow: hidden;
+	width: 50%; height: 40rem;
+	/* border: 0.1rem solid red; */ overflow: hidden;
 }
 /* 
 #roomImg{
@@ -58,7 +55,8 @@ body{
 }
 
 .explain{
-	width: 30rem;
+	width: 40rem;
+	margin-top: 3rem;
 }
 
 .facilites, #calendar, .host, #map, #notice{
@@ -93,12 +91,15 @@ body{
 
 .host{
 	overflow: hidden;
+	width: 40rem;
 }
 
 #hostInfo{
 /* 	border: 1px solid blue; */
 	float: left;
 	display: inline-block;
+	width: 40rem;
+	margin-bottom: 2rem;
 }
 
 #hostImg{
@@ -110,6 +111,16 @@ body{
 	width: 5rem;
 	height: 5rem;
 	border-radius: 5rem;
+}
+
+#houseMap{
+	/* style="width: 500px; height: 400px;" */
+	width: 40rem;
+	height: 25rem;
+}
+
+#notice{
+	width: 40rem;
 }
 
 #reserve{

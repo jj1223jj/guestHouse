@@ -34,6 +34,35 @@ html {
 	font-size: 16px;
 }
 </style>
+<!-- <script>
+$(document).ready(function(){
+	
+	var divs = document.querySelectorAll('.img div');
+
+	for(var i=0; i<divs.length;++i){
+		var div = divs[i];
+		var divAspect = div.offsetHeight/div.offsetWidth;
+		div.style.overflow='hidden';
+		
+		var img = div.querySelector('#exImg');
+		var imgAspect = div.height / div.width;
+		
+		
+		if(imgAspect <= divAspect){
+			// 이미지가 div보다 작은경우 세로를 div에 맞추고 잘라낸다
+			var imgWidthActual = div.offsetHeight/ imgAspect;
+			var imgWidthToBe = div.offsetHeight / divAspect;
+			var marginLeft = -Math.round((imgWidthActual - imgWidthToBe)/2);
+			img.style.cssText = 'width: auto; height: 100%; margin-left:'+marginLeft+'rem;'
+			
+		}else{
+			//이미지가 div보다 긴 경우 가로를 div에 맞추고 세로를 잘라냄
+			img.style.cssText='width:100% height:auto; margin-left:0;';
+		}
+	}
+	
+});
+</script> -->
 <script>
 $(function(){
 	ghLoad('${root}' ,'${sessionScope.email}','${hostDto.houseCode}');
@@ -185,14 +214,14 @@ $(function(){
 					<c:if test="${fileDto.fileName!=null}">
 						<c:if test="${(list.index)%2!=0}">
 							<div
-								style="width: 50%; height: 50%; border: 0.2rem solid green; float: left;">
+								style="width: 50%; height: 50%; /* border: 0.2rem solid green; */ float: left;">
 								<img id="exImg" alt="img loading"
 									src="<spring:url value='/image/${fileDto.fileName}' />" />
 							</div>
 						</c:if>
 						<c:if test="${(list.index)%2==0}">
 							<div
-								style="width: 50%; height: 50%; border: 0.2rem solid green; display: inline-block;">
+								style="width: 50%; height: 50%; /* border: 0.2rem solid green;  */display: inline-block;">
 								<img id="exImg" alt="img loading"
 									src="<spring:url value='/image/${fileDto.fileName}' />" />
 							</div>
@@ -207,7 +236,7 @@ $(function(){
 		<div class="guestHouse">
 			<div class="name">${hostDto.houseName}</div>
 
-			<div class="explain">${hostDto.explain}</div>
+			<div class="explain">${explain}</div>
 			<br />
 
 			<div class="facilites">
@@ -351,21 +380,21 @@ $(function(){
 			<hr style="color: #cccccc">
 			<div class="host">
 				<div id="hostInfo">
+					<div style="display: inline-block;">
 					<div id="hostName">호스트: ${host.memberName}</div>
 					<div id="hostDate">회원가입 : ${regDate}</div>
-					<!-- <span id="hStar">별점 : </span>&nbsp;
-						<span id="revCount">리뷰 수 : </span><br/> -->
-					<p id="pHostInfo">${host.memberInfo}</p>
-				</div>
-				<div id="hostImg" style="border: 1px solid #cccccc;">
+					</div>
+					<div id="hostImg">
 					<img id="hostImgSize"
 						src="<spring:url value='/profileImg/${host.memberImgName}' />" />
+					</div>
 				</div>
+				<p id="pHostInfo">${host.memberInfo}</p>
 			</div>
 
 			<div id="map">
 				<p>지역정보</p>
-				<div id="houseMap" style="width: 500px; height: 400px;"></div>
+				<div id="houseMap"></div>
 			</div>
 			<script>
 					var container = document.getElementById('houseMap');
@@ -388,10 +417,6 @@ $(function(){
 					marker.setMap(map)
 					
 				</script>
-
-
-
-			<br />
 			<div id="notice">
 				<p>유의사항</p>
 				<div id="checkTime">
@@ -400,7 +425,7 @@ $(function(){
 				</div>
 				<div id="etc" style="margin-top: 1.5rem;">
 					<p>기타사항</p>
-					${hostDto.etc}
+					${etc}
 				</div>
 			</div>
 			

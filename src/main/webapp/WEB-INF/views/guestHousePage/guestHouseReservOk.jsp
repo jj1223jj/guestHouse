@@ -9,6 +9,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/guestHouse/reserveOk.css"/>
+<script type="text/javascript"
+	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="allDiv">
@@ -23,8 +29,12 @@
 			<div id="info">
 				<p id="name">${houseName}</p>
 				<p id="explain">${explain}</p>	
-				<span id="reserveCode">예약번호: ${reserveCode}</span>&nbsp;&nbsp;&nbsp;
-				<span id="payment">결제금액: ${payment}</span>
+				<p id="reserveCode">예약번호: ${reserveCode}</p>
+				<p id="payment">결제금액: ${payment}</p>
+				<c:if test="${account!=null}">
+					<p id="account">계좌번호:${account}</p>
+					<p style="color: red;">위 계좌번호로 입금해주세요.</p>
+				</c:if>
 			</div>
 			
 		</div>
