@@ -165,4 +165,29 @@
 	<select id="getMemberInfo" resultType="com.java.member.dto.MemberDto">
 		select * from member where email=#{email}
 	</select>
+	
+	<!-- 체험 메인 -->
+	<select id="searchMainEx" resultType="com.java.experience.dto.ExperienceMainDto">
+	<![CDATA[
+		select exName,exCode,exPrice, RevRate, revCount from(
+    		select h.*, rownum rn from (
+        		select a.*, nvl(b.revRate,0) revRate, b.revCount from (experience) a
+        		left outer join (select exCode, round(avg(revRate),2) revRate, count(exCode) revCount 
+        		from (select exReserve.exCode, revRate from exReserve, exReview where exReserve.exReserveCode=exReview.exReservecode) a group by exCode) b
+        		on a.exCode=b.exCode order by exregDate desc) h ) where rn>=1 and rn<=4
+     ]]>
+	</select>
+	
+	<!-- 게하 메인 -->
+	<select id="searchMainGh" resultType="com.java.experience.dto.GuestHouseMainDto">
+	<![CDATA[
+		 select houseName,houseCode,Price, RevRate, revCount from(
+    		select h.*, rownum rn from (
+        		select a.*, nvl(b.revRate,0) revRate, b.revCount from (house) a
+        		left outer join (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount 
+        		from (select Reservation.houseCode, revRate from Reservation, Review where Reservation.ReserveCode=Review.Reservecode) a group by houseCode) b
+        		on a.houseCode=b.houseCode order by houseRegDate desc) h ) where rn>=1 and rn<=4
+     ]]>
+	</select>
+	
 </mapper>

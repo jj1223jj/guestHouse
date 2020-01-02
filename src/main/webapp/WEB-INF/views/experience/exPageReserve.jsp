@@ -64,7 +64,7 @@
 <script>
 $(document).ready(function(){
 	
-	var divs = document.querySelectorAll('#img');
+	var divs = document.querySelectorAll('#img div');
 
 	for(var i=0; i<divs.length;++i){
 		var div = divs[i];
@@ -92,6 +92,7 @@ $(document).ready(function(){
 </script>
 
 
+
 </head>
 <body>
 	<div align="center" style="width: 70rem; border: 0.1rem solid #00000059; margin: 0 auto;">
@@ -106,17 +107,19 @@ $(document).ready(function(){
 					<div class="experience" style="width: 40rem; /* border: 0.1rem dotted black; */ height: 50rem; float: left;">
 						<div id="Info" style="/* border: 0.1rem solid red; */ width: 38rem; height: auto; float: left; margin-left: 3rem;">
 							<div style="font-weight: bold; float: left; width: 10rem;">체험 이름 </div>
-							<div style="width: 20rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 1.5rem;"> ${experienceDto.exName}</div>
+							<div style="width: 60rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 1.5rem;"> ${experienceDto.exName}</div>
 							
 							<div style="font-weight: bold; float: left; width: 10rem;">주소</div>
-							<div style="width: 25rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem;">${experienceDto.exAddress}</div>
+							<div style="width: 60rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem;">${experienceDto.exAddress}</div>
 							
 							<div style="font-weight: bold;float: left; width: 10rem;">체험 시간</div>
 							<div style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem">${experienceDto.exTime} 시간</div>
 							
 						</div>
-						<div id="img" style="margin-top: 13rem; /* border: 0.1rem solid green; */">
-							<img id="exImg" style="width: 30rem; height: 30rem; " src="<spring:url value='/exImage/${mainImg}' />" />
+						<div id="img" style="margin-top: 13rem; /* border: 0.1rem solid green; */ width: 30rem; height: 30rem;">
+							<div style="width: 30rem; height: 30rem;">
+								<img id="exImg" style="width: 100% " src="<spring:url value='/exImage/${mainImg}' />" />
+							</div>
 						</div>	
 						<%-- <span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
 						<span id="revCount">후기   ${review}  개</span> --%>

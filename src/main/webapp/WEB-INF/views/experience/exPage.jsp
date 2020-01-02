@@ -22,8 +22,6 @@
 
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 <script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  	
 
 <script>
 $(document).ready(function(){
@@ -210,7 +208,7 @@ list-style: none;
 		        
 		         <li style="width: 49rem; height: auto; ">
 		         	<label>프로그램설명</label>
-		         	<div class="text-secondary" style="width: 48rem; height: auto; word-break:break-all;">${experienceDto.exExplain}</div>
+		         	<div class="text-secondary" style="width: 48rem; height: auto; word-break:break-all;text-align: left;">${experienceDto.exExplain}</div>
 		    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
 		    		
 		         </li>
@@ -475,12 +473,12 @@ list-style: none;
 				 </div>
 			</div>
 			<!-- 호스트 정보 -->	
-			<div style="width: 100%; height: auto; border-top: 0.2rem solid #ebebeb; border-bottom: 0.2rem solid #ebebeb;">
+			<div style="width: 100%; height: auto; border-top: 0.2rem solid #ebebeb; border-bottom: 0.2rem solid #ebebeb; padding-bottom: 3rem;">
 				<div style="width: 70rem; height:auto; /* border: 0.1rem solid black; */ margin-top: 3rem; padding-top: 3rem; margin-bottom: 5rem;">
 					<ul style="width: 15rem; height:auto; float: left; /* border: 0.1rem solid black; */">
 						
 				        <li style="list-style: none; float: left;">
-				        	<label style="margin-top: 0rem;">호스트 사진</label><br/>
+				        	<label style="margin-top: 0rem;">호스트 정보</label>
 				        	<!--/profileImg/${memberDto.memberImgName}  -->
 				        	<img style="width: 10rem; height: 10rem;" src="<spring:url value='/profileImg/${memberDto.memberImgName}' />" class="rounded-circle" alt="이미지 없음"/>
 				        	<br/><br/>

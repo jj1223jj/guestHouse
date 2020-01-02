@@ -269,85 +269,97 @@ i{
 	</div>
 	</div>
 	
-	<div style="width: 150rem; height: 60rem; margin: 0 auto;"  >
+	<div style="width: 90rem; height: 40rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU GUEST HOUSE</div>
 		</div>
 		
-		<c:forEach var="i" begin="0" end="3">
-			<div id="demo" class="carousel slide" data-ride="carousel" style="width: 30rem; height: 30rem; float: left; margin-left: 5rem; margin-top: 5rem;">
+		<c:forEach var="ho" items="${houseImgDto}" varStatus="i">
+
+			<div id="demo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 20rem; float: left; margin-left: 2rem; margin-top: 5rem;">
 		
 				  <!-- Indicators -->
 				  <ul class="carousel-indicators">
-				    <li data-target="#demo" data-slide-to="0" class="active"></li>
-				    <li data-target="#demo" data-slide-to="1"></li>
-				    <li data-target="#demo" data-slide-to="2"></li>
+				    <li data-target="#demo${i.index}" data-slide-to="0" class="active"></li>
+				    <li data-target="#demo${i.index}" data-slide-to="1"></li>
+				    <li data-target="#demo${i.index}" data-slide-to="2"></li>
 				  </ul>
 				
 				  <!-- The slideshow -->
-				  <div class="carousel-inner" style="width: 30rem; height: 30rem;">
-				    <div class="carousel-item active" style="width: 30rem; height: 30rem;">
-				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1558006297-a916366218d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Los Angeles">
+				  <div class="carousel-inner" style="width: 20rem; height: 20rem;">
+				    <div class="carousel-item active" style="width: 20rem; height: 20rem;">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/image/${ho.fileList[0].fileName}" alt="이미지가 없습니다.">
 				    </div>
 				    <div class="carousel-item">
-				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1523149394814-4649a15b95fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chicago">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/image/${ho.fileList[1].fileName}" alt="이미지가 없습니다.">
 				    </div>
 				    <div class="carousel-item">
-				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1551062526-7405947cbca9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" alt="New York">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/image/${ho.fileList[2].fileName}" alt="이미지가 없습니다.">
 				    </div>
 				  </div>
 				
 				  <!-- Left and right controls -->
-				  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+				  <a class="carousel-control-prev" href="#demo${i.index}" data-slide="prev">
 				    <span class="carousel-control-prev-icon"></span>
 				  </a>
-				  <a class="carousel-control-next" href="#demo" data-slide="next">
+				  <a class="carousel-control-next" href="#demo${i.index}" data-slide="next">
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
+				<div style="width: 20rem;">${ho.houseName}</div>
+				<div style="width: 20rem; text-align: right;">${ho.price}</div>
+				<div style="width: 20rem;">${ho.revRate}</div>
+				<div style="width: 20rem;">${ho.revCount}</div>
 			</div>
 		</c:forEach>
 	</div>
 	
-	<div style="width: 150rem; height: 60rem; margin: 0 auto;" >
+	<div style="width: 90rem; height: 40rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
 		</div>
 		
-		<c:forEach var="i" begin="0" end="3">
-			<div id="demo" class="carousel slide" data-ride="carousel" style="width: 30rem; height: 30rem; float: left; margin-left: 5rem; margin-top: 5rem;">
+		<c:forEach var="ex" items="${experienceImgDto}" varStatus="i">
+
+			<div id="exDemo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 20rem; float: left; margin-left: 2rem; margin-top: 5rem;">
 		
 				  <!-- Indicators -->
 				  <ul class="carousel-indicators">
-				    <li data-target="#demo" data-slide-to="0" class="active"></li>
-				    <li data-target="#demo" data-slide-to="1"></li>
-				    <li data-target="#demo" data-slide-to="2"></li>
+				    <li data-target="#exDemo${i.index}" data-slide-to="0" class="active"></li>
+				    <li data-target="#exDemo${i.index}" data-slide-to="1"></li>
+				    <li data-target="#exDemo${i.index}" data-slide-to="2"></li>
 				  </ul>
 				
 				  <!-- The slideshow -->
-				  <div class="carousel-inner" style="width: 30rem; height: 30rem;">
-				    <div class="carousel-item active" style="width: 30rem; height: 30rem;">
-				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1558006297-a916366218d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Los Angeles">
+				  <div class="carousel-inner" style="width: 20rem; height: 20rem;">
+				    <div class="carousel-item active" style="width: 20rem; height: 20rem;">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[0].fileName}" alt="Los Angeles">
 				    </div>
 				    <div class="carousel-item">
-				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1523149394814-4649a15b95fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chicago">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[1].fileName}" alt="Chicago">
 				    </div>
 				    <div class="carousel-item">
-				      <img style="width: 30rem; height: 30rem;" src="https://images.unsplash.com/photo-1551062526-7405947cbca9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" alt="New York">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[2].fileName}" alt="New York">
 				    </div>
 				  </div>
 				
 				  <!-- Left and right controls -->
-				  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+				  <a class="carousel-control-prev" href="#exDemo${i.index}" data-slide="prev">
 				    <span class="carousel-control-prev-icon"></span>
 				  </a>
-				  <a class="carousel-control-next" href="#demo" data-slide="next">
+				  <a class="carousel-control-next" href="#exDemo${i.index}" data-slide="next">
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
+				<div style="width: 20rem;">${ex.exName}</div>
+				<div style="width: 20rem; text-align: right;">${ex.exPrice}</div>
+				<div style="width: 20rem;">${ex.revRate}</div>
+				<div style="width: 20rem;">${ex.revCount}</div>
 			</div>
 		</c:forEach>
 	</div>
+	<br/><br/>
+	
 	
 	<!-- footer 겹침현상 제거 -->
 	<div style="clear:both;"></div>

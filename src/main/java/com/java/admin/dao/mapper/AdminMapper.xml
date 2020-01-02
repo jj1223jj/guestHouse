@@ -70,9 +70,4 @@
 		update house set APPROVALSTATUS='승인거절' where houseCode=#{houseCode}
 	</update>
 
-	<!-- 메인페이지 체험  -->
-	<select id="experienceMain" parameterType="com.java.experience.dto.ExperienceDto">
-		<!-- select * from  -->
-	</select>
-
 </mapper>

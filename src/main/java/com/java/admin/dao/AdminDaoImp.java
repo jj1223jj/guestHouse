@@ -92,11 +92,7 @@ public class AdminDaoImp implements AdminDao {
 	public int guestHouseStateNo(int houseCode) {
 		// TODO Auto-generated method stub
 		return  sqlSessionTemplate.update("dao.AdminMapper.guestHouseStateNo",houseCode);
-
-	// 메인 페이지
-	@Override
-	public List<ExperienceDto> mainPage() {
-		return sqlSessionTemplate.selectList("dao.AdminMapper.experienceMain");
-
 	}
+	
+	
 }
