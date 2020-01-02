@@ -569,7 +569,7 @@
 	margin-top:0.938rem;
 	margin-bottom:0.938rem;
 	width:52.5rem;
-	height: 14.063rem;
+	height: 10.063rem;
 }
 .formContainer{
 	height: 4.688rem;
@@ -577,7 +577,7 @@
     background-color: white;
     position: fixed;
     z-index: 10;
-    top: 13.638rem;
+    top: 11.638rem;
     border-bottom: solid 0.1rem #cccccc;
 }
 .filterContainer :first-child{
@@ -590,7 +590,7 @@
 	width:52.5rem;
  	position: fixed;
 	z-index: 10;
-	top: 8.8rem;
+	top: 6.8rem;
 }
 
 .houseListContainer{

@@ -65,7 +65,11 @@ public class SearchDaoImp implements SearchDao {
 	@Override
 	public List<ExperienceImgDto> searchEx(Map<String, Object> dataMap) {
 		HomeAspect.logger.info(HomeAspect.logMsg+"sort: "+dataMap.get("sort"));
+		
+		//체험들을 가져와서
 		List<ExperienceImgDto> exImgList = session.selectList("dao.searchMapper.searchEx", dataMap);
+		
+		
 		for(ExperienceImgDto exImgDto : exImgList) {
 			List<ExFileDto> exFileList = session.selectList("dao.searchMapper.getExImg",exImgDto.getExCode());
 			exImgDto.setExFileList(exFileList);
@@ -93,5 +97,6 @@ public class SearchDaoImp implements SearchDao {
 	}
 	
 
+	
 
 }

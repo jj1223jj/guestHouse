@@ -58,6 +58,7 @@ body {
 color:#484848;
 }
 
+
 </style>
 
 </head>
@@ -95,8 +96,8 @@ color:#484848;
 	            </c:if>
           
 	            <c:if test="${memberLevel != null}">
-	          		<li class="nav-item"><a class="nav-link" href="${root}/search?checkIn=2019-12-30&checkOut=2019-12-31&local=&people=1&searchHouseName=">게스트 하우스 검색</a></li>
-	          		<li class="nav-item"><a class="nav-link" href="${root}/experience?checkIn=2019-12-30&checkOut=2019-12-31&local=&people=1&searchExName=">체험 검색</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="${root}/search?checkIn=&checkOut=&local=&people=1&searchHouseName=">게스트 하우스 검색</a></li>
+	          		<li class="nav-item"><a class="nav-link" href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">체험 검색</a></li>
 			        <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
 			       
 		            <%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
@@ -262,7 +263,10 @@ color:#484848;
 	</div>
 <!-- //컨텐츠 영역 -->
 
-			
+
+
+
+  
 	
 	
 </body>

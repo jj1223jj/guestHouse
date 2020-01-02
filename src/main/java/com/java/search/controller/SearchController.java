@@ -2,6 +2,9 @@ package com.java.search.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -92,6 +95,15 @@ public class SearchController {
 		String sort = request.getParameter("sort");
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
+		if(checkIn.equals("")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			checkIn= sdf.format(cal.getTime());
+			cal.add(Calendar.DATE, 1);
+			checkOut= sdf.format(cal.getTime());
+		}
+		
 		String local = request.getParameter("local");
 		String people = request.getParameter("people");
 		String searchHouseName = request.getParameter("searchHouseName");
@@ -99,7 +111,7 @@ public class SearchController {
 
 		mav = searchService.search(checkIn, checkOut, local, people, searchHouseName, pageNumber, memberCode, sort);
 		
-		mav.setViewName("search/searchHouse.tiles");
+		mav.setViewName("search/searchHouse.empty2");
 		return mav;
 	}
 	
@@ -119,6 +131,14 @@ public class SearchController {
 		String sort = request.getParameter("sort");
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
+		if(checkIn.equals("")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			checkIn= sdf.format(cal.getTime());
+			cal.add(Calendar.DATE, 1);
+			checkOut= sdf.format(cal.getTime());
+		}
 		String local = request.getParameter("local");
 		String people = request.getParameter("people");
 		String searchExName = request.getParameter("searchExName");
@@ -126,7 +146,7 @@ public class SearchController {
 		
 		mav = searchService.searchEx(checkIn, checkOut, local, people, searchExName, pageNumber, memberCode, sort);
 		
-		mav.setViewName("search/searchExperience.tiles");
+		mav.setViewName("search/searchExperience.empty2");
 		return mav;
 	}
 	
