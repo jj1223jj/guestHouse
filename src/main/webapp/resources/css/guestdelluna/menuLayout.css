@@ -2,7 +2,7 @@
 
 #wrap {
 	width: 80rem;
-	margin: 0 auto;
+	margin: 2rem auto 0 auto;
 	overflow: hidden;
 }
 .menuL {
@@ -26,4 +26,8 @@
 
 a {
 	cursor: pointer;
+	color: inherit !important;
+}
+.deleteBtn {
+	color: rgb(0, 132, 137) !important;
 }
