@@ -26,8 +26,10 @@
 			dateFormat:"yy-mm-dd",
 			 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 			 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-			 showOn:"button",
-			 buttonText:"시작",
+			 /* showOn:"button",
+			 buttonText:"시작", */
+			 showMonthAfterYear: true,
+			 yearSuffix: "년",
 			 minDate: 'today',
 			 onClose:function(selectedDate){
 				 $("#exEndDateS").datepicker("option","minDate",selectedDate);
@@ -40,13 +42,20 @@
 			dateFormat:"yy-mm-dd",
 			 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 			 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-			 showOn:"button",
-			 buttonText:"종료",
+			 /* showOn:"button",
+			 buttonText:"종료", */
+			 showMonthAfterYear: true,
+			 yearSuffix: "년",
 			 onClose:function(selectedDate){
 				 $("#exStartDateS").datepicker("option","maxDate",selectedDate);
 			 }
 		});
-	
+		$(".calenderSt").click(function(){
+			$("#exStartDateS").datepicker("show");
+		});
+		$(".calenderEn").click(function(){
+			$("#exEndDateS").datepicker("show");
+		});
 
 
 	});
@@ -57,7 +66,7 @@ li{
 list-style: none;
 }
 #exTotal > li > label{
-	border: 0.1rem solid blue;
+	/* border: 0.1rem solid blue; */
 	width: 10rem;
 }
 
@@ -65,14 +74,14 @@ list-style: none;
 </head>
 <body>
 
-	<div style="width:80rem; border: 0.1rem solid black; margin: 0 auto;">
+	<div style="width:80rem; /* border: 0.1rem solid black; */ margin: 5rem auto;">
 	   <form action="${root}/experience/exHostOk.do" method="post" enctype="multipart/form-data"
 	    onsubmit="return registerEx()">
 	    
 	    <!-- '${exName}','${exAddress}','${mainImg}','${subImg}','${exPeople}','${exTime}','${exExplain}','${exStartDateS}','${exEndDateS}','${exBank}','${exAccount}','${exPrice}' -->
-	   <div class="wrap" style="width: 70rem; margin: 0 auto; border: 0.1rem solid red;">
+	   <div class="wrap" style="width: 70rem; margin: 0 auto; /* border: 0.1rem solid red; */">
 	      
-	      <ul style="width: 50rem; border: 0.1rem dotted black; margin: 0 auto;" id="exTotal">
+	      <ul style="width: 50rem; /* border: 0.1rem dotted black; */ margin: 0 auto;" id="exTotal">
 	         <li>
 	            <label>체험이름</label>
 	    		<input type="text" name="exName" id="exName"  class="form-control" style="width: 30rem;"/>
@@ -132,8 +141,11 @@ list-style: none;
 	         
 	         <li>
 	            <label>진행날짜</label>
-	            <input type="text" id="exStartDateS" name="exStartDateS"/>
+	            
+	            <input type="text" id="exStartDateS" name="exStartDateS" />
+	            <i class="calenderSt far fa-calendar-alt fa-2x"></i>
 			~ <input type="text" id="exEndDateS" name="exEndDateS"/>
+			<i class="calenderEn far fa-calendar-alt fa-2x"></i>
 			<br/><br/>
 			
 	         </li>
@@ -173,6 +185,9 @@ list-style: none;
 	   </div>
 	   </form>
    </div>
+   
+   <!-- footer 겹침현상 제거 -->
+	<div style="clear:both;"></div>
   
 </body>
 </html>

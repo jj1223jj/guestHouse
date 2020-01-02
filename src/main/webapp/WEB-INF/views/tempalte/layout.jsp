@@ -17,7 +17,9 @@
 	
 	<t:insertAttribute name="content"/>
 	
+
 	<hr/>
+
 	
 	<t:insertAttribute name="foot"/>
 </body>

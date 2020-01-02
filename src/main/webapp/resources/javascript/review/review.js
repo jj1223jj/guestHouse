@@ -262,6 +262,8 @@ function moreView(root,emailSession,exCode){
 				 });
 				 
 			}else {
+				
+					
 				$(data.reviewList).each(function(){
 					
 					var day = new Date(data.reviewList[indexNum].revDate);
@@ -325,7 +327,7 @@ function moreView(root,emailSession,exCode){
 
                     htmls += '</span>';
                 
-                    htmls +=  '<div style="border:0.1rem solid grey; width: 50rem; height:auto; word-break:break-all; margin-top:1rem; text-align:left;">' + this.revContent +'</div>' ;
+                    htmls +=  '<div style="width: 47rem; height:auto; word-break:break-all; margin-top:1rem; text-align:left;">' + this.revContent +'</div>' ;
                     
                    // htmls+= '<br/>'
                     

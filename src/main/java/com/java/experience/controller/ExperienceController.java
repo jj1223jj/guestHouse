@@ -193,7 +193,7 @@ public class ExperienceController {
 		
 		return mav;
 	}
-	// 예약 요청하기 눌렀을 때
+	// 예약 요청하기 눌렀을 때(무통장결제 일 경우)
 	@RequestMapping(value="/experience/exReserveOk.do", method = RequestMethod.GET)
 	public ModelAndView exReserveOk(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("체험예약완료");
@@ -202,6 +202,29 @@ public class ExperienceController {
 		mav.addObject("request", request);
 
 		experienceService.exReserveOk(mav);
+		
+		return mav;
+	}
+	
+	// 카카오 페이
+	@RequestMapping(value = "/experience/kakaoPay.do", method = RequestMethod.GET)
+	public ModelAndView kakaoPaySuccess(HttpServletRequest request, HttpServletResponse response ) {
+		ModelAndView mav = new ModelAndView(); 
+		mav.addObject("request",request);
+		  
+		experienceService.kakaoPaySuccess(mav);
+		
+		return mav;
+		 
+	}
+	
+	// 카카오 페이 결제 완료 시
+	@RequestMapping(value = "/experience/kakaoPayOk.do", method = RequestMethod.GET)
+	public ModelAndView reservCompleteCheckOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request",request);
+		
+		experienceService.kakaoPaySuccessOk(mav);
 		
 		return mav;
 	}

@@ -81,6 +81,9 @@ public interface ExperienceDao {
 
 	public int usePointUp(PointUse pointUse);
 
+	// 카카오페이
+	public MemberDto getMemberInfo(String email);
+
 
 
 

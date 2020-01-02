@@ -155,6 +155,10 @@
 			    ) a, house where a.houseCode=house.houseCode
 			    ) where remain < #{people} group by houseCode]]>
 			    )
+			    <if test="searchHouseName!=null">
+					and houseName like '%${searchHouseName}%'
+				</if>
+			    
 			) a
 			left outer join (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount from (select reservation.houseCode, revRate from reservation, review where reservation.reserveCode=review.reservecode) a group by houseCode) b
 			on a.houseCode=b.houseCode
@@ -171,9 +175,7 @@
 			</foreach>
 			)
 		</if>
-		<if test="searchHouseName!=null">
-			and houseName like '%${searchHouseName}%'
-		</if>
+		
 		<if test="sort=='priceHigh'">
 			order by price desc, revRate desc
 		</if>
@@ -210,6 +212,9 @@
 			    ) a, experience where a.exCode=experience.exCode
 			    ) where remain < #{people} group by exCode]]>
 			    )
+			    <if test="searchExName!=null">
+					and exName like '%${searchExName}%'
+				</if>
 			) a
 			left outer join (select exCode, round(avg(revRate),2) revRate, count(exCode) revCount from (select exReserve.exCode, revRate from exReserve, exReview where exReserve.exReserveCode=exReview.exReservecode) a group by exCode) b
 			on a.exCode=b.exCode
@@ -226,9 +231,7 @@
 			</foreach>
 			)
 		</if>
-		<if test="searchExName!=null">
-			and exName like '%${searchExName}%'
-		</if>
+		
 		<if test="sort=='priceHigh'">
 			order by exPrice desc, revRate desc
 		</if>
