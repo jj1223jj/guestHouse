@@ -94,12 +94,14 @@ public class AdminDaoImp implements AdminDao {
 		return  sqlSessionTemplate.update("dao.AdminMapper.guestHouseStateNo",houseCode);
 
 	}
-	// 메인 페이지
-	@Override
-	public List<ExperienceDto> mainPage() {
-		return sqlSessionTemplate.selectList("dao.AdminMapper.experienceMain");
-
-	}
+	/*
+	 * // 메인 페이지
+	 * 
+	 * @Override public List<ExperienceDto> mainPage() { return
+	 * sqlSessionTemplate.selectList("dao.AdminMapper.experienceMain");
+	 * 
+	 * }
+	 */
 	
 	
 }
