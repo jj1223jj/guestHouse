@@ -483,9 +483,9 @@ function ghMoreView(root,emailSession,houseCode){
 		url: url + params,
 		dataType: "JSON",
 		success: function(data) {
-			console.log(data.count);
-			console.log(data.reviewList[0]);
-			alert(data.reviewList[0]);
+			//console.log(data.count);
+			//console.log(data.reviewList[0]);
+			//alert(data.reviewList[0]);
 			
 			var htmls="";
 			var btn="";

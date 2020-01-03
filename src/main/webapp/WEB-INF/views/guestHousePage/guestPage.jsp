@@ -9,24 +9,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 
-<link rel="stylesheet"
-	href="${root}/resources/javascript/jquery/base/jquery-ui.css">
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc"></script>
-<link rel="stylesheet"
-	href="${root}/resources/css/guestHouse/guestHousePage.css" />
+<link rel="stylesheet" href="${root}/resources/javascript/jquery/base/jquery-ui.css">
+<script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc"></script>
+<link rel="stylesheet" href="${root}/resources/css/guestHouse/guestHousePage.css" />
 
-<script src="${root}/resources/javascript/review/review.js"
-	type="text/javascript"></script>
+<script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
 <link rel="stylesheet" href="${root}/resources/css/review/review.css" />
 
 <style type="text/css">

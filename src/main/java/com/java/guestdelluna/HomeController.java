@@ -67,7 +67,7 @@ public class HomeController {
 	  mav.addObject("experienceImgDto",experienceImgDto);
 	  mav.addObject("houseImgDto",houseImgDto);
 	  
-	  mav.setViewName("search/index3.tiles");
+	  mav.setViewName("search/index.tiles");
 	  
 	  return mav; 
 	  }

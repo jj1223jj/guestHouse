@@ -17,22 +17,22 @@
 
 <title>Insert title here</title>
    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   	
 	<link rel="stylesheet" href="${root}/resources/css/header/header.css">
     
     <!-- 아이콘 링크  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	 -->
     	
 		<!-- 카카오 -->
 	
 
-		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- 		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script> -->
 
 
 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -67,7 +67,7 @@ color:#484848;
 </style>
 
 </head>
-<body onload="msgAlim('${root}')">
+<body>
 
 	<script type="text/javascript">
 		function msgAlim(root) {
