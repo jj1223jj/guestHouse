@@ -196,7 +196,8 @@ public class DellunaController {
 
 		mav.addObject("request", request);
 
-		dellunaService.msgView(mav);
+		//
+		//dellunaService.msgView(mav);
 		
 		return mav;
 		

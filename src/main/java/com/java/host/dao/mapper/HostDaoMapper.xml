@@ -119,7 +119,7 @@
   
   <select id="getSales" parameterType="int" resultType="com.java.guestReserve.dto.GuestReserveDto">
   	<!-- select TO_CHAR(reserveDate, 'yyyy-mm'), payment from reservation where memberCode = #{memberCode} -->
-  	select reservation.reserveDate, reservation.payment from house, reservation where house.memberCode = #{memberCode} and house.houseCode = reservation.houseCode and reservation.state = '완료'
+  	select reservation.reserveDate, reservation.payment from house, reservation where house.memberCode = #{memberCode} and house.houseCode = reservation.houseCode and reservation.state = '예약완료'
   </select>
   
   <select id="getSearchDateCount" parameterType="java.util.Map" resultType="com.java.host.dto.SearchDateListCount">
@@ -129,7 +129,7 @@
 	where house.memberCode = #{memberCode}
 	and member.memberCode = reservation.memberCode 
 	and house.houseCode = reservation.houseCode 
-	and reservation.state = '완료' 
+	and reservation.state = '예약완료' 
 	and reservation.reserveDate between #{startDate} and #{endDate}
   </select>
   
@@ -137,7 +137,7 @@
   	<![CDATA[
   		select * from
 		(select rownum rnum, A.* from
-		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '완료' and reservation.reserveDate between #{startDate} and #{endDate})A)
+		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '예약완료' and reservation.reserveDate between #{startDate} and to_date(#{endDate})+1)A)
 		 WHERE rnum>=#{startRow} and rnum<=#{endRow}
   	]]>
   </select>

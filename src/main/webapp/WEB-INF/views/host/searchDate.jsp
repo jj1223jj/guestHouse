@@ -11,12 +11,12 @@
 </head>
 <body>
 		 <div align="center">
-		 <c:if test="${searchDateList.size() == 0 || count == 0}">
+		 <c:if test="${searchDateList.size() == 0 && count == 0}">
 		 	<h5>예약목록이 존재하지 않습니다.</h5>
 		 </c:if>
 		 
 		<c:if test="${count > 0}"> 
-		<div class="container">
+		<div class="container" style="margin-bottom: 5rem">
 	   <table class="table table-hover">
 	   <thead align="center">
 	      <tr style="background-color: #f7f7f7">

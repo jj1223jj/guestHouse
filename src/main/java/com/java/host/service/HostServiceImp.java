@@ -349,7 +349,7 @@ public class HostServiceImp implements HostService {
 		int memberCode = hostDao.memberCode(email);
 		
 		List<GuestReserveDto> salesList = hostDao.getSales(memberCode);
-		HomeAspect.logger.info(HomeAspect.logMsg + salesList.size());
+		HomeAspect.logger.info(HomeAspect.logMsg + "salesList개수: " + salesList.size());
 
 		GuestReserveDto guestReserveDto =null;
 		
