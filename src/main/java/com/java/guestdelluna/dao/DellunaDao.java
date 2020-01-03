@@ -101,13 +101,13 @@ public interface DellunaDao {
 
 	List<String> zzimExName(int memberCode);	//o
 
-	int deleteExpZzim(int exCode);	//o
+	int deleteExpZzim(int exCode, int memberCode);	//o
 
 	List<HouseZzimDto> dtoHouseZzim(int memberCode);	//o
 
 	List<String> zzimHouseName(int memberCode);	//o
 
-	int deleteHouseZzim(int houseCode);	//o
+	int deleteHouseZzim(int houseCode, int memberCode);	//o
 
 	int deletePayListExp(int exReserveCode);	//o
 
@@ -127,7 +127,7 @@ public interface DellunaDao {
 
 	List<PointAccumulate> myAccuPoint(int memberCode, int startRow, int endRow);	//o
 
-	List<PointUse> myUsePoint(int memberCode, int  useStartRow, int useEndRow);	//o
+	List<PointUse> myUsePoint(int memberCode, int startRow , int endRow);	//o
 
 	int expReviewCount(int memberCode);	//o
 
@@ -170,11 +170,9 @@ public interface DellunaDao {
 
 	List<MsgDto> allMsgDto(int memberCode);	//o
 
-	int updateHouseReview(int memberCode, int reserveCode, String revContent);	//ㅐ
+	int updateHouseReview(int memberCode, int reserveCode, String revContent);	//�뀗
 
-	List<NewExpReviewDto> myExpreviewList(int memberCode,int startRow, int endRow);	//ㅐ
-
-	List<NewHouseReviewDto> myHousereviewList(int memberCode,int useStartRow,int useEndRow);	//ㅐ
+	List<NewExpReviewDto> myExpreviewList(int memberCode,int startRow, int endRow);	//�뀗
 
 	List<ExReviewListDto> getExReviewListScroll(int memberCode, int startRow, int endRow);
 
@@ -194,11 +192,11 @@ public interface DellunaDao {
 
 	List<NewExpZzimDto> newExpZzimDto(int memberCode, int startRow, int endRow);	//o
 
-	List<NewHouseZzimDto> newHouseZzimDto(int memberCode, int useStartRow, int useEndRow);	//o
+	List<NewHouseZzimDto> newHouseZzimDto(int memberCode, int startRow, int endRow);	//o
 
-	int countExpZzim(int memberCode);	//ㅐ
+	int countExpZzim(int memberCode);	//�뀗
 
-	int countHouseZzim(int memberCode);	//ㅐ
+	int countHouseZzim(int memberCode);	//�뀗
 
 	int countPayExp(int memberCode,String state);	//o
 
@@ -206,13 +204,16 @@ public interface DellunaDao {
 
 	List<NewExpResDto> newExpResDto(int memberCode, String state, int startRow, int endRow);	//o
 
-	List<NewHouseResDto> newHouseResDto(int memberCode, String state, int useStartRow, int useEndRow);	//o
+	List<NewHouseResDto> newHouseResDto(int memberCode, String state, int startRow, int endRow);	//o
 
 	int getHouseReviewCount(int memberCode);
 
 	int getExReviewCount(int memberCode);
 
 	MemberDto selectMemberDto(int memberCode);
+
+	List<NewHouseReviewDto> myHousereviewList(int memberCode, int startRow, int endRow);	//o
+
 
 
 }

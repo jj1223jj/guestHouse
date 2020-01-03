@@ -35,7 +35,7 @@
 <body>
 
 <!-- Footer -->
-<footer class="page-footer font-small teal pt-4">
+<footer class="page-footer font-small teal pt-4"  style="background-color: #eee;">
 
   <!-- Footer Text -->
   <div>

@@ -9,12 +9,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/guestHouse/reserveOk.css"/>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 </head>
 <body>
 	<div class="allDiv">
@@ -39,9 +36,13 @@
 			
 		</div>
 	</div>
-	<!-- <hr color="#CCCCCC"/> -->
+	<hr color="#CCCCCC" style="margin-top: 9rem;"/>
 	
+	<div align="center" style="margin-top: 2rem;">
+		<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning" name="home" onclick="location.href='${root}'">Home</button>
+		<button id="btn" type="button" class="btn btn-light" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">myPage</button>
+	</div>
 	<!-- footer 겹침현상 제거 -->
-	<div style="clear:both;"></div>
+	<div style="clear:both; margin-bottom: 8rem;"></div>
 </body>
 </html>

@@ -280,7 +280,7 @@ function moreView(root,emailSession,exCode){
                    // htmls += '<p>' + data.length +'</p>'
                     //
 
-                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 ">';
+                    htmls += '<p style="display:block; width:100%; height:2rem;" class="media-body pb-3 mb-0 small lh-125 ">';
 
                     htmls += '<span class="d-block" style="width:15rem; board:0.1rem solid red; float: left;">';
 
@@ -483,9 +483,9 @@ function ghMoreView(root,emailSession,houseCode){
 		url: url + params,
 		dataType: "JSON",
 		success: function(data) {
-			console.log(data.count);
-			console.log(data.reviewList[0]);
-			alert(data.reviewList[0]);
+			//console.log(data.count);
+			//console.log(data.reviewList[0]);
+			//alert(data.reviewList[0]);
 			
 			var htmls="";
 			var btn="";

@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 
 <script>
 $(document).ready(function(){
@@ -48,7 +48,7 @@ $(document).ready(function(){
 	
 	<!--  전체 -->
 	<div style="width: 70rem; height: auto; margin: 0 auto; /* border: 0.02rem solid black; */ ">
-		<div align="center" style="font-weight: bold; font-size: 1.5rem; margin: 5rem;">예약 완료</div>
+		<div align="center" style="font-weight: bold; font-size: 2rem; margin: 5rem;">예약 완료</div>
 		
 		<div id="img" align="center">
 			<div style="width: 30rem; height: 30rem; overflow: hidden;">
@@ -57,33 +57,33 @@ $(document).ready(function(){
 			</div>
 			<div style="margin: 5rem; width: 60rem; /* border: 0.1rem solid red; */ height: auto; ">
 				<div style="border: 0.05rem solid #ffa50040; width: 55rem; height: auto; padding: 3rem;">
-					<div style="width: 10rem; float: left; font-weight: bold;" >체험 이름</div>
-					<div id="name" style="width: 35rem; margin-left: 10rem; text-align: left;"> ${experienceDto.exName}</div>
-					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">체험 설명</div>
-					<div id="explain" style="word-break: break-all; width: 35rem; margin-left: 10rem; margin-top: 2rem; text-align: left;">${experienceDto.exExplain}</div>	
-					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">예약번호</div>
-					<div id="reserveCode"  style="width: 35rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${exReserveCode}</div>
+					<div style="width: 10rem; float: left; font-weight: bold; font-size: 1.5rem;" >체험 이름</div>
+					<div id="name" style="width: 29rem; margin-left: 10rem; text-align: left;font-size: 1.3rem;"> ${experienceDto.exName}</div>
+					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;font-size: 1.5rem;">체험 설명</div>
+					<div id="explain" style="word-break: break-all; width: 29rem; margin-left: 10rem; margin-top: 2rem; text-align: left;font-size: 1.3rem;">${experienceDto.exExplain}</div>	
+					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;font-size: 1.5rem;">예약번호</div>
+					<div id="reserveCode"  style="width: 29rem; height:3rem; margin-left: 10rem; text-align: left; margin-top: 2rem;font-size: 1.3rem;">${exReserveCode}</div>
 					
 					<!-- 카드 결제가 아닐 때, 무통장 입금일 경우 계좌번호를 적어서 입금 할 수 있게 -->
 					<c:if test="${imp_uid ==null}">
-						<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">계좌번호</div>
-						<div id="reserveCode"  style="width: 35rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${experienceDto.exAccount}</div>
+						<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;font-size: 1.5rem;">계좌번호</div>
+						<div id="reserveCode"  style="width: 29rem;height:3rem; margin-left: 10rem; text-align: left; margin-top: 2rem;font-size: 1.3rem;">${experienceDto.exAccount}</div>
 					</c:if>
 					
-					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">결제금액</div>
-					<div id="payment" style="width: 35rem; margin-left: 10rem; text-align: left; margin-top: 2rem;"> ${exReserveDto.exPayment}</div>
-					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem; margin-top: 2rem;">포인트 적립</div>
-					<div id="point" style="width: 35rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${resPoint} p</div>
+					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem; font-size: 1.5rem;">결제금액</div>
+					<div id="payment" style="width: 29rem; height:3rem; margin-left: 10rem; text-align: left; margin-top: 2rem; font-size: 1.3rem;"> ${exReserveDto.exPayment}</div>
+					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem; margin-top: 2rem; font-size: 1.5rem;">포인트 적립</div>
+					<div id="point" style="width: 29rem; margin-left: 10rem; text-align: left; margin-top: 2rem; font-size: 1.3rem;">${resPoint} p</div>
 					
 					<c:if test="${imp_uid ==null}">
-						<div style="width: 35rem; font-weight: bold; margin-top: 4rem; color: #3f51b5;">해당 계좌번호로 결제금액을 입금해주세요.</div>
+						<div style="width: 35rem; font-weight: bold; margin-top: 4rem; color: #3f51b5;font-size: 1.3rem;">해당 계좌번호로 결제금액을 입금해주세요.</div>
 					</c:if>
 					
 				</div>
 				
 				<div align="center" style="margin-top: 5rem;">
-					<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning" name="home" onclick="location.href='${root}'">Home</button>
-					<button id="btn" type="button" class="btn btn-light" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">마이페이지로</button>
+					<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning btn-lg" name="home" onclick="location.href='${root}'">Home</button>
+					<button id="btn" type="button" class="btn btn-light btn-lg" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">마이페이지로</button>
 				
 				</div>
 			</div>

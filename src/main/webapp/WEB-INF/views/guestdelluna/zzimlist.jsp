@@ -10,499 +10,126 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet" href="${root}/resources/css/guestdelluna/menuLayout.css">
+<script type="text/javascript" src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
+<link rel="stylesheet" href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/myzzimlist.js"></script>
-<link rel="stylesheet"
-	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
-<link rel="stylesheet"
-	href="${root}/resources/css/guestdelluna/bootstrap.css">
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/bootstrap.js"></script>
 <title>장바구니</title>
+<script type="text/javascript" src="${root}/resources/javascript/guestdelluna/myzzimlist.js"></script>
 <style type="text/css">
 html {
 	font-size: 16px;
 }
-
-.infoMenu {
-	margin-left: 2rem;
-}
-
-.vl {
-	border-left: 0.0625rem solid #dddddd;
-	height: 16rem;
-	float: left;
-	margin-left: 6rem;
-	margin-top: 4.4rem;
-}
-
-.page-link {
-	background-color: #008489;
-	border-color: #008489;
-}
-
-.aMenu {
-	color: #333;
-}
 </style>
-<script>
-	// 2.jquery 온로드
-	$(function() {
-		// 		3.페이징에 필요한 변수들 선언
-		var pageBlock = $
-		{
-			pageBlock
-		}
-		;
-		var result = parseInt('${countExpZzim/boardSize}');
-		var pageCount = '${countExpZzim%boardSize}' == 0 ? result : result + 1;
-		var currentPage = '${accuCurrentPage}';
-		var result2 = parseInt((currentPage - 1) / pageBlock);
-		var startPage = result2 * pageBlock + 1;
-		var endPage = startPage + pageBlock - 1;
-
-		// 		4. function setPaging, pageClick 함수를 선언
-		//		5. 페이지숫자를 담을 div,ul 선언
-		setPaging(pageBlock, result, pageCount, currentPage, result2,
-				startPage, endPage);
-		pageClick(pageBlock, result, pageCount, currentPage, result2,
-				startPage, endPage);
-
+<script type="text/javascript">
+	$(function(){
+		$('#tabs').tabs();
+		zzimPaging('${root}','','','300000');
+		$(".expZzim").click(function(){
+			zzimPaging('${root}','','','300000');
+		})
+		$(".houseZzim").click(function(){
+			zzimPaging('${root}','','500000','');
+		})
 	});
-	//4-2 pageClic함수
-	function pageClick(pageBlock, result, pageCount, currentPage, result2,startPage, endPage) {
 
-		$(".pagination li[class!='page-item active']").click(
-						function() {
-							var liClass = $(this).attr("class");
-							var accuPageNumber = 0;
-							if (liClass == 'page-item')
-								accuPageNumber = $(this).children().text();
-							else if (liClass == 'page-item expZzimFirstPage')
-								accuPageNumber = 1;
-							else if (liClass == 'page-item expZzimBeforePage')
-								accuPageNumber = startPage - pageBlock;
-							else if (liClass == 'page-item expZzimNextPage')
-								accuPageNumber = startPage + pageBlock;
-							else if (liClass == 'page-item expZzimEndPage')
-								accuPageNumber = pageCount;
-							// 6. 컨트롤러에서 받을 url과 requestMapping 만들기
-							// 7. 현재페이지를 넘겨줘서 해당 컨트롤러와 서비스imp확인하기
-							$.ajax({
-										url : "${root}/guestdelluna/zzimExpAjax.do?accuPageNumber="+accuPageNumber,
-										method : "get",
-										//8. 서비스imp에서 ajax로 받을 데이터를 json으로 만들어주기
-										//9. PrintWriter로 json형식 데이터를 넘겨주기
-										success : function(d) {
-											//10. [{"":""},{"":""},{"":""}] 친구를 JSON.parse하기
-											var list = JSON.parse(d);
+	function zzimPaging(root, param, accuCount, useCount) {
+	
+		if(useCount>50000){
+			
+		var url = root + "/guestdelluna/zzimExpAjax.do";
 
-											//alert(list.length);
-											//console.log(list);
-											var tr = $(".pointInfo tr");
-											tr.remove();
-											var tbody = $(".pointInfo");
-											for (var i = 0; i < list.length; i++) {
-												var date = new Date(
-														list[i].exDate);
-												var dateString = date.getFullYear()
-														+ "-"
-														+ date.getMonth()
-														+ "-" + date.getDate();
-												tbody.append('	<tr>'
-																+ '		<td>'
-																+ ((accuPageNumber - 1)
-																		* '${boardSize}' + (i + 1))
-																+ '</td>'
-																+ '		<td>'
-																+ list[i].exName
-																+ '</td>'
-																+ '		<td>'
-																+ dateString
-																+ '</td>'
-																+ '		<td>'
-																+ "삭제"
-																+ '</td>'
-																+ '	</tr>');
-											}
-											currentPage = accuPageNumber;
-											result2 = parseInt((currentPage - 1)
-													/ pageBlock);
-											startPage = result2 * pageBlock + 1;
-											endPage = startPage + pageBlock - 1;
-											setPaging(pageBlock, result,
-													pageCount, currentPage,
-													result2, startPage, endPage);
-											pageClick(pageBlock, result,
-													pageCount, currentPage,
-													result2, startPage, endPage);
-										},
-										error : function(a, b, c) {
-											console.log(a);
-											alert(b);
-											alert(c);
-										}
-									});
-						});
+		var params = "pageNumber=" + param;
 
-	}
-	//4.setPaging 함수
-	function setPaging(pageBlock, result, pageCount, currentPage, result2,
-			startPage, endPage) {
-
-		$(".pagination").children().remove();
-
-		//alert("pageBlock: "+pageBlock+", result:"+result+", pageCount: "+pageCount+",\n result2: "+result2+", startPage: "+startPage+", endPage: "+endPage+", currentPage: "+currentPage);
-		if (endPage > pageCount) {
-			endPage = pageCount;
+		sendRequest("GET", url, zzimExpOk, params);
 		}
-		if (startPage > 1) {
-			$(".pagination")
-					.append(
-							'<li class="page-item expZzimFirstPage"><a class="page-link">[처음]</a></li>'
-									+ '<li class="page-item expZzimBeforePage"><a class="page-link">[이전]</a></li>');
-		}
-		for (var i = startPage; i <= endPage; i++) {
-			if (i == currentPage) {
-				$(".pagination").append(
-						'<li class="page-item active"><a class="page-link">'
-								+ i + '</a></li>');
-			} else {
-				$(".pagination").append(
-						'<li class="page-item"><a class="page-link">' + i
-								+ '</a></li>');
-			}
-		}
-		if (endPage < pageCount) {
-			$(".pagination").append(
-							'<li class="page-item expZzimNextPage"><a class="page-link">[다음]</a></li>'
-									+ '<li class="page-item expZzimEndPage"><a class="page-link">[끝]</a></li>');
+		
+		if(accuCount>50000){
+			
+			var url = root + "/guestdelluna/zzimHouseAjax.do";
+
+			var params = "usePageNumber=" + param;
+
+			sendRequest("GET", url, zzimHouseOk, params);
 		}
 	}
-</script>
 
-<script>
-	// 2.jquery 온로드
-	$(function() {
-
-		// 		3.페이징에 필요한 변수들 선언
-		var pageBlock = $
-		{
-			pageBlock
+	function zzimExpOk() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			document.getElementById("zzimExpView").innerHTML = xhr.responseText;
+			var currentPage = $("#currentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
 		}
-		;
-		var useResult = parseInt('${countHouseZzim/boardSize}');
-		var usePageCount = '${countHouseZzim%boardSize}' == 0 ? useResult : useResult + 1;
-		var useCurrentPage = '${useCurrentPage}';
-		var useResult2 = parseInt((useCurrentPage - 1) / pageBlock);
-		var useStartPage = useResult2 * pageBlock + 1;
-		var useEndPage = useStartPage + pageBlock - 1;
-
-		// 		4. function setPaging, pageClick 함수를 선언
-		//		5. 페이지숫자를 담을 div,ul 선언
-		useSetPaging(pageBlock, useResult, usePageCount, useCurrentPage,
-				useResult2, useStartPage, useEndPage);
-		usePageClick(pageBlock, useResult, usePageCount, useCurrentPage,
-				useResult2, useStartPage, useEndPage);
-
-	});
-	//4-2 pageClic함수
-	function usePageClick(pageBlock, useResult, usePageCount, useCurrentPage,
-			useResult2, useStartPage, useEndPage) {
-
-		$(".pagination li[class!='page-item active']").click(
-						function() {
-							var liClass = $(this).attr("class");
-							var usePageNumber = 0;
-							if (liClass == 'page-item')
-								usePageNumber = $(this).children().text();
-							else if (liClass == 'page-item houseZzimFirstPage')
-								usePageNumber = 1;
-							else if (liClass == 'page-item houseZzimBeforePage')
-								usePageNumber = useStartPage - pageBlock;
-							else if (liClass == 'page-item houseZzimNextPage')
-								usePageNumber = useStartPage + pageBlock;
-							else if (liClass == 'page-item houseZzimEndPage')
-								usePageNumber = usePageCount;
-							// 6. 컨트롤러에서 받을 url과 requestMapping 만들기
-							// 7. 현재페이지를 넘겨줘서 해당 컨트롤러와 서비스imp확인하기
-							$.ajax({
-										url : "${root}/guestdelluna/zzimHouseAjax.do?usePageNumber="+usePageNumber,
-										method : "get",
-										//8. 서비스imp에서 ajax로 받을 데이터를 json으로 만들어주기
-										//9. PrintWriter로 json형식 데이터를 넘겨주기
-										success : function(d) {
-											//10. [{"":""},{"":""},{"":""}] 친구를 JSON.parse하기
-											var list = JSON.parse(d);
-
-											//alert(list.length);
-											//console.log(list);
-											var tr = $(".useInfo tr");
-											tr.remove();
-											var tbody = $(".useInfo");
-											for (var i = 0; i < list.length; i++) {
-												tbody.append('	<tr>'
-																+ '		<td>'
-																+ ((usePageNumber - 1)
-																		* '${boardSize}' + (i + 1))
-																+ '</td>'
-																+ '		<td>'
-																+ list[i].houseName
-																+ '</td>'
-																+ '		<td>'
-																+ "삭제"
-																+ '</td>'
-																+ '	</tr>');
-											}
-											useCurrentPage = usePageNumber;
-											useResult2 = parseInt((useCurrentPage - 1)
-													/ pageBlock);
-											useStartPage = useResult2
-													* pageBlock + 1;
-											useEndPage = useStartPage
-													+ pageBlock - 1;
-											useSetPaging(pageBlock, useResult,
-													usePageCount,
-													useCurrentPage, useResult2,
-													useStartPage, useEndPage);
-											usePageClick(pageBlock, useResult,
-													usePageCount,
-													useCurrentPage, useResult2,
-													useStartPage, useEndPage);
-										},
-										error : function(a, b, c) {
-											console.log(a);
-											alert(b);
-											alert(c);
-										}
-									});
-						});
-
 	}
-	//4.setPaging 함수
-	function useSetPaging(pageBlock, useResult, usePageCount, useCurrentPage,
-			useResult2, useStartPage, useEndPage) {
-
-		$(".pagination point").children().remove();
-
-		//alert("pageBlock: "+pageBlock+", result:"+result+", pageCount: "+pageCount+",\n result2: "+result2+", startPage: "+startPage+", endPage: "+endPage+", currentPage: "+currentPage);
-		if (useEndPage > usePageCount) {
-			useEndPage = usePageCount;
-		}
-		if (useStartPage > 1) {
-			$(".pagination point")
-					.append(
-							'<li class="page-item houseZzimFirstPage"><a class="page-link">[처음]</a></li>'
-									+ '<li class="page-item houseZzimBeforePage"><a class="page-link">[이전]</a></li>');
-		}
-		for (var i = useStartPage; i <= useEndPage; i++) {
-			if (i == useCurrentPage) {
-				$(".pagination point").append(
-						'<li class="page-item active"><a class="page-link">'
-								+ i + '</a></li>');
-			} else {
-				$(".pagination point").append(
-						'<li class="page-item"><a class="page-link">' + i
-								+ '</a></li>');
-			}
-		}
-		if (useEndPage < usePageCount) {
-			$(".pagination point").append(
-							'<li class="page-item houseZzimNextPage"><a class="page-link">[다음]</a></li>'
-									+ '<li class="page-item houseZzimEndPage"><a class="page-link">[끝]</a></li>');
+	
+	function zzimHouseOk(){
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			document.getElementById("zzimHouseView").innerHTML = xhr.responseText;
+			var currentPage = $("#useCurrentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
 		}
 	}
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<div style="text-align: center;">${memberDto.memberName}님의 장바구니
+	<div id="wrap" style="margin-top: 3rem;">
+		<div style="text-align: center;">${memberDto.memberName}님의장바구니
 			목록입니다</div>
-		<div class="menuL">
+			<div class="menuL" style="margin-top: 8rem;">
 			<ul>
-				<li><a href="${root}/guestdelluna/allMyReview.do">후기</a></li>
+				<li><a href="${root}/guestdelluna/allMyReview.do" style="color: black;">후기</a></li>
 				<c:if test="${memberCode == memberDto.memberCode}">
-					<li><a href="${root}/guestdelluna/memberUpdate.do">회원수정</a></li>
-					<li><a href="${root}/guestdelluna/managePoint.do">포인트관리</a></li>
-					<li><a href="${root}/guestdelluna/payList.do">결제내역</a></li>
+					<li><a href="${root}/guestdelluna/memberUpdate.do" style="color: black;">회원수정</a></li>
+					<li><a href="${root}/guestdelluna/managePoint.do" style="color: black;">포인트관리</a></li>
+					<li><a href="${root}/guestdelluna/payList.do" style="color: black;">결제내역</a></li>
 					<c:if test="${memberLevel == 'Host'}">
 						<hr style="border: 0.0315rem solid #ddd;" />
-						<li><a href="${root}/host/reservationView.do">숙소예약현황</a></li>
-						<li><a href="${root}/host/exReservationView.do">체험예약현황</a></li>
-						<li><a href="${root}/host/salesView.do">매출조회</a></li>
-						<li><a href="${root}/host/houseManagement.do">게스트하우스 관리</a></li>
-						<li><a href="${root}/host/exManagement.do">체험 관리</a></li>
+						<li><a href="${root}/host/reservationView.do" style="color: black;">숙소예약현황</a></li>
+						<li><a href="${root}/host/exReservationView.do" style="color: black;">체험예약현황</a></li>
+						<li><a href="${root}/host/salesView.do" style="color: black;">매출조회</a></li>
+						<li><a href="${root}/host/houseManagement.do" style="color: black;">게스트하우스 관리</a></li>
+						<li><a href="${root}/host/exManagement.do" style="color: black;">체험 관리</a></li>
 					</c:if>
-					<li><a href="${root}/guestdelluna/memberDelete.do">회원탈퇴</a></li>
+					<li><a href="${root}/guestdelluna/memberDelete.do" style="color: black;">회원탈퇴</a></li>
 				</c:if>
 			</ul>
 		</div>
 
-		<div class="menuR">
+		<div class="menuR" style="margin-left: -4rem; margin-top: 5rem;">
 			<div id="tabs" class="container"
-				style="width: 70rem; margin-top: 1.5rem;">
+				style="width: 60rem; margin-top: 1.5rem;">
 				<ul style="border: 0px; background: #ffffff;">
-					<li
-						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: -1rem"><a
+					<li class="expZzim"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
 						href="#fragment-1"><span>체험 장바구니 내역</span></a></li>
-					<li
-						style="float: left; border: 0px; background: #ffffff; margin-top: -3rem; margin-left: 9rem;"><a
+					<li class="houseZzim"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 11rem;"><a
 						href="#fragment-2"><span>게스트하우스 장바구니 내역</span></a></li>
 				</ul>
 				<div id="fragment-1">
-					<div>
-						<c:if test="${countExpZzim==0 }">
-							<span>장바구니에 등록된 체험이 없습니다. 지금 체험들을 둘러보세요!</span>
-						</c:if>
-
-						<c:if test="${countExpZzim>0 }">
-							<table class="table"
-								style="vertical-align: middle; text-align: center;">
-								<thead class="thead-light">
-									<tr style="font-weight: 800;">
-										<td>번호</td>
-										<td>체험 이름</td>
-										<td>체험 날짜</td>
-										<td></td>
-									</tr>
-								</thead>
-
-								<tbody class="pointInfo">
-									<c:forEach var="newExpZzimDto" items="${newExpZzimDto}"
-										varStatus="status">
-										<tr>
-											<td>${status.count}</td>
-											<td>${newExpZzimDto.exName}</td>
-											<td><fmt:formatDate value="${newExpZzimDto.exStartDate}"
-													pattern="yyyy-MM-dd" /></td>
-											<td><button type="button" class="btn btn-primary btn-lg"
-													data-toggle="modal"
-													style="background: #008489; border: 1px solid #008489;"
-													data-target="#myModal">삭제</button></td>
-										</tr>
-										<!-- Modal -->
-										<div class="modal fade" id="myModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h4 class="modal-title" id="myModalLabel"
-															style="text-align: left">장바구니에서 제거</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<div>장바구니에서 제거하시겠습니까?</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-primary"
-															style="background: #008489; border: 1px solid #008489;"
-															onclick="deleteExpState('${root}','${newExpZzimDto.exCode}')">네</button>
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">닫기</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-								</tbody>
-							</table>
-						</c:if>
-						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-						<div class="pointPageContainer">
-							<ul class="pagination">
-
-							</ul>
-						</div>
-					</div>
+					<div id="zzimExpView"></div>
 				</div>
 
 				<div id="fragment-2">
-					<div>
-						<c:if test="${countHouseZzim==0 }">
-							<span>장바구니에 등록된 게스트하우스가 없습니다. 지금 게스트하우스들을 둘러보세요!</span>
-						</c:if>
-
-						<c:if test="${countHouseZzim>0 }">
-							<table class="table"
-								style="vertical-align: middle; text-align: center;">
-								<thead class="thead-light">
-									<tr style="font-weight: 800;">
-										<td>번호</td>
-										<td>게스트하우스 이름</td>
-										<td></td>
-									</tr>
-								</thead>
-
-								<tbody class="useInfo">
-									<c:forEach var="newHouseZzimDto" items="${newHouseZzimDto}"
-										varStatus="status">
-										<tr>
-											<td>${status.count}</td>
-											<td>${newHouseZzimDto.houseName}</td>
-											<td><button type="button" class="btn btn-primary btn-lg"
-													data-toggle="modal"
-													style="background: #008489; border: 1px solid #008489;"
-													data-target="#myModal" onclick="onModal()"
-													style="background: #008489; border: 1px solid #008489;">삭제</button></td>
-										</tr>
-										<!-- Modal -->
-										<div class="modal fade" id="myModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h4 class="modal-title" id="myModalLabel"
-															style="text-align: left">장바구니에서 제거</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<div>장바구니에서 제거하시겠습니까?</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-primary"
-															style="background: #008489; border: 1px solid #008489;"
-															onclick="deleteHouse('${root}','${newHouseZzimDto.houseCode}')">네</button>
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">닫기</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-								</tbody>
-							</table>
-						</c:if>
-
-						<!-- 								5. 페이징 숫자들 넣을 div와 ul을 선언 -->
-						<div class="usePageContainer">
-							<ul class="pagination point">
-
-							</ul>
-						</div>
-					</div>
+					<div id="zzimHouseView"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	$(function() {
-		$('#tabs').tabs();
-	});
-</script>
 </html>

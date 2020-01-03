@@ -10,13 +10,11 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/guestHouse/guestHouseReserve.css">
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/base/jquery-ui.css">
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
 <style type="text/css">
 html{

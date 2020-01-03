@@ -10,10 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/Blitzer/jquery-ui.css">
 <script type="text/javascript" src="${root}/resources/javascript/jquery/Blitzer/jquery-ui.js"></script>
 
@@ -106,14 +106,14 @@ $(document).ready(function(){
 				<div class="top" style="height: auto;/*  border: 0.1rem dotted orange; */">
 					<div class="experience" style="width: 40rem; /* border: 0.1rem dotted black; */ height: 50rem; float: left;">
 						<div id="Info" style="/* border: 0.1rem solid red; */ width: 38rem; height: auto; float: left; margin-left: 3rem;">
-							<div style="font-weight: bold; float: left; width: 10rem;">체험 이름 </div>
-							<div style="width: 60rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 1.5rem;"> ${experienceDto.exName}</div>
+							<div style="font-weight: bold; float: left; width: 10rem; font-size: 1.5rem;">체험 이름 </div>
+							<div style="width: 60rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 1.5rem;font-size: 1.3rem;"> ${experienceDto.exName}</div>
 							
-							<div style="font-weight: bold; float: left; width: 10rem;">주소</div>
-							<div style="width: 60rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem;">${experienceDto.exAddress}</div>
+							<div style="font-weight: bold; float: left; width: 10rem;font-size: 1.5rem;">주소</div>
+							<div style="width: 60rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem;font-size: 1.3rem;">${experienceDto.exAddress}</div>
 							
-							<div style="font-weight: bold;float: left; width: 10rem;">체험 시간</div>
-							<div style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem">${experienceDto.exTime} 시간</div>
+							<div style="font-weight: bold;float: left; width: 10rem;font-size: 1.5rem;">체험 시간</div>
+							<div style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 1.5rem; font-size: 1.3rem;">${experienceDto.exTime} 시간</div>
 							
 						</div>
 						<div id="img" style="margin-top: 13rem; /* border: 0.1rem solid green; */ width: 30rem; height: 30rem;">
@@ -125,21 +125,21 @@ $(document).ready(function(){
 						<span id="revCount">후기   ${review}  개</span> --%>
 					</div>
 					<div style="width:25rem; height:50rem; /* border: 0.1rem dotted purple; */ margin-left: 40rem; padding-top: 8rem;">
-						<div class="reserve" style="/* border: 0.1rem solid black; */ width: 25rem; height: 30rem; margin-top: 5rem;">
+						<div class="reserve" style="/* border: 0.1rem solid black; */ width: 26rem; height: 30rem; margin-top: 5rem;">
 						
 							
-							<div id="Info" style="border: 0.1rem solid #ebebeb; width: 23rem; height: auto; float: left; margin-left: 1rem; padding-top: 3rem;">
-								<div style="font-weight: bold; float: left; width: 10rem;">게스트 </div>
-								<div id="people" style="width: 25rem; margin-left: 4rem; text-align: left; word-break: break-all; margin-bottom: 4rem;"> ${exPeople}명</div>
+							<div id="Info" style="border: 0.1rem solid #ebebeb; width: 25rem; height: auto; float: left; margin-left: 1rem; padding-top: 3rem;">
+								<div style="font-weight: bold; float: left; width: 10rem;font-size: 1.5rem;">게스트 </div>
+								<div id="people" style="width: 25rem; margin-left: 12rem; text-align: left; word-break: break-all; margin-bottom: 4rem;font-size: 1.3rem;"> ${exPeople}명</div>
 								
-								<div style="font-weight: bold; float: left; width: 10rem;">체험 날짜</div>
-								<div id="exDate" style="width: 25rem; word-break: break-all; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 4rem;"> ${exDateS}</div>
+								<div style="font-weight: bold; float: left; width: 10rem;font-size: 1.5rem;">체험 날짜</div>
+								<div id="exDate" style="width: 25rem; word-break: break-all; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;"> ${exDateS}</div>
 								
-								<div style="font-weight: bold;float: left; width: 10rem;">금액</div>
-								<div id="price" style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 4rem">  	${exPayment/exPeople}원 X ${exPeople}명</div>
+								<div style="font-weight: bold;float: left; width: 10rem;font-size: 1.5rem;">금액</div>
+								<div id="price" style="width: 25rem; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;">  	${exPayment/exPeople}원 X ${exPeople}명</div>
 								
-								<div style="font-weight: bold;float: left; width: 10rem;">총합계(KRW)</div>
-								<div id="total" style="width: 25rem; height: auto; margin-left: 0.1rem; text-align: left; margin-bottom: 4rem"> ${exPayment} 원</div>
+								<div style="font-weight: bold;float: left; width: 10rem;font-size: 1.5rem;">총 합계</div>
+								<div id="total" style="width: 25rem; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;"> ${exPayment} 원</div>
 								
 							</div>
 							
@@ -170,7 +170,7 @@ $(document).ready(function(){
 				</select>
 				<br/>
 				
-				<span style="margin-right: 1rem;">point  </span>
+				<span style="margin-right: 1rem; font-size: 1.3rem;">point  </span>
 				<span><input id="usePoint" value="0" min="0"></span>
 				<script>
 					$(function(){
@@ -183,7 +183,7 @@ $(document).ready(function(){
 				</script>
 				<%-- <button id="pointBtn" onclick="pointUseFun(${total})">사용</button> --%>
 				
-				<p id="point" style="margin: 2rem; width: 20rem;"> 사용가능 포인트는   ${point}점 입니다.</p>
+				<p id="point" style="margin: 2rem; width: 22rem; font-size: 1.3rem;"> 사용가능 포인트는   ${point}점 입니다.</p>
 				<!-- <span id="savePoint">적립 포인트: 0점</span> -->
 				<br/>
 			</div>
@@ -191,7 +191,7 @@ $(document).ready(function(){
 		
 		<%-- <button class="btn" onclick="reserveCompleteFun('${root}','${people}','${checkIn},'${checkOut}','${total}')">예약 요청하기</button> --%>
 		<div style="margin-bottom: 5rem; margin-top: 2rem;">
-			<button class="btn btn-info" type="button" id="btn" onclick="exReserveOk('${root}', '${exReserveDto.exCode}','${memberCode}','${exDateS}','${exPeople}','${exPayment}')">예약요청하기</button>
+			<button class="btn btn-info btn-lg" type="button" id="btn" onclick="exReserveOk('${root}', '${exReserveDto.exCode}','${memberCode}','${exDateS}','${exPeople}','${exPayment}')">예약요청하기</button>
 		</div>
 	</div>
 	</div>

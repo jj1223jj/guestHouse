@@ -10,9 +10,7 @@
 <meta charset="UTF-8">
 <title> 후기작성 </title>
 
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js">
-
-</script>
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 <script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
