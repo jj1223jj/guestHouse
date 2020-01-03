@@ -277,8 +277,9 @@ i{
 		
 		<c:forEach var="ho" items="${houseImgDto}" varStatus="i">
 
-			<div id="demo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 20rem; float: left; margin-left: 2rem; margin-top: 5rem;">
-		
+			<div id="demo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 25rem; float: left; margin-left: 2rem; margin-top: 5rem;">
+				<a href="${root}/guestHousePage/guestHouse.do?houseCode=${ho.houseCode}" style="display: block;"/>
+				
 				  <!-- Indicators -->
 				  <ul class="carousel-indicators">
 				    <li data-target="#demo${i.index}" data-slide-to="0" class="active"></li>
@@ -307,15 +308,50 @@ i{
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem;">${ho.houseName}</div>
-				<div style="width: 20rem; text-align: right;">${ho.price}</div>
-				<div style="width: 20rem;">${ho.revRate}</div>
-				<div style="width: 20rem;">${ho.revCount}</div>
+				<div style="width: 20rem; margin-top: 1.5rem;">${ho.houseName}</div>
+				<div style="width: 20rem; text-align: right;">₩ ${ho.price}/박</div>
+				
+				<!-- 별점 출력 -->
+					<div style="width: 4rem; float: left;" >
+						
+						<span class="star-out">
+						   <span class="output">
+						       <input type="hidden" name="star-output" value="${ho.revRate}" id="${ho.revRate}">
+						       <label for="${ho.revRate}"></label>
+						       <c:if test="${ho.revRate==0}">
+						       		<img src="${root}/resources/css/review/star0.png" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${0 < ho.revRate and ho.revRate <= 1}">
+						       		<img src="${root}/resources/css/review/star1.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${1 < ho.revRate and ho.revRate <= 2}">
+						       		<img src="${root}/resources/css/review/star2.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${2 < ho.revRate and ho.revRate <= 3}">
+						       		<img src="${root}/resources/css/review/star3.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${3 < ho.revRate and ho.revRate <= 4}">
+						       		<img src="${root}/resources/css/review/star4.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${4 < ho.revRate and ho.revRate <=5}">
+						       		<img src="${root}/resources/css/review/star5.PNG" style="width: 50px;">
+						       </c:if>
+						   </span>
+						   
+						
+						</span>
+					</div>
+				
+				
+				<%-- <div style="width: 20rem;">${ho.revRate}</div> --%>
+				<div style="width: 20rem;">(${ho.revCount})</div>
+				
+				
+				
 			</div>
 		</c:forEach>
 	</div>
-	
-	<div style="width: 90rem; height: 40rem; margin: 0 auto;"  >
+	<div style="width: 90rem; height: 50rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
 		</div>
@@ -323,7 +359,8 @@ i{
 		<c:forEach var="ex" items="${experienceImgDto}" varStatus="i">
 
 			<div id="exDemo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 20rem; float: left; margin-left: 2rem; margin-top: 5rem;">
-		
+				
+				<a href="${root}/experience/exPage.do?exCode=${ex.exCode}" style="display: block;"/>
 				  <!-- Indicators -->
 				  <ul class="carousel-indicators">
 				    <li data-target="#exDemo${i.index}" data-slide-to="0" class="active"></li>
@@ -334,7 +371,7 @@ i{
 				  <!-- The slideshow -->
 				  <div class="carousel-inner" style="width: 20rem; height: 20rem;">
 				    <div class="carousel-item active" style="width: 20rem; height: 20rem;">
-				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[0].fileName}" alt="Los Angeles">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[0].fileName}" alt="사진이 없습니다.">
 				    </div>
 				    <div class="carousel-item">
 				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[1].fileName}" alt="Chicago">
@@ -352,10 +389,47 @@ i{
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem;">${ex.exName}</div>
-				<div style="width: 20rem; text-align: right;">${ex.exPrice}</div>
-				<div style="width: 20rem;">${ex.revRate}</div>
-				<div style="width: 20rem;">${ex.revCount}</div>
+				<div style="width: 20rem; margin-top: 1.5rem;">${ex.exName}</div>
+				<div style="width: 20rem; text-align: right;">1인당 ₩ ${ex.exPrice}</div>
+				<%-- <div style="width: 20rem;">${ex.revRate}</div> --%>
+				
+				<!-- 별점 출력 -->
+					<div style="width: 4rem; float: left;" >
+						
+						<span class="star-out">
+						   <span class="output">
+						       <input type="hidden" name="star-output" value="${ex.revRate}" id="${ex.revRate}">
+						       <label for="${ex.revRate}"></label>
+						       <c:if test="${ex.revRate==0}">
+						       		<img src="${root}/resources/css/review/star0.png" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${0 < ex.revRate and ex.revRate <= 1}">
+						       		<img src="${root}/resources/css/review/star1.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${1 < ex.revRate and ex.revRate <= 2}">
+						       		<img src="${root}/resources/css/review/star2.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${2 < ex.revRate  and ex.revRate<= 3}">
+						       		<img src="${root}/resources/css/review/star3.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${3 < ex.revRate and ex.revRate <= 4}">
+						       		<img src="${root}/resources/css/review/star4.PNG" style="width: 50px;">
+						       </c:if>
+						       <c:if test="${4 < ex.revRate and ex.revRate <= 5}">
+						       		<img src="${root}/resources/css/review/star5.PNG" style="width: 50px;">
+						       </c:if>
+						   </span>
+						   
+						
+						</span>
+					</div>
+				
+				
+				<div style="width: 20rem;">(${ex.revCount})</div>
+				
+				
+				
+				
 			</div>
 		</c:forEach>
 	</div>

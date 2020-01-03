@@ -92,10 +92,11 @@ text-align: -webit-center;
 #exinfo> ul > li >p{
 text-align: center;
 height: 3rem;
+font-size: 1.2rem;
 }
 
 ul > li >label{
-font-size: 1.3rem;
+font-size: 1.5rem;
 text-align: center;
 margin: 2rem;
 font-weight: bold;
@@ -158,24 +159,24 @@ list-style: none;
 			 <ul style="width: 20rem; height:20rem; /* border: 0.1rem dotted orange; */ float: left; margin-right: 3rem;" > 
 		         <li style="width: 16rem; height: auto;">
 		            <label>체험이름</label>
-		            <p class="text-secondary">${experienceDto.exName}</p>
+		            <p class="text-secondary" style="width: 16rem; height: 30rem; text-align: left;">${experienceDto.exName}</p>
 		    		<input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
 		    	 </li>
 		   	 </ul>
 		     <ul style="width: 76rem; /* height: 30rem; */ border: 0.1rem dotted khaki; display: table-header-group;">	
 		    	<li style="width: 10rem;">	
 		    		<label>진행시간</label>
-		    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}</p>
+		    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}시간</p>
 		    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
 		    	</li>
 		    	<li>	
 		    		<label>인원</label>
-		    		<p class="text-secondary">${experienceDto.exPeople}</p>
+		    		<p class="text-secondary">${experienceDto.exPeople}명</p>
 		    	</li>
 		    	
 		    	<li>	
 		    		<label>가격</label>
-		    		<p class="text-secondary">${experienceDto.exPrice}</p>
+		    		<p class="text-secondary">${experienceDto.exPrice}원</p>
 		    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
 		    	</li>
 		    	
@@ -207,7 +208,7 @@ list-style: none;
 		    	
 		        
 		         <li style="width: 49rem; height: auto; ">
-		         	<label>프로그램설명</label>
+		         	<label>프로그램 설명</label>
 		         	<div class="text-secondary" style="width: 48rem; height: auto; word-break:break-all;text-align: left;">${experienceDto.exExplain}</div>
 		    		<input type="hidden" name="exExplain" id="exExplain" value="${experienceDto.exExplain}"/>
 		    		
@@ -221,7 +222,7 @@ list-style: none;
 			<div style="width: 100%; height: 30rem; border-top: 0.2rem solid #ebebeb;border-bottom: 0.2rem solid #ebebeb; margin-top: 5rem;">
 				<div style="width: 25rem; height: 25rem; /* border: 0.1rem dotted black;  */float: left; margin-left: 5rem;margin-top: 2rem;">	         
 			      <div style="width: 20rem; height: auto;">
-			       	<label style="margin-top: 2rem; font-weight: bold;">예약가능날짜</label>
+			       	<label style="margin-top: 2rem; font-weight: bold; font-size: 1.5rem;">예약가능날짜</label>
 			        <div type="text" id="date" name="date" style="margin-top: 3rem;"></div>
 			      </div>
 			        
@@ -280,9 +281,9 @@ list-style: none;
 				<!-- 예약하기 -->
 				<div style="width: 40rem; height: 26rem; /* border: 0.1rem dotted black; */ margin-left: 35rem; margin-top: 2rem; margin-bottom: 10rem;">
 					<form action="${root}/experience/exReserve.do"  method="get" name="exForm">
-						<div style="width:30rem; height:22rem;  border: 0.1rem solid #e4e4e4; margin-top: 2.8rem;">
+						<div style="width:30rem; height:22rem;  border: 0.1rem solid #e4e4e4; margin-top: 3.5rem;">
 						
-							<p style="width: 20rem; margin-bottom: 4rem; margin-top: 1rem; font-weight: bold;">예약하기</p>
+							<p style="width: 20rem; margin-bottom: 4rem; margin-top: 1rem; font-weight: bold; font-size: 1.5rem;">예약하기</p>
 							
 							<div  style="width:28rem;">
 								
@@ -356,7 +357,7 @@ list-style: none;
 								</c:if>
 								
 								<c:if test="${sessionScope.email== null}">
-									<p>로그인 후에 예약이 가능합니다.</p>
+									<p>로그인 후 예약이 가능합니다.</p>
 								</c:if>
 								
 							</div>
@@ -368,7 +369,7 @@ list-style: none;
 			<!-- 후기 전체 -->
 			<div style="width: 70rem; height: auto; /* border: 0.1rem dotted orange; */ margin: 4rem;">
 				<div style="width: 10rem; height: 10rem; /* border: 0.1rem solid skyblue; */ float: left; line-height: 7rem;">
-					<div style="/* margin-top: 5rem; */ height: 4rem; font-weight: bold; font-size: 1.3rem;">게스트 후기</div>
+					<div style="/* margin-top: 5rem; */ height: 4rem; font-weight: bold; font-size: 1.5rem; line-height: 2rem;">게스트 후기</div>
 				
 					<c:if test="${count !=0}">
 						<div>
@@ -492,7 +493,7 @@ list-style: none;
 					        <input type="hidden" name="memberName" id="memberName" value="${memberDto.memberName}">
 					     </li>
 					     <li style="width: 45rem; margin-bottom: 3rem;">	
-					        <label style="width: 9rem; float: left; margin: 0 auto;">회원가입 날짜</label>
+					        <label style="width: 10rem; float: left; margin: 0 auto;">회원가입 날짜</label>
 					        <fmt:formatDate var="regDate" pattern="yyyy년 MM월 dd일" value="${memberDto.regDate}"/>
 					    	<p class="text-secondary" style="width: 18rem; text-align: left;">${regDate}</p>
 					        <input type="hidden" name="regDate" id="regDate" value="${regDate}">
@@ -507,7 +508,7 @@ list-style: none;
 	          </div>	
          	 <!-- 체험 지도 -->  
 			 <div style="/* border: 0.1rem solid black; */ width: 70rem; margin-top: 3rem; margin-bottom: 5rem;">  
-	      		<div style="width:15rem; height:30rem; line-height:30rem; float: left; font-size: 1.3rem; font-weight: bold;">체험장소</div>
+	      		<div style="width:15rem; height:30rem; line-height:30rem; float: left; font-size: 1.5rem; font-weight: bold;">체험장소</div>
 	      			
 		        <div id="exMap" style="width: 40rem;height: 30rem; margin-left: 15rem;"></div>
 						
@@ -543,7 +544,7 @@ list-style: none;
 						});
 				</script>
 				
-				<p style="width: 40rem; height: auto; margin-left: 15rem; word-break: break-all; text-align: left; margin-top: 1.5rem;"> ${experienceDto.exAddress}</p>
+				<p style="width: 40rem; height: auto; margin-left: 15rem; word-break: break-all; text-align: left; margin-top: 1.5rem; font-size: 1.3rem;"> ${experienceDto.exAddress}</p>
 	         </div>
 	         <!-- 지도 -->
           
