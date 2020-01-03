@@ -117,7 +117,8 @@ list-style: none;
 	            <label>사진</label>
 	            <input multiple="multiple" type="file" name="subImg" id="subImg"/>
 	            <br/>
-	            <div class="subImgDiv" onclick="subUpload()">
+	            <input type="button" class="subBtn" value="내부사진업로드" onclick="subUpload()" style="margin-bottom: 1rem"/>
+	            <div class="subImgDiv">
 	            </div>
 	         </li>
 	         <li>

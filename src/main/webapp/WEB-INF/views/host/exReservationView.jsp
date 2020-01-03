@@ -94,7 +94,7 @@
 
 	<div class="menuR">
 	
-	<h3>예약현황</h3>
+	<h3>숙소 예약현황</h3>
 	<select name="exNameList" id="exNameList" onchange="toServer('${root}' , '')">
 		<option>체험을 선택하세요</option>
 		<c:forEach var="exNameList" items="${exNameList}">

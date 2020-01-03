@@ -19,7 +19,7 @@
 		<div class="container">
 	   <table class="table table-hover">
 	   <thead align="center">
-	      <tr>
+	      <tr style="background-color: #f7f7f7">
 	         <th align="center" height="20"  width="80">예약일</th> 
 	         <th align="center" height="20"  width="80">예약자</th> 
 	         <th align="center" height="20"  width="80">예약인원</th> 

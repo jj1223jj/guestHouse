@@ -95,7 +95,7 @@
 
 	<div class="menuR">
 	
-	<h3>예약현황</h3>
+	<h3>숙소 예약현황</h3>
 	<select name="houseList" id="houseList" onchange="toServer('${root}' , '')">
 		<option>숙소를 선택하세요</option>
 		<c:forEach var="houseNameList" items="${houseNameList}">

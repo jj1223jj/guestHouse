@@ -1076,6 +1076,12 @@ public class DellunaServiceImp implements DellunaService {
 		for (int i = 0; i < exReviewList.size(); i++) {
 			HomeAspect.logger.info(HomeAspect.logMsg + "exReviewList: " + exReviewList.get(i).toString());
 		}
+		
+		//숙소 후기 개수
+		int houseReviewCount = dellunaDao.getHouseReviewCount(memberCode);
+		
+		//체험 후기 개수
+		int exReviewCount = dellunaDao.getExReviewCount(memberCode);
 
 		String pageNumber = request.getParameter("pageNumber");
 		if (pageNumber == null)
@@ -1084,7 +1090,9 @@ public class DellunaServiceImp implements DellunaService {
 		int currentPage = Integer.parseInt(pageNumber);
 
 		int housecurrentPage = Integer.parseInt(housePageNumber);
-
+		
+		mav.addObject("exReviewCount", exReviewCount);
+		mav.addObject("houseReviewCount", houseReviewCount);
 		mav.addObject("hostHouseList", hostHouseList);
 		mav.addObject("hostExList", hostExList);
 		mav.addObject("houseReviewList", houseReviewList);
