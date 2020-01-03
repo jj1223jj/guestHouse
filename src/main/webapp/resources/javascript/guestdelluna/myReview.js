@@ -1,20 +1,13 @@
 /**
  * 
  */
+function delExpRev(root, value) {
+	// alert("hhhh")
+	var url = root + "/guestdelluna/reviewDelete.do";
 
-function submitExpUp(root, exReserveCode, exContent) {
+	var params = "value=" + value;
 
-	alert(root)
-	alert(exReserveCode)
-	alert(exContent)
-
-	/*
-	 * var url = root + "/guestdelluna/reviewUpdate.do";
-	 * 
-	 * var params = "exValue=" + exValue;
-	 * 
-	 * sendRequest("GET", url, updateReviewFromServer, params);
-	 */
+	sendRequest("GET", url, delCallBackFromServer, params);
 }
 
 function delCallBackFromServer() {
@@ -24,13 +17,24 @@ function delCallBackFromServer() {
 	}
 }
 
-function delExpRev(root, value) {
-	// alert("hhhh")
-	var url = root + "/guestdelluna/reviewDelete.do";
+function expUpdateOk(root, expUpResCode, i) {
 
-	var params = "value=" + value;
+	var str = "";
 
-	sendRequest("GET", url, delCallBackFromServer, params);
+	var expRevContent = document.getElementsByName("expRevContent");
+
+	if (expRevContent[i - 1].value != "") {
+
+		str = expRevContent[i - 1].value;
+
+	}
+	alert(str);
+
+	var url = root + "/guestdelluna/reviewUpdateOk.do";
+
+	var params = "expUpResCode=" + expUpResCode + "&expRevContent=" + str
+
+	sendRequest("GET", url, updateCallBack, params);
 }
 
 function delHouseRev(root, hsValue) {
@@ -43,41 +47,35 @@ function delHouseRev(root, hsValue) {
 
 }
 
+function delCallBackFromServer() {
+	if (xhr.readyState == 4 && xhr.status == 200) {
+		alert("후기 삭제 완료됐습니다");
+		setTimeout("location.reload()");
+	}
+}
+
+function houseUpdateOk(root, houseResCode,i) {
+
+	var str = "";
+
+		var houseRevContent = document.getElementsByName("houseRevContent");
+
+		if (houseRevContent[i-1].value != "") {
+			str = houseRevContent[i-1].value;
+		}
+		alert(str);
+		alert(houseResCode);
+
+		var url = root + "/guestdelluna/houseReviewUpdateOk.do";
+		var params = "houseUpResCode=" + houseResCode + "&houseRevContent=" + str;
+
+	sendRequest("GET", url, updateCallBack, params);
+
+}
+
 function updateCallBack() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
 		alert("수정 완료됐습니당");
 		location.reload();
 	}
-}
-
-function focusExpReview(i) {
-
-	var modal = document.getElementsByClassName("modal");
-	modal[i-1].style.display = "block";
-
-}
-
-function closeModal(root, i) {
-
-	var modal = document.getElementsByClassName("modal");
-	modal[i-1].style.display = "none";
-
-}
-
-function expUpdateOk(root, expUpResCode) {
-
-	var expReview = document.getElementsByName("expReview");
-	var str = "";
-	for (var i = 0; i < expReview.length; i++) {
-		var expRevContent = document.getElementsByClassName("expRevContent");
-
-		if (expRevContent[i].value != "") {
-			str = expRevContent[i].value;
-		}
-
-		var url = root + "/guestdelluna/reviewUpdateOk.do?";
-		var params = "expUpResCode=" + expUpResCode + "&expRevContent=" + str
-	}
-
-	sendRequest("POST", url, updateCallBack, params);
 }

@@ -10,9 +10,17 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/guestHouse/guestHouseReserve.css">
 
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/base/jquery-ui.css">
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 <script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
+<style type="text/css">
+html{
+	font-size: 16px;
+}
+</style>
 <script type="text/javascript">
 
 	function reserveCompleteFun(root, houseCode, memberCode, checkIn, checkOut, people, total){
@@ -59,6 +67,7 @@
 <body>
 	<div class="rePage">
 		<p>숙소 이용규칙 확인하기</p>
+		<hr color="#CCCCCC"/>
 		<div class="top">
 			<div class="guestHouse">
 				<div id="explain">
@@ -66,20 +75,20 @@
 					<p>${hostDto.explain}</p>
 				</div>
 				<div id="ghImg">
-					<img src="<spring:url value='/image/${mainImg}' />" />
+					<img style="width: 100%; height: 100%;" src="<spring:url value='/image/${mainImg}' />" />
 				</div>
 				<!-- <span id="star">평점: </span>&nbsp;&nbsp;&nbsp;
 				<span id="revCount">후기     개</span> -->
 			</div>
 			<div class="reserve">
 				<div id="wrap">
-					<img alt="icon" src="./../resources/css/images/Icon/people.png" width="16px" height="16px">
+					<img alt="icon" src="./../resources/css/images/Icon/people.png" style="width: 1rem; height:1rem;">
 					<span id="people">게스트 ${people}명</span>
 				</div>
 				<div id="wrap">
-					<img alt="icon" src="./../resources/css/images/Icon/Calendar.png" width="16px" height="16px">
+					<img alt="icon" src="./../resources/css/images/Icon/Calendar.png"style="width: 1rem; height:1rem;">
 					<span id="checkIn">${checkIn} (${hostDto.checkInTime})</span>&nbsp;
-					<img alt="icon" src="./../resources/css/images/Icon/Next.png" width="16px" height="16px">
+					<img alt="icon" src="./../resources/css/images/Icon/Next.png" style="width: 1rem; height:1rem;">
 					&nbsp;<span id="checkOut">${checkOut} (${hostDto.checkOutTime})</span>
 				</div>
 				<p id="price">금액                        	₩${hostDto.price} X ${night}박 X ${people}명</p>

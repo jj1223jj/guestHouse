@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.aop.HomeAspect;
-import com.java.exreview.dto.ExReviewListDto;
 import com.java.file.dto.FileDto;
 import com.java.guestHouse.dao.GuestHouseDao;
 import com.java.guestReserve.dto.GuestReserveDto;
@@ -53,6 +52,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
+		System.out.println("houseCode: "+houseCode);
 		
 //		int houseCode=13;
 //		int houseCode = 20;
@@ -189,6 +189,8 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		
 		
 		mav.addObject("hostDto",hostDto);
+//		mav.addObject("explain",(hostDto.getExplain()).replaceAll("\r\n", "<br>"));
+//		mav.addObject("etc",(hostDto.getEtc()).replaceAll("\r\n", "<br>"));
 		mav.addObject("fileList",fileList);
 		mav.addObject("host",host);
 		mav.addObject("regDate",regDate);
@@ -445,7 +447,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("check", check);
-		mav.addObject("exCode",houseCode);
+		mav.addObject("houseCode",houseCode);
 		
 		mav.setViewName("guestHousePage/reviewDelete.tiles");
 	}
@@ -746,7 +748,9 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		mav.addObject("payment",guestReserveDto.getPayment());
 		mav.addObject("houseName",hostDto.getHouseName());
 		mav.addObject("explain",hostDto.getExplain());
+		mav.addObject("account",hostDto.getAccount());
 		mav.addObject("mainImg",mainImg);
+		mav.addObject("resPoint",resPoint);
 		//mav.addObject("memberDto",memberDto);
 		
 		mav.setViewName("guestHousePage/guestHouseReservOk.tiles");

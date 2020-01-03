@@ -59,22 +59,24 @@ public interface DellunaService {
 
 	void houseReviewUpdateOk(ModelAndView mav);
 
-	void pointManageAjax(ModelAndView mav);
-
 	void pointManageUseAjax(ModelAndView mav);
 
-	void zzimExpAjax(ModelAndView mav);
-
-	void zzimHouseAjax(ModelAndView mav);
+	void pointManageAjax(ModelAndView mav);
 
 	void payExpAjax(ModelAndView mav);
 
 	void payHouseAjax(ModelAndView mav);
+
+	void zzimExpAjax(ModelAndView mav);
+
+	void zzimHouseAjax(ModelAndView mav);
 
 	void revExpAjax(ModelAndView mav);
 
 	void revHouseAjax(ModelAndView mav);
 
 	void doExZzim(String memberCode, String exCode, String zzim);
+
+
 
 }

@@ -280,7 +280,7 @@ function moreView(root,emailSession,exCode){
                    // htmls += '<p>' + data.length +'</p>'
                     //
 
-                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 ">';
+                    htmls += '<p style="display:block; width:100%; height:2rem;" class="media-body pb-3 mb-0 small lh-125 ">';
 
                     htmls += '<span class="d-block" style="width:15rem; board:0.1rem solid red; float: left;">';
 
@@ -450,6 +450,7 @@ function reviewModalUpdate(form){
             
             var formatDate = year + "년 " + month + "월 " + date + "일 ";
             
+//            $('.')
             $($($(div.children()[0]).children()[2]).children("img")[0]).attr("src",proot+'/resources/css/review/star'+revRate+'.PNG');
 			$($(div.children()[0]).children()[1]).text(formatDate);
 			$(div.children("div")[2]).text(revContent);
@@ -467,7 +468,7 @@ function reviewModalUpdate(form){
 }
 
 function ghMoreView(root,emailSession,houseCode){
-//	alert("root:"+root+ emailSession+ houseCode);
+	alert("root:"+root+ emailSession+ houseCode);
 	++pageNumber;
 	//alert(emailSession +"," +exCode);
 	var url = root + "/guestHousePage/review.do?";
@@ -482,9 +483,9 @@ function ghMoreView(root,emailSession,houseCode){
 		url: url + params,
 		dataType: "JSON",
 		success: function(data) {
-			console.log(data.count);
-			console.log(data.reviewList[0]);
-			alert(data.reviewList[0]);
+			//console.log(data.count);
+			//console.log(data.reviewList[0]);
+			//alert(data.reviewList[0]);
 			
 			var htmls="";
 			var btn="";
@@ -511,7 +512,7 @@ function ghMoreView(root,emailSession,houseCode){
                     
                     var formatDate = year + "년 " + month + "월 " + date + "일 "; 
 
-                    htmls += '<div style="border-bottom: 0.063rem solid #dee2e6!important;" class="num'+this.exReserveCode+'media text-muted pt-3" id="rid">';
+                    htmls += '<div style="border-bottom: 0.063rem solid #dee2e6!important;" class="num'+this.reserveCode+'media text-muted pt-3" id="rid">';
 
                     htmls += '<p class="media-body pb-3 mb-0 small lh-125 ">';
 
@@ -553,7 +554,7 @@ function ghMoreView(root,emailSession,houseCode){
 
                     htmls += '</span>';
                 
-                    htmls +=  '<div id="contentReview" style="border:0.1rem solid grey; width: 38rem; height:auto; word-break:break-all; margin-top:1rem; margin-bottom:1rem; text-align:left; display:inline-block; padding:0.3rem;">' + this.revContent +'</div>' ;
+                    htmls +=  '<div id="contentReview" style="width: 38rem; height:auto; word-break:break-all; margin-top:1rem; margin-bottom:1rem; text-align:left; display:inline-block; padding:0.3rem;">' + this.revContent +'</div>' ;
 
                     htmls += '</p>';
 
@@ -652,7 +653,7 @@ function ghReviewModalUpdate(form){
             
             $($($(div.children()[0]).children()[2]).children("img")[0]).attr("src",proot+'/resources/css/review/star'+revRate+'.PNG');
 			$($(div.children()[0]).children()[1]).text(formatDate);
-			$(div.children("div")[2]).text(revContent);
+			$(div.children("div")[1]).text(revContent);
 			console.log($("#updateModal"));
 			$("#updateModal").modal("hide");
 			

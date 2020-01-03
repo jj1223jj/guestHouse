@@ -9,11 +9,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 <script type="text/javascript" src="${root}/resources/javascript/host/register.js"></script>
 <link rel="stylesheet" type="text/css" href="${root}/resources/css/host/register.css"/>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc&libraries=services"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 <script type="text/javascript">
 	
 </script>
@@ -26,17 +30,15 @@
 			<c:if test="${empty memberDto.memberImgName}">
 			<li>
 				<label>프로필 사진 추가</label>
-				<p>게스트는 프로필 사진을 반드시 추가해야합니다. 게스트에게 나를 알릴 수 있는 사진을 등록해주세요</p>
+				<p class="textColor">게스트는 프로필 사진을 반드시 추가해야합니다. 게스트에게 나를 알릴 수 있는 사진을 등록해주세요.</p>
 				<input type="file" id="profileImg" name="profileImg" onchange="profile()" accept="image/*"/>
 				<!-- <input type="button" value="사진 업로드 하기" onclick="profileUpload()"> --> 
 				<div class="profileDiv" onclick="profileUpload()">
 					<img src="" id="profileView"/>
 				</div>
 				<label>자기 소개</label>
-				<p>게스트에게 나를 소개해보세요!</p>
-				<textarea rows="10" cols="60" name="memberInfo" id="memberInfo">
-					${memberDto.memberInfo}
-				</textarea>
+				<p class="textColor">게스트에게 나를 소개해보세요!</p>
+				<textarea rows="10" cols="60" name="memberInfo" id="memberInfo">${memberDto.memberInfo}</textarea>
 			</li>
 			</c:if>
 			<li>
@@ -68,9 +70,8 @@
 			<li>
 				<label>내부 사진</label>
 				<input multiple="multiple" type="file" name="subImg" id="subImg" accept="image/*"/>
-				<br/>
-				<div class="subImgDiv" onclick="subUpload()">
-				</div>
+				<input type="button" class="subBtn" value="내부사진업로드" onclick="subUpload()" style="margin-bottom: 1rem"/>
+				<div class="subImgDiv"></div>
 			</li>
 			<li>
 				<label>인원 수</label>
@@ -89,23 +90,53 @@
 			</li>
 			<li>
 				<label>설명</label>
-				<textarea rows="15" cols="60"name="explain" id="explain"></textarea>
+				<textarea rows="8" cols="60"name="explain" id="explain"></textarea>
 				<br/>
 			</li>
 			<li>
 				<label>편의시설</label>
-				<input type="checkbox" name="necessary" id="necessary"/>필수품목(수건,비누,화장지,베개)
-				<input type="checkbox" name="wifi" id="wifi"/>와이파이
-				<input type="checkbox" name="washer" id="washer"/>세탁기
-				<input type="checkbox" name="hotWater" id="hotWater"/>온수
-				<br/>
-				<input type="checkbox" name="aircon" id="aircon"/>에어컨
-				<input type="checkbox" name="tv" id="tv"/>티비
-				<input type="checkbox" name="mart" id="mart"/>편의점
-				<input type="checkbox" name="parking" id="parking"/>주차시설
-				<input type="checkbox" name="kitchen" id="kitchen"/>주방
-				<input type="checkbox" name="safety" id="safety"/>안전시설
-				<br/>
+				<div width="100%" height="14rem" style="width:100%; height:14rem">
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="wifi" id="wifi"/>
+				<label class="custom-control-label" for="wifi">와이파이</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3" style="width: 19rem !important;">
+				<input type="checkbox" class="custom-control-input" name="necessary" id="necessary"/>
+				<label class="custom-control-label" for="necessary">필수품목(수건,비누,화장지,베개)</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="washer" id="washer"/>
+				<label class="custom-control-label" for="washer">세탁기</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="hotWater" id="hotWater"/>
+				<label class="custom-control-label" for="hotWater">온수</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="aircon" id="aircon"/>
+				<label class="custom-control-label" for="aircon">에어컨</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="tv" id="tv"/>
+				<label class="custom-control-label" for="tv">티비</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="mart" id="mart"/>
+				<label class="custom-control-label" for="mart">편의점</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="parking" id="parking"/>
+				<label class="custom-control-label" for="parking">주차시설</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="kitchen" id="kitchen"/>
+				<label class="custom-control-label" for="kitchen">주방</label>
+				</div>
+				<div class="custom-control custom-checkbox mb-3">
+				<input type="checkbox" class="custom-control-input" name="safety" id="safety"/>
+				<label class="custom-control-label" for="safety">안전시설</label>
+				</div>
+				</div>
 			</li>
 			<li>
 				<label>체크인</label>
@@ -204,7 +235,7 @@
 			</li>
 			<li>
 				<label>기타사항</label>
-				<textarea rows="15" cols="60" name="etc" id="etc"></textarea>
+				<textarea rows="8" cols="60" name="etc" id="etc"></textarea>
 				<br/>
 			</li>
 			<li>

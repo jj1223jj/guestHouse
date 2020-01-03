@@ -22,6 +22,7 @@ import com.java.aop.HomeAspect;
 import com.java.experience.dto.ExperienceDto;
 import com.java.file.dto.FileDto;
 import com.java.guestReserve.dto.GuestReserveDto;
+import com.java.guestdelluna.service.DellunaService;
 import com.java.host.dao.HostDao;
 import com.java.host.dto.ExReservationListDto;
 import com.java.host.dto.HostDto;
@@ -59,34 +60,35 @@ public class HostServiceImp implements HostService {
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
 		HomeAspect.logger.info(HomeAspect.logMsg + email);
-		MultipartFile upFile = request.getFile("profileImg");
 		
-		long profileFileSize = upFile.getSize();
-		String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
-		
-		File path = new File("c:/profile");
-		path.mkdir();
-		
-		if (path.exists() && path.isDirectory()) {
-			File file = new File(path, fileName);
+		if (request.getFile("profileImg") != null) {
+			MultipartFile upFile = request.getFile("profileImg");
+			long profileFileSize = upFile.getSize();
+			String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
 			
-			try {
-				upFile.transferTo(file);
-			}catch(IOException e) {
-				e.printStackTrace();
+			File path = new File("c:/profile");
+			path.mkdir();
+			
+			if (path.exists() && path.isDirectory()) {
+				File file = new File(path, fileName);
+				
+				try {
+					upFile.transferTo(file);
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				
+				MemberDto memberDto = new MemberDto();
+				memberDto.setMemberInfo(request.getParameter("memberInfo").replace("\r\n", "<br/>"));
+				memberDto.setMemberImgSize(profileFileSize);
+				memberDto.setMemberImgName(fileName);
+				memberDto.setMemberImgPath(path.getAbsolutePath());
+				memberDto.setEmail(email);
+				HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
+				
+				int profileCheck = hostDao.memberProfileImg(memberDto);
 			}
-			
-			MemberDto memberDto = new MemberDto();
-			memberDto.setMemberInfo(request.getParameter("memberInfo"));
-			memberDto.setMemberImgSize(profileFileSize);
-			memberDto.setMemberImgName(fileName);
-			memberDto.setMemberImgPath(path.getAbsolutePath());
-			memberDto.setEmail(email);
-			HomeAspect.logger.info(HomeAspect.logMsg + memberDto.toString());
-			
-			int profileCheck = hostDao.memberProfileImg(memberDto);
 		}
-		
 		
 		
 		
@@ -125,10 +127,13 @@ public class HostServiceImp implements HostService {
 		hostDto.setBed(Integer.parseInt(request.getParameter("bed")));
 		hostDto.setPeople(Integer.parseInt(request.getParameter("people")));
 		hostDto.setPrice(Integer.parseInt(request.getParameter("price")));
+		hostDto.setExplain(request.getParameter("explain").replace("\r\n", "<br/>"));
+		hostDto.setEtc(request.getParameter("etc").replace("\r\n", "<br/>"));
 		hostDto.setHouseRegDate(new Date());
 		HomeAspect.logger.info(HomeAspect.logMsg + hostDto.toString());
 		
 		int hostRegisterCheck = hostDao.hostRegister(hostDto);
+		mav.addObject("hostRegisterCheck", hostRegisterCheck);
 		
 		//-----------------------숙소번호가져오기
 		int houseCode = hostDao.houseCode();
@@ -141,9 +146,9 @@ public class HostServiceImp implements HostService {
 		String mainFileName = Long.toString(System.currentTimeMillis()) + "_" + mainFile.getOriginalFilename();
 		
 		File mainFilePath = new File("c:/pds");
-		path.mkdir();
+		mainFilePath.mkdir();
 		
-		if (path.exists() && path.isDirectory()) {
+		if (mainFilePath.exists() && mainFilePath.isDirectory()) {
 			File file = new File(mainFilePath, mainFileName);
 			
 			try {
@@ -159,7 +164,8 @@ public class HostServiceImp implements HostService {
 			fileDto.setFileSize(mainFileSize);
 			HomeAspect.logger.info(HomeAspect.logMsg + fileDto.toString());
 			
-			int profileCheck = hostDao.mainImgUpload(fileDto);
+			int mainImgUploadCheck = hostDao.mainImgUpload(fileDto);
+			mav.addObject("mainImgUploadCheck", mainImgUploadCheck);
 		}
 		
 		
@@ -192,13 +198,15 @@ public class HostServiceImp implements HostService {
 				fileDto.setFileSize(fileSize);
 				
 				int check = hostDao.subImgUpload(fileDto);
+				mav.addObject("check", check);
 				
 				HomeAspect.logger.info(HomeAspect.logMsg + fileDto);
 				HomeAspect.logger.info(HomeAspect.logMsg + check);
 			}
 		}
-
-		mav.setViewName("guestdelluna/myInfo.tiles");
+		
+		
+		mav.setViewName("host/registerOk.tiles");
 	}
 
 	@Override

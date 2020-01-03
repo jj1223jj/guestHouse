@@ -9,24 +9,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 
-<link rel="stylesheet"
-	href="${root}/resources/javascript/jquery/base/jquery-ui.css">
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc"></script>
-<link rel="stylesheet"
-	href="${root}/resources/css/guestHouse/guestHousePage.css" />
+<link rel="stylesheet" href="${root}/resources/javascript/jquery/base/jquery-ui.css">
+<script type="text/javascript" src="${root}/resources/javascript/jquery/base/jquery-ui.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50ff539a80f0de17cdf30d7ef1f997fc"></script>
+<link rel="stylesheet" href="${root}/resources/css/guestHouse/guestHousePage.css" />
 
-<script src="${root}/resources/javascript/review/review.js"
-	type="text/javascript"></script>
+<script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
 <link rel="stylesheet" href="${root}/resources/css/review/review.css" />
 
 <style type="text/css">
@@ -34,6 +26,35 @@ html {
 	font-size: 16px;
 }
 </style>
+<!-- <script>
+$(document).ready(function(){
+	
+	var divs = document.querySelectorAll('.img div');
+
+	for(var i=0; i<divs.length;++i){
+		var div = divs[i];
+		var divAspect = div.offsetHeight/div.offsetWidth;
+		div.style.overflow='hidden';
+		
+		var img = div.querySelector('#exImg');
+		var imgAspect = div.height / div.width;
+		
+		
+		if(imgAspect <= divAspect){
+			// 이미지가 div보다 작은경우 세로를 div에 맞추고 잘라낸다
+			var imgWidthActual = div.offsetHeight/ imgAspect;
+			var imgWidthToBe = div.offsetHeight / divAspect;
+			var marginLeft = -Math.round((imgWidthActual - imgWidthToBe)/2);
+			img.style.cssText = 'width: auto; height: 100%; margin-left:'+marginLeft+'rem;'
+			
+		}else{
+			//이미지가 div보다 긴 경우 가로를 div에 맞추고 세로를 잘라냄
+			img.style.cssText='width:100% height:auto; margin-left:0;';
+		}
+	}
+	
+});
+</script> -->
 <script>
 $(function(){
 	ghLoad('${root}' ,'${sessionScope.email}','${hostDto.houseCode}');
@@ -185,14 +206,14 @@ $(function(){
 					<c:if test="${fileDto.fileName!=null}">
 						<c:if test="${(list.index)%2!=0}">
 							<div
-								style="width: 50%; height: 50%; border: 0.2rem solid green; float: left;">
+								style="width: 50%; height: 50%; /* border: 0.2rem solid green; */ float: left;">
 								<img id="exImg" alt="img loading"
 									src="<spring:url value='/image/${fileDto.fileName}' />" />
 							</div>
 						</c:if>
 						<c:if test="${(list.index)%2==0}">
 							<div
-								style="width: 50%; height: 50%; border: 0.2rem solid green; display: inline-block;">
+								style="width: 50%; height: 50%; /* border: 0.2rem solid green;  */display: inline-block;">
 								<img id="exImg" alt="img loading"
 									src="<spring:url value='/image/${fileDto.fileName}' />" />
 							</div>
@@ -207,25 +228,81 @@ $(function(){
 		<div class="guestHouse">
 			<div class="name">${hostDto.houseName}</div>
 
-			<div class="explain">${hostDto.explain}</div>
+			<div class="explain">${explain}</div>
 			<br />
 
 			<div class="facilites">
 				<p>편의시설</p>
 				<div id="fRight">
-					<p id="necessary">necessary : ${hostDto.necessary}</p>
-					<p id="wifi">wifi : ${hostDto.wifi}</p>
-					<p id="hotWater">hotWater : ${hostDto.hotWater}</p>
-					<p id="aircon">aircon : ${hostDto.aircon}</p>
-					<p id="safety">safety : ${hostDto.safety}</p>
+					<c:if test="${hostDto.necessary != 'on'}">
+						<p id="necessary" style="text-decoration: line-through;"> necessary </p>
+					</c:if>
+					<c:if test="${hostDto.necessary == 'on'}">
+						<p id="necessary"> necessary </p>
+					</c:if>
+					
+					<c:if test="${hostDto.wifi != 'on'}">
+						<p id="wifi" style="text-decoration: line-through;"> wifi </p>
+					</c:if>
+					<c:if test="${hostDto.wifi == 'on'}">
+						<p id="wifi">wifi</p>
+					</c:if>
+					
+					<c:if test="${hostDto.hotWater != 'on'}">
+						<p id="hotWater" style="text-decoration: line-through;"> hotWater </p>
+					</c:if>
+					<c:if test="${hostDto.hotWater == 'on'}">
+						<p id="hotWater">hotWater</p>
+					</c:if>
+					
+					<c:if test="${hostDto.aircon != 'on'}">
+						<p id="aircon" style="text-decoration: line-through;"> aircon </p>
+					</c:if>
+					<c:if test="${hostDto.aircon == 'on'}">
+						<p id="aircon">aircon</p>
+					</c:if>
+					
+					<c:if test="${hostDto.safety != 'on'}">
+						<p id="safety" style="text-decoration: line-through;"> safety </p>
+					</c:if>
+					<c:if test="${hostDto.safety == 'on'}">
+						<p id="safety">safety</p>
+					</c:if>
+					
 				</div>
 				<div id="fLeft">
-					<p id="mart">mart : ${hostDto.mart}</p>
-					<p id="parking">parking : ${hostDto.parking}</p>
-					<p id="kitchen">kitchen : ${hostDto.kitchen}</p>
-					<p id="tv">tv : ${hostDto.tv}</p>
+					
+					<c:if test="${hostDto.mart != 'on'}">
+						<p id="mart" style="text-decoration: line-through;"> mart </p>
+					</c:if>
+					<c:if test="${hostDto.mart == 'on'}">
+						<p id="mart">mart</p>
+					</c:if>
+					
+					<c:if test="${hostDto.parking != 'on'}">
+						<p id="parking" style="text-decoration: line-through;"> parking </p>
+					</c:if>
+					<c:if test="${hostDto.parking == 'on'}">
+						<p id="parking">parking</p>
+					</c:if>
+					
+					<c:if test="${hostDto.kitchen != 'on'}">
+						<p id="kitchen" style="text-decoration: line-through;"> kitchen </p>
+					</c:if>
+					<c:if test="${hostDto.kitchen == 'on'}">
+						<p id="kitchen">kitchen</p>
+					</c:if>
+					
+					<c:if test="${hostDto.tv != 'on'}">
+						<p id="tv" style="text-decoration: line-through;"> tv </p>
+					</c:if>
+					<c:if test="${hostDto.tv == 'on'}">
+						<p id="tv">tv</p>
+					</c:if>
+					
 				</div>
 			</div>
+			
 
 			<hr style="color: #cccccc">
 
@@ -351,21 +428,21 @@ $(function(){
 			<hr style="color: #cccccc">
 			<div class="host">
 				<div id="hostInfo">
+					<div style="display: inline-block;">
 					<div id="hostName">호스트: ${host.memberName}</div>
 					<div id="hostDate">회원가입 : ${regDate}</div>
-					<!-- <span id="hStar">별점 : </span>&nbsp;
-						<span id="revCount">리뷰 수 : </span><br/> -->
-					<p id="pHostInfo">${host.memberInfo}</p>
-				</div>
-				<div id="hostImg" style="border: 1px solid #cccccc;">
+					</div>
+					<div id="hostImg">
 					<img id="hostImgSize"
 						src="<spring:url value='/profileImg/${host.memberImgName}' />" />
+					</div>
 				</div>
+				<p id="pHostInfo">${host.memberInfo}</p>
 			</div>
 
 			<div id="map">
 				<p>지역정보</p>
-				<div id="houseMap" style="width: 500px; height: 400px;"></div>
+				<div id="houseMap"></div>
 			</div>
 			<script>
 					var container = document.getElementById('houseMap');
@@ -388,10 +465,6 @@ $(function(){
 					marker.setMap(map)
 					
 				</script>
-
-
-
-			<br />
 			<div id="notice">
 				<p>유의사항</p>
 				<div id="checkTime">
@@ -400,7 +473,7 @@ $(function(){
 				</div>
 				<div id="etc" style="margin-top: 1.5rem;">
 					<p>기타사항</p>
-					${hostDto.etc}
+					${etc}
 				</div>
 			</div>
 			
@@ -425,9 +498,9 @@ $(function(){
 				</div>
 
 
-				<div>
+				<div style="margin-bottom: 3rem;">
 					<div id="peopleText">인원</div>
-					<input id="people" value="1">
+					<input id="people" value="1" style="width: 14.5rem;">
 				</div>
 				<script>
 							$(function(){
@@ -439,11 +512,11 @@ $(function(){
 				</script>
 				<c:if test="${emailCheck == 1}">
 					<button class="btn"
-						style="width: 100%; margin-top: 1.5rem; background-color: #008489; color: white; font-weight: bold;"
+						style="width: 100%; height:4rem;/*  margin-top: 1.5rem; */ background-color: #008489; color: white; font-weight: bold;"
 						onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}','${emailCheck}')">예약하기</button>
 				</c:if>
 				<c:if test="${emailCheck==0}">
-					<div id="loginText">예약하려면 로그인을 해주세요.</div>
+					<div id="loginText" align="center">예약하려면 로그인을 해주세요.</div>
 				</c:if>
 			</div>
 		</div>

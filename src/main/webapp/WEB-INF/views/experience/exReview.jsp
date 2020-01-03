@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title> 후기작성 </title>
 
-<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js">
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"> --%>
 
 </script>
 

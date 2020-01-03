@@ -8,15 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <!-- 부트 -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  	<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<%--   	<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
   	
-	<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>	
-	<script src="${root}/resources/javascript/admin/admin.js" type="text/javascript" charset="utf-8"></script>
-		
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<%-- 	<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>	 --%>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+
+
+
+<script src="${root}/resources/javascript/admin/admin.js" type="text/javascript" charset="utf-8"></script>
+
 	
 
 <title>List</title>
@@ -48,10 +55,10 @@
 				<thead>
 					<tr>
 						<td>게스트하우스 이름</td>
-						<td>회원코드</td>
+						<td style="width: 6rem;">회원코드</td>
 						<td>위치</td>
-						<td>승인여부</td>
-						<td>게스트하우스페이지로 이동</td>
+						<td style="width: 6rem;">승인여부</td>
+						<td style="width: 12rem;">게스트하우스페이지로</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -65,7 +72,7 @@
 							<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>
 							-->
 							</td>
-							<td>${hostDto.memberCode}</td>
+							<td style="padding-left: 2rem;">${hostDto.memberCode}</td>
 							<!--address나 local 둘 중 ?  -->
 							<td>${hostDto.address}</td>
 							<td>${hostDto.approvalStatus}</td>

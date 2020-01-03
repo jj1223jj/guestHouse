@@ -9,14 +9,10 @@
 <title>Insert title here</title>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/myreservelist.js"></script>
-<link rel="stylesheet"
-	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
+<%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
+<script type="text/javascript" src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
+<script type="text/javascript" src="${root}/resources/javascript/guestdelluna/myreservelist.js"></script>
+<link rel="stylesheet" href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <body>
 	<c:set var="countExp" value="${countExp}" />
 	<c:set var="countHouse" value="${countHouse}" />

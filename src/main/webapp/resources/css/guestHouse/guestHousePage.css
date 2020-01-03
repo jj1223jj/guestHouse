@@ -8,10 +8,7 @@ body{
 	color: #484848;
 }
 
-.top{
-	border: 0.1rem dotted yellow; 
-	margin-left: 1.5rem;
-}
+
 
 #exImg{
 	/* object-fit:cover; */
@@ -25,14 +22,14 @@ body{
 
 #mainImg{
 	float:left; display:inline-block;
-	width: 50%; height: 30rem; 
-	overflow: hidden; border: 0.1rem solid red; 
+	width: 50%; height: 40rem; 
+	overflow: hidden;/*  border: 0.1rem solid red;  */
 	/* margin-right: 0.5rem; */
 }
 
 #imagesWrap{
-	width: 50%; height: 30rem;
-	border: 0.1rem solid red; overflow: hidden;
+	width: 50%; height: 40rem;
+	/* border: 0.1rem solid red; */ overflow: hidden;
 }
 /* 
 #roomImg{
@@ -47,7 +44,7 @@ body{
 }
 
 .guestHouse{
-	margin-left: 50px; float: left;
+	float: left;
 	display: inline-block;
 
 }
@@ -58,7 +55,8 @@ body{
 }
 
 .explain{
-	width: 30rem;
+	width: 40rem;
+	margin-top: 3rem;
 }
 
 .facilites, #calendar, .host, #map, #notice{
@@ -76,7 +74,7 @@ body{
 }
 
 #fRight{
-	float: left; margin-right: 2rem;
+	float: left; margin-right: 6rem;
 }
 
 #fLeft{
@@ -93,12 +91,15 @@ body{
 
 .host{
 	overflow: hidden;
+	width: 40rem;
 }
 
 #hostInfo{
 /* 	border: 1px solid blue; */
 	float: left;
 	display: inline-block;
+	width: 40rem;
+	margin-bottom: 2rem;
 }
 
 #hostImg{
@@ -112,15 +113,33 @@ body{
 	border-radius: 5rem;
 }
 
+#houseMap{
+	/* style="width: 500px; height: 400px;" */
+	width: 40rem;
+	height: 25rem;
+}
+
+#notice{
+	width: 40rem;
+}
+
 #reserve{
-	margin-left: 3rem; 
+	/* margin-left: 3rem;  */
+	width: 21rem;
+	height: 25rem;
 	display: inline-block;
 	border: 0.05rem solid #cccccc;
 	border-radius: 0.4rem;
+	float: right;
 }
 
 #reserveMargin{
 	margin: 1.5rem;
+	margin-top: 2rem;
+}
+
+#reserve p{
+	margin-bottom: 2rem;
 }
 
 .form{
@@ -142,16 +161,16 @@ body{
 }
 
 #from{
-	width: 7rem; margin-right: 1rem;
+	width: 8rem; margin-right: 1rem; padding: 0.3rem;
 }
 
 #to{
-	width: 7rem;
+	width: 8rem; padding: 0.3rem;
 }
 
 #loginText{
-	width:100%; margin-top:1.5rem; color: red;
-	font-size: 0.8rem;
+	width:100%; margin-top:3.5rem; color: red;
+	font-size: 1rem;
 }
 
 #reveiwAll{

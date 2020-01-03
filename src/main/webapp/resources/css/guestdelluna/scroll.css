@@ -14,7 +14,7 @@
 	border-bottom: 0.063rem solid #ddd;
 	padding: 0.625rem 1.875rem;
 	overflow: hidden;
-	margin-top: 20px;
+	margin-top: 1.25rem;
 }
 #houseBtn {
 	border-bottom: 0.2rem solid #008489;
@@ -80,7 +80,7 @@
 }
 .houseName {
 	font-size: 1.2rem;
-	width: 255px;
+	width: 15.938rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -97,14 +97,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 270px;
-	height: 173px;
+	width: 16.875rem;
+	height: 10.813rem;
 	overflow: hidden;
-	border-radius: 5px;
+	border-radius: 0.313rem;
 }
 
 .houseImg > img {
-	width: 270px;
+	width: 16.875rem;
 }
 
 .reviewL {
@@ -123,15 +123,15 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 48px;
-	height: 48px;
-	border-radius: 25px;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 1.563rem;
 	overflow: hidden;
-	border: 1px solid #ddd;
+	border: 0.063rem solid #ddd;
 }
 
 .reviewMemberImg > img {
-	width: 48px;
+	width: 3rem;
 }
 
 .reviewR {
@@ -143,21 +143,21 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 105px;
-	height: 65px;
+	width: 6.563rem;
+	height: 4.063rem;
 	overflow: hidden;
 }
 .reviewR > span {
 	display: block;
 	text-align: center;
 	margin-top: 1rem;
-	width: 140px;
+	width: 8.75rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 .reviewHouseImg > img{
-	width: 105px;
+	width: 6.563rem;
 }
 
 
@@ -168,8 +168,8 @@
 	overflow: hidden;
 }
 .houseSlide {
-	width: 298px;
-	height: 250px;
+	width: 18.625rem;
+	height: 15.625rem;
 	position: relative;
 	
 }
@@ -178,25 +178,30 @@
 	float: left;
 }
 .slideBtn {
-	width: 30px;
-	height: 40px;
+	width: 1.875rem;
+	height: 2.5rem;
 	border: none;
 	position: absolute;
 	top: 33%;
 }
 #btnL {
 	background: url("../../images/leftBtn.png") no-repeat center;
-	background-size: 30px 40px;
-	left: -25px;
+	background-size: 1.875rem 2.5rem;
+	left: -1.563rem;
 }
 #btnR {
 	background: url("../../images/rightBtn.png") no-repeat center;
-	background-size: 30px 40px;
-	right: -25px;
+	background-size: 1.875rem 2.5rem;
+	right: -1.563rem;
 }
 .house, .ex {
 	position: relative;
 }
 .reviewBtnDiv {
 	border-bottom: 1px solid #ddd;
+}
+.reviewSpan {
+	margin: 3rem 0px 0px 2rem;
+    font-size: 1.2rem;
+    display: inline-block;
 }

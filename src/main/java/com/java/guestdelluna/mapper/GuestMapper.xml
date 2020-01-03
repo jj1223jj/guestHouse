@@ -130,8 +130,8 @@
 	select r.exname from exwishlist e , experience r where r.excode = e.excode and e.membercode=#{memberCode}
 </select>
 
-<delete id="deleteExpZzim" parameterType="int">
-	delete from exwishlist where excode=#{excode}
+<delete id="deleteExpZzim" parameterType="java.util.Map">
+	delete from exwishlist where exCode=#{exCode} and membercode=#{memberCode}
 </delete>
 
 <select id="dtoHouseZzim" parameterType="int" resultType="com.java.guestdelluna.dto.HouseZzimDto">
@@ -142,8 +142,8 @@
 	select housename from wishlist w , house h where h.housecode = w.housecode and w.membercode=#{memberCode}
 </select>
 
-<delete id="deleteHouseZzim" parameterType="int">
-	delete from wishlist where housecode=#{housecode}
+<delete id="deleteHouseZzim" parameterType="java.util.Map">
+	delete from wishlist where houseCode=#{houseCode} and membercode=#{memberCode}
 </delete>
 
 <delete id="deletePayListExp" parameterType="int">
@@ -180,15 +180,17 @@
 
 <select id="myAccuPoint" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.PointAccumulate">
 	 <![CDATA[
-	 select * from (select rownum as rnum, a.* from
-    (select * from pointaccumulate where memberCode=#{memberCode}) a)b where b.rnum >=#{startRow} and b.rnum <=#{endRow}
+		select * from
+	(select rownum rnum, A.* from
+	(select * from pointaccumulate where memberCode = #{memberCode})A)
+	where rnum>=#{startRow} and rnum<=#{endRow}
     ]]>
 </select>
 
 <select id="myUsePoint" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.PointUse">
 	 <![CDATA[
 	 select * from (select rownum as rnum, a.* from
-    (select * from pointuse where memberCode=#{memberCode}) a)b where b.rnum >=#{useStartRow} and b.rnum <=#{useEndRow}
+    (select * from pointuse where memberCode=#{memberCode}) a)b where b.rnum >=#{startRow} and b.rnum <=#{endRow}
     ]]>
 </select>
 
@@ -264,34 +266,27 @@
 
 <select id="myExpreviewList" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.NewExpReviewDto">
 <![CDATA[
-		  	select * from 
-		(select rownum rnum, A.*From 
-		(select e.exReserveCode , e.revDate , e.revContent, r.exName, f.mainImgName
-		from exreview e , experience r , exfilelist f, exreserve v
-       where f.excode = r.excode
-    and r.excode = v.excode
-    and v.exreservecode = e.exreservecode
-    and v.membercode = e.membercode 
-    and v.membercode=#{memberCode}
- 	and f.mainImgName is not null ) A ) 
-   WHERE rnum>=#{startRow} and rnum<=#{endRow}
+		 select * from(select rownum rnum, a.* from
+(select a.*, b.exCode, c.mainimgname, d.exName 
+from exReview a join exReserve b on a.exreservecode = b.exreservecode 
+join exfilelist c on b.excode=c.excode 
+and c.mainimgname is not null
+join experience d on b.exCode=d.exCode 
+where a.memberCode =#{memberCode}) a )
+where rnum>=#{startRow} and rnum<=#{endRow}
 ]]>
 </select>
 
 <select id="myHousereviewList" parameterType="java.util.Map" resultType="com.java.guestdelluna.dto.NewHouseReviewDto">
 	<![CDATA[
-	        	select * from 
-		(select rownum rnum, A.*From 
-		(select r.reservecode , r.revDate , r.revContent , h.housename , f.mainimgname
-		from review r , house h , filelist f , reservation v
-       where 
-    h.housecode = v.housecode
-    and v.housecode = f.housecode
-    and v.reservecode = r.reservecode
-    and v.membercode = r.membercode
-    and v.membercode = #{memberCode}
-    and f.mainimgname is not null ) A ) 
-	WHERE rnum>=#{useStartRow} and rnum<=#{useEndRow}
+	select * from(select rownum rnum, a.* from
+(select a.*, b.housecode, c.mainimgname, d.houseName 
+from review a join reservation b on a.reservecode = b.reservecode 
+join filelist c on b.housecode=c.housecode 
+and c.mainimgname is not null
+join house d on b.housecode=d.housecode 
+where a.memberCode = #{memberCode}) a )
+where rnum>=#{startRow} and rnum<=#{endRow}
 	]]>
 </select>
 
@@ -344,7 +339,7 @@
 		(select e.housename , r.housecode, r.membercode , e.checkintime, e.checkouttime
 		from house e, wishlist r
         where e.housecode = r.housecode and r.membercode=#{memberCode} ) A ) 
-		WHERE rnum>=#{useStartRow} and rnum<=#{useEndRow}
+		WHERE rnum>=#{startRow} and rnum<=#{endRow}
 		]]>
 </select>
 
@@ -368,7 +363,7 @@
 		<![CDATA[
 	     	select * from 
 		(select rownum rnum, A.*From 
-		(select e.exname , r.exReserveCode, r.membercode, r.reservedate, r.state
+		(select e.exname , r.exReserveCode, r.membercode, r.reservedate, r.state , r.expayment, r.exCode
 		from experience e ,exreserve r
         where e.excode = r.excode and r.membercode=#{memberCode} and r.state=#{state} ) A ) 
 		WHERE rnum>=#{startRow} and rnum<=#{endRow}
@@ -379,10 +374,10 @@
 		<![CDATA[
       	select * from 
 		(select rownum rnum, A.*From 
-		(select e.housename , r.reservecode, r.membercode, r.reserveDate, r.state
+		(select e.housename , r.reservecode, r.membercode, r.reserveDate, r.state , r.payment, r.houseCode
 		from house e ,reservation r
         where e.housecode = r.housecode and r.membercode=#{memberCode} and r.state=#{state} ) A ) 
-		WHERE rnum>=#{useStartRow} and rnum<=#{useEndRow}
+		WHERE rnum>=#{startRow} and rnum<=#{endRow}
 		]]>
 </select>
 

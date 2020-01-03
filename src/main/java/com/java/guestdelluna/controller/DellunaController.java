@@ -71,7 +71,7 @@ public class DellunaController {
 	}
 	
 	@RequestMapping(value="guestdelluna/zzimExpAjax.do" , method=RequestMethod.GET)
-	public void zzimExpAjax(HttpServletRequest request , HttpServletResponse response) {
+	public ModelAndView zzimExpAjax(HttpServletRequest request , HttpServletResponse response) {
 		
 			ModelAndView mav = new ModelAndView();
 			
@@ -80,10 +80,12 @@ public class DellunaController {
 			
 			dellunaService.zzimExpAjax(mav);
 			
+			return mav;
+			
 	}
 	
 	@RequestMapping(value="guestdelluna/zzimHouseAjax.do" , method=RequestMethod.GET)
-	public void zzimHouseAjax(HttpServletRequest request , HttpServletResponse response) {
+	public ModelAndView zzimHouseAjax(HttpServletRequest request , HttpServletResponse response) {
 		
 			ModelAndView mav = new ModelAndView();
 			
@@ -91,6 +93,8 @@ public class DellunaController {
 			mav.addObject("response", response);
 			
 			dellunaService.zzimHouseAjax(mav);
+			
+			return mav;
 			
 	}
 	
@@ -183,5 +187,18 @@ public class DellunaController {
 		mav.addObject("request", request);
 
 		dellunaService.msgUpdate(mav);
+	}
+	
+	@RequestMapping(value="guestdelluna/msgView.do" , method=RequestMethod.GET)
+	public ModelAndView msgView(HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("request", request);
+
+		dellunaService.msgView(mav);
+		
+		return mav;
+		
 	}
 }

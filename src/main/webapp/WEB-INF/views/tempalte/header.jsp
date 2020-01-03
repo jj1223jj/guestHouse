@@ -1,8 +1,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
+
     pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <c:set var = "root" value = "${pageContext.request.contextPath}"/>
 <html>
@@ -12,24 +14,32 @@
 		
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   	
 	<link rel="stylesheet" href="${root}/resources/css/header/header.css">
     
     <!-- 아이콘 링크  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+
+<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	 -->
     	
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+    
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 		<!-- 카카오 -->
 	
 
-		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- 		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script> -->
+
 
 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 		<script type="text/javascript">
@@ -53,9 +63,12 @@
     });
     </script>
 
+
 <style type="text/css">
-body {
+
+html, body {
 color:#484848;
+font-family: 'Nanum Gothic', sans-serif !important;
 }
 
 
@@ -63,6 +76,39 @@ color:#484848;
 
 </head>
 <body>
+
+	<script type="text/javascript">
+		function msgAlim(root) {
+			if ('${memberLevel}' != null) {
+
+				$.ajax({
+					type : "GET",
+					url : root + "/guestdelluna/msgView.do",
+					dataType : "text",
+					error : function() {
+						alert("값못가져옴 ㅠ");
+					},
+					success : function(msgData) {
+						$("#msgCnt").html(msgData); //div에 받아온 값을 넣는다.
+						//alert(msgData);
+						//alert(112);
+						var modal = document.getElementById("myModal");
+						$("#_asdf").click(function() {
+							$("#myModal").css("display", "block");
+						})
+						window.onclick = function(event) {
+							if (event.target == modal) {
+								modal.style.display = "none";
+							}
+						}
+						
+					}
+					
+				});
+
+			}
+		}
+	</script>
 
 	<!-- 헤더영역 -->
 
@@ -92,6 +138,7 @@ color:#484848;
 	          	<c:if test="${memberLevel == null}">
 		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
 		            <%-- <li class="nav-item"><a class="nav-link" style="color:black !important" href="${root}/member/login.do" onclick>로그인/회원가입</a></li> --%>
+
 	            	<li id="log"><button class="btn" data-toggle="modal" data-target="#login">로그인/회원가입<!-- <i class="fa fa-user"></i> --></button></li>
 	            </c:if>
           
@@ -101,10 +148,12 @@ color:#484848;
 			        <li class="nav-item"><a class="nav-link" href="${root}/host/register.do">호스팅하기</a></li>
 			       
 		            <%-- <c:if test="${memberLevel =='Host' || memberLevel =='Admin'}">
+
 			            <li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/myInfo.do">마이페이지</a></li>
 			            <li class="nav-item"><a class="nav-link" href="${root}/member/logout.do">로그아웃</a></li>
 		            	<li class="nav-item"><a class="nav-link" href="${root}/guestdelluna/zzimlist.do">장바구니</a></li>
 			        </c:if> --%>
+
 		            <c:if test="${memberLevel =='Host'}">
 		            	 <li class="nav-item"><a class="nav-link" href="${root}/experience/exHost.do">체험 등록하기</a></li>
 		            </c:if>
@@ -140,6 +189,7 @@ color:#484848;
 			
 			
 <!-- 모달페이지 -->
+
 
 	<div class="modal fade" id="login">
 		<div class="modal-dialog">
@@ -204,6 +254,7 @@ color:#484848;
 															<!-- <a id="kakao-login-btn"></a>
 														    <a href="http://developers.kakao.com/logout"></a>
 														     -->
+
 														    <script type='text/javascript'>
 														      //<![CDATA[
 														        // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -237,6 +288,7 @@ color:#484848;
 														     
 														    </script>
 														    
+
 														</div>
 													</div>
 												</div>
@@ -261,6 +313,7 @@ color:#484848;
 			</div>
 		</div>			
 	</div>
+
 <!-- //컨텐츠 영역 -->
 
 
