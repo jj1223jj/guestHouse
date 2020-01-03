@@ -75,4 +75,6 @@ public interface DellunaService {
 
 	void revHouseAjax(ModelAndView mav);
 
+	void doExZzim(String memberCode, String exCode, String zzim);
+
 }

@@ -1682,4 +1682,15 @@ public class DellunaServiceImp implements DellunaService {
 		int check = dellunaDao.updateHouseReview(memberCode, reserveCode, revContent);
 	}
 
+	@Override
+	public void doExZzim(String memberCode, String exCode, String zzim) {
+
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("memberCode", memberCode);
+		dataMap.put("exCode", exCode);
+
+		int check = dellunaDao.doExZzim(dataMap, zzim);
+		HomeAspect.logger.info(HomeAspect.logMsg + "check: " + check);
+	}
+
 }

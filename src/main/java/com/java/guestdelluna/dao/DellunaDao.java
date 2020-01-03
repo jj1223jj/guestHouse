@@ -214,5 +214,7 @@ public interface DellunaDao {
 
 	MemberDto selectMemberDto(int memberCode);
 
+	int doExZzim(Map<String, Object> dataMap, String zzim);
+
 
 }

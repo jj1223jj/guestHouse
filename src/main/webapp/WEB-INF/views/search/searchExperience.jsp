@@ -101,7 +101,7 @@
 							$("._overlaybox ._reviewCount").text("("+overlay.revCount+")");
 							$("._overlaybox ._people").text('인원 '+overlay.people+'명');
 							$("._overlaybox ._houseCode").text(overlay.exCode);
-							$("._overlaybox a").attr("href","#"+overlay.exCode);
+							$("._overlaybox a").attr("href","${root}/experience/exPage.do?exCode="+overlay.exCode);
 							$("._overlaybox ._heartButton").attr("class", "_heartButton _heartButton"+i);
 							$("._overlaybox ._heart").attr("class", "_heart _r0agyd heart"+i);
 							if('${memberCode}'>0){
@@ -205,7 +205,7 @@
 		//가격 필터
 
 		//하트 클릭
-		heart('${memberCode}');
+		exHeart('${memberCode}');
 		
 		//검색 조건 띄워주는 창
 		$("#filter").click(function(){
