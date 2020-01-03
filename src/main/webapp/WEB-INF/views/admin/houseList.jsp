@@ -55,10 +55,10 @@
 				<thead>
 					<tr>
 						<td>게스트하우스 이름</td>
-						<td>회원코드</td>
+						<td style="width: 6rem;">회원코드</td>
 						<td>위치</td>
-						<td>승인여부</td>
-						<td>게스트하우스페이지로 이동</td>
+						<td style="width: 6rem;">승인여부</td>
+						<td style="width: 12rem;">게스트하우스페이지로</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -72,7 +72,7 @@
 							<!--  <a href="${root}/admin/adminMemberRead.do?memberCode=${memberDto.memberCode}&pageNumber=${currentPage}">${memberDto.memberCode}</a>
 							-->
 							</td>
-							<td>${hostDto.memberCode}</td>
+							<td style="padding-left: 2rem;">${hostDto.memberCode}</td>
 							<!--address나 local 둘 중 ?  -->
 							<td>${hostDto.address}</td>
 							<td>${hostDto.approvalStatus}</td>

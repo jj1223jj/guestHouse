@@ -274,7 +274,7 @@ public class ExperienceServiceImp implements ExperienceService {
 
 	}
 
-	// 리뷰 작성하기
+	// 리뷰 작성하기/ 잭슨사용해서 이건 안씀
 	@Override
 	public String exReview(ModelAndView mav) {
 		// write, list
@@ -298,7 +298,7 @@ public class ExperienceServiceImp implements ExperienceService {
 			
 			int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
 			
-			int boardSize = 1; // 2) 페이지당 출력할 게시물 수
+			int boardSize = 3; // 2) 페이지당 출력할 게시물 수
 			// 시작 번호
 			int startRow = (currentPage - 1) * boardSize + 1;
 			
@@ -425,7 +425,7 @@ public class ExperienceServiceImp implements ExperienceService {
 				
 				int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
 				
-				int boardSize = 1; // 2) 페이지당 출력할 게시물 수
+				int boardSize = 3; // 2) 페이지당 출력할 게시물 수
 				// 시작 번호
 				int startRow = (currentPage - 1) * boardSize + 1;
 				

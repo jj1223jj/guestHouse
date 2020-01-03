@@ -277,7 +277,7 @@ function jsChange() {
 											<input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required="">
 											<button class="btnDelete" style="display: none;">삭제</button>
 										</div>									
-										<div class="inp">
+										<div class="inp" style="margin-top: 0rem;">
 											<input style="margin-top: 0rem;" type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required="">
 											<button class="btnDelete">삭제</button>
 										</div>

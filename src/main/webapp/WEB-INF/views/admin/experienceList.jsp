@@ -46,10 +46,10 @@
 				<thead>
 					<tr>
 						<td>체험 이름</td>
-						<td>회원코드</td>
+						<td style="width: 6rem;">회원코드</td>
 						<td>위치</td>
-						<td>체험 승인여부</td>
-						<td>체험페이지로 이동</td>
+						<td style="width: 9rem;">체험 승인여부</td>
+						<td style="width: 8rem;">체험페이지로</td>
 					</tr>
 				</thead>
 				
@@ -63,11 +63,11 @@
 							-->
 							${experienceDto.exName}
 							</td>
-							<td>${experienceDto.memberCode}</td>
+							<td style="padding-left: 2rem;">${experienceDto.memberCode}</td>
 							<!--address나 local 둘 중 ?  -->
 							<td>${experienceDto.exAddress}</td>
 							<td>${experienceDto.exApproval}</td>
-							<td><p><button style="margin-left: 4rem;" class="btn btn-outline-success btn-xs" data-toggle="modal" onclick="window.open('${root}/experience/exPage.do?exApp=1&memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')"><i class="fa fa-mail-forward"></i></button></p></td>
+							<td><p><button style="margin-left: 1.5rem;" class="btn btn-outline-success btn-xs" data-toggle="modal" onclick="window.open('${root}/experience/exPage.do?exApp=1&memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')"><i class="fa fa-mail-forward"></i></button></p></td>
 	    
 						</tr>
 					</c:forEach>
