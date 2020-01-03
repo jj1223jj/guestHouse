@@ -7,7 +7,7 @@
 
 <!-- 체험 등록  -->
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="subImgUpload">
-		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 
+		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval+1808, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 
 	</insert>
 
 	<select parameterType="String" id="memberCode" resultType="int">
@@ -35,7 +35,7 @@
 	</insert>
 	
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="exMainImgUpload">
-		insert into ExFileList(fileCode, fileName, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval, #{mainImgName} ,#{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
+		insert into ExFileList(fileCode, fileName, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval+1808, #{mainImgName} ,#{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
 	</insert>
 	
 	<select id="exCode" resultType="int">

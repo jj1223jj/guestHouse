@@ -158,36 +158,41 @@ list-style: none;
 			<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; width: 76rem; height: auto; border: 0.01rem solid #ffc0cb5c; float: left;">
 			 <ul style="width: 20rem; height:20rem; /* border: 0.1rem dotted orange; */ float: left; margin-right: 3rem;" > 
 		         <li style="width: 16rem; height: auto;">
-		            <label>체험이름</label>
+		            <label style="display: block;">체험이름</label>
+		    		<img alt="이미지" src="https://image.flaticon.com/icons/svg/252/252041.svg" style="width: 3rem; height: 3rem; margin-bottom: 1rem;"> <input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
 		            <p class="text-secondary" style="width: 16rem; height: 30rem; text-align: left;">${experienceDto.exName}</p>
-		    		<input type="hidden" name="exName" id="exName" value="${experienceDto.exName}"/>
 		    	 </li>
 		   	 </ul>
 		     <ul style="width: 76rem; /* height: 30rem; */ border: 0.1rem dotted khaki; display: table-header-group;">	
 		    	<li style="width: 10rem;">	
-		    		<label>진행시간</label>
+		    		<label style="display: block;">진행시간</label>
+		    		<img style="width: 3rem; height: 3rem; margin-bottom: 1rem;" src="https://image.flaticon.com/icons/svg/251/251974.svg"/>
 		    		<p class="text-secondary" style="height: 3rem;">${experienceDto.exTime}시간</p>
 		    		<input type="hidden" name="exTime" id="exTime" value="${experienceDto.exTime}"/>
 		    	</li>
 		    	<li>	
-		    		<label>인원</label>
+		    		<label style="display: block;">인원</label>
+		    		<img alt="이미지" src="https://image.flaticon.com/icons/svg/145/145847.svg" style="width: 3rem; height: 3rem; margin-bottom: 1rem;"> 
 		    		<p class="text-secondary">${experienceDto.exPeople}명</p>
 		    	</li>
 		    	
 		    	<li>	
-		    		<label>가격</label>
-		    		<p class="text-secondary">${experienceDto.exPrice}원</p>
+		    		<label style="display: block;">가격</label>
+		    		<img alt="이미지" src="https://image.flaticon.com/icons/svg/217/217853.svg" style="width: 3rem; height: 3rem; margin-bottom: 1rem;">
+		    		<p class="text-secondary"> ${experienceDto.exPrice}원</p>
 		    		<input type="hidden" name="exPrice" id="exPrice" value="${experienceDto.exPrice}"/>
 		    	</li>
 		    	
 		    	<li style="margin-right: 3rem;">	
-		    		<label>체험날짜</label>
+		    		<label style="display: block;">체험날짜</label>
+		    		<img alt="이미지" src="https://image.flaticon.com/icons/svg/252/252020.svg" style="width: 3rem; height: 3rem; margin-bottom: 1rem;"/>
 		    		<!-- view를 위한 날짜 포맷-->
 		    		<fmt:formatDate var="startDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exStartDate}"/>
 		    		<fmt:formatDate var="endDate" pattern="yyyy년 MM월 dd일" value="${experienceDto.exEndDate}"/>
 		    		
 		    		<input type="hidden" name="exStartDate" id="exStartDate" value="${startDate}"/>
 		    		<input type="hidden" name="exEndDate" id="exEndDate" value="${endDate}"/>
+		    		
 		    		
 		    		<p class="text-secondary">${startDate}</p>
 		    		<p>-</p>

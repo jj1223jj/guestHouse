@@ -20,7 +20,7 @@
    <div class="container">
    <table class="table table-hover">
    <thead align="center">
-      <tr>
+      <tr style="background-color: #f7f7f7">
          <th align="center" height="20"  width="250">체험명</th> 
          <th align="center" height="20"  width="250">주소</th> 
          <th align="center" height="20"  width="100">등록일</th> 

@@ -16,6 +16,7 @@
 	list-style: none;
 	border: 0.063rem solid #ddd;
 	padding: 1.25rem;
+	background-color: #fff;
 }
 .menuL > ul > li {
 	padding: 0.625rem;
@@ -24,6 +25,12 @@
 	float: right;
 	width: 70%;
 	min-height: 50rem;
+}
+.menuR h3{
+	font-weight: bold;
+}
+.menuR > .menuExplain{
+	margin-bottom: 3rem;
 }
 
 a {

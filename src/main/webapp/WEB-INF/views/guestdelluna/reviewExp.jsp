@@ -32,7 +32,7 @@
 
 						<div>
 							<div style="float: left">
-								<div style="text-align: left; margin-bottom: 1rem;">
+								<div style="text-align: left; margin-bottom: 1rem;">작성일 :
 									<fmt:formatDate value="${expReview.revDate}"
 										pattern="yyyy-MM-dd" />
 								</div>
@@ -46,7 +46,7 @@
 							<div>
 								<div>
 									<img alt="img loading" width="250" height="160" style="margin-top: 2.6rem;"
-										src="<spring:url value='/image/${expReview.mainImgName}'/>">
+										src="<spring:url value='/exImage/${expReview.mainImgName}'/>">
 								</div>
 							</div>
 						</div>

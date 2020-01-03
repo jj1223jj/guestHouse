@@ -42,10 +42,10 @@
 							<td align="center" height="20" width="125"><button type="button" class="btn btn-primary btn-lg"
 									data-toggle="modal"
 									style="background: #008489; border: 1px solid #008489; line-height: 1rem; margin-top: -0.1rem;""
-									data-target="#expModal">삭제</button></td>
+									data-target="#expModal${status.count}">삭제</button></td>
 						</tr>
 						<!-- Modal -->
-						<div class="modal fade" id="expModal" tabindex="-1" role="dialog"
+						<div class="modal fade" id="expModal${status.count}" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">

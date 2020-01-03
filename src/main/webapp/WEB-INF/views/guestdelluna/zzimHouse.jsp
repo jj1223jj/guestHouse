@@ -30,8 +30,7 @@
 				</thead>
 
 				<tbody class="useInfo">
-					<c:forEach var="newHouseZzimDto" items="${newHouseZzimDto}"
-						varStatus="status">
+					<c:forEach var="newHouseZzimDto" items="${newHouseZzimDto}"	varStatus="status">
 						<tr>
 							<td align="center" height="20" width="70">${status.count}</td>
 							<td align="center" height="20" width="300">
@@ -41,11 +40,12 @@
 							</td>
 							<td align="center" height="20" width="125"><button type="button" class="btn btn-primary btn-lg"
 									data-toggle="modal"
-									data-target="#myModal"
-									style="background: #008489; border: 1px solid #008489; line-height: 1rem; margin-top: -0.1rem;">삭제</button></td>
+									data-target="#myModal${status.count}"
+									style="background: #008489; border: 1px solid #008489; line-height: 1rem; margin-top: -0.1rem;">
+									삭제</button></td>
 						</tr>
 						<!-- Modal -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+						<div class="modal fade" id="myModal${status.count}" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">

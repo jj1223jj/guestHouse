@@ -333,7 +333,7 @@ color:#484848;
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem; margin-top: 1.5rem;">${ho.houseName}</div>
+				<div style="width: 20rem; margin-top: 1.5rem; font-weight: bold;">${ho.houseName}</div>
 				<div style="width: 20rem; text-align: right;">₩ ${ho.price}/박</div>
 				
 				<!-- 별점 출력 -->
@@ -420,7 +420,7 @@ color:#484848;
 		</div>
 	</div>
 	
-	<div style="background:  url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png) 0 100% repeat-x; margin-top: 10rem;">
+	<div style="background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat;  margin-top: 10rem;">
 		<div style="width: 90rem; height: 50rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
@@ -459,7 +459,7 @@ color:#484848;
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem; margin-top: 1.5rem;">${ex.exName}</div>
+				<div style="width: 20rem; margin-top: 1.5rem;font-weight: bold;">${ex.exName}</div>
 				<div style="width: 20rem; text-align: right;">1인당 ₩ ${ex.exPrice}</div>
 				<%-- <div style="width: 20rem;">${ex.revRate}</div> --%>
 				

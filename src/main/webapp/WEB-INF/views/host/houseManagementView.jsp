@@ -17,7 +17,7 @@
 <body>
    <div align="center">
    
-	 <c:if test="${houseList.size() == 0 || count == 0}">
+	 <c:if test="${houseList.size() == 0 && count == 0}">
 	 	<h5>등록된 숙소가 존재하지 않습니다.</h5>
 	 </c:if>
    
@@ -25,7 +25,7 @@
    <div class="container">
    <table class="table table-hover">
    <thead align="center">
-      <tr>
+      <tr style="background-color: #f7f7f7">
          <th align="center" height="20"  width="250">숙소명</th> 
          <th align="center" height="20"  width="250">주소</th> 
          <th align="center" height="20"  width="100">등록일</th> 
