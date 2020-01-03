@@ -144,7 +144,7 @@ function check(form) {
 		$('#revContent').focus();
 		return false;
 	}else if(revRate == 0){
-		alert("별점을 선택해 주세요22.");
+		alert("별점을 선택해 주세요.");
 		return false;
 	}
 }

@@ -228,7 +228,7 @@ $(function(){
 		<div class="guestHouse">
 			<div class="name">${hostDto.houseName}</div>
 
-			<div class="explain">${explain}</div>
+			<div class="explain" style="    word-break: break-all;">${hostDto.explain}</div>
 			<br />
 
 			<div class="facilites">
@@ -473,7 +473,7 @@ $(function(){
 				</div>
 				<div id="etc" style="margin-top: 1.5rem;">
 					<p>기타사항</p>
-					${etc}
+					${hostDto.etc}
 				</div>
 			</div>
 			
