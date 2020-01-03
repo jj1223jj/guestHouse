@@ -215,4 +215,5 @@ public interface DellunaDao {
 	List<NewHouseReviewDto> myHousereviewList(int memberCode, int startRow, int endRow);	//o
 
 
+
 }
