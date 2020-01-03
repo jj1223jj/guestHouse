@@ -200,3 +200,8 @@
 .reviewBtnDiv {
 	border-bottom: 1px solid #ddd;
 }
+.reviewSpan {
+	margin: 3rem 0px 0px 2rem;
+    font-size: 1.2rem;
+    display: inline-block;
+}

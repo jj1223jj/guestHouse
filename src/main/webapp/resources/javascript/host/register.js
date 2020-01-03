@@ -76,7 +76,7 @@ function handleImgFileSelect(e) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			//var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\"><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove'></a>";
-			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove' width='8.75rem'/></a>";
+			var html = "<a href=\"javascript:void(0);\" onclick=\'deleteImageAction("+index+")'\" id=\img_id_"+index+"\><img src=\""+ e.target.result + "\" data-file='"+f.name+"' class='selProductFile' tilte='Click to remove'/></a>";
 			$(".subImgDiv").append(html);
 			index++;
 		}

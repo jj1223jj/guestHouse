@@ -70,9 +70,8 @@
 			<li>
 				<label>내부 사진</label>
 				<input multiple="multiple" type="file" name="subImg" id="subImg" accept="image/*"/>
-				<br/>
-				<div class="subImgDiv" onclick="subUpload()">
-				</div>
+				<input type="button" class="subBtn" value="내부사진업로드" onclick="subUpload()" style="margin-bottom: 1rem"/>
+				<div class="subImgDiv"></div>
 			</li>
 			<li>
 				<label>인원 수</label>
@@ -91,12 +90,12 @@
 			</li>
 			<li>
 				<label>설명</label>
-				<textarea rows="15" cols="60"name="explain" id="explain"></textarea>
+				<textarea rows="8" cols="60"name="explain" id="explain"></textarea>
 				<br/>
 			</li>
 			<li>
 				<label>편의시설</label>
-				<div width="100%" height="14rem" style="width:100%; height:11rem">
+				<div width="100%" height="14rem" style="width:100%; height:14rem">
 				<div class="custom-control custom-checkbox mb-3">
 				<input type="checkbox" class="custom-control-input" name="wifi" id="wifi"/>
 				<label class="custom-control-label" for="wifi">와이파이</label>
@@ -236,7 +235,7 @@
 			</li>
 			<li>
 				<label>기타사항</label>
-				<textarea rows="15" cols="60" name="etc" id="etc"></textarea>
+				<textarea rows="8" cols="60" name="etc" id="etc"></textarea>
 				<br/>
 			</li>
 			<li>

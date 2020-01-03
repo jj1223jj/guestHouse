@@ -18,6 +18,7 @@
   <insert id="hostRegister" parameterType="com.java.host.dto.HostDto">
   	insert into house(houseCode, memberCode, houseName,explain,bath,etc,checkInTime,checkOutTime,necessary,wifi,washer,hotWater,aircon,
   	tv,mart,parking,kitchen,safety,address,sido,sigungu,roadName,bName,jibunAddress,latLng,detailAddress,local,approvalStatus,
+  	
   	bank,account,people,bed,price,houseRegDate)
   	 values(seq_house_num.nextval, #{memberCode},#{houseName},
   	#{explain},#{bath},#{etc},#{checkInTime},

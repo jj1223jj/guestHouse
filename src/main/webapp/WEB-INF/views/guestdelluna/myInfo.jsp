@@ -149,6 +149,8 @@ html {
 	href="${root}/resources/css/guestdelluna/scroll.css">
 	<link rel="stylesheet"
 	href="${root}/resources/css/guestdelluna/menuLayout.css">
+	<script type="text/javascript"
+	src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/myReview.js"></script>
 <script type="text/javascript"
@@ -437,11 +439,17 @@ html {
 		</div>
 		<div class="houseReviewWrap">
 			<div id="houseReview"></div>
+			<c:if test="${houseReviewCount == 0}">
+				<span class="reviewSpan">등록된 후기가 없습니다.</span>
+			</c:if>
 			<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</div>
 		<div class="exReviewWrap" style="display: none"> 
-		<div id="exReview"></div>
-		<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
+			<div id="exReview"></div>
+			<c:if test="${exReviewCount == 0}">
+				<span class="reviewSpan">등록된 후기가 없습니다.</span>
+			</c:if>
+			<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</div>
 	</div>
 		</c:if>

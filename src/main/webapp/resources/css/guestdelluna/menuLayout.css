@@ -2,12 +2,14 @@
 
 #wrap {
 	width: 80rem;
-	margin: 2rem auto 0 auto;
+	margin: 5rem auto 0 auto;
 	overflow: hidden;
+	position: relative;
 }
 .menuL {
 	float: left;
 	width: 30%;
+	position: absolute;
 }
 .menuL > ul {
 	width: 18.75rem;
@@ -19,7 +21,7 @@
 	padding: 0.625rem;
 }
 .menuR {
-	float: left;
+	float: right;
 	width: 70%;
 	min-height: 50rem;
 }
