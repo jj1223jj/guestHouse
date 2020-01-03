@@ -6,7 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
 
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
@@ -18,7 +17,6 @@
 <script src="${root}/resources/javascript/admin/admin.js" type="text/javascript" charset="utf-8"></script>
 	
 	
-<title>List</title>
 </head>
 <body>
 

@@ -6,7 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
 <!-- 부트 -->
 
 

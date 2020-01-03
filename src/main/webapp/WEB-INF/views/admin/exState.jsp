@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>승인</title>
 </head>
 <body>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>

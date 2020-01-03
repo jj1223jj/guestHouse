@@ -6,7 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/guestHouse/reserveOk.css"/>
 <%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>

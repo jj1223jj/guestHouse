@@ -7,7 +7,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>로그인창</title>
 </head>
 <body>

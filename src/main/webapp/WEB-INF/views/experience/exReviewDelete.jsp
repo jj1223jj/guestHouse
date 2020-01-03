@@ -5,8 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>후기 삭제</title>
 </head>
 <body>
 	<c:if test="${check > 0}">

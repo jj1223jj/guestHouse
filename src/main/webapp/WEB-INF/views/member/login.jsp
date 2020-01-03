@@ -8,7 +8,6 @@
 <html lang="ko"><!--<![endif]--><head>
 <!-- 		<meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-		<meta charset="utf-8">
 
 		
 		<title>JEJU STAY</title>
