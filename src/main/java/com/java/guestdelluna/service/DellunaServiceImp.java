@@ -1353,41 +1353,16 @@ public class DellunaServiceImp implements DellunaService {
 	}
 
 	@Override
-	public void msgView(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
-		HomeAspect.logger.info(HomeAspect.logMsg + email);
-		
-		int memberCode = dellunaDao.selectMemberCode(email);
-		HomeAspect.logger.info(HomeAspect.logMsg + memberCode);
-		
-		String msgCheck = "읽지 않음";
-		int cntAllMsg = dellunaDao.allMsg(memberCode);
-		HomeAspect.logger.info(HomeAspect.logMsg + "총 메시지 개수 : " + cntAllMsg);
+	public void doExZzim(String memberCode, String exCode, String zzim) {
 
-		// 전체 메시지 리스트 받아옴
-		List<MsgDto> allMsgDto = dellunaDao.allMsgDto(memberCode);
-		HomeAspect.logger.info(HomeAspect.logMsg + "모든 메시지 리스트 : " + allMsgDto);
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("memberCode", memberCode);
+		dataMap.put("exCode", exCode);
 
-		// 읽지 않은 메시지 개수 출력
-		int cntMsg = dellunaDao.selectMSG(memberCode, msgCheck);
-		HomeAspect.logger.info(HomeAspect.logMsg + "읽지 않은 메시지 개수는 : " + cntMsg);
+		int check = dellunaDao.doExZzim(dataMap, zzim);
+		HomeAspect.logger.info(HomeAspect.logMsg + "check: " + check);
 
-		// 읽지않은 메시지 리스트 받아옴
-		List<MsgDto> msgDto = dellunaDao.listMsg(memberCode, msgCheck);
-		HomeAspect.logger.info(HomeAspect.logMsg + "읽지 않은 메시지 리스트들 : " + msgDto);
-
-
-		mav.addObject("allMsgDto", allMsgDto);
-		mav.addObject("cntAllMsg", cntAllMsg);
-		mav.addObject("cntMsg", cntMsg);
-		mav.addObject("msgDto", msgDto);
-		mav.setViewName("guestdelluna/myMsg.empty");
-		
 	}
 
 }

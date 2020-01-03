@@ -20,6 +20,14 @@
 	delete from wishList where memberCode=#{memberCode} and houseCode=#{houseCode}
 </delete>
 
+<insert id="doExZzim" parameterType="java.util.Map">
+	insert into exWishList values(#{memberCode},#{exCode})
+</insert>
+
+<delete id="cancelExZzim" parameterType="java.util.Map">
+	delete from exWishList where memberCode=#{memberCode} and exCode=#{exCode}
+</delete>
+
 <update id="updateMemberFile" parameterType="com.java.guestdelluna.dto.MemberDto">
 	update member set memberImgName=#{memberImgName} , memberImgPath=#{memberImgPath} , memberImgSize=#{memberImgSize} ,  memberName=#{memberName}  , password=#{password} , phone=#{phone}, memberInfo=#{memberInfo} where email=#{email}
 </update>

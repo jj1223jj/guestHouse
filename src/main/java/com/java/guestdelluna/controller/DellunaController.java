@@ -45,6 +45,16 @@ public class DellunaController {
 		dellunaService.doZzim(memberCode,houseCode,zzim);
 		
 	}
+	@RequestMapping(value="guestdelluna/exZzim.do" , method=RequestMethod.GET)
+	public void exZzim(HttpServletRequest request , HttpServletResponse response) {
+		String memberCode = request.getParameter("memberCode");
+		String zzim = request.getParameter("zzim");
+		String exCode = request.getParameter("houseCode");
+		HomeAspect.logger.info(HomeAspect.logMsg+"memberCode: "+memberCode+" zzim: "+zzim+" exCode: "+exCode);
+		
+		dellunaService.doExZzim(memberCode,exCode,zzim);
+		
+	}
 
 	//찜목록
 	@RequestMapping(value="guestdelluna/zzimlist.do" , method=RequestMethod.GET)

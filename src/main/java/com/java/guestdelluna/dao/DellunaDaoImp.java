@@ -742,5 +742,14 @@ public class DellunaDaoImp implements DellunaDao {
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectMemberDto" ,memberCode);
 
 	}
+
+	@Override
+	public int doExZzim(Map<String, Object> dataMap, String zzim) {
+		if(zzim!=null)
+			return sqlSessionTemplate.insert("dao.dellunaMapper.doExZzim", dataMap);
+		else
+			return sqlSessionTemplate.delete("dao.dellunaMapper.cancelExZzim", dataMap);
+		
+	}
 	
 }

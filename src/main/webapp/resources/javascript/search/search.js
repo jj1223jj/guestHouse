@@ -257,6 +257,49 @@ function heart(memberCode){
 		}
 	});
 }
+function exHeart(memberCode){
+	
+	$("._heartButton").attr('onclick', '').unbind('click');
+	
+	
+	$("._heartButton").click(function(){
+		if(memberCode!='') {
+			var button = $(this).attr("class").split(" ")[1];
+			var heart=$("."+button).children().children();
+			console.log(heart);
+			var data;
+			var houseCode=$(this).parent().parent().children("div[class='_houseCode']").text();
+			if(heart.attr("fill")=="currentColor"){
+				heart.attr("fill", "#FF385C");
+				heart.attr("fill-opacity", "1");
+				heart.attr("stroke","#FF385C");
+				heart.attr("stroke-width","1");
+				data= { memberCode: memberCode, zzim: memberCode, houseCode: houseCode};
+			}else{
+				heart.attr("fill", "currentColor");
+				heart.attr("fill-opacity", "0");
+				heart.attr("stroke","#222222");
+				heart.attr("stroke-width","1.4");
+				data= { memberCode: memberCode, houseCode: houseCode};
+			}
+			//$(this).parent(".overlaybox").css("display","block");
+			$.ajax({
+				method: "GET",
+				url: root+"/guestdelluna/exZzim.do",
+				data: data,
+				success: function(){
+				},
+				error: function(){
+				}
+			})
+			
+		}else{
+			//alert( $("#price" ).slider( "values" ));
+			console.log("로그인해주세요");
+			//로그인 모달 띄워주기
+		}
+	});
+}
 function heart2(memberCode){
 
 	

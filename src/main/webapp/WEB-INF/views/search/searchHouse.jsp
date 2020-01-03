@@ -101,7 +101,7 @@
 							$("._overlaybox ._reviewCount").text("("+overlay.revCount+")");
 							$("._overlaybox ._people").text(overlay.people);
 							$("._overlaybox ._houseCode").text(overlay.houseCode);
-							$("._overlaybox a").attr("href","#"+overlay.houseCode);
+							$("._overlaybox a").attr("href","${root}/guestHousePage/guestHouse.do?houseCode="+overlay.houseCode);
 							$("._overlaybox ._heartButton").attr("class", "_heartButton _heartButton"+i);
 							$("._overlaybox ._heart").attr("class", "_heart _r0agyd heart"+i);
 							if('${memberCode}'>0){
