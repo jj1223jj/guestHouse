@@ -95,13 +95,13 @@ $(document).ready(function(){
 
 </head>
 <body>
-	<div align="center" style="width: 70rem; border: 0.1rem solid #00000059; margin: 0 auto;">
+	<div align="center" style="width: 70rem; border: 0.1rem solid #00000059; margin: 5rem auto;">
 		<!-- <h3>예약페이지</h3>
 		<br/> -->
 		<!--  전체 -->
 		<div style="margin: 0rem auto;">
 			<div>
-				<div style="font-size: 2rem; margin: 5rem; font-weight: bold;">체험 이용규칙 확인하기</div>
+				<div style="font-size: 2rem; margin: 5rem; font-weight: bold;">체험 예약 확인하기</div>
 				
 				<div class="top" style="height: auto;/*  border: 0.1rem dotted orange; */">
 					<div class="experience" style="width: 40rem; /* border: 0.1rem dotted black; */ height: 50rem; float: left;">

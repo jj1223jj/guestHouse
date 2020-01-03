@@ -311,7 +311,7 @@ function moreView(root,emailSession,exCode){
                    if (emailSession==this.email) {
 					/*htmls += '<a style="margin-left:3rem;" href="javascript:updateCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+',\''+this.revContent+'\');">수정</a>';*/
 					/*htmls += '<a style="margin-left:1rem;" href="javascript:deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')">삭제</a>';*/
-					htmls += '<div id="updateRe" style="width:3rem; float:left; padding-left:2rem;"><button type="button" class="btn btn-light" data-toggle="modal" data-target="#updateModal"><i class="fa fa-pencil"></i></button></div>';
+					htmls += '<div id="updateRe" style="width:3rem; float:left; padding-left:2rem; margin-left:45rem;"><button type="button" class="btn btn-light" data-toggle="modal" data-target="#updateModal"><i class="fa fa-pencil"></i></button></div>';
 					htmls += '<div id="deleteRe"><button type="button" class="btn btn-light" onclick="deleteCheck('+proot+'/,'+this.exReserveCode+','+this.memberCode+','+pageNumber+','+exCode+')"><i class="fa fa-trash-o"></i></button></div>';
 					
 					/*<a href="javascript:deleteCheck('${root}','${exReviewDto.exReserveCode}','${exReviewDto.memberCode}','${currentPage}','${experienceDto.exCode}')">삭제</a> 		*/
