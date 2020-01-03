@@ -160,6 +160,7 @@ html {
 </head>
 
 <body onload="rootPage('${root}', '${memberLevel}')">
+
 <input type="hidden" value="${memberDto.memberCode}" id="memberCode"/>
 <div id="wrap">
 

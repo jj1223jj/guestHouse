@@ -32,7 +32,7 @@ public class ReviewController {
 		return mav;
 	}
 	
-	@RequestMapping(value="guestdelluna/reviewUpdateOk.do" , method=RequestMethod.POST)
+	@RequestMapping(value="guestdelluna/reviewUpdateOk.do" , method=RequestMethod.GET)
 	public void reviewUpdateOk(HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -43,7 +43,7 @@ public class ReviewController {
 				
 	}
 	
-	@RequestMapping(value="guestdelluna/houseReviewUpdateOk.do" , method=RequestMethod.POST)
+	@RequestMapping(value="guestdelluna/houseReviewUpdateOk.do" , method=RequestMethod.GET)
 	public void houseReviewUpdateOk(HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -83,7 +83,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="guestdelluna/revExpAjax.do" , method=RequestMethod.GET)
-	public void revExpAjax(HttpServletRequest request , HttpServletResponse response) {
+	public ModelAndView revExpAjax(HttpServletRequest request , HttpServletResponse response) {
 		
 			ModelAndView mav = new ModelAndView();
 			
@@ -92,10 +92,12 @@ public class ReviewController {
 			
 			dellunaService.revExpAjax(mav);
 			
+			return mav;
+			
 	}
 	
 	@RequestMapping(value="guestdelluna/revHouseAjax.do" , method=RequestMethod.GET)
-	public void revHouseAjax(HttpServletRequest request , HttpServletResponse response) {
+	public ModelAndView revHouseAjax(HttpServletRequest request , HttpServletResponse response) {
 		
 			ModelAndView mav = new ModelAndView();
 			
@@ -103,6 +105,8 @@ public class ReviewController {
 			mav.addObject("response", response);
 			
 			dellunaService.revHouseAjax(mav);
+			
+			return mav;
 			
 	}
 

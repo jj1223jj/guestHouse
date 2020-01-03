@@ -9,22 +9,25 @@ public class NewExpReviewDto {
 	private String revContent ;
 	private String exName ;
 	private String mainImgName;
+	private int exCode ;
 	
 	public NewExpReviewDto() {}
+
+	public NewExpReviewDto(int exReserveCode, Date revDate, String revContent, String exName, String mainImgName,
+			int exCode) {
 	
-	public NewExpReviewDto(int exReserveCode, Date revDate, String revContent, String exName, String mainImgName) {
-		
 		this.exReserveCode = exReserveCode;
 		this.revDate = revDate;
 		this.revContent = revContent;
 		this.exName = exName;
 		this.mainImgName = mainImgName;
+		this.exCode = exCode;
 	}
 
 	@Override
 	public String toString() {
 		return "NewExpReviewDto [exReserveCode=" + exReserveCode + ", revDate=" + revDate + ", revContent=" + revContent
-				+ ", exName=" + exName + ", mainImgName=" + mainImgName + "]";
+				+ ", exName=" + exName + ", mainImgName=" + mainImgName + ", exCode=" + exCode + "]";
 	}
 
 	public int getExReserveCode() {
@@ -67,6 +70,13 @@ public class NewExpReviewDto {
 		this.mainImgName = mainImgName;
 	}
 
+	public int getExCode() {
+		return exCode;
+	}
 
+	public void setExCode(int exCode) {
+		this.exCode = exCode;
+	}
+	
 	
 }

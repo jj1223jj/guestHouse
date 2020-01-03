@@ -9,22 +9,37 @@ public class NewHouseResDto {
 	private Date reserveDate ;
 	private String houseName ;
 	private String state ;
+	private int payment;
+	private int houseCode; 
 	
 	public NewHouseResDto() {}
 
-	public NewHouseResDto(int reserveCode, int memberCode, Date reserveDate, String houseName, String state) {
-		
+	public NewHouseResDto(int reserveCode, int memberCode, Date reserveDate, String houseName, String state,
+			int payment, int houseCode) {
+	
 		this.reserveCode = reserveCode;
 		this.memberCode = memberCode;
 		this.reserveDate = reserveDate;
 		this.houseName = houseName;
 		this.state = state;
+		this.payment = payment;
+		this.houseCode = houseCode;
 	}
 
 	@Override
 	public String toString() {
 		return "NewHouseResDto [reserveCode=" + reserveCode + ", memberCode=" + memberCode + ", reserveDate="
-				+ reserveDate + ", houseName=" + houseName + ", state=" + state + "]";
+				+ reserveDate + ", houseName=" + houseName + ", state=" + state + ", payment=" + payment
+				+ ", houseCode=" + houseCode + "]";
+	}
+
+	
+	public int getHouseCode() {
+		return houseCode;
+	}
+
+	public void setHouseCode(int houseCode) {
+		this.houseCode = houseCode;
 	}
 
 	public int getReserveCode() {
@@ -65,6 +80,14 @@ public class NewHouseResDto {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public int getPayment() {
+		return payment;
+	}
+
+	public void setPayment(int payment) {
+		this.payment = payment;
 	}
 
 }

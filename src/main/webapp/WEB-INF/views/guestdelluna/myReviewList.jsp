@@ -3,309 +3,145 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="pageBlock" value="${1}" />
 <!DOCTYPE html>
 <html>
 <style>
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
 textarea[name=revContent]:disabled {
 	background: #F8FBEF
 }
-
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	/*background-color: rgb(0, 0, 0); 
-	background-color: rgba(0, 0, 0, 0.4);
-	*/
+html {
+	font-size: 16px;
 }
-
-/* Modal Content */
-.modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	/* background-color: #fefefe; */
-}
-
-/* The Close Button */
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-/* The Modal (background) */
-.houseRevModal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	/*background-color: rgb(0, 0, 0); 
-	background-color: rgba(0, 0, 0, 0.4);
-	*/
-}
-
-/* Modal Content */
-.content-modal {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	/* background-color: #fefefe; */
-}
-
-/* The Close Button */
-.closeHouseModal {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.closeHouseModal hover, .closeHouseModal:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.clickable {
-	cursor: pointer;
-}
-
-.hover {
-	text-decoration: underline;
-}
-
-.odd {
-	background: #FFC;
-}
-
-.even {
-	background: #FF9;
-}
-
-.active {
-	width: 10px;
-	height: 10px;
-	background: #f60;
-	color: white;
-}
-
-.houseList {
-	overflow: hidden;
-}
-
-.houseDiv {
-	float: left;
-}
-
-.houseImg {
-	width: 250px;
-	height: 160px;
-	overflow: hidden;
-}
-
-.reviewDiv {
-	overflow: hidden;
-	width: 600px;
-	margin-top: 20px;
-}
-
-.reviewL {
-	float: left;
-}
-
-.reviewMemberImg {
-	width: 48px;
-	height: 48px;
-	border-radius: 25px;
-	overflow: hidden;
-}
-
-.reviewR {
-	float: right;
-}
-
-.reviewHouseImg {
-	width: 50px;
-	height: 40px;
-	overflow: hidden;
+menuL a{
+	color : black;
 }
 </style>
 <head>
 <meta charset="UTF-8">
-<title>내가 쓴 후기</title>
-<c:set var="root" value="${pageContext.request.contextPath }" />
-<script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${root}/resources/javascript/guestdelluna/myReview.js"></script>
+<link rel="stylesheet"
+	href="${root}/resources/css/guestdelluna/menuLayout.css">
 <script type="text/javascript"
 	src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/myreservelist.js"></script>
-<script type="text/javascript"
-	src="${root}/resources/javascript/guestdelluna/myReview.js"></script>
 <link rel="stylesheet"
 	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
+<script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
+<title>내가 쓴 후기</title>
+<script type="text/javascript">
+	$(function(){
+		$('#tabs').tabs();
+		paging('${root}','','','300000');
+		$(".revExp").click(function(){
+			paging('${root}','','','300000');
+		})
+		$(".revHouse").click(function(){
+			paging('${root}','','500000','');
+		})
+	});
+
+	function paging(root, param, accuCount, useCount) {
+		if(useCount>50000){
+		var url = root + "/guestdelluna/revExpAjax.do";
+
+		var params = "pageNumber=" + param;
+
+		sendRequest("GET", url, accuPOK, params);
+		}
+		
+		if(accuCount>50000){
+			
+			var url = root + "/guestdelluna/revHouseAjax.do";
+
+			var params = "usePageNumber=" + param;
+
+			sendRequest("GET", url, usePOK, params);
+		}
+	}
+
+	function accuPOK() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			document.getElementById("revExpView").innerHTML = xhr.responseText;
+			var currentPage = $("#currentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
+		}
+	}
+	
+	function usePOK(){
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			document.getElementById("revHouseView").innerHTML = xhr.responseText;
+			var currentPage = $("#useCurrentPage").val();
+			var page = "#" + currentPage.toString();
+			$(page).css({
+				'color' : '#008489',
+				'font-size' : '1.2rem',
+				'font-weight' : 'bold'
+			});
+		}
+	}
+</script>
 </head>
 <body>
 
-	<div id="tabs" style="margin-top: 15rem">
-		<ul>
-			<li><a href="#fragment-1"><span>내가 쓴 체험 후기</span></a></li>
-			<li><a href="#fragment-2"><span>내가 쓴 게스트하우스 후기</span></a></li>
-		</ul>
+<div id="wrap" style="margin-top: 2rem;">
+		<div style="text-align: center;">
+			${memberDto.memberName}님이 쓴 후기입니다.</div>
 
-		<div id="fragment-1">
-			<c:forEach var="expReview" items="${myExpreviewList}"
-				varStatus="status">
-
-				<ul class="thumbnails">
-					<li class="span4">
-						<div class="thumbnail">
-							<img alt="img loading"
-						width="200" height="200"
-						src="<spring:url value='/image/${expReview.mainImgName}'/>">
-							<h3>${expReview.exName}</h3>
-							<p><textarea rows="5" cols="40" name="revContent"
-								disabled="disabled">${expReview.revContent}</textarea></p>
-								<div>
-							<button onclick="javascript:focusExpReview('${status.count}')">수정</button>
-							&nbsp;
-							<button
-								onclick="javascript:delExpRev('${root}','${expReview.exReserveCode}')">삭제</button>
-
-							<input type="hidden" name="exReserveCode"
-								value=${expReview.exReserveCode } />
-						</div>
-						</div>
-					</li> 
-				</ul>
-
-				<input type="hidden" name="expReview" value="${myExpreviewList}" />
-				<input type="hidden" name="countExpReview" value="${countExpReview}" />
-				<input type="hidden" class="expSeq" value="${status.count }" />
-
-				<div id="myModal" class="modal">
-					<!-- Modal content -->
-					<div class="modal-content">
-						<span class="close${status.count }"
-							onclick="closeModal('${root}','${status.count}')">&times;</span>
-						<p>후기를입력하세요</p>
-						<p>
-							<textarea rows="5" cols="40" class="expRevContent"></textarea>
-						</p>
-						<button
-							onclick="expUpdateOk('${root}','${expReview.exReserveCode}','${status.count}')">수정완료</button>
-					</div>
-				</div>
-				<br />
-			</c:forEach>
+		<div class="menuL" style="margin-top: 8rem;">
+			<ul>
+				<li><a href="${root}/guestdelluna/allMyReview.do" style="color: black;">후기</a></li>
+				<c:if test="${memberCode == memberDto.memberCode}">
+					<li><a href="${root}/guestdelluna/memberUpdate.do" style="color: black;">회원수정</a></li>
+					<li><a href="${root}/guestdelluna/managePoint.do" style="color: black;">포인트관리</a></li>
+					<li><a href="${root}/guestdelluna/payList.do" style="color: black;">결제내역</a></li>
+					<c:if test="${memberLevel == 'Host'}">
+						<hr style="border: 0.0315rem solid #ddd;" />
+						<li><a href="${root}/host/reservationView.do" style="color: black;">숙소예약현황</a></li>
+						<li><a href="${root}/host/exReservationView.do" style="color: black;">체험예약현황</a></li>
+						<li><a href="${root}/host/salesView.do" style="color: black;">매출조회</a></li>
+						<li><a href="${root}/host/houseManagement.do" style="color: black;">게스트하우스 관리</a></li>
+						<li><a href="${root}/host/exManagement.do" style="color: black;">체험 관리</a></li>
+					</c:if>
+					<li><a href="${root}/guestdelluna/memberDelete.do" style="color: black;">회원탈퇴</a></li>
+				</c:if>
+			</ul>
 		</div>
-		<div id="fragment-2">
 
-			<c:forEach var="houseReview" items="${myHousereviewList}"
-				varStatus="status">
-				<input type="hidden" name="houseReview" value="${myHousereviewList}" />
-				
-				<ul class="thumbnails">
-					<li class="span4">
-						<div class="thumbnail">
-							<img alt="img loading"
-						width="200" height="200"
-						src="<spring:url value='/image/${houseReview.mainImgName}'/>">
-							<h3>${houseReview.houseName}</h3>
-							<p><textarea rows="5" cols="40" name="revContent"
-								disabled="disabled">${expReview.revContent}</textarea></p>
-								<div>
-							<button onclick="javascript:focusExpReview('${status.count}')">수정</button>
-						
-							<button
-								onclick="javascript:delExpRev('${root}','${expReview.exReserveCode}')">삭제</button>
-
-							<input type="hidden" name="exReserveCode"
-								value=${expReview.exReserveCode } />
-						</div>
-						</div>
-					</li> 
+		<div class="menuR" style="margin-left: -4rem; margin-top: 6.5rem;">
+			<div id="tabs" class="container"
+				style="width: 60rem; margin-top: 1.5rem;">
+				<ul style="border: 0px; background: #ffffff;">
+					<li class="revExp"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
+						href="#fragment-1"><span>내가 쓴 체험 후기</span></a></li>
+					<li class="revHouse"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 11rem;"><a
+						href="#fragment-2"><span>내가 쓴 게스트하우스 후기</span></a></li>
 				</ul>
-			
-				<div id="houseModal" class="houseRevModal">
-					<div class="content-modal">
-						<span class="closeHouseModal${status.count }"
-							onclick="xButtonHouseModal('${status.count}')">&times;</span>
-						<div>후기를 입력하세요</div>
-						<textarea rows="8" cols="50" class="houseRevContent"></textarea>
-
-						<button class="upOk"
-							onclick="houseUpdateOk('${root}','${houseReview.reserveCode}')">수정완료</button>
-					</div>
+				<div id="fragment-1">
+					<div id="revExpView"></div>
 				</div>
-			</c:forEach>
+
+				<div id="fragment-2">
+					<div id="revHouseView"></div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var upBtn = document.getElementById("updateModal");
-		var spanClose = document.getElementsByClassName("closeHouseModal");
-		var houseRevModal = document.getElementsByClassName("houseRevModal");
-
-		function focusHouseReview(i) {
-			houseRevModal[i - 1].style.display = "block";
-		}
-
-		function xButtonHouseModal(i) {
-			houseRevModal[i - 1].style.display = "none";
-		}
-
-		function houseUpdateOk(root, houseResCode) {
-
-			var houseReview = document.getElementsByName("houseReview");
-			var str = "";
-			for (var i = 0; i < houseReview.length; i++) {
-				var houseRevContent = document
-						.getElementsByClassName("houseRevContent");
-
-				if (houseRevContent[i].value != "") {
-					str = houseRevContent[i].value;
-				}
-
-				var url = root + "/guestdelluna/houseReviewUpdateOk.do?";
-				var params = "houseUpResCode=" + houseResCode
-						+ "&houseRevContent=" + str;
-			}
-			sendRequest("POST", url, updateCallBack, params);
-
-		}
-
-		$(function() {
-			$('#tabs').tabs();
-		});
-	</script>
 </body>
 </html>

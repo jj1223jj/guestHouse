@@ -9,22 +9,36 @@ public class NewExpResDto {
 	private String exName ;
 	private Date reserveDate ;
 	private String state;
+	private int exPayment ;
+	private int exCode ;
 	
 	public NewExpResDto() {}
 
-	public NewExpResDto(int exReserveCode, int memberCode, String exName, Date reserveDate, String state) {
-	
+	public NewExpResDto(int exReserveCode, int memberCode, String exName, Date reserveDate, String state, int exPayment,
+			int exCode) {
+		
 		this.exReserveCode = exReserveCode;
 		this.memberCode = memberCode;
 		this.exName = exName;
 		this.reserveDate = reserveDate;
 		this.state = state;
+		this.exPayment = exPayment;
+		this.exCode = exCode;
 	}
 
 	@Override
 	public String toString() {
-		return "NewExpResDto [exReserveCode=" + exReserveCode + ", memberCode=" + memberCode + ", exName=" + exName + ", reserveDate="
-				+ reserveDate + ", state=" + state + "]";
+		return "NewExpResDto [exReserveCode=" + exReserveCode + ", memberCode=" + memberCode + ", exName=" + exName
+				+ ", reserveDate=" + reserveDate + ", state=" + state + ", exPayment=" + exPayment + ", exCode="
+				+ exCode + "]";
+	}
+
+	public int getExCode() {
+		return exCode;
+	}
+
+	public void setExCode(int exCode) {
+		this.exCode = exCode;
 	}
 
 	public int getExReserveCode() {
@@ -67,6 +81,13 @@ public class NewExpResDto {
 		this.state = state;
 	}
 
+	public int getExPayment() {
+		return exPayment;
+	}
+
+	public void setExPayment(int exPayment) {
+		this.exPayment = exPayment;
+	}
 
 	
 }
