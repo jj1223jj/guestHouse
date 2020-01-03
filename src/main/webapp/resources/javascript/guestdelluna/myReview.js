@@ -28,7 +28,7 @@ function expUpdateOk(root, expUpResCode, i) {
 		str = expRevContent[i - 1].value;
 
 	}
-	alert(str);
+	
 
 	var url = root + "/guestdelluna/reviewUpdateOk.do";
 
@@ -63,8 +63,7 @@ function houseUpdateOk(root, houseResCode,i) {
 		if (houseRevContent[i-1].value != "") {
 			str = houseRevContent[i-1].value;
 		}
-		alert(str);
-		alert(houseResCode);
+
 
 		var url = root + "/guestdelluna/houseReviewUpdateOk.do";
 		var params = "houseUpResCode=" + houseResCode + "&houseRevContent=" + str;
@@ -75,7 +74,7 @@ function houseUpdateOk(root, houseResCode,i) {
 
 function updateCallBack() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
-		alert("수정 완료됐습니당");
+		alert("수정 완료됐습니다");
 		location.reload();
 	}
 }

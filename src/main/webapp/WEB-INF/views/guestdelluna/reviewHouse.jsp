@@ -33,7 +33,7 @@
 
 							<div>
 								<div style="float: left">
-									<div style="text-align: left; margin-bottom: 1rem;">
+									<div style="text-align: left; margin-bottom: 1rem;">작성일 :
 										<fmt:formatDate value="${houseReview.revDate}"
 											pattern="yyyy-MM-dd" />
 									</div>
@@ -48,7 +48,7 @@
 									<div>
 										<img alt="img loading" width="250" height="160"
 											style="margin-top: 2.6rem;"
-											src="<spring:url value='/profileImg/${houseReview.mainImgName}'/>">
+											src="<spring:url value='/image/${houseReview.mainImgName}'/>">
 									</div>
 								</div>
 							</div>
@@ -61,9 +61,8 @@
 										data-toggle="modal"
 										style="background: #008489; border: 1px solid #008489; line-height: 1rem; margin-top: -0.1rem;"
 										data-target="#houseDelModal${status.count}">삭제</button></span>
-										<span style="margin-left: 24rem;">
-										<c:set var="houseName" value="${houseReview.houseName}"/>		
-										<a href="${root}/guestHousePage/guestHouse.do?houseCode=${houseReview.houseCode}">${fn:substring(houseName,0,20)}.....</a>
+										<span style="margin-left: 25.5rem;">		
+										<a href="${root}/guestHousePage/guestHouse.do?houseCode=${houseReview.houseCode}">${houseReview.houseName}</a>
 										
 										</span>
 							</div>

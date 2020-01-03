@@ -139,7 +139,7 @@ html {
 						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
 						href="#fragment-1"><span>포인트 적립 내역</span></a></li>
 					<li class="use"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 9rem;"><a
+						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 10rem;"><a
 						href="#fragment-2"><span>포인트 사용 내역</span></a></li>
 				</ul>
 
