@@ -25,7 +25,7 @@
 		
 		<link rel="stylesheet" href="${root}/resources/css/register/register.css"/>
 		
-		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+<%-- 		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script> --%>
 		
 		<title>게스트하우스 홈페이지</title>
 		

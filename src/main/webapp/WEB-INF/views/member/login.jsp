@@ -6,7 +6,7 @@
 
 <c:set var = "root" value = "${pageContext.request.contextPath}"/>
 <html lang="ko"><!--<![endif]--><head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 		<meta charset="utf-8">
 
@@ -15,12 +15,12 @@
 	
 		
 		
-		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+<%-- 		<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script> --%>
 		
 		
 		<!-- 카카오 -->
 	
-		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- 		 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script> -->
 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 			
 		<!-- S : 1-2 js 	

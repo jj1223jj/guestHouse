@@ -7,13 +7,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${root}/resources/css/register/register.css" />
-<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js"
-	type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="${root}/resources/css/register/register.css" />
+<%-- <script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script> --%>
 <title>회원 정보 수정</title>
-<script type="text/javascript"
-	src="${root}/resources/javascript/member/member.js"></script>
+<script type="text/javascript" src="${root}/resources/javascript/member/member.js"></script>
 </head>
 <body>
 	<script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>

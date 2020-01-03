@@ -9,9 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="${root}/resources/javascript/review/review.js" type="text/javascript" charset="utf-8"></script>
+<%-- <script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script> --%>
+<script src="${root}/resources/javascript/review/review.js" type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 <script type="text/javascript">
 	
