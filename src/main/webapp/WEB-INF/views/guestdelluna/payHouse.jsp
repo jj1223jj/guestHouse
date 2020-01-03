@@ -48,12 +48,12 @@
 									type="button" class="btn btn-primary btn-lg"
 									data-toggle="modal"
 									style="background: #008489; border: 1px solid #008489; line-height: 1rem; margin-top: -0.1rem;"
-									data-target="#myModal">삭제</button></td>
+									data-target="#houseModal${status.count}">삭제</button></td>
 
 						</tr>
 
 						<!-- Modal -->
-						<div class="modal fade" id="houseModal" tabindex="-1"
+						<div class="modal fade" id="houseModal${status.count}" tabindex="-1"
 							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">

@@ -91,11 +91,11 @@ menuL a{
 </head>
 <body>
 
-<div id="wrap" style="margin-top: 2rem;">
+<div id="wrap" style="margin-top: 3rem;">
 		<div style="text-align: center;">
 			${memberDto.memberName}님이 쓴 후기입니다.</div>
 
-		<div class="menuL" style="margin-top: 8rem;">
+		<div class="menuL" style="margin-top: 6.5rem;">
 			<ul>
 				<li><a href="${root}/guestdelluna/allMyReview.do" style="color: black;">후기</a></li>
 				<c:if test="${memberCode == memberDto.memberCode}">
@@ -115,7 +115,7 @@ menuL a{
 			</ul>
 		</div>
 
-		<div class="menuR" style="margin-left: -4rem; margin-top: 6.5rem;">
+		<div class="menuR" style="margin-left: -4rem; margin-top: 5rem;">
 			<div id="tabs" class="container"
 				style="width: 60rem; margin-top: 1.5rem;">
 				<ul style="border: 0px; background: #ffffff;">

@@ -14,7 +14,7 @@
 				style="width: 70rem; /*  border: 1px solid red; */ margin: 2rem auto; height: 35rem;">
 				<div class="innerBox">
 					<!-- 가로값이 1280으로 설정되어진 아이 -->
-					<h5 style="text-align: center; font-size: 1rem; color: #484848;">회원
+					<h5 style="text-align: center; font-size: 1rem; color: #484848; margin-left: -5rem;">회원
 						탈퇴 페이지입니다.</h5>
 				</div>
 				
@@ -84,7 +84,7 @@
 				<br /><br />
 				<br />
 				<div class="btn"
-					style="margin-top: -9rem; margin-bottom: 5rem; margin-left-2rem; /* border: 0.1rem solid green; */ width: 50rem; padding-left: 20rem;">
+					style="margin-top: -9rem; margin-bottom: 5rem; margin-left:-1.5rem; /* border: 0.1rem solid green; */ width: 50rem; padding-left: 20rem;">
 					<!-- 비활성화 시  disabled="disabled" 추가 -->
 					<input class="btn btn-success" type="submit" id="btnSubmit" onclick="deleteCheck('${root}','${email}')"/>
 					<input class="btn btn-light" type="reset" id="btnPwd"
@@ -105,8 +105,6 @@ function deleteCheck(root, getEmail) {
 	
 	var getPassowrd = document.getElementById("password99");
 	var password = getPassowrd.value;
-
-	alert(email + password);
 	
 	if (str == "제주 스테이를 탈퇴합니다") {
 		location.href = root + "/guestdelluna/memberDeleteOk.do?password="+password+"&email="+email;
