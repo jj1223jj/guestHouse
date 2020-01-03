@@ -99,7 +99,7 @@ public class SearchServiceImp implements SearchService {
 				JSONArray fileArr = new JSONArray();
 				for(FileDto fileDto : hostDto.getFileList()) {
 					HashMap<String, Object> fileMap = new HashMap<String, Object>();
-					fileMap.put("filePath",fileDto.getFilePath());
+					//fileMap.put("filePath",fileDto.getFilePath());
 					fileMap.put("fileName",fileDto.getFileName());
 					fileArr.add(fileMap);
 				}
@@ -254,7 +254,7 @@ public class SearchServiceImp implements SearchService {
 				JSONArray exFileArr = new JSONArray();
 				for(ExFileDto exFileDto : exDto.getExFileList()) {
 					HashMap<String, Object> exFileMap = new HashMap<String, Object>();
-					exFileMap.put("exFilePath",exFileDto.getFilePath());
+					//exFileMap.put("exFilePath",exFileDto.getFilePath());
 					exFileMap.put("exFileName",exFileDto.getFileName());
 					exFileArr.add(exFileMap);
 				}
