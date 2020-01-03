@@ -333,7 +333,7 @@ color:#484848;
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem; margin-top: 1.5rem;">${ho.houseName}</div>
+				<div style="width: 20rem; margin-top: 1.5rem; font-weight: bold;">${ho.houseName}</div>
 				<div style="width: 20rem; text-align: right;">₩ ${ho.price}/박</div>
 				
 				<!-- 별점 출력 -->
@@ -459,7 +459,7 @@ color:#484848;
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem; margin-top: 1.5rem;">${ex.exName}</div>
+				<div style="width: 20rem; margin-top: 1.5rem;font-weight: bold;">${ex.exName}</div>
 				<div style="width: 20rem; text-align: right;">1인당 ₩ ${ex.exPrice}</div>
 				<%-- <div style="width: 20rem;">${ex.revRate}</div> --%>
 				

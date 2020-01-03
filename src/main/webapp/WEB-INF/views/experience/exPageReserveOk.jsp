@@ -58,7 +58,7 @@ $(document).ready(function(){
 			<div style="margin: 5rem; width: 60rem; /* border: 0.1rem solid red; */ height: auto; ">
 				<div style="border: 0.05rem solid #ffa50040; width: 55rem; height: auto; padding: 3rem;">
 					<div style="width: 10rem; float: left; font-weight: bold; font-size: 1.5rem;" >체험 이름</div>
-					<div id="name" style="width: 29rem; margin-left: 10rem; text-align: left;font-size: 1.3rem;"> ${experienceDto.exName}</div>
+					<div id="name" style="width: 29rem; height:3rem; margin-left: 10rem; text-align: left;font-size: 1.3rem;"> ${experienceDto.exName}</div>
 					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;font-size: 1.5rem;">체험 설명</div>
 					<div id="explain" style="word-break: break-all; width: 29rem; margin-left: 10rem; margin-top: 2rem; text-align: left;font-size: 1.3rem;">${experienceDto.exExplain}</div>	
 					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;font-size: 1.5rem;">예약번호</div>
@@ -71,7 +71,7 @@ $(document).ready(function(){
 					</c:if>
 					
 					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem; font-size: 1.5rem;">결제금액</div>
-					<div id="payment" style="width: 29rem; height:3rem; margin-left: 10rem; text-align: left; margin-top: 2rem; font-size: 1.3rem;"> ${exReserveDto.exPayment}</div>
+					<div id="payment" style="width: 29rem; height:3rem; margin-left: 10rem; text-align: left; margin-top: 2rem; font-size: 1.3rem;"> ${exReserveDto.exPayment} 원</div>
 					<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem; margin-top: 2rem; font-size: 1.5rem;">포인트 적립</div>
 					<div id="point" style="width: 29rem; margin-left: 10rem; text-align: left; margin-top: 2rem; font-size: 1.3rem;">${resPoint} p</div>
 					
