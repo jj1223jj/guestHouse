@@ -180,7 +180,6 @@ i{
 	height: 70.5rem;
 	background-image: url("${root}/resources/images/JEJU_STAY.jpg");
 }
-
 </style>
 
 </head>

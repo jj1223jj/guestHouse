@@ -58,7 +58,22 @@ body {
 color:#484848;
 }
 
-
+.btn-primary{
+    background-color: #7bc143;
+    border-color: #7bc143;
+    color: #FFF; }
+.btn-primary:hover,
+.btn-primary:focus {
+    border-color: #6fb03a;
+    background-color: #6fb03a;
+    color: #FFF; }
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:focus,
+.btn-primary:active:hover {
+    border-color: #639d34;
+    background-color: #639d34;
+    color: #FFF; }
 </style>
 
 </head>
@@ -67,8 +82,8 @@ color:#484848;
 	<!-- 헤더영역 -->
 
 	<nav class="navbar navbar-expand-sm fixed-top"
-		style="background-color: white; height: 7rem;">
-		<div class="container-fluid">
+		style="background-color: white; height: 5rem;">
+		<div class="container-fluid" style="width: 90rem;">
 			<div class="navbar-header">
 				
 				<!--
@@ -78,8 +93,8 @@ color:#484848;
 				  -->
 				<%-- <img src="${root}/resources/images/logo1.png" style="width: 3.125rem; height: 3.125rem;"/> --%>
 				<a class="active" href="${root}"
-					style="font-size: 2rem; font-weight: bold; color: black; margin-left: 1rem;">
-					<img src="${root}/resources/images/logoFinal.png" style="width: 11rem;" />
+					style="font-size: 2rem; font-weight: bold; color: black;/*  margin-left: 1rem; */">
+					<img src="${root}/resources/images/logoFinal.png" style="width: 7rem;" />
 				</a>
 			</div>
 			<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +102,7 @@ color:#484848;
           <span><i class="ion-navicon"></i></span>
         </button> -->
         
-         <ul class="nav navbar-nav navbar-right" style="margin-right: 5rem;">
+         <ul class="nav navbar-nav navbar-right" style="/* margin-right: 5rem; */">
           	
 	          	<c:if test="${memberLevel == null}">
 		            <li class="nav-item"><a class="nav-link" href="#" style="color:black !important">HOME</a></li>
