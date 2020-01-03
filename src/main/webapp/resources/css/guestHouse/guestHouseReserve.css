@@ -3,10 +3,10 @@
 html{
 	font-size: 16px;
 }
-h3{
+.notice h3, .bot h3{
 	font-weight: bold;
 	margin-top:3rem;
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 }
 
 body{
@@ -29,32 +29,34 @@ body{
 	font-size: 2rem;
 }
 
-.top, .mid{
-	margin-bottom: 3rem;
+.top, .mid, .bot{
+	margin-bottom: 2rem;
 }
 
-.bot{
-	margin-bottom: 2rem
-}
 
 
 .guestHouse{
-	width: 70rem; height:12rem; margin-bottom: 3rem; margin-top: 3rem; overflow: hidden;
+	width: 70rem; 
+	/* height:12rem;  */
+	margin-bottom: 2rem; margin-top: 3rem; overflow: hidden;
 }
 
 #explain{
 	/* width:45rem; height: 12rem;  */
 	display: inline-block; float: left;
-	margin-right: 3rem;
+	width: 40rem; 
 }
 
 #houseName{
 	font-weight: bold;
-	font-size: 1.1rem;
+	font-size: 1.5rem;
+	margin-top: 0rem;
 }
 
 #ghImg{
-	display: inline-block;  width:15rem; height: 12rem; 
+	display: inline-block;  /* width:15rem; height: 12rem;  */
+	width: 22rem;
+	float: right;
 }
 
 .reserve{
@@ -81,9 +83,17 @@ body{
 #payment{
 	padding: 0.3rem 0.6rem;
 	border-radius: 0.2rem;
+	margin-left: 1rem;
+}
+
+.notice{
+	margin-top: 3rem;
 }
 
 
+#pay{
+	margin-top: 3rem;
+}
 
 
 

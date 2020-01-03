@@ -8,13 +8,10 @@ body{
 	color: #484848;
 }
 
-.top{
-	border: 0.1rem dotted yellow; 
-	margin-left: 1.5rem;
-}
+
 
 #exImg{
-	object-fit:cover;
+	/* object-fit:cover; */
 	width: 100%;
 	height: 100%;
 }
@@ -25,9 +22,14 @@ body{
 
 #mainImg{
 	float:left; display:inline-block;
-	width: 50%; height: 30rem; 
-	overflow: hidden; border: 0.1rem solid red; 
-	margin-right: 0.5rem;
+	width: 50%; height: 40rem; 
+	overflow: hidden;/*  border: 0.1rem solid red;  */
+	/* margin-right: 0.5rem; */
+}
+
+#imagesWrap{
+	width: 50%; height: 40rem;
+	/* border: 0.1rem solid red; */ overflow: hidden;
 }
 /* 
 #roomImg{
@@ -53,15 +55,21 @@ body{
 }
 
 .explain{
-	width: 30rem;
+	width: 40rem;
+	margin-top: 3rem;
 }
 
 .facilites, #calendar, .host, #map, #notice{
 	margin-bottom: 3rem;
+	margin-top: 3rem;
 }
 
-.facilites > p, #calendar > p, .host>p, #map>p, #notice p,#reserve>p{
+.facilites > p, #calendar > p, #hostName, #map>p, #notice p{
 	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+#reserveMargin>p{
 	font-weight: bold;
 }
 
@@ -72,13 +80,31 @@ body{
 #fLeft{
 	display: inline-block;
 }
+
+#titleEmail{
+	width: 6rem;
+}
+
+.title{
+	margin-bottom: 1rem;
+}
+
+.host{
+	overflow: hidden;
+	width: 40rem;
+}
+
 #hostInfo{
-	float: left; 
-	border: 1px solid blue;
+/* 	border: 1px solid blue; */
+	float: left;
+	display: inline-block;
+	width: 40rem;
+	margin-bottom: 2rem;
 }
 
 #hostImg{
 	display: inline-block;
+	float: right;
 }
 
 #hostImgSize{
@@ -87,10 +113,25 @@ body{
 	border-radius: 5rem;
 }
 
+#houseMap{
+	/* style="width: 500px; height: 400px;" */
+	width: 40rem;
+	height: 25rem;
+}
+
+#notice{
+	width: 40rem;
+}
+
 #reserve{
 	margin-left: 3rem; 
 	display: inline-block;
+	border: 0.05rem solid #cccccc;
+	border-radius: 0.4rem;
+}
 
+#reserveMargin{
+	margin: 1.5rem;
 }
 
 .form{
@@ -102,8 +143,40 @@ body{
 	margin-top: 3rem;
 	margin-bottom: 3rem;
 }
+#formToText,#peopleText{
+	font-size: 1rem;
+	font-weight: bold;
+}
 
+#formTo{
+	margin-bottom: 1.5rem;
+}
 
+#from{
+	width: 7rem; margin-right: 1rem;
+}
 
+#to{
+	width: 7rem;
+}
 
+#loginText{
+	width:100%; margin-top:1.5rem; color: red;
+	font-size: 0.8rem;
+}
 
+#reveiwAll{
+	border: 1px solid red;
+}
+
+#revContent{
+	background: #fff; border: none; width: 45rem; 
+	-webkit-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0, 0, 0, 0.16); 
+	-moz-box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0, 0, 0, 0.16); 
+	box-shadow: 0rem 0.063rem 0.25rem 0.125rem rgba(0, 0, 0, 0.16); 
+	border-radius: 0.938rem; display: inline-block;
+}
+
+#moreReviewB{
+	margin-top:1rem; margin-bottom: 1rem;
+}

@@ -9,12 +9,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.java.aop.HomeAspect;
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dto.ExperienceDto;
+import com.java.experience.dto.ExperienceImgDto;
+import com.java.experience.dto.ExperienceMainDto;
+import com.java.experience.dto.GuestHouseMainDto;
 import com.java.exremain.dto.ExRemainDto;
 import com.java.exreserve.dto.ExReserveDto;
 import com.java.exreview.dto.ExReviewDto;
 import com.java.exreview.dto.ExReviewListDto;
+import com.java.file.dto.FileDto;
 import com.java.guestdelluna.dto.PointAccumulate;
 import com.java.guestdelluna.dto.PointUse;
 import com.java.host.dto.HostDto;
@@ -22,7 +27,7 @@ import com.java.member.dto.MemberDto;
 
 @Component
 public class ExperienceDaoImp implements ExperienceDao {
-
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
@@ -210,4 +215,40 @@ public class ExperienceDaoImp implements ExperienceDao {
 		
 		return sqlSessionTemplate.insert("dao.ExperienceMapper.message", hMap);
 	}
+	
+	// 카카오 페이에서 개인 정보 가져오기
+	@Override
+	public MemberDto getMemberInfo(String email) {
+		return sqlSessionTemplate.selectOne("dao.ExperienceMapper.getMemberInfo",email);
+	}
+	
+	// 체험 메인 페이지
+	@Override
+	public List<ExperienceMainDto> searchMainEx() {
+		// 최근 등록된 체험 정보를 가져와서
+		List<ExperienceMainDto> exImgList = sqlSessionTemplate.selectList("dao.ExperienceMapper.searchMainEx");
+		HomeAspect.logger.info(HomeAspect.logMsg+"exImgList: " +exImgList);
+		
+		// 체험 정보에 해당하는 이미지 파일 가져오기
+		for(ExperienceMainDto exImgDto : exImgList) {
+			List<ExFileDto> exFileList = sqlSessionTemplate.selectList("dao.searchMapper.getExImg",exImgDto.getExCode());
+			exImgDto.setExFileList(exFileList);
+		}
+		return exImgList;
+	}
+	// 게하 메인 페이지
+	@Override
+	public List<GuestHouseMainDto> searchMain() {
+		// 최근 등록된 게하 정보를 가져와서
+		List<GuestHouseMainDto> houseImgList = sqlSessionTemplate.selectList("dao.ExperienceMapper.searchMainGh");
+		HomeAspect.logger.info(HomeAspect.logMsg+"houseImgList: " +houseImgList);
+		
+		// 체험 정보에 해당하는 이미지 파일 가져오기
+		for(GuestHouseMainDto ImgDto : houseImgList) {
+			List<FileDto> FileList = sqlSessionTemplate.selectList("dao.searchMapper.getHouseImg",ImgDto.getHouseCode());
+			ImgDto.setFileList(FileList);
+		}
+		return houseImgList;	
+		}
+
 }

@@ -28,7 +28,7 @@
   </insert>
   
   <insert id="mainImgUpload" parameterType="com.java.file.dto.FileDto">
-  	 insert into FileList(fileCode, mainImgName, filePath, fileSize, houseCode) values(seq_fileList_num.nextval, #{mainImgName}, #{filePath}, #{fileSize}, #{houseCode})
+  	 insert into FileList(fileCode, fileName, mainImgName, filePath, fileSize, houseCode) values(seq_fileList_num.nextval, #{mainImgName}, #{mainImgName}, #{filePath}, #{fileSize}, #{houseCode})
   </insert>
   
   <select id="houseCode" resultType="int">
@@ -39,7 +39,8 @@
   <![CDATA[
   	select * from
 	(select rownum rnum, A.* from
-	(select * from house where memberCode = #{memberCode})A)
+	(select * from house where memberCode = #{memberCode}
+	order by house.houseRegDate DESC)A)
 	where rnum>=#{startRow} and rnum<=#{endRow}
 	]]>
   </select>
@@ -109,7 +110,8 @@
   	select * from
 	(select rownum rnum, A.* from
 	(select * from experience
-	where memberCode = #{memberCode})A)
+	where memberCode = #{memberCode}
+	order by experience.exRegDate DESC)A)
 	where rnum>=#{startRow} and rnum<=#{endRow}
   	]]>
   </select>

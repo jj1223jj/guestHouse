@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dto.ExperienceDto;
+import com.java.experience.dto.ExperienceImgDto;
+import com.java.experience.dto.ExperienceMainDto;
+import com.java.experience.dto.GuestHouseMainDto;
 import com.java.exremain.dto.ExRemainDto;
 import com.java.exreserve.dto.ExReserveDto;
 import com.java.exreview.dto.ExReviewDto;
@@ -80,6 +83,16 @@ public interface ExperienceDao {
 	public int resPointUp(PointAccumulate pointAccumulate);
 
 	public int usePointUp(PointUse pointUse);
+
+	// 카카오페이
+	public MemberDto getMemberInfo(String email);
+
+	// 체험 메인
+	public List<ExperienceMainDto> searchMainEx();
+
+	// 게하 메인
+	public List<GuestHouseMainDto> searchMain();
+
 
 
 

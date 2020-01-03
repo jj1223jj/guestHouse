@@ -53,7 +53,7 @@
 				'			<div class="swiper-container">' +
 				'				<div class="swiper-wrapper">' +
 	// 			'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+house[0].fileList[0].fileName+'"/></div>' +	
-				'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/resources/image/1576456333406_dd.jpg"/></div>' +	
+				'					<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src=""/></div>' +	
 				'				</div>' +
 				'				<div class="swiper-pagination"></div>' +
 				'				<div class="swiper-button-next"></div>' +
@@ -109,7 +109,6 @@
 								$("._overlaybox ._heart").attr("data-target","");
 							}
 							var overlayHeart= $("._overlaybox ._heart svg");
-							console.log(overlayHeart);
 							if(overlay.zzimed!=null){
 								overlayHeart.attr("fill", "#FF385C");
 								overlayHeart.attr("fill-opacity", "1");
@@ -126,7 +125,6 @@
 								for(let j=0;j<overlay.fileList.length;j++){
 									var img= '<div class="swiper-slide"><img style="max-width:100%; height:auto;" alt="img loading" src="'+root+'/image/'+overlay.fileList[j].fileName+'"/></div>';
 									$("._overlaybox .swiper-wrapper").append(img);
-									swiper = setSwiper();
 				                }
 							}else{
 								//사진 한장도 없을때 오버레이의 스와이퍼 버튼들도 지워주기
@@ -141,6 +139,7 @@
 					map.panTo(marker[i].getPosition());
 					//heart('${memberCode}');
 					$("._overlaybox").css("display","block");
+					swiper = setSwiper();
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseover', function(){
 					var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
@@ -570,7 +569,7 @@
 	margin-top:0.938rem;
 	margin-bottom:0.938rem;
 	width:52.5rem;
-	height: 14.063rem;
+	height: 10.063rem;
 }
 .formContainer{
 	height: 4.688rem;
@@ -578,7 +577,7 @@
     background-color: white;
     position: fixed;
     z-index: 10;
-    top: 13.638rem;
+    top: 11.638rem;
     border-bottom: solid 0.1rem #cccccc;
 }
 .filterContainer :first-child{
@@ -591,7 +590,7 @@
 	width:52.5rem;
  	position: fixed;
 	z-index: 10;
-	top: 8.8rem;
+	top: 6.8rem;
 }
 
 .houseListContainer{
@@ -656,6 +655,8 @@
 }
 ._houseName{
 	font-size:1.125rem !important;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 ._houseFacilities{
 	font-size: 0.875rem;

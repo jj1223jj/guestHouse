@@ -21,6 +21,10 @@ public interface AdminDao {
 	public int houseCount();
 
 	public List<MemberDto> houseList(int startRow, int endRow);
+	
+	public int guestHouseStateOk(int houseCode);
+	
+	public int guestHouseStateNo(int houseCode);
 
 	// 체험 관리
 	public int experienceCount();
@@ -30,5 +34,6 @@ public interface AdminDao {
 	public int experienceStateOk(int exCode);
 
 	public int experienceStateNo(int exCode);
+
 
 }

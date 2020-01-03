@@ -8,6 +8,9 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   	
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
@@ -160,17 +163,17 @@
 						
 						<!-- memberCode는 hidden으로 값만 넘겨줌 -->
 							<input type="hidden" name ="memberCode" id="memberCode"/>
-							<div align="center">
-								<input type="text" class="form-control" id="memberName" style="width: 5rem;" disabled="disabled"/>
-								<p>님의 회원 정보 수정입니다.</p>
+							<div align="center" style="width: 25rem; margin-top: 3rem;">
+								<input type="text" class="form-control" id="memberName" style="width: 5rem; float: left; margin-left: 7rem;" disabled="disabled"/>
+								<a>님의 회원 정보 수정입니다.</a>
 							</div>
 												
-							<div align="center" height="20" width="125">
+							<div align="center" height="20" width="125" style="margin-top: 3rem;">
 								<p align="center" height="20" width="125">포인트</p>
 								<input type="text" class="form-control" id="point" style="width: 10rem;" name="point" />
 							</div>
 												
-							<div class="container" align="center" style="width: 10rem;">
+							<div class="container" align="center" style="width: 10rem;margin-top: 2rem; margin-bottom: 3rem;">
 								<p align="center" height="20" width="125">회원등급</p>
 								<select class="form-control" id="memberLevel" name = "memberLevel">
 									<option value = "">선택하세요</option>
@@ -182,9 +185,11 @@
 						</div>
 								        
 					<!-- Modal footer -->
-						<div class="modal-footer">
-							<button id="modalSubmit" type="submit" class="btn btn-info">수정</button>
-							<button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+						<div class="modal-footer" style="margin-bottom: 1rem; padding-top: 2rem;">
+							<div style="width:10rem; margin-right: 10rem;" align="center" >
+								<button id="modalSubmit" type="submit" class="btn btn-info">수정</button>
+								<button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+							</div>
 						</div>
 					</form>
 				</div>

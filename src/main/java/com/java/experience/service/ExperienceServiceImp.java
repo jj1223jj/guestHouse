@@ -110,16 +110,24 @@ public class ExperienceServiceImp implements ExperienceService {
 		HomeAspect.logger.info(HomeAspect.logMsg + "memberCode: " + memberCode);
 
 		ExperienceDto experienceDto = (ExperienceDto) map.get("experienceDto");
-		HomeAspect.logger.info(HomeAspect.logMsg + "experienceDto: " + experienceDto);
+		// houseCode 추가 12-30
+		// 주소
+		//houseCode
+		experienceDto.setHouseCode(Integer.parseInt(experienceDto.getExAddress().split(":")[1]));
+		HomeAspect.logger.info(HomeAspect.logMsg + "houseCode: " + (experienceDto.getExAddress().split(":")[1]));
 
+		experienceDto.setExAddress(experienceDto.getExAddress().split(":")[0]);
+		HomeAspect.logger.info(HomeAspect.logMsg + "주소: " + experienceDto.getExAddress().split(":")[0]);
+		
+
+		
+		
 		// 회원코드
 		experienceDto.setMemberCode(memberCode);
 
 		// 체험 이름
 		experienceDto.setExName(request.getParameter("exName"));
 
-		// 체험 주소 (주소랑 상세주소 합친 값을 exAddress에, jsp에서 hidden으로 넘겨주는거 재확인)
-		experienceDto.setExAddress(request.getParameter("exAddress") + request.getParameter("detailAddress"));
 
 		// 인원수
 		experienceDto.setExPeople(Integer.parseInt(request.getParameter("exPeople")));
@@ -131,8 +139,9 @@ public class ExperienceServiceImp implements ExperienceService {
 		experienceDto.setExExplain(request.getParameter("exExplain"));
 
 		// 시작 끝 날짜
-		System.out.println(request.getParameter("exStartDateS"));
-		System.out.println(request.getParameter("exEndDateS"));
+		String exStartDateS = request.getParameter("exStartDateS");
+		String exEndDateS = request.getParameter("exEndDateS");
+		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
@@ -162,8 +171,9 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 등록 날짜
 		experienceDto.setExRegDate(new Date());
 
-		// 주소
-		experienceDto.setExAddress(request.getParameter("exAddress"));
+		/*
+		 * // 주소 experienceDto.setExAddress(request.getParameter("exAddress"));
+		 */
 
 		int exRegisterChk = experienceDao.exHostRegister(experienceDto);
 
@@ -238,8 +248,28 @@ public class ExperienceServiceImp implements ExperienceService {
 			}
 		}
 
-		HomeAspect.logger.info(HomeAspect.logMsg + experienceDto.toString());
+		// 메인 이미지 가져오기
+		List<ExFileDto> exFileList = experienceDao.exPageImgList(exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "exPageImgList : " + exFileList.toString());
 
+		String mainImg = null;
+		for (int i = 0; i < exFileList.size(); i++) {
+			if (exFileList.get(i).getMainImgName() != null) {
+				mainImg = exFileList.get(i).getMainImgName();
+			}
+		}
+		
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + experienceDto.toString());
+		
+		mav.addObject("experienceDto",experienceDto);
+		mav.addObject("exRegisterChk",exRegisterChk);
+		mav.addObject("exMainFile", exMainFile);
+		mav.addObject("mainImg",mainImg);
+		mav.addObject("exStartDateS",exStartDateS);
+		mav.addObject("exEndDateS",exEndDateS);
+		
+		
 		mav.setViewName("experience/exHostOk.tiles");
 
 	}
@@ -301,6 +331,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		  exReviewListDto.getEmail());
 		  
 		  arr.add(CommonMap);
+		  
 		  
 		  HomeAspect.logger.info(HomeAspect.logMsg + "리뷰 정보 : " +
 		  exReviewListDto.toString()); } String jsonText = JSONValue.toJSONString(arr);
@@ -557,7 +588,8 @@ public class ExperienceServiceImp implements ExperienceService {
 	public void exReviewUpdateOk(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
+		HttpServletResponse response = (HttpServletResponse) map.get("response");
+		
 		ExReviewDto exReviewDto = (ExReviewDto) map.get("exReviewDto");
 		exReviewDto.setRevDate(new Date());
 
@@ -566,8 +598,14 @@ public class ExperienceServiceImp implements ExperienceService {
 		int check = experienceDao.exReviewUpdateOk(exReviewDto);
 
 		mav.addObject("check", check);
-
-		mav.setViewName("experience/exReviewUpdateOk.empty");
+		response.setContentType("application/x-json;charset=utf-8");
+		try {
+			PrintWriter out = response.getWriter();
+			out.print(check);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -609,8 +647,10 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 12-27 
 		//int exCode = 6;
 		
+
 		 // int exCode = Integer.parseInt(request.getParameter("exCode"));
-		 
+
+
 		if(email!=null) {
 			
 		
@@ -846,10 +886,16 @@ public class ExperienceServiceImp implements ExperienceService {
 		// mav.setViewName("experience/exReview.tiles");
 
 		////////////////////////////// 후기 리스트/////////////////////////
+		  
+
+			int count = experienceDao.getReviewCnt(exCode);
+			
+			HomeAspect.logger.info(HomeAspect.logMsg + "이 회원의 댓글 갯수: " + count);
 
 		mav.addObject("experienceDto", experienceDto);
 		mav.addObject("exFileList", exFileList);
 		mav.addObject("memberDto", memberDto);
+		mav.addObject("count", count);
 		
 		
 		// 체험을 관리자가 보는 경우 exApp에 1을 임의로 넘겨줌
@@ -1149,5 +1195,201 @@ public class ExperienceServiceImp implements ExperienceService {
 		}
 
 	}
+	
+	// 결제 방식이 카카오페이
+	@Override
+	public void kakaoPaySuccess(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		
+		int exCode =  Integer.parseInt(request.getParameter("exCode"));
+		int memberCode =  Integer.parseInt(request.getParameter("memberCode"));
+		String exDateS  = request.getParameter("exDateS");
+		
+		int exPeople = Integer.parseInt(request.getParameter("exPeople"));
+		int exPayment = Integer.parseInt(request.getParameter("exPayment"));
+		float point = Float.parseFloat(request.getParameter("point"));
+		int usePoint = Integer.parseInt(request.getParameter("usePoint"));
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + exCode +", "+memberCode+", "
+		+exDateS+", "+exPeople+", "+exPayment+", "+point+", "+usePoint);
+		
+		System.out.println("총 결제 금액:" +exPayment);
+		
+		HttpSession session = request.getSession();
+		
+		String email = (String) session.getAttribute("email");
+		
+		MemberDto memberDto = experienceDao.getMemberInfo(email);
+		
+		mav.addObject("exCode",exCode);
+		mav.addObject("memberCode",memberCode); // 예약자 멤버코드
+		mav.addObject("exDateS",exDateS);	
+		mav.addObject("exPeople",exPeople);			// 예약인원수
+		mav.addObject("exPayment",exPayment);
+		mav.addObject("point",point);			// 적립포인트
+		mav.addObject("usePoint",usePoint);		// 사용포인트
+		
+		mav.addObject("memberDto",memberDto);
+		
+		mav.setViewName("experience/kakaoPay.tiles");
+		
+	}
+	// 카카오 페이 결제 완료
+	@Override
+	public void kakaoPaySuccessOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");		
+		
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		
+		String imp_uid = request.getParameter("imp_uid");
+		String merchant_uid = request.getParameter("merchant_uid");
+		
+		int exPayment = Integer.parseInt(request.getParameter("paid_amount"));
+		int exCode =Integer.parseInt(request.getParameter("exCode"));
+		
+		int memberCode =  Integer.parseInt(request.getParameter("memberCode"));
+		
+		String exDateS  = request.getParameter("exDateS");
+		
+		int exPeople = Integer.parseInt(request.getParameter("exPeople"));
+		//int exPayment = Integer.parseInt(request.getParameter("exPayment"));
+		float point = Float.parseFloat(request.getParameter("point"));
+		int usePoint = Integer.parseInt(request.getParameter("usePoint"));
+		
+		HomeAspect.logger.info(HomeAspect.logMsg + exCode +", "+memberCode+", "
+		+exDateS+", "+exPeople+", "+exPayment+", "+point+", "+usePoint);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date exDate = null;
+		try {
+			exDate = sdf.parse(exDateS);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String[] arr = exDateS.split("-");
+		
+		int[] intArr = new int[arr.length];
+		for(int i=0; i<arr.length; i++) {
+			intArr[i] = Integer.parseInt(arr[i]);
+		}
+		
+		Calendar cal = Calendar.getInstance();
+		//Date[] arrDate = new Date
+		cal.setTime(exDate);
+		
+		
+		int remainChk = experienceDao.insertExRemain(exDate,exPeople,exCode);
+		
+		
+		ExReserveDto exReserveDto = new ExReserveDto();
+
+		exReserveDto.setMemberCode(memberCode);
+		exReserveDto.setExCode(exCode);
+		exReserveDto.setExPeople(exPeople);
+		exReserveDto.setReserveDate(new Date());
+		exReserveDto.setExPayment(exPayment);
+		exReserveDto.setState("예약완료");
+		exReserveDto.setExDate(exDate);
+
+		HomeAspect.logger.info(HomeAspect.logMsg + "exReserveDto: " + exReserveDto.toString());
+
+		// 체험정보
+		ExperienceDto experienceDto = experienceDao.exPage(exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "체험 정보 : " + experienceDto.toString());
+
+		// db에 예약정보 저장
+		int check = experienceDao.insertExReserve(exReserveDto);
+		HomeAspect.logger.info(HomeAspect.logMsg + "db에 예약자 등록:" + check);
+
+		// 예약번호
+		int exReserveCode = experienceDao.getExReserveCode(exCode, memberCode, exDate);
+		HomeAspect.logger.info(HomeAspect.logMsg + "예약번호:" + exReserveCode);
+
+		// 적립포인트
+		int resPoint = (int) point;
+		HomeAspect.logger.info(HomeAspect.logMsg + "resPoint:" + resPoint);
+
+		// 현재 멤버의 포인트
+		int nowPoint = experienceDao.getPoint(email);
+
+		// 적립금
+		//int savePoint = (int)(exPayment*0.01);
+
+		
+		
+		// 포인트 적립, 사용
+		// 적립포인트가 0보다 크면(포인트를 사용하지 않았을 때)
+		int plusPoint =0;
+		if(resPoint > 0) {
+			PointAccumulate pointAccumulate = new PointAccumulate();
+			pointAccumulate.setMemberCode(memberCode);
+			pointAccumulate.setAccuPlace(experienceDto.getExName());
+			pointAccumulate.setAccuDate(exReserveDto.getReserveDate());
+			pointAccumulate.setAccuPoint(resPoint);
+			
+			HomeAspect.logger.info(HomeAspect.logMsg + "pointAccumulate:" + pointAccumulate.toString());
+			
+			// 포인트 적립 = 현재 포인트  + 적립금 
+			plusPoint = nowPoint + resPoint;
+			
+			// 포인트 적립테이블에 저장
+			int resPointUp = experienceDao.resPointUp(pointAccumulate);
+			HomeAspect.logger.info(HomeAspect.logMsg + "resPointUp:" + resPointUp);
+			
+		}else {	// 적립포인트가 0이면 (포인트를 사용한 경우)
+			
+			PointUse pointUse = new PointUse();
+			pointUse.setMemberCode(memberCode);
+			pointUse.setUsePlace(experienceDto.getExName());
+			pointUse.setUseDate(exReserveDto.getReserveDate());
+			pointUse.setUsePoint(usePoint);
+			
+			// 포인트 사용 = 현재 포인트 - 사용 포인트
+			plusPoint = nowPoint - usePoint;
+			
+			// 포인트 사용테이블에 저장
+			int usePointUp = experienceDao.usePointUp(pointUse);
+			HomeAspect.logger.info(HomeAspect.logMsg + "usePointUp:" + usePointUp);
+		}
+		
+		// 멤버테이블에 포인트 업데이트
+		int pointUpdate = experienceDao.pointUpdate(memberCode, plusPoint);
+		
+
+		// 체험 사진
+		List<ExFileDto> exFileList = experienceDao.exPageImgList(exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg + "exPageImgList : " + exFileList.toString());
+
+		String mainImg = null;
+		for (int i = 0; i < exFileList.size(); i++) {
+			if (exFileList.get(i).getMainImgName() != null) {
+				mainImg = exFileList.get(i).getMainImgName();
+			}
+		}
+
+		// 메세지 보관함
+		 String msgContent = "(체험) "+experienceDto.getExName()+"이 예약 완료 되었습니다. 예약 목록을 확인해보세요";
+		 Date msgDate = new Date();
+		 String msgCheck = "읽지 않음";
+		 int megChk = experienceDao.message(memberCode,msgContent,msgDate, msgCheck);
+
+		mav.addObject("exReserveCode", exReserveCode);
+		mav.addObject("exReserveDto", exReserveDto);
+		mav.addObject("experienceDto", experienceDto);
+		mav.addObject("mainImg", mainImg);
+		mav.addObject("plusPoint", plusPoint);
+		mav.addObject("resPoint",resPoint);
+		mav.addObject("imp_uid",imp_uid);
+		
+		mav.setViewName("experience/exPageReserveOk.tiles");
+
+	}
+
 
 }

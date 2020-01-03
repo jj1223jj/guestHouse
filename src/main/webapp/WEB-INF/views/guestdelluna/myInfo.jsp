@@ -124,7 +124,7 @@ html {
 .active {
 	width: 10px;
 	height: 10px;
-	background: #f60;
+/* 	background: #f60; */
 	color: white;
 }
 
@@ -133,70 +133,6 @@ html {
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.houseList, .exList {
-	overflow: hidden;
-}
-
-.houseDiv {
-	float: left;
-}
-
-.houseImg {
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 250px;
-	height: 160px;
-	overflow: hidden;
-}
-
-.houseImg > img {
-	width: 250px;
-}
-
-.reviewL {
-	float: left;
-}
-
-.reviewMemberImg {
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 48px;
-	height: 48px;
-	border-radius: 25px;
-	overflow: hidden;
-}
-
-.reviewMemberImg > img {
-	width: 48px;
-}
-
-.reviewR {
-	float: right;
-}
-
-.reviewHouseImg {
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 105px;
-	height: 65px;
-	overflow: hidden;
-}
-.reviewR > span {
-	display: block;
-	text-align: center;
-	margin-top: 1rem;
-}
-.reviewHouseImg > img{
-	width: 105px;
-}
-</style>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
 <script type="text/javascript"
@@ -219,6 +155,8 @@ html {
 	src="${root}/resources/javascript/guestdelluna/jsForMember.js"></script>
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/mypaylist.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
 <body onload="rootPage('${root}', '${memberLevel}')">
@@ -384,7 +322,12 @@ html {
 	
 	<div class="infoDiv">
 		<div class="infoImg">
-			<img alt="img loading" src="<spring:url value='/profileImg/${memberDto.memberImgName}'/>">
+			<c:if test="${!empty memberDto.memberImgName}">
+				<img alt="img loading" src="<spring:url value='/profileImg/${memberDto.memberImgName}'/>"/>
+			</c:if>
+			<c:if test="${empty memberDto.memberImgName}">
+				<img alt="img loading" src="${root}/resources/css/host/user.png" style="width: 16rem; margin-top: 4rem;"/>
+			</c:if>
 		</div>
 		<p>안녕하세요. 저는 ${memberDto.memberName}입니다.</p>
 		<span>
@@ -395,16 +338,23 @@ html {
 	</div>
 	
 	<c:if test="${memberDto.memberLevel == 'Host'}">
-		<div class="houseList">
+	<c:if test="${hostHouseList.size() > 0 }">
+	<div class="house">
 		<h3> ${memberDto.memberName}님의 숙소</h3>
+		<div class="houseList">
+				<div class="houseSlide">
 			<c:forEach var="hostHouseList" items="${hostHouseList}">
-				<a href="${root}/">
+				<a href="${root}/guestHousePage/guestHouse.do?houseCode=${hostHouseList.houseCode}">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
 							src="<spring:url value='/image/${hostHouseList.mainImgName}'/>"/>
 					</div>
-					<div class="houseRate"> <c:if
+					<div class="houseRate"><c:if
+							test="${hostHouseList.revRate==0}">
+							<img src="${root}/resources/css/review/star0.png"
+								style="width: 50px;">
+						</c:if><c:if
 							test="${hostHouseList.revRate==1}">
 							<img src="${root}/resources/css/review/star1.PNG"
 								style="width: 50px;">
@@ -426,18 +376,30 @@ html {
 				</div>
 				</a>
 			</c:forEach>
+				</div>
 		</div>
+		<button type="button" id="btnL" class="slideBtn"></button>
+		<button type="button" id="btnR" class="slideBtn"></button>
+		</div>
+		</c:if>
 
-		<div class="exList">
+		<c:if test="${hostExList.size() > 0}">
+		<div class="ex">
 		<h3> ${memberDto.memberName}님의 체험</h3>
+		<div class="exList">
+		<div class="houseSlide">
 			<c:forEach var="hostExList" items="${hostExList}">
-			<a href="${root}/">
+			<a href="${root}/experience/exPage.do?exCode=${hostExList.exCode}">
 				<div class="houseDiv">
 					<div class="houseImg">
 						<img alt="img loading"
 							src="<spring:url value='/ex/${hostExList.mainImgName}' />" />
 					</div>
 					<div class="houseRate"> <c:if
+							test="${hostExList.revRate==0}">
+							<img src="${root}/resources/css/review/star0.png"
+								style="width: 50px;">
+						</c:if><c:if
 							test="${hostExList.revRate==1}">
 							<img src="${root}/resources/css/review/star1.PNG"
 								style="width: 50px;">
@@ -459,16 +421,30 @@ html {
 				</div>
 				</a>
 			</c:forEach>
+			</div>
 		</div>
+		<button type="button" id="btnL" class="slideBtn"></button>
+		<button type="button" id="btnR" class="slideBtn"></button>
+		</div>
+		</c:if>
+		
 	<div class="reviewWrap">
+		<div class="reviewBtnDiv">
+		<h3>후기 ${houseReviewCount + exReviewCount}개</h3>
 		<button type="button" id="houseBtn" class="reviewBtn">숙소 후기 (${houseReviewCount})</button>
+		<input type="hidden" value="${houseReviewCount}" id="houseReviewCount"/>
 		<button type="button" id="exBtn" class="reviewBtn">체험 후기 (${exReviewCount})</button>
-		<div id="houseReview">
+		<input type="hidden" value="${exReviewCount}"  id="exReviewCount"/>
 		</div>
-		<div id="exReview" style="display: none">
+		<div class="houseReviewWrap">
+			<div id="houseReview"></div>
+			<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
+		</div>
+		<div class="exReviewWrap" style="display: none"> 
+		<div id="exReview"></div>
+		<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</div>
 	</div>
-	<div class="moreViewDiv"><button class="moreView" type="button" onclick="moreView()"> 후기 더보기</button></div>
 		</c:if>
   </div>
 		

@@ -60,4 +60,14 @@
 	<update id="experienceStateNo" parameterType="com.java.experience.dto.ExperienceDto" >
 		update experience set exApproval='승인거절' where exCode=#{exCode}
 	</update>
+
+	
+	<update id="guestHouseStateOk" parameterType="int">
+		update house set APPROVALSTATUS='승인완료' where houseCode=#{houseCode}
+	</update>
+	
+	<update id="guestHouseStateNo" parameterType="int">
+		update house set APPROVALSTATUS='승인거절' where houseCode=#{houseCode}
+	</update>
+
 </mapper>

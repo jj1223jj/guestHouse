@@ -22,10 +22,10 @@
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : 'Jeju Stay 결제',
-            amount : '${guestReserveDto.payment}',
+            amount : '${payment}',
             buyer_email : '${memberDto.email}',
             buyer_name : '${memberDto.memberName}',
-            buyer_tel : '${memberName.phone}',
+            buyer_tel : '${memberDto.phone}',
             //m_redirect_url : 'http://www.naver.com'
         }, function(rsp) {
            <%--  if ( rsp.success ) {
@@ -73,14 +73,18 @@
                 msg += '상점 거래ID : ' + rsp.merchant_uid;
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
+                
+                alert(msg);
+              	 
+                location.href='${root}/guestHousePage/reserveCompleteOk.do?imp_uid='+rsp.imp_uid+'&merchant_uid='+ rsp.merchant_uid+'&paid_amount='+rsp.paid_amount
+                		+'&checkIn=${checkIn}&checkOut=${checkOut}&people=${people}&usePoint=${usePoint}&point=${point}&memberCode=${memberCode}';
             } else {
                 var msg = '결제에 실패하였습니다.';
+                location.href='${root}/guestHousePage/guestHouse.do?houseCode=${houseCode}';
                 msg += '에러내용 : ' + rsp.error_msg;
+                
             }
 
-            alert(msg);
-           	 
-            location.href='${root}/guestHousePage/reserveCompleteOk.do?imp_uid='+rsp.imp_uid+'&merchant_uid='+ rsp.merchant_uid+'&paid_amount='+rsp.paid_amount+"&reserveCode="+${reserveCode};
         });
         
     });

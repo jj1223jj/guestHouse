@@ -3,6 +3,7 @@ package com.java.guestdelluna.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1195,6 +1196,7 @@ public class DellunaServiceImp implements DellunaService {
 		List<HouseReviewListDto> houseReviewList = null;
 		String jsonText = null;
 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 		if (status.equals("house")) {
 			houseReviewList = dellunaDao.getHouseReviewListScroll(memberCode, startRow, endRow);
 			for (int i = 0; i < houseReviewList.size(); i++) {
@@ -1209,8 +1211,10 @@ public class DellunaServiceImp implements DellunaService {
 				commonMap.put("mainImgName", houseReviewListDto.getMainImgName());
 				commonMap.put("revContent", houseReviewListDto.getRevContent());
 				commonMap.put("revRate", Integer.toString(houseReviewListDto.getRevRate()));
-				commonMap.put("revDate", houseReviewListDto.getRevDate().toString());
-				commonMap.put("memberCode", Integer.toString(houseReviewListDto.getMemberCode()));
+
+				commonMap.put("revDate", dateFormat.format(houseReviewListDto.getRevDate()));
+				commonMap.put("memberCode",Integer.toString(houseReviewListDto.getMemberCode()));
+
 				commonMap.put("memberImgName", houseReviewListDto.getMemberImgName());
 				commonMap.put("memberName", houseReviewListDto.getMemberName());
 
@@ -1236,8 +1240,10 @@ public class DellunaServiceImp implements DellunaService {
 				commonMap.put("mainImgName", exReviewListDto.getMainImgName());
 				commonMap.put("revContent", exReviewListDto.getRevContent());
 				commonMap.put("revRate", Integer.toString(exReviewListDto.getRevRate()));
-				commonMap.put("revDate", exReviewListDto.getRevDate().toString());
-				commonMap.put("memberCode", Integer.toString(exReviewListDto.getMemberCode()));
+
+				commonMap.put("revDate", dateFormat.format(exReviewListDto.getRevDate().toString()));
+				commonMap.put("memberCode",Integer.toString(exReviewListDto.getMemberCode()));
+
 				commonMap.put("memberImgName", exReviewListDto.getMemberImgName());
 				commonMap.put("memberName", exReviewListDto.getMemberName());
 

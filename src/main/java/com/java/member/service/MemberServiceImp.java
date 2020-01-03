@@ -112,7 +112,6 @@ public class MemberServiceImp implements MemberService {
 		}else {
 			String memberLevel = null;
 		}
-		mav.setViewName("member/loginOk.tiles");
 		
 	}
 	
@@ -148,7 +147,7 @@ public class MemberServiceImp implements MemberService {
 		mav.addObject("email",email);
 		mav.addObject("memberCode",memberCode);
 		
-		mav.setViewName("member/loginOk.tiles");
+		
 		
 	}
 }

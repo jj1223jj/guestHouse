@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	  <br/><br/>
+	  <br/>
 
 	<!-- <a href="${root}/ys">윤수</a><br/>
 
@@ -89,6 +89,5 @@
 
 	<a href="${root}/guestHousePage/guestHouse.do">게스트하우스</a>
 -->
-
 </body>
 </html>

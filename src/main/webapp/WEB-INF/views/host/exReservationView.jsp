@@ -21,7 +21,10 @@
 		var url = root + "/host/exReservationOkView.do";
 		
 		if(selectEx != "체험을 선택하세요") {
-			var params = "exName=" + selectEx + "&pageNumber=" + param;
+			var params = "exName=" + selectEx;
+			params= params.replace(/&/g,"%26"); 
+			params= params.replace(/\+/g,"%2B");
+			params= params + "&pageNumber=" + param;
 			sendRequest("GET", url, fromServer, params);
 		}
 	}

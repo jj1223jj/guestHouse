@@ -26,10 +26,10 @@
    <table class="table table-hover">
    <thead align="center">
       <tr>
-         <th align="center" height="20"  width="125">숙소명</th> 
-         <th align="center" height="20"  width="300">주소</th> 
-         <th align="center" height="20"  width="125">등록일</th> 
-         <th align="center" height="20"  width="125">승인여부</th> 
+         <th align="center" height="20"  width="250">숙소명</th> 
+         <th align="center" height="20"  width="250">주소</th> 
+         <th align="center" height="20"  width="100">등록일</th> 
+         <th align="center" height="20"  width="100">승인여부</th> 
          <th align="center" height="20"  width="80">관리</th>
       </tr>
       </thead>
@@ -37,15 +37,15 @@
       <tbody>
       <c:forEach var="houseList" items="${houseList}">
       <tr>
-         <td align="center" height="20"  width="125">${houseList.houseName}</td> 
-         <td align="center" height="20"  width="300">${houseList.address} ${houseList.detailAddress}</td> 
-         <td align="center" height="20"  width="125" pattern="yyyy-MM-dd">
+         <td align="center" height="20"  width="250">${houseList.houseName}</td> 
+         <td align="center" height="20"  width="250">${houseList.address} ${houseList.detailAddress}</td> 
+         <td align="center" height="20"  width="100" pattern="yyyy-MM-dd">
          	<fmt:formatDate value="${houseList.houseRegDate}" pattern="yyyy-MM-dd"/>
          </td>
-         <td align="center" height="20"  width="125">${houseList.approvalStatus}</td> 
+         <td align="center" height="20"  width="100">${houseList.approvalStatus}</td> 
          <td align="center" height="20"  width="80">
          <c:if test="${houseList.approvalStatus != '삭제'}"> 
-         <a href="#" onclick="return cancel('${root}','${houseList.houseCode}')">삭제</a>
+         <a href="#" onclick="return cancel('${root}','${houseList.houseCode}')" class="deleteBtn">삭제</a>
          </c:if>
          </td> 
       </tr>
