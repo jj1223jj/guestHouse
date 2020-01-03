@@ -84,13 +84,17 @@
 	</select>
 	
 	<select id="getExCount" parameterType="java.util.Map" resultType="int">
-		<![CDATA[
-			select count(*) count from experience h
+		
+			select count(*) count from experience e
+				<if test="localSplit!=null">
+					join house h
+					on e.houseCode= h.houseCode
+				</if>
 								where exCode not in (
 												select exCode from (
 																		select a.*, experience.exPeople-p remain from (
 																													select exCode, resDate, sum(exPeople) p from exRemain
-																														where resDate >= #{checkIn} and resDate < #{checkOut}
+																												<![CDATA[where resDate >= #{checkIn} and resDate < #{checkOut}
 																														group by exCode, resDate order by exCode, resDate
 																												) a, experience where a.exCode=experience.exCode
 																		) where remain < #{people} group by exCode
@@ -202,7 +206,7 @@
 			
 			select a.*, nvl(b.revRate,0) revRate, b.revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from (
 			
-			    select h.*, latlng from experience h join house on h.houseCode=house.houseCode
+			    select h.*, latlng <if test="localSplit!=null">, local </if> from experience h join house on h.houseCode=house.houseCode
 			                                where exCode not in (
 			    select exCode from (
 			    select a.*, experience.exPeople-p remain from (
