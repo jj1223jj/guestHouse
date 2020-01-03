@@ -420,7 +420,7 @@ color:#484848;
 		</div>
 	</div>
 	
-	<div style="background:  url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png) 0 100% repeat-x; margin-top: 10rem;">
+	<div style="background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat;  margin-top: 10rem;">
 		<div style="width: 90rem; height: 50rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
