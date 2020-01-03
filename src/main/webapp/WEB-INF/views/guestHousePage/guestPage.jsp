@@ -234,19 +234,75 @@ $(function(){
 			<div class="facilites">
 				<p>편의시설</p>
 				<div id="fRight">
-					<p id="necessary">necessary : ${hostDto.necessary}</p>
-					<p id="wifi">wifi : ${hostDto.wifi}</p>
-					<p id="hotWater">hotWater : ${hostDto.hotWater}</p>
-					<p id="aircon">aircon : ${hostDto.aircon}</p>
-					<p id="safety">safety : ${hostDto.safety}</p>
+					<c:if test="${hostDto.necessary != 'on'}">
+						<p id="necessary" style="text-decoration: line-through;"> necessary </p>
+					</c:if>
+					<c:if test="${hostDto.necessary == 'on'}">
+						<p id="necessary"> necessary </p>
+					</c:if>
+					
+					<c:if test="${hostDto.wifi != 'on'}">
+						<p id="wifi" style="text-decoration: line-through;"> wifi </p>
+					</c:if>
+					<c:if test="${hostDto.wifi == 'on'}">
+						<p id="wifi">wifi</p>
+					</c:if>
+					
+					<c:if test="${hostDto.hotWater != 'on'}">
+						<p id="hotWater" style="text-decoration: line-through;"> hotWater </p>
+					</c:if>
+					<c:if test="${hostDto.hotWater == 'on'}">
+						<p id="hotWater">hotWater</p>
+					</c:if>
+					
+					<c:if test="${hostDto.aircon != 'on'}">
+						<p id="aircon" style="text-decoration: line-through;"> aircon </p>
+					</c:if>
+					<c:if test="${hostDto.aircon == 'on'}">
+						<p id="aircon">aircon</p>
+					</c:if>
+					
+					<c:if test="${hostDto.safety != 'on'}">
+						<p id="safety" style="text-decoration: line-through;"> safety </p>
+					</c:if>
+					<c:if test="${hostDto.safety == 'on'}">
+						<p id="safety">safety</p>
+					</c:if>
+					
 				</div>
 				<div id="fLeft">
-					<p id="mart">mart : ${hostDto.mart}</p>
-					<p id="parking">parking : ${hostDto.parking}</p>
-					<p id="kitchen">kitchen : ${hostDto.kitchen}</p>
-					<p id="tv">tv : ${hostDto.tv}</p>
+					
+					<c:if test="${hostDto.mart != 'on'}">
+						<p id="mart" style="text-decoration: line-through;"> mart </p>
+					</c:if>
+					<c:if test="${hostDto.mart == 'on'}">
+						<p id="mart">mart</p>
+					</c:if>
+					
+					<c:if test="${hostDto.parking != 'on'}">
+						<p id="parking" style="text-decoration: line-through;"> parking </p>
+					</c:if>
+					<c:if test="${hostDto.parking == 'on'}">
+						<p id="parking">parking</p>
+					</c:if>
+					
+					<c:if test="${hostDto.kitchen != 'on'}">
+						<p id="kitchen" style="text-decoration: line-through;"> kitchen </p>
+					</c:if>
+					<c:if test="${hostDto.kitchen == 'on'}">
+						<p id="kitchen">kitchen</p>
+					</c:if>
+					
+					<c:if test="${hostDto.tv != 'on'}">
+						<p id="tv" style="text-decoration: line-through;"> tv </p>
+					</c:if>
+					<c:if test="${hostDto.tv == 'on'}">
+						<p id="tv">tv</p>
+					</c:if>
+					
 				</div>
 			</div>
+			
 
 			<hr style="color: #cccccc">
 
@@ -442,9 +498,9 @@ $(function(){
 				</div>
 
 
-				<div>
+				<div style="margin-bottom: 3rem;">
 					<div id="peopleText">인원</div>
-					<input id="people" value="1">
+					<input id="people" value="1" style="width: 14.5rem;">
 				</div>
 				<script>
 							$(function(){
@@ -456,11 +512,11 @@ $(function(){
 				</script>
 				<c:if test="${emailCheck == 1}">
 					<button class="btn"
-						style="width: 100%; margin-top: 1.5rem; background-color: #008489; color: white; font-weight: bold;"
+						style="width: 100%; height:4rem;/*  margin-top: 1.5rem; */ background-color: #008489; color: white; font-weight: bold;"
 						onclick="reservationFun('${root}','${hostDto.houseCode}','${memberCode}','${emailCheck}')">예약하기</button>
 				</c:if>
 				<c:if test="${emailCheck==0}">
-					<div id="loginText">예약하려면 로그인을 해주세요.</div>
+					<div id="loginText" align="center">예약하려면 로그인을 해주세요.</div>
 				</c:if>
 			</div>
 		</div>

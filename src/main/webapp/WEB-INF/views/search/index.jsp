@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -190,6 +190,26 @@ i{
 	background-image: url("https://images.unsplash.com/photo-1519808511465-c935152e1cf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
 }
 
+body {
+color:#484848;
+}
+
+/* .btn-primary{
+    background-color: #7bc143;
+    border-color: #7bc143;
+    color: #FFF; }
+.btn-primary:hover,
+.btn-primary:focus {
+    border-color: #6fb03a;
+    background-color: #6fb03a;
+    color: #FFF; }
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:focus,
+.btn-primary:active:hover {
+    border-color: #639d34;
+    background-color: #639d34;
+    color: #FFF; } */
 </style>
 
 </head>
@@ -269,16 +289,21 @@ i{
 		</div>
 	</div>
 	</div>
-	
-	<div style="width: 90rem; height: 40rem; margin: 0 auto;"  >
-		<div align="center">
-			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU GUEST HOUSE</div>
-		</div>
-		
-		<c:forEach var="ho" items="${houseImgDto}" varStatus="i">
 
-			<div id="demo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 25rem; float: left; margin-left: 2rem; margin-top: 5rem;">
-				<a href="${root}/guestHousePage/guestHouse.do?houseCode=${ho.houseCode}" style="display: block;"/>
+	
+	<div style="background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat;    height: 44rem;">
+		<div style="width: 90rem; height: 40rem; margin: 0 auto;"  >
+			<div align="center">
+				<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU GUEST HOUSE</div>
+
+			</div>
+			
+			<c:forEach var="ho" items="${houseImgDto}" varStatus="i">
+	
+				<div id="demo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 20rem; float: left; margin-left: 2rem; margin-top: 5rem;">
+			
+					
+					 <a href="${root}/guestHousePage/guestHouse.do?houseCode=${ho.houseCode}" style="display: block;"/>
 				
 				  <!-- Indicators -->
 				  <ul class="carousel-indicators">
@@ -345,17 +370,62 @@ i{
 				
 				<%-- <div style="width: 20rem;">${ho.revRate}</div> --%>
 				<div style="width: 20rem;">(${ho.revCount})</div>
-				
-				
-				
-			</div>
-		</c:forEach>
+
+
+
+				</div>
+			</c:forEach>
+		</div>
 	</div>
-	<div style="width: 90rem; height: 50rem; margin: 0 auto;"  >
+
+
+	
+	<div style="background-color: #FBD65C; height: 20rem; margin-top:10rem; margin-bottom: 30rem;">
+		<div style="width: 90rem; margin: auto;">
+			<div style="display: inline-block; margin-top: 4rem; float: left;">
+			<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
+				<img style="width: 40rem; height: 32rem;"
+				src="${root}/resources/images/maxresdefault.jpg" alt="이미지가 없습니다.">
+			</a>
+			
+			</div>
+			<div style="font-weight: bold;width: 35rem;display:  inline-block;margin-top: 12rem;margin-left: 3rem;">
+					<div style="font-size: 2.5rem; margin-bottom: 1rem;">제주시의 매력을 만나세요!</div>
+					<div style="font-size: 1rem; color: orangered;">
+						호스트와 함께하는 체험을 예약하고
+						제주의 새로운 모습을 발견하세요!
+					</div>
+			</div>
+			<div style="/* border:  1px solid; */display: inline-block;margin-top: 2.8rem;margin-left: 2rem;width: 48rem;height: 15rem;">
+				<div style="/* border: 1px solid red; */float: left;width: 15.2rem;height: 15rem;/* margin-top: auto; *//* display:  inline-block; */">
+					<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
+						<img style="width: 100%; height: 100%;" src="${root}/resources/images/1.jpg" alt="이미지가 없습니다.">
+					</a>
+					
+				</div>
+				<div style="/* border: 1px solid red; */width: 15.2rem;height: 15rem; margin-left: 1rem;display:  inline-block;">
+					<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
+						<img style="width: 100%; height: 100%;" src="${root}/resources/images/2.jpeg" alt="이미지가 없습니다.">
+					</a>
+					
+				</div>
+				<div style="/* border: 1px solid red; */width: 15.2rem;height: 15rem; margin-left: 1rem;display:  inline-block;">
+					<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
+						<img style="width: 100%; height: 100%;" src="${root}/resources/images/3.jpg" alt="이미지가 없습니다.">
+					</a>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div style="background:  url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_line.png) 0 100% repeat-x; margin-top: 10rem;">
+		<div style="width: 90rem; height: 50rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
 		</div>
-		
+
 		<c:forEach var="ex" items="${experienceImgDto}" varStatus="i">
 
 			<div id="exDemo${i.index}" class="carousel slide" data-ride="carousel" style="width: 20rem; height: 20rem; float: left; margin-left: 2rem; margin-top: 5rem;">
@@ -427,13 +497,13 @@ i{
 				
 				<div style="width: 20rem;">(${ex.revCount})</div>
 				
-				
-				
-				
-			</div>
-		</c:forEach>
+				</div>
+			</c:forEach>
+		</div>
 	</div>
 	<br/><br/>
+
+				
 	
 	
 	<!-- footer 겹침현상 제거 -->
