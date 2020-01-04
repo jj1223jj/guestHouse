@@ -67,7 +67,7 @@
 							<!--address나 local 둘 중 ?  -->
 							<td>${experienceDto.exAddress}</td>
 							<td>${experienceDto.exApproval}</td>
-							<td><p><button style="margin-left: 1.5rem;" class="btn btn-outline-success btn-xs" data-toggle="modal" onclick="window.open('${root}/experience/exPage.do?exApp=1&memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')"><i class="fa fa-mail-forward"></i></button></p></td>
+							<td><p><button style="margin-left: 1.5rem;" class="btn btn-outline-success btn-xs" data-toggle="modal" onclick="window.open('${root}/experience/exPage.do?exApp=1&memberCode=${experienceDto.memberCode}&exCode=${experienceDto.exCode}','window_name','width=1300,height=700,location=no,status=no,scrollbars=yes')"><i class="fa fa-mail-forward"></i></button></p></td>
 	    
 						</tr>
 					</c:forEach>

@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="${root}/resources/css/review/review.css"/>
 <script src="${root}/resources/javascript/review/review.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script>
 $(document).ready(function(){
 	
@@ -111,7 +112,7 @@ list-style: none;
 </head>
 <body>
 
-	<div align="center" style="margin-bottom: 2rem;">
+	<div align="center" style="margin-bottom: 2rem; margin-top: 2rem;">
 		<c:if test="${memberLevel == 'Admin'}">
 			<div>호스트가 등록한 체험을 읽고 승인과 거절을 선택해주세요.</div>
 		</c:if>
@@ -479,7 +480,7 @@ list-style: none;
 				 </div>
 			</div>
 			<!-- 호스트 정보 -->	
-			<div style="width: 100%; height: auto; border-top: 0.2rem solid #ebebeb; border-bottom: 0.2rem solid #ebebeb; padding-bottom: 3rem;">
+			<div style="width: 100%; height: auto; border-top: 0.2rem solid #ebebeb; border-bottom: 0.2rem solid #ebebeb; padding-bottom: 3rem;" onclick="location.href='${root}/guestdelluna/myInfo.do?memberCode=${memberDto.memberCode}'">
 				<div style="width: 70rem; height:auto; /* border: 0.1rem solid black; */ margin-top: 3rem; padding-top: 3rem; margin-bottom: 5rem;">
 					<ul style="width: 15rem; height:auto; float: left; /* border: 0.1rem solid black; */">
 						
@@ -643,7 +644,7 @@ list-style: none;
 		</div>			
 	</div>
  	
- 	<div align="center" style="margin: 10rem;">
+ 	<div align="center" style="margin: 6rem;">
 		<c:if test="${memberLevel == 'Admin'}">
 			<button id="btn" type="button" class="btn btn-warning" name="stateOk" onclick="location.href='${root}/admin/exState.do?exCode='+'${experienceDto.exCode}'">승인</button>
 			<button id="btn" type="button" class="btn btn-light" name="stateNo" onclick="location.href='${root}/admin/exStateNo.do?exCode='+'${experienceDto.exCode}'">거절</button>

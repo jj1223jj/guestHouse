@@ -85,6 +85,7 @@ public class AdminController {
 		 
 		return mav;
 	}
+	
 	@RequestMapping(value="/admin/exState.do", method = RequestMethod.GET)
 	public ModelAndView exStateOk(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("Admin exStateOk");
