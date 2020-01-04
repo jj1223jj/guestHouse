@@ -21,11 +21,6 @@
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
 <script type="text/javascript"
    src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
-<style type="text/css">
-html {
-	font-size: 16px;
-}
-</style>
 <script type="text/javascript">
 	$(function() {
 		$('#tabs').tabs();

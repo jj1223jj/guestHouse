@@ -23,7 +23,7 @@
 					<tr style="font-weight: 800;">
 						<th align="center" height="20" width="70">번호</th>
 						<th align="center" height="20" width="300">이름</th>
-						<th align="center" height="20" width="200">예약 날짜</th>
+						<th align="center" height="20" width="200">결제 날짜</th>
 						<th align="center" height="20" width="125">예약여부</th>
 						<th align="center" height="20" width="140">가격</th>
 						<th align="center" height="20" width="125"></th>
