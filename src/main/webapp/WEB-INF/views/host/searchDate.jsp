@@ -9,11 +9,15 @@
 </head>
 <body>
 		 <div align="center">
-		 <c:if test="${searchDateList.size() == 0 && count == 0}">
-		 	<h5>예약목록이 존재하지 않습니다.</h5>
+		 <c:if test="${searchDateList.size() == 0 || count == 0}">
+		 	<h5 style="margin-top: 2rem;">예약목록이 존재하지 않습니다.</h5>
 		 </c:if>
 		 
 		<c:if test="${count > 0}"> 
+		<div class="totalPayment">
+			<span>건 수: ${searchDateListCount.count}</span>
+			<span>총금액: ${searchDateListCount.payment}</span>
+		</div>
 		<div class="container" style="margin-bottom: 5rem">
 	   <table class="table table-hover">
 	   <thead align="center">
@@ -38,11 +42,6 @@
 	      </c:forEach>
 	      </tbody>
 		</table>
-		<div class="totalPayment">
-			<span>건 수: ${searchDateListCount.count}</span>
-			<br/>
-			<span>총금액: ${searchDateListCount.payment}</span>
-		</div>
 		</c:if>
 		<div align="center">
 		<c:if test="${count>0 }">

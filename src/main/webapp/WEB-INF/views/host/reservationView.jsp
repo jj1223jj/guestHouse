@@ -11,6 +11,8 @@
 <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
   <link rel="stylesheet" href="${root}/resources/css/guestdelluna/menuLayout.css">
+  <script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
 <script type="text/javascript">
@@ -95,7 +97,11 @@
 	<div class="menuR">
 	
 	<h3>숙소 예약현황</h3>
-	<select name="houseList" id="houseList" onchange="toServer('${root}' , '')">
+	<select name="houseList" id="houseList" onchange="toServer('${root}' , '')" style="padding: 5px 10px;
+		border-radius: 5px;
+		border: 1px solid #ddd;
+		background-color: #ffffff;
+		margin: 2rem 0;">
 		<option>숙소를 선택하세요</option>
 		<c:forEach var="houseNameList" items="${houseNameList}">
 			<option>${houseNameList}</option>

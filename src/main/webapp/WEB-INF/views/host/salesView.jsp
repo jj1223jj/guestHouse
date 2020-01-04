@@ -16,6 +16,8 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
   <link rel="stylesheet" href="${root}/resources/css/guestdelluna/menuLayout.css">
 <script type="text/javascript">
 google.charts.load("current", {packages:['corechart']});
@@ -169,15 +171,20 @@ google.charts.setOnLoadCallback(drawChart);
 	}
 	#searchDate {
 	    display: inline-block;
-	   	margin-left: 23rem;
+	   	margin-left: 25rem;
 	}
 	#searchDateView {
-		margin-top: 2rem;
+		margin-top: 1rem;
 	}
 	.totalPayment {
-		width: 12.5rem;
+		float: right;
 		text-align: left;
-	    margin-left: 44rem;
+	    margin-bottom: 1rem;
+	    font-size: 1.1rem;
+   	 	margin-right: 1rem;
+	}
+	.totalPayment span {
+	    margin-left: 1rem;
 	}
   </style>
 </head>
@@ -247,7 +254,7 @@ google.charts.setOnLoadCallback(drawChart);
 	 	</form>
 	 	
 	 	<div id="searchDateView" style="text-align:center">
-	 		조회를 원하는 날짜를 선택해주세요.
+	 		<h5 style="margin-top: 2rem">조회를 원하는 날짜를 선택해주세요.</h5>
 	 	</div>
 	</div>
 	</div>

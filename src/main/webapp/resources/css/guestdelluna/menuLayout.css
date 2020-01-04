@@ -10,6 +10,7 @@
 	float: left;
 	width: 30%;
 	position: absolute;
+	font-size: 1.2rem;
 }
 .menuL > ul {
 	width: 18.75rem;

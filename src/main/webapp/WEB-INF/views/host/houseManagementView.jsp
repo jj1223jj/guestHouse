@@ -27,7 +27,7 @@
       <tr style="background-color: #f7f7f7">
          <th align="center" height="20"  width="250">숙소명</th> 
          <th align="center" height="20"  width="250">주소</th> 
-         <th align="center" height="20"  width="100">등록일</th> 
+         <th align="center" height="20"  width="110">등록일</th> 
          <th align="center" height="20"  width="100">승인여부</th> 
          <th align="center" height="20"  width="80">관리</th>
       </tr>
