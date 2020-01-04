@@ -70,7 +70,7 @@ function starRating2(){
 
 function updateCheck(root, exReserveCode, memberCode, revContent){
 	var url = root + "/experience/exReviewUpdate.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode +"&revContent="+revContent ;
-	alert(url);
+	//alert(url);
 
 	var width="500";
 	var height="300";
@@ -85,7 +85,7 @@ function updateCheck(root, exReserveCode, memberCode, revContent){
 
 function deleteCheck(root, exReserveCode, memberCode, currentPage,exCode){
 	var url=root+"/experience/exReviewDelete.do?exReserveCode="+ exReserveCode +"&memberCode="+memberCode + "&pageNumber="+currentPage + "&exCode="+exCode;
-	alert(url);
+	//alert(url);
 
 	var value = confirm("후기를 삭제하시겠습니까?");
 	if(value==true){
@@ -95,7 +95,7 @@ function deleteCheck(root, exReserveCode, memberCode, currentPage,exCode){
 
 function GHupdateCheck(root, reserveCode, memberCode, revContent){
 	var url = root + "/guestHousePage/reviewUpdate.do?reserveCode="+ reserveCode +"&memberCode="+memberCode +"&revContent="+revContent ;
-	alert(url);
+	//alert(url);
 
 	var width="500";
 	var height="300";
@@ -110,7 +110,7 @@ function GHupdateCheck(root, reserveCode, memberCode, revContent){
 
 function GHdeleteCheck(root, reserveCode, memberCode, currentPage,houseCode){
 	var url=root+"/guestHousePage/reviewDelete.do?reserveCode="+ reserveCode +"&memberCode="+memberCode + "&pageNumber="+currentPage + "&houseCode="+houseCode;
-	alert(url);
+	//alert(url);
 
 	var value = confirm("후기를 삭제하시겠습니까?");
 	if(value==true){
@@ -137,8 +137,8 @@ function check(form) {
 		
 	var revContent = $('#revContent').val();
 	var revRate = $('#revRate').val();
-	alert(revContent);
-	alert(revRate);
+	//alert(revContent);
+	//alert(revRate);
 	if(revContent ==''){
 		alert("후기 내용을 작성해주세요.");
 		$('#revContent').focus();
@@ -468,7 +468,7 @@ function reviewModalUpdate(form){
 }
 
 function ghMoreView(root,emailSession,houseCode){
-	alert("root:"+root+ emailSession+ houseCode);
+	//alert("root:"+root+ emailSession+ houseCode);
 	++pageNumber;
 	//alert(emailSession +"," +exCode);
 	var url = root + "/guestHousePage/review.do?";
@@ -490,7 +490,7 @@ function ghMoreView(root,emailSession,houseCode){
 			var htmls="";
 			var btn="";
 			var cnt = data.count;
-			alert("cnt:" + cnt);
+			//alert("cnt:" + cnt);
 			
 			
 			if(data.count<1){
