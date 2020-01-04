@@ -145,7 +145,7 @@ public class HostServiceImp implements HostService {
 		long mainFileSize = mainFile.getSize();
 		String mainFileName = Long.toString(System.currentTimeMillis()) + "_" + mainFile.getOriginalFilename();
 		
-		File mainFilePath = new File("c:/pds");
+		File mainFilePath = new File("c:/pdn");
 		mainFilePath.mkdir();
 		
 		if (mainFilePath.exists() && mainFilePath.isDirectory()) {
@@ -175,7 +175,7 @@ public class HostServiceImp implements HostService {
 		
 		//------------------------------------------FileDto(subImg)
 		List<MultipartFile> files = request.getFiles("subImg");
-		File filepath = new File("c:/pds");
+		File filepath = new File("c:/pdn");
 		filepath.mkdir();
 		
 		for (int i=0;i <files.size(); i++) {
