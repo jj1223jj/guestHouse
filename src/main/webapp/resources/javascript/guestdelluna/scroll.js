@@ -96,6 +96,9 @@ $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증
 	
 	if (exIndex == 0) $('.ex #btnL').hide();
 	if ($('.exList .houseDiv').length < 4) $('.ex #btnR').hide();
+	/////////////////////////////////////////////////////////
+	if ($("#houseReview > .reviewDiv").length == 0) $('.houseReviewWrap > .moreViewDiv').hide();
+	if ($("#exReview > .reviewDiv").length == 0) $('.exReviewWrap > .moreViewDiv').hide();
 	
 }); 
 
@@ -174,8 +177,7 @@ function moreView() {
 							$('.exReviewWrap > .moreViewDiv').hide();
 						}
 					}
-					if ($("#houseReview > .reviewDiv").length == 0) $('.houseReviewWrap > .moreViewDiv').hide();
-					if ($("#exReview > .reviewDiv").length == 0) $('.exReviewWrap > .moreViewDiv').hide();
+					
 				}
 				
 			},

@@ -130,7 +130,7 @@
 	and member.memberCode = reservation.memberCode 
 	and house.houseCode = reservation.houseCode 
 	and reservation.state = '예약완료' 
-	and reservation.reserveDate between #{startDate} and #{endDate}
+	and reservation.reserveDate between #{startDate} and to_date(#{endDate})+1
   </select>
   
   <select id="searchDateList" parameterType="java.util.Map" resultType="com.java.host.dto.SearchDateList">
@@ -158,7 +158,8 @@
 		where NOT f.mainImgName is NULL
 		and h.approvalStatus = '승인완료'
 		and h.memberCode = #{memberCode}
-		group by h.houseName,f.mainImgName, h.houseCode
+		group by h.houseName,f.mainImgName, h.houseCode, h.houseRegDate
+        order by h.houseRegDate desc
   	]]>
   </select>
   
@@ -222,7 +223,8 @@
 		where NOT f.mainImgName is NULL
 		and e.exApproval = '승인완료'
 		and e.memberCode = #{memberCode}
-		group by e.exName,f.mainImgName, e.exCode
+		group by e.exName,f.mainImgName, e.exCode, e.exRegDate
+        order by e.exRegDate desc
   	 ]]>
   </select>
   
