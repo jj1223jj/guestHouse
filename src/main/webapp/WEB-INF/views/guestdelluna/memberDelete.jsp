@@ -76,7 +76,7 @@
 										<label for="USER_ID" style="margin-left: 20rem;">아이디
 											(이메일) </label>
 									</dt>
-									<dd id="idid">
+									<dd id="idid" style="margin-bottom: 2.5rem;">
 										<div class="inp">
 											<input class="form-control" type="email" id="emailAA"
 												name="email" value="${email}" disabled="disabled" required
@@ -97,7 +97,7 @@
 									<dd style="">
 										<div class="inp">
 											<input class="form-control"
-												style="margin-left: 20rem; width: 25rem;" type="password"
+												style="margin-left: 20rem; width: 25rem; margin-bottom: 2rem;" type="password"
 												id="password99" required maxlength="16" title="비밀번호"
 												placeholder="비밀번호를 입력하세요.">
 
