@@ -14,9 +14,10 @@ public class ExperienceMainDto extends ExperienceDto {
 	 private int revCount;
 	 
 	 public ExperienceMainDto() {}
-	 
+
 	public ExperienceMainDto(List<ExFileDto> exFileList, String exName, int exCode, int exPrice, int revRate,
 			int revCount) {
+	
 		this.exFileList = exFileList;
 		this.exName = exName;
 		this.exCode = exCode;
@@ -78,9 +79,8 @@ public class ExperienceMainDto extends ExperienceDto {
 		return "ExperienceMainDto [exFileList=" + exFileList + ", exName=" + exName + ", exCode=" + exCode
 				+ ", exPrice=" + exPrice + ", revRate=" + revRate + ", revCount=" + revCount + "]";
 	}
+
 	
-	
-	 
 	 
 
 }

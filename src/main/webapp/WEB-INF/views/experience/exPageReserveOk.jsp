@@ -5,8 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
@@ -83,7 +81,7 @@ $(document).ready(function(){
 				
 				<div align="center" style="margin-top: 5rem;">
 					<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning btn-lg" name="home" onclick="location.href='${root}'">Home</button>
-					<button id="btn" type="button" class="btn btn-light btn-lg" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">마이페이지로</button>
+					<button id="btn" type="button" class="btn btn-light btn-lg" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">MY PAGE</button>
 				
 				</div>
 			</div>

@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <title>체험 장바구니 목록</title>

@@ -70,7 +70,7 @@
 																														group by houseCode, resDate order by houseCode, resDate
 																												) a, house where a.houseCode=house.houseCode
 																		) where remain < #{people} group by houseCode
-														)
+														) and h.people >=#{people}
 		]]>
 		
 		<if test="localSplit!=null">
@@ -84,17 +84,19 @@
 	</select>
 	
 	<select id="getExCount" parameterType="java.util.Map" resultType="int">
-		<![CDATA[
-			select count(*) count from experience h
+		
+			select count(*) count from experience e
+					join house h
+					on e.houseCode= h.houseCode
 								where exCode not in (
 												select exCode from (
 																		select a.*, experience.exPeople-p remain from (
 																													select exCode, resDate, sum(exPeople) p from exRemain
-																														where resDate >= #{checkIn} and resDate < #{checkOut}
+																												<![CDATA[where resDate >= #{checkIn} and resDate < #{checkOut}
 																														group by exCode, resDate order by exCode, resDate
 																												) a, experience where a.exCode=experience.exCode
 																		) where remain < #{people} group by exCode
-														)
+														) and exPeople >=#{people}
 		]]>
 		
 		<if test="localSplit!=null">
@@ -154,7 +156,7 @@
 			                                                                                      group by houseCode, resDate order by houseCode, resDate
 			    ) a, house where a.houseCode=house.houseCode
 			    ) where remain < #{people} group by houseCode]]>
-			    )
+			    ) and h.people >=#{people}
 			    <if test="searchHouseName!=null">
 					and houseName like '%${searchHouseName}%'
 				</if>
@@ -202,7 +204,7 @@
 			
 			select a.*, nvl(b.revRate,0) revRate, b.revCount <if test="memberCode!=null">, c.memberCode zzimed</if> from (
 			
-			    select h.*, latlng from experience h join house on h.houseCode=house.houseCode
+			    select h.*, latlng <if test="localSplit!=null">, local </if> from experience h join house on h.houseCode=house.houseCode
 			                                where exCode not in (
 			    select exCode from (
 			    select a.*, experience.exPeople-p remain from (
@@ -211,7 +213,7 @@
 			                                                                                      group by exCode, resDate order by exCode, resDate
 			    ) a, experience where a.exCode=experience.exCode
 			    ) where remain < #{people} group by exCode]]>
-			    )
+			    ) and exPeople >=#{people}
 			    <if test="searchExName!=null">
 					and exName like '%${searchExName}%'
 				</if>

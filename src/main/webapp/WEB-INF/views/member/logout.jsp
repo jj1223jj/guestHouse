@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<!-- <meta charset="UTF-8"> -->
 <title>회원 로그아웃</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>

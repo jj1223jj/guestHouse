@@ -188,18 +188,5 @@ public class DellunaController {
 
 		dellunaService.msgUpdate(mav);
 	}
-	
-	@RequestMapping(value="guestdelluna/msgView.do" , method=RequestMethod.GET)
-	public ModelAndView msgView(HttpServletRequest request , HttpServletResponse response) {
-		
-		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("request", request);
-
-		//
-		//dellunaService.msgView(mav);
-		
-		return mav;
-		
-	}
 }

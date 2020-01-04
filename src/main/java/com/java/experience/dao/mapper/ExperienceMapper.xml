@@ -7,7 +7,7 @@
 
 <!-- 체험 등록  -->
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="subImgUpload">
-		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 
+		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval+1808, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 
 	</insert>
 
 	<select parameterType="String" id="memberCode" resultType="int">
@@ -35,7 +35,7 @@
 	</insert>
 	
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="exMainImgUpload">
-		insert into ExFileList(fileCode, fileName, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval, #{mainImgName} ,#{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
+		insert into ExFileList(fileCode, fileName, mainImgName, filePath, fileSize, exCode) values(exfileList_fileCode_seq.nextval+1808, #{mainImgName} ,#{mainImgName}, #{filePath}, #{fileSize}, #{exCode}) 
 	</insert>
 	
 	<select id="exCode" resultType="int">
@@ -174,7 +174,7 @@
         		select a.*, nvl(b.revRate,0) revRate, b.revCount from (experience) a
         		left outer join (select exCode, round(avg(revRate),2) revRate, count(exCode) revCount 
         		from (select exReserve.exCode, revRate from exReserve, exReview where exReserve.exReserveCode=exReview.exReservecode) a group by exCode) b
-        		on a.exCode=b.exCode order by exregDate desc) h ) where rn>=1 and rn<=4
+        		on a.exCode=b.exCode  where a.exApproval ='승인완료'  order by exregDate desc) h ) where rn>=1 and rn<=4
      ]]>
 	</select>
 	
@@ -186,7 +186,7 @@
         		select a.*, nvl(b.revRate,0) revRate, b.revCount from (house) a
         		left outer join (select houseCode, round(avg(revRate),2) revRate, count(houseCode) revCount 
         		from (select Reservation.houseCode, revRate from Reservation, Review where Reservation.ReserveCode=Review.Reservecode) a group by houseCode) b
-        		on a.houseCode=b.houseCode order by houseRegDate desc) h ) where rn>=1 and rn<=4
+        		on a.houseCode=b.houseCode where a.ApprovalStatus ='승인완료'  order by houseRegDate desc) h ) where rn>=1 and rn<=4
      ]]>
 	</select>
 	

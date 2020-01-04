@@ -8,8 +8,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>체험등록 완료</title>
 
 <%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
@@ -28,16 +26,16 @@
 		
 	
 		<!--  전체 -->
-		<div style="width: 70rem; height: auto; margin: 0 auto; border: 0.1rem solid black; padding-bottom: 7rem;">
+		<div style="width: 70rem; height: auto; margin: 0 auto; /* border: 0.1rem solid black; */ padding-bottom: 7rem;">
 			<div align="center" style="font-weight: bold; font-size: 1.5rem; margin: 5rem;">체험등록 완료</div>
 			
 			<div align="center">
 				<div>
-					<img class="rounded" src="<spring:url value='/ex/${mainImg}' />" />
+					<img style="width: 30rem;" class="rounded" src="<spring:url value='/ex/${mainImg}' />" />
 					
 				</div>
-				<div style="margin: 5rem; width: 60rem; border: 0.1rem solid red; height: auto; ">
-					<div style="border: 0.1rem solid orange; width: 40rem; height: auto;">
+				<div style="margin: 5rem; width: 60rem; /* border: 0.1rem solid red; */ height: auto; ">
+					<div style="/* border: 0.1rem solid orange; */ width: 40rem; height: auto;">
 						<div style="width: 10rem; float: left; font-weight: bold;" >체험 이름</div>
 						<div id="name" style="width: 20rem; margin-left: 10rem; text-align: left;"> ${experienceDto.exName}</div>
 						<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">체험 설명</div>
@@ -51,7 +49,7 @@
 						<div id="point" style="width: 20rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${experienceDto.exTime}</div>
 						
 						<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">진행날짜</div>
-						<div id="point" style="width: 20rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${exStartDateS} - ${exEndDateS}</div>
+						<div id="point" style="width: 20rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${exStartDateS} ~ ${exEndDateS}</div>
 						
 						<div style="width: 10rem; float: left; font-weight: bold; margin-top: 2rem;">은행</div>
 						<div id="point" style="width: 20rem; margin-left: 10rem; text-align: left; margin-top: 2rem;">${experienceDto.exBank}</div>
@@ -62,10 +60,13 @@
 					</div>
 				</div>
 			</div>
-			<div align="center">
-				<button class="btn btn-info" style="margin-right: 2rem;">마이페이지로</button>
-				<button class="btn btn-light">메인 홈</button>
+			
+			<div align="center" style="margin-top: 5rem;">
+					<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning btn-lg" name="home" onclick="location.href='${root}'">Home</button>
+					<button id="btn" type="button" class="btn btn-light btn-lg" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">MY PAGE</button>
+				
 			</div>
+			
 		</div>
 	</c:if>
 	

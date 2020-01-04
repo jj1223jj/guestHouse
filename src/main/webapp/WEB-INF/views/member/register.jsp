@@ -15,7 +15,7 @@
 	<!--<![endif]-->
 	<head>
 	
-		<meta charset="UTF-8">
+<!-- 		<meta charset="UTF-8"> -->
 		
 		<%-- <link rel="stylesheet" href="${root}/resources/css/register/test0.css"/>
 		<link rel="stylesheet" href="${root}/resources/css/register/test1.css"/> 

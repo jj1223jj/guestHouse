@@ -127,7 +127,6 @@ html {
 }
 </style>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>

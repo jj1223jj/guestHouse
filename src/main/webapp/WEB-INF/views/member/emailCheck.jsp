@@ -5,8 +5,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<c:if test="${check>0}">	<!-- ==1로 해도 됨 -->

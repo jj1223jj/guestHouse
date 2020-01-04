@@ -191,7 +191,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		long exMainFileSize = exMainFile.getSize();
 		String exMainFileName = Long.toString(System.currentTimeMillis()) + "_" + exMainFile.getOriginalFilename();
 
-		File exPath = new File("c:/ex");
+		File exPath = new File("c:/pde");
 		exPath.mkdir();
 
 		if (exPath.exists() && exPath.isDirectory()) {
@@ -217,7 +217,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 기타 사진
 		List<MultipartFile> exFiles = request.getFiles("subImg");
 
-		File filepath = new File("c:/ex");
+		File filepath = new File("c:/pde");
 		filepath.mkdir();
 
 		for (int i = 0; i < exFiles.size(); i++) {

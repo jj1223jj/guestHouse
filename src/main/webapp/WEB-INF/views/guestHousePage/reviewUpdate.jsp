@@ -7,7 +7,6 @@
 <c:set var = "root" value = "${pageContext.request.contextPath}"/>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 <%-- <script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script> --%>
 		

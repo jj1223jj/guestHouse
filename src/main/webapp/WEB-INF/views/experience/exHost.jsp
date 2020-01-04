@@ -5,8 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
 <%-- <script type="text/javascript" src="${root}/resources/javascript/jquery/jquery-3.4.1.js"></script> --%>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
@@ -115,7 +113,7 @@ list-style: none;
 	         </li>
 	         <li>
 	            <label>사진</label>
-	            <input multiple="multiple" type="file" name="subImg" id="subImg"/>
+	            <input multiple="multiple" type="file" name="subImg" id="subImg" accept="image/*"/>
 	            <br/>
 	            <input type="button" class="subBtn" value="내부사진업로드" onclick="subUpload()" style="margin-bottom: 1rem"/>
 	            <div class="subImgDiv">

@@ -319,6 +319,25 @@
 		});
 		setPaging('${checkIn}','${checkOut}','${local}','${people}','${searchHouseName}',$("#sort").val());
 		
+		//검색 자동완성
+// 		$("input[name='searchHouseName']").autocomplete({
+// 			source: ['아이','아사'],
+// 			change: function(){
+// 				$("input[name='searchHouseName']").keyup(function(event){
+// 					if(event.keyCode != '38' && event.keyCode!='40')
+// 						$.ajax({
+// 							url:'${root}/searchAutocomplete?searchName='+$(this).val(),
+// 							method:"get",
+// 							success:function(houseNames){
+								
+// 							}
+// 						});
+					
+// 				});
+// 			}
+// 		});
+		
+		
 		//$( "#checkIn" ).datepicker( "show" );
 		
 	});
