@@ -76,7 +76,7 @@
 							<td>${hostDto.address}</td>
 							<td>${hostDto.approvalStatus}</td>
 							
-							<td><button style="margin-left: 4rem;" class="btn btn-outline-warning btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onclick="window.open('${root}/guestHousePage/guestHouse.do?exApp=1&memberCode=${hostDto.memberCode}&houseCode=${hostDto.houseCode}','window_name','width=1400,height=500,location=no,status=no,scrollbars=yes')"><i class="fa fa-mail-forward"></i></button></td>
+							<td><button style="margin-left: 4rem;" class="btn btn-outline-warning btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onclick="window.open('${root}/guestHousePage/guestHouse.do?exApp=1&memberCode=${hostDto.memberCode}&houseCode=${hostDto.houseCode}','window_name','width=1300,height=700,location=no,status=no,scrollbars=yes')"><i class="fa fa-mail-forward"></i></button></td>
 		    
 							
 						</tr>

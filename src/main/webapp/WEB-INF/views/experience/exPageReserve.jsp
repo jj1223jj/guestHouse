@@ -134,7 +134,8 @@ $(document).ready(function(){
 								<div id="exDate" style="width: 25rem; word-break: break-all; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;"> ${exDateS}</div>
 								
 								<div style="font-weight: bold;float: left; width: 10rem;font-size: 1.5rem;">금액</div>
-								<div id="price" style="width: 25rem; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;">  	${exPayment/exPeople}원 X ${exPeople}명</div>
+								<fmt:formatNumber var ="pay" type="number" value="${exPayment/exPeople}" />
+								<div id="price" style="width: 25rem; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;">  	${pay}원 X ${exPeople}명</div>
 								
 								<div style="font-weight: bold;float: left; width: 10rem;font-size: 1.5rem;">총 합계</div>
 								<div id="total" style="width: 25rem; height: auto; margin-left: 12rem; text-align: left; margin-bottom: 4rem;font-size: 1.3rem;"> ${exPayment} 원</div>

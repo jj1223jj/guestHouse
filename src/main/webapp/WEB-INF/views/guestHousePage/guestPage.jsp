@@ -181,14 +181,13 @@ $(function(){
 </head>
 <body>
 
-	<%-- 	승인/거절 controller 추가 --%>
-
-	<c:if test="${memberLevel == 'Admin'}">
-		<button id="btn" class="btn" name="stateOk"
-			onclick="location.href='${root}/admin/state.do?houseCode='+'${hostDto.houseCode}'">승인</button>
-		<button id="btn" class="btn" name="stateNo"
-			onclick="location.href='${root}/admin/stateNo.do?houseCode='+'${hostDto.houseCode}'">거절</button>
-	</c:if>
+	<div align="center" style="margin-bottom: 2rem; margin-top: 2rem;">
+		<c:if test="${memberLevel == 'Admin'}">
+			<div>호스트가 등록한 게스트하우스를 읽고 승인과 거절을 선택해주세요.</div>
+		</c:if>
+	</div>
+	
+	
 
 	<div class="top">
 		<div class="img">
@@ -522,6 +521,7 @@ $(function(){
 		</div>
 		<!-- </div> -->
 		
+		
 	</div>
 
 	
@@ -610,6 +610,17 @@ $(function(){
 			</div>
 		</div>
 	</div>
+	
+			<%-- 	승인/거절 controller 추가 --%>
+		
+		<div align="center" style="margin: 6rem;">
+		<c:if test="${memberLevel == 'Admin'}">
+			<button id="btn" type="button" class="btn btn-warning" name="stateOk"
+			onclick="location.href='${root}/admin/state.do?houseCode='+'${hostDto.houseCode}'">승인</button>
+		<button id="btn" type="button" class="btn btn-light" name="stateNo"
+			onclick="location.href='${root}/admin/stateNo.do?houseCode='+'${hostDto.houseCode}'">거절</button>
+		</c:if>
+		</div>
 
 </body>
 </html>

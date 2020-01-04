@@ -81,7 +81,7 @@ $(document).ready(function(){
 				
 				<div align="center" style="margin-top: 5rem;">
 					<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning btn-lg" name="home" onclick="location.href='${root}'">Home</button>
-					<button id="btn" type="button" class="btn btn-light btn-lg" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">마이페이지로</button>
+					<button id="btn" type="button" class="btn btn-light btn-lg" name="myInfpo" onclick="location.href='${root}/guestdelluna/myInfo.do'">MY PAGE</button>
 				
 				</div>
 			</div>

@@ -11,7 +11,7 @@ $(document).ready(function(){
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			$('#profileView').attr('src', e.target.result);
-			alert(e.target.result);
+			//alert(e.target.result);
 			$('#profileView').css({
 				'width': '300px'
 			});
@@ -39,7 +39,7 @@ function mainImgPreview(input) {
 		        return false;
 		    }else {
 		    	$('#mainImgView').attr('src', e.target.result);
-		    	alert(e.target.result);
+		    	//alert(e.target.result);
 		    	$('#mainImgView').css({
 		    		'width': '19rem'
 		    			
