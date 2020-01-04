@@ -120,7 +120,7 @@ function setHouseList(house, memberCode){
 	}
 	
 }
-function setExList(ex, memberCode){
+function setExList(ex, memberCode, checkIn, checkOut, people){
 	for(let i=0;i<ex.length;i++){
 		var exContent=
 			'<div class="house house'+i+'">' +

@@ -29,6 +29,19 @@ public class SearchController {
 	public String ys() {
 		return "search/ys.tiles";
 	}
+
+	@RequestMapping(value="/searchAutocomplete", method=RequestMethod.GET)
+	public void searchAutocomplete(HttpServletRequest request, HttpServletResponse response) {
+		String searchName = request.getParameter("searchName");
+		HomeAspect.logger.info(HomeAspect.logMsg+"autoComplete");
+		response.setContentType("application/x-json;charset=utf-8");
+		try {
+			PrintWriter out =response.getWriter();
+			out.print(searchName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@RequestMapping(value="/overlay", method=RequestMethod.GET)
 	public void overlay(HttpServletRequest request, HttpServletResponse response) {

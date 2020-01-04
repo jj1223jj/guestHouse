@@ -70,7 +70,7 @@
 																														group by houseCode, resDate order by houseCode, resDate
 																												) a, house where a.houseCode=house.houseCode
 																		) where remain < #{people} group by houseCode
-														)
+														) and h.people >=#{people}
 		]]>
 		
 		<if test="localSplit!=null">
@@ -86,10 +86,8 @@
 	<select id="getExCount" parameterType="java.util.Map" resultType="int">
 		
 			select count(*) count from experience e
-				<if test="localSplit!=null">
 					join house h
 					on e.houseCode= h.houseCode
-				</if>
 								where exCode not in (
 												select exCode from (
 																		select a.*, experience.exPeople-p remain from (
@@ -98,7 +96,7 @@
 																														group by exCode, resDate order by exCode, resDate
 																												) a, experience where a.exCode=experience.exCode
 																		) where remain < #{people} group by exCode
-														)
+														) and exPeople >=#{people}
 		]]>
 		
 		<if test="localSplit!=null">
@@ -158,7 +156,7 @@
 			                                                                                      group by houseCode, resDate order by houseCode, resDate
 			    ) a, house where a.houseCode=house.houseCode
 			    ) where remain < #{people} group by houseCode]]>
-			    )
+			    ) and h.people >=#{people}
 			    <if test="searchHouseName!=null">
 					and houseName like '%${searchHouseName}%'
 				</if>
@@ -215,7 +213,7 @@
 			                                                                                      group by exCode, resDate order by exCode, resDate
 			    ) a, experience where a.exCode=experience.exCode
 			    ) where remain < #{people} group by exCode]]>
-			    )
+			    ) and exPeople >=#{people}
 			    <if test="searchExName!=null">
 					and exName like '%${searchExName}%'
 				</if>
