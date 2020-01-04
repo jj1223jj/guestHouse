@@ -108,7 +108,7 @@
 					<li class="page-item"><a class="page-link" href="${root}/admin/houseList.do?pageNumber=${i}">${i}</a></li>
 				</c:forEach>  
 				
-				<c:if test="${endPage > pageCount}">
+				<c:if test="${endPage < pageCount}">
 					<li class="page-item"><a class="page-link" href="${root}/admin/houseList.do?pageNumber=${startPage+pageBlock}">다음</a></li>
 				</c:if>
 			

@@ -506,7 +506,7 @@
 }
 .checkInOutContainer .form-control{
 	display:inline-block;
-	width: 6.875rem;
+	width: 7.2rem;
 	position: absolute;
     bottom: 0.6rem;
 }
@@ -829,7 +829,7 @@ form{
 	    				</div>
 					</div>
 					<div class="searchContainer">
-						<input class="form-control" type="text" name="searchExName" placeholder="숙소명이름"/><button type="submit" class="searchBtn btn btn-primary" onsubmit="confirmSubmit()">검색</button>
+						<input class="form-control" type="text" name="searchExName" placeholder="체험이름"/><button type="submit" class="searchBtn btn btn-primary" onsubmit="confirmSubmit()">검색</button>
 					</div>
 				</form>
 			</div>
