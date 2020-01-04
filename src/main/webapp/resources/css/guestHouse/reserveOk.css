@@ -10,6 +10,7 @@ body{
 	margin-bottom: 1rem;
 	margin: auto;
 	width: 50rem;
+	height: 20rem;
 	margin-top: 3rem;
 }
 
@@ -26,11 +27,12 @@ h3{
 
 #mainImg{
 	display: inline-block; float: left; margin-right: 3rem;
+	width: 27rem;
 }
 
 #info{
 	display: inline-block;
-	border: 2px soild;
+	margin-top: 3rem;
 }
 
 #name{

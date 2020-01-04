@@ -54,6 +54,18 @@ body{
 	font-weight: bold;
 }
 
+#list{
+	 list-style: none;
+	 overflow: hidden;
+	 padding: 0rem;
+	 margin-top: 1rem;
+}
+
+#list li{
+	/* border: 1px solid; */
+	float: left; margin-right: 3rem;
+}
+
 .explain{
 	width: 40rem;
 	margin-top: 3rem;
@@ -64,9 +76,17 @@ body{
 	margin-top: 3rem;
 }
 
-.facilites > p, #calendar > p, #hostName, #map>p, #notice p{
+.facilites img{
+	width: 1.2rem;
+}
+
+.facilites > p, #calendar > p, #hostName, #map>p, #notice p, #reiveTitle{
 	font-size: 1.5rem;
 	font-weight: bold;
+}
+
+#reviewAll{
+	margin-top: 3rem;
 }
 
 #reserveMargin>p{
