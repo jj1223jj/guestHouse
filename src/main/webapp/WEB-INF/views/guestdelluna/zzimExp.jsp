@@ -79,7 +79,7 @@
 		<c:if test="${countExpZzim>0 }">
 			<fmt:parseNumber var="pageCount" integerOnly="true"
 				value="${countExpZzim/boardSize+(countExpZzim%boardSize==0 ? 0:1)}" />
-			<c:set var="pageBlock" value="${1}" />
+			<c:set var="pageBlock" value="${5}" />
 			<fmt:parseNumber var="result" value="${(currentPage-1)/pageBlock}"
 				integerOnly="true" />
 			<c:set var="startPage" value="${result*pageBlock+1}" />

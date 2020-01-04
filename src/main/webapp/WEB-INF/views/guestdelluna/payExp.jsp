@@ -16,7 +16,7 @@
 		<c:if test="${countPayExp ==0 }">
 			<span>체험 결제 내역이 없습니다.</span>
 		</c:if>
-
+		
 		<c:if test="${countPayExp >0 }">
 		<div class="container">
 			<table class="table table-hover"
@@ -88,7 +88,7 @@
 		<c:if test="${countPayExp>0 }">
 			<fmt:parseNumber var="pageCount" integerOnly="true"
 				value="${countPayExp/boardSize+(countPayExp%boardSize==0 ? 0:1)}" />
-			<c:set var="pageBlock" value="${1}" />
+			<c:set var="pageBlock" value="${5}" />
 			<fmt:parseNumber var="result" value="${(currentPage-1)/pageBlock}"
 				integerOnly="true" />
 			<c:set var="startPage" value="${result*pageBlock+1}" />

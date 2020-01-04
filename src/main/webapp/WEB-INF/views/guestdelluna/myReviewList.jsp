@@ -34,7 +34,7 @@ menuL a{
 <script type="text/javascript">
 	$(function(){
 		$('#tabs').tabs();
-		paging('${root}','','','300000');
+		paging('${root}','','500000','');
 		$(".revExp").click(function(){
 			paging('${root}','','','300000');
 		})
@@ -92,9 +92,6 @@ menuL a{
 <body>
 
 <div id="wrap" style="margin-top: 3rem;">
-		<div style="text-align: center;">
-			${memberDto.memberName}님이 쓴 후기입니다.</div>
-
 		<div class="menuL" style="margin-top: 6.5rem;">
 			<ul>
 				<li><a href="${root}/guestdelluna/allMyReview.do" style="color: black;">후기</a></li>
@@ -117,21 +114,25 @@ menuL a{
 
 		<div class="menuR" style="margin-left: -4rem; margin-top: 5rem;">
 			<div id="tabs" class="container"
-				style="width: 60rem; margin-top: 1.5rem;">
+				style="width: 60rem; margin-top: 1.5rem; margin-left: -4rem;">
 				<ul style="border: 0px; background: #ffffff;">
 					<li class="revExp"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
-						href="#fragment-1"><span>내가 쓴 체험 후기</span></a></li>
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: -0.5rem;"><a
+						href="#fragment-1"><span>게스트하우스 후기</span></a></li>
 					<li class="revHouse"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 11rem;"><a
-						href="#fragment-2"><span>내가 쓴 게스트하우스 후기</span></a></li>
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 11rem;"><a
+						href="#fragment-2"><span>체험 후기</span></a></li>
+					<li style="margin-top: -2.3rem; margin-left: 42rem; color: #008489">
+						<span>총 ${countExpReview + countHouseReview }(게스트하우스 :
+							${countHouseReview } / 체험 : ${countExpReview })개</span>
+					</li>
 				</ul>
 				<div id="fragment-1">
-					<div id="revExpView"></div>
+					<div id="revHouseView"></div>
 				</div>
 
 				<div id="fragment-2">
-					<div id="revHouseView"></div>
+					<div id="revExpView"></div>
 				</div>
 			</div>
 		</div>

@@ -5,7 +5,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!-- 1.맨 위에 페이지 블록 -->
-<c:set var="pageBlock" value="${1}" />
+<c:set var="pageBlock" value="${5}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +30,7 @@ html {
 <script type="text/javascript">
 	$(function(){
 		$('#tabs').tabs();
-		paging('${root}','','','300000');
+			paging('${root}','','500000','');
 		$(".payExp").click(function(){
 			paging('${root}','','','300000');
 		})
@@ -87,9 +87,6 @@ html {
 </head>
 <body>
 	<div id="wrap" style="margin-top: 3rem;">
-		<div style="text-align: center;">
-			${memberDto.memberName}님의 결제내역입니다.</div>
-
 		<div class="menuL" style="margin-top: 6.5rem;">
 			<ul>
 				<li><a href="${root}/guestdelluna/allMyReview.do" style="color: black;">후기</a></li>
@@ -112,21 +109,25 @@ html {
 
 		<div class="menuR" style="margin-left: -4rem; margin-top: 5rem;">
 			<div id="tabs" class="container"
-				style="width: 60rem; margin-top: 1.5rem;">
+				style="width: 60rem; margin-top: 1.5rem; margin-left: -4rem;">
 				<ul style="border: 0px; background: #ffffff;">
-					<li class="payExp"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
-						href="#fragment-1"><span>체험 결제 내역</span></a></li>
 					<li class="payHouse"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 9rem;"><a
-						href="#fragment-2"><span>게스트하우스 결제 내역</span></a></li>
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: -0.5rem"><a
+						href="#fragment-1"><span>게스트하우스 결제 내역</span></a></li>
+					<li class="payExp"
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 14rem"><a
+						href="#fragment-2"><span>체험 결제 내역</span></a></li>
+						
+							<li style="margin-top: -2.3rem; margin-left: 42rem; color: #008489">
+							<span>총 ${countPayExp + countPayHouse }(게스트하우스 : ${countPayHouse } / 체험 : ${countPayExp })건</span>
+						</li>
 				</ul>
 				<div id="fragment-1">
-					<div id="payExpView"></div>
+					<div id="payHouseView"></div>
 				</div>
 
-				<div id="fragment-2">
-					<div id="payHouseView"></div>
+				<div id="fragment-2">				
+					<div id="payExpView"></div>
 				</div>
 			</div>
 		</div>

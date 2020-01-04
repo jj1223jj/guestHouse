@@ -88,7 +88,7 @@
 	<c:if test="${countPayHouse>0 }">
 		<fmt:parseNumber var="usePageCount" integerOnly="true"
 			value="${countPayHouse/boardSize+(countPayHouse%boardSize==0 ? 0:1)}" />
-		<c:set var="usePageBlock" value="${1}" />
+		<c:set var="usePageBlock" value="${5}" />
 		<fmt:parseNumber var="result2"
 			value="${(useCurrentPage-1)/usePageBlock}" integerOnly="true" />
 		<c:set var="useStartPage" value="${result2*usePageBlock+1}" />

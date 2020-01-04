@@ -5,7 +5,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!-- 1.맨 위에 페이지 블록 -->
-<c:set var="pageBlock" value="${3}" />
+<c:set var="pageBlock" value="${5}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,23 +85,6 @@ html {
 </head>
 <body>
 	<div id="wrap" style="margin-top: 3rem;">
-		<div style="text-align: center;">
-			${memberDto.memberName}님의 현재 사용가능 포인트는 <span
-				style="text-decoration: underline;"> <c:forEach
-					items="${accuPoint}" var="ap">
-					<c:set var="accSum" value="${accSum + ap.accuPoint}" />
-				</c:forEach> <c:set var="pointSum" value="${accSum}" /> <c:forEach
-					items="${usePoint}" var="up">
-					<c:set var="useSum" value="${useSum + up.usePoint}" />
-				</c:forEach> <c:set var="pointUse" value="${useSum}" /> <c:if
-					test="${pointSum - pointUse > 0}">
-					<c:out value="${pointSum - pointUse}" />
-				</c:if> <c:if test="${pointSum - pointUse < 0}">
-					<span>없습니다.</span>
-				</c:if>
-			</span> <span>포인트 입니다.</span>
-		</div>
-
 		<div class="menuL" style="margin-top: 6.5rem;">
 			<ul>
 				<li><a href="${root}/guestdelluna/allMyReview.do"
@@ -133,14 +116,30 @@ html {
 
 		<div class="menuR" style="margin-left: -10rem; margin-top: 5rem;">
 			<div id="tabs" class="container"
-				style="width: 60rem; margin-top: 1.5rem; margin-left: 6rem;">
+				style="width: 60rem; margin-top: 1.5rem; margin-left: -4rem;">
 				<ul style="border: 0px; background: #ffffff;">
 					<li class="accu"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: -1rem"><a
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: -0.5rem"><a
 						href="#fragment-1"><span>포인트 적립 내역</span></a></li>
 					<li class="use"
-						style="float: left; border: 0px; background: #ffffff; margin-top: -4rem; margin-left: 10rem;"><a
+						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 11rem;"><a
 						href="#fragment-2"><span>포인트 사용 내역</span></a></li>
+						
+					<li style="margin-top: -2.3rem; margin-left: 50rem; color: #008489">	보유 포인트 : <span
+				style="text-decoration: underline;"> <c:forEach
+					items="${accuPoint}" var="ap">
+					<c:set var="accSum" value="${accSum + ap.accuPoint}" />
+				</c:forEach> <c:set var="pointSum" value="${accSum}" /> <c:forEach
+					items="${usePoint}" var="up">
+					<c:set var="useSum" value="${useSum + up.usePoint}" />
+				</c:forEach> <c:set var="pointUse" value="${useSum}" /> <c:if
+					test="${pointSum - pointUse > 0}">
+					<c:out value="${pointSum - pointUse}" />
+				</c:if> <c:if test="${pointSum - pointUse < 0}">
+					<span>없습니다.</span>
+				</c:if>
+			</span>
+			</li>
 				</ul>
 
 				<div id="fragment-1">
