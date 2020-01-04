@@ -19,13 +19,13 @@
  function exReserveOk(root, exCode, memberCode, exDateS, exPeople, exPayment){
 	
 	
-	alert(root +", "+ exCode +", "+memberCode+", "+exDateS+", "+exPeople+", "+exPayment);
+	//alert(root +", "+ exCode +", "+memberCode+", "+exDateS+", "+exPeople+", "+exPayment);
 	
 	var usePoint =$("#usePoint").val();	// 사용포인트
 	if(usePoint == ""){
 		usePoint = 0;
 	}
-	alert(usePoint);
+	//alert(usePoint);
 	
 	var resPoint;	// 적립포인트
 	var realTotal;
@@ -46,12 +46,12 @@
 	url2 += "&memberCode="+memberCode+"&exDateS="+ exDateS +"&exPeople="+exPeople;
 	url2 += "&exPayment="+realTotal+"&point="+resPoint+"&usePoint="+usePoint;
 	
-	alert($("#payment option:selected").val());
+	//alert($("#payment option:selected").val());
 	
 	var account =$("#payment option:selected").val();
 	
 	if(account=='account'){
-		alert(url);
+		//alert(url);
 		location.href=url;
 	}else{
 		location.href=url2;
