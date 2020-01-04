@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <title>포인트 관리</title>
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
+<script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <style type="text/css">
 html {
 	font-size: 16px;
@@ -124,7 +126,7 @@ html {
 						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 11rem;"><a
 						href="#fragment-2"><span>포인트 사용 내역</span></a></li>
 						
-					<li style="margin-top: -2.3rem; margin-left: 50rem; color: #008489">	보유 포인트 : <span
+					<li style="margin-top: -2.3rem; margin-left: 49rem; color: #008489">	보유 포인트 : <span
 				style="text-decoration: underline;"> <c:forEach
 					items="${accuPoint}" var="ap">
 					<c:set var="accSum" value="${accSum + ap.accuPoint}" />

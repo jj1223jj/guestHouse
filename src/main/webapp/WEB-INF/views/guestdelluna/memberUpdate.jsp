@@ -11,7 +11,8 @@
 <link rel="stylesheet"
 	href="${root}/resources/css/register/register.css" />
 	<link rel="stylesheet"	href="${root}/resources/css/guestdelluna/menuLayout.css">
-
+<script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <%-- <script src="${root}/resources/javascript/jquery/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script> --%>
 <title>회원 정보 수정</title>
 <script type="text/javascript"

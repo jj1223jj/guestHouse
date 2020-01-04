@@ -24,6 +24,8 @@
 <title>장바구니</title>
 <script type="text/javascript"
 	src="${root}/resources/javascript/guestdelluna/myzzimlist.js"></script>
+	<script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <style type="text/css">
 html {
 	font-size: 16px;

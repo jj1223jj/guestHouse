@@ -18,6 +18,8 @@
 <script type="text/javascript"	src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
 <link rel="stylesheet"	href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
+<script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <title>결제 내역</title>
 <script type="text/javascript"	src="${root}/resources/javascript/guestdelluna/mypaylist.js"></script>
 <style type="text/css">
