@@ -630,6 +630,22 @@ public class ExperienceServiceImp implements ExperienceService {
 
 	}
 
+	
+	@Override
+	public ArrayList<String> exDisableDates(String exCode, String people) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("exCode", exCode);
+		map.put("people", people);
+		List<String> exDisableDates = experienceDao.exDisableDates(map);
+		ArrayList<String> disabled = new ArrayList<String>();
+		for(String a : exDisableDates) {
+			disabled.add("\""+a.split(" ")[0]+"\"");
+		}
+		return disabled;
+	}
+
+	
+	
 	// 체험 페이지
 	@Override
 	public void exPage(ModelAndView mav) {
@@ -643,6 +659,26 @@ public class ExperienceServiceImp implements ExperienceService {
 
 		int exCode = Integer.parseInt(request.getParameter("exCode"));
 
+		//////////////윤수 체험페이지 들어가면 checkIn people 자동으로 설정되어 있게
+		String checkIn=request.getParameter("checkIn");
+		String checkOut=request.getParameter("checkOut");
+		String people=request.getParameter("people");
+		if(checkIn==null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			checkIn= sdf.format(cal.getTime());
+			cal.add(Calendar.DATE, 1);
+			checkOut= sdf.format(cal.getTime());
+			people="1";
+		}
+		mav.addObject("checkIn", checkIn);
+		mav.addObject("checkOut", checkOut);
+		mav.addObject("people", people);
+		
+		/////////////윤수
+
+		
 		
 		// 12-27 
 		//int exCode = 6;
@@ -702,6 +738,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		// 날짜 ////////////////////////////////
 
 		
+		
 		  Date start = experienceDto.getExStartDate(); 
 		  Date end = experienceDto.getExEndDate();
 		  
@@ -722,77 +759,17 @@ public class ExperienceServiceImp implements ExperienceService {
 		  }
 		  
 		  
-		  //--------------///////////////////////// 달력 ///////////////////////////////////
+		//--------------///////////////////////// 달력 ///////////////////////////////////
+		 
+	
+		Map<String, Object> mapD = new HashMap<String, Object>();
+		mapD.put("exCode", exCode);
+		mapD.put("people", people);
+		List<String> exDisableDates = experienceDao.exDisableDates(mapD);
+		mav.addObject("exDisableDates",exDisableDates);
 		  
-		  List<ExRemainDto> exRemainList = experienceDao.getExRemain(exCode);
-		  HomeAspect.logger.info(HomeAspect.logMsg + "exRemainList: " + exRemainList.size());
 		  
-		  if(!exRemainList.isEmpty()) {
-			
-			  Integer[] peopleCnt = new Integer[exRemainList.size()];
-			  String[] disableDays = new String[exRemainList.size()];
-			  
-			  ArrayList<String> dates = new ArrayList<String>(); 
-			  
-			  int cnt =0;
-			  int pTot = 0;
-			 // System.out.println("첫번째 예약사람의 인원 수: "+pTot);
-			  
-			  //Date currentDate = start;
-			  
-			  for(int i=0; i<exRemainList.size();i++) {
-				  
-				  // pTot = i번째의 인원수
-				  pTot = exRemainList.get(i).getExPeople();
-				  System.out.println(i+"  i번째 인원 수: "+pTot);
-				//  System.out.println(exRemainList.get(0).getResDate()+", "+exRemainList.get(i).getResDate());
-				  
-				  for(int j=0; j<exRemainList.size();j++) {
-					  
-					  // i번째의 예약일과 j번째의 예약일 같으면
-					  if(exRemainList.get(i).getResDate().equals(exRemainList.get(j).getResDate())) {
-						  // j번째의 인원수를 더해줌
-						  pTot += exRemainList.get(j).getExPeople();
-						  //HomeAspect.logger.info(HomeAspect.logMsg + "pTot: " + pTot);
-
-						  System.out.println(j+"  j번째 인원 수: "+pTot);
-						 
-					  	}
-					  // 더한 값이 체험의 인원과 같으면
-					  if(pTot == experienceDto.getExPeople()) {
-						  // i번째의 날짜를 disableDays에
-						  disableDays[cnt] = sdf.format(exRemainList.get(i).getResDate());
-						  HomeAspect.logger.info(HomeAspect.logMsg + disableDays[cnt]);
-						  
-						  cnt++;
-					  	}
-				  }
-			  }
-			  
-			  for(int i=0; i<disableDays.length;i++) {
-				  String result=null;
-				  HomeAspect.logger.info(HomeAspect.logMsg + "disabledDays: " + disableDays[i]);
-				  if(disableDays[i] != null) {
-					  String[] arr = disableDays[i].split("-");
-					  
-					  int[] intArr = new int[arr.length];
-					  int j =0;
-					  for(j=0; j<arr.length;j++) {
-						  intArr[j] = Integer.parseInt(arr[j]);
-						  System.out.println("intArr["+j+"]: "+intArr[j]);
-					  }
-					  result = intArr[0]+"-"+intArr[1]+"-"+intArr[2];
-					  System.out.println(result);
-					  dates.add(result);
-				  }
-			  }
-			  for(int i=0; i<dates.size();i++) {
-				  System.out.println(dates.get(i));
-			  }
-			  mav.addObject("dates",dates);
-		 }
-
-		  mav.addObject("exRemainList",exRemainList);
+		  
 		  
 		  // start날짜 부터 end까지 리스트 date에 담음
 		//  while(currentDate.compareTo(end) <=0 ) {
@@ -1390,6 +1367,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		mav.setViewName("experience/exPageReserveOk.tiles");
 
 	}
+
 
 
 }

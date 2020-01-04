@@ -143,8 +143,8 @@
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseover', function(){
 					var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13, 13)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(13, 38)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -152,8 +152,8 @@
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseout', function(){
 					var imageSrc = root+'/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13,13)};
+				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(13,38)};
 					
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -165,8 +165,8 @@
 			for(let i=0; i<=house.length;i++){
 				$(".house"+i).mouseover(function(){
 					var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13, 13)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(13, 38)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -174,8 +174,8 @@
 				});
 				$(".house"+i).mouseout(function(){
 					var imageSrc = root+'/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13,13)};
+				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(13,38)};
 					
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -346,12 +346,15 @@
 		$(".peopleButton").text("인원 "+people.options[people.selectedIndex].text);
 	}
 	function setDate(date){
-			$("._checkInSpan").text(date.value);
-			if(date.value>=$("#checkOut").val()){
-				var checkOutDate =new Date(date.value);
-				checkOutDate.setDate(checkOutDate.getDate()+1);
-				$("._checkOutSpan").text(dateToString(checkOutDate));
-			}
+		$("._checkInSpan").text(date.value);
+		if(date.value>=$("#checkOut").val()){
+			var checkOutDate =new Date(date.value);
+			checkOutDate.setDate(checkOutDate.getDate()+1);
+			$("._checkOutSpan").text(dateToString(checkOutDate));
+		}
+	}
+	function setCheckOutDate(date){
+		$("._checkOutSpan").text(date.value);
 	}
 	
 	
@@ -795,7 +798,7 @@ form{
 						</div>
 						<div class="checkOutContainer">
 							<label for="checkOut"><i class="calenderOut far fa-calendar-alt fa-2x"></i></label>
-							<input class="form-control" type="text" name="checkOut" id="checkOut" onchange="setDate(this)"/> ~
+							<input class="form-control" type="text" name="checkOut" id="checkOut" onchange="setCheckOutDate(this)"/> ~
 						</div>
 					</div>
 						

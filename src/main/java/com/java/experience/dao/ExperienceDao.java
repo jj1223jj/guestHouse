@@ -2,6 +2,7 @@ package com.java.experience.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dto.ExperienceDto;
@@ -92,6 +93,8 @@ public interface ExperienceDao {
 
 	// 게하 메인
 	public List<GuestHouseMainDto> searchMain();
+
+	public List<String> exDisableDates(Map<String, Object> map);
 
 
 

@@ -5,6 +5,11 @@
     
 <mapper namespace="dao.ExperienceMapper">
 
+	<select id="exDisableDates" parameterType="java.util.Map" resultType="String">
+		<![CDATA[ select a.resDate from (select exCode, resDate, sum(exPeople) p from exRemain where exCode=#{exCode} group by exCode, resDate) a join experience b on a.exCode= b.exCode where b.exPeople-p <#{people}]]>
+	</select>
+
+
 <!-- 체험 등록  -->
 	<insert parameterType="com.java.exfile.dto.ExFileDto" id="subImgUpload">
 		insert into ExFileList(fileCode, fileName, filePath, fileSize, exCode) values(seq_fileList_num.nextval+1808, #{fileName}, #{filePath}, #{fileSize},#{exCode}) 

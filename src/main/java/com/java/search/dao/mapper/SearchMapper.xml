@@ -92,7 +92,7 @@
 												select exCode from (
 																		select a.*, experience.exPeople-p remain from (
 																													select exCode, resDate, sum(exPeople) p from exRemain
-																												<![CDATA[where resDate >= #{checkIn} and resDate < #{checkOut}
+																												<![CDATA[where resDate >= #{checkIn} and resDate <= #{checkOut}
 																														group by exCode, resDate order by exCode, resDate
 																												) a, experience where a.exCode=experience.exCode
 																		) where remain < #{people} group by exCode
@@ -209,7 +209,7 @@
 			    select exCode from (
 			    select a.*, experience.exPeople-p remain from (
 			    select exCode, resDate, sum(exPeople) p from exRemain
-			                                                                    <![CDATA[where resDate >= #{checkIn} and resDate < #{checkOut}
+			                                                                    <![CDATA[where resDate >= #{checkIn} and resDate <= #{checkOut}
 			                                                                                      group by exCode, resDate order by exCode, resDate
 			    ) a, experience where a.exCode=experience.exCode
 			    ) where remain < #{people} group by exCode]]>
