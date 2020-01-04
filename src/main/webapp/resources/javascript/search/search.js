@@ -163,7 +163,7 @@ function setExList(ex, memberCode, checkIn, checkOut, people){
 			'						<div class="_houseFacilities" style="margin-top: 0.75rem">인원 '+ex[i].people+'명</div>' +
 			'						<div class="_houseFacilities" style="margin-top: 0.25rem">일정 '+ex[i].exStartDate+' ~ '+ex[i].exEndDate+'</div>' +
 			'						<div class="_houseFacilities" style="margin-top: 0.25rem">진행시간 '+ex[i].exTime+'h</div>' +
-			'						<div class="_priceContainer"><span class="_price">₩'+ex[i].price+'</span><span class="_oneNight">/1박</span></div>' +
+			'						<div class="_priceContainer"><span class="_price">₩'+ex[i].price+'</span><span class="_oneNight">/1회</span></div>' +
 			'					</div>' +
 			'				</a>' +
 			'			</div>' +

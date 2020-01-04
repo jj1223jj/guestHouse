@@ -525,7 +525,7 @@
 }
 .checkInOutContainer .form-control{
 	display:inline-block;
-	width: 6.875rem;
+	width: 7.2rem;
 	position: absolute;
     bottom: 0.6rem;
 }
