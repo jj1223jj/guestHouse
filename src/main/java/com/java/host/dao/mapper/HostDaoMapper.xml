@@ -20,7 +20,7 @@
   	tv,mart,parking,kitchen,safety,address,sido,sigungu,roadName,bName,jibunAddress,latLng,detailAddress,local,approvalStatus,
   	
   	bank,account,people,bed,price,houseRegDate)
-  	 values(seq_house_num.nextval, #{memberCode},#{houseName},
+  	 values(seq_houseCode_num.nextval + 360, #{memberCode},#{houseName},
   	#{explain},#{bath},#{etc},#{checkInTime},
   	#{checkOutTime},#{necessary, jdbcType=VARCHAR},#{wifi, jdbcType=VARCHAR},#{washer, jdbcType=VARCHAR},#{hotWater, jdbcType=VARCHAR},#{aircon, jdbcType=VARCHAR},#{tv, jdbcType=VARCHAR},#{mart, jdbcType=VARCHAR},
   	#{parking, jdbcType=VARCHAR},#{kitchen, jdbcType=VARCHAR},#{safety, jdbcType=VARCHAR},#{address}, #{sido}, #{sigungu}, #{roadName}, #{bName},
