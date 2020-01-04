@@ -502,6 +502,12 @@ function ghMoreView(root,emailSession,houseCode){
 				 });
 				 
 			}else {
+				if(data.count<=3){
+					$("#reviewBtn").css({
+						display: "none"
+					 });
+				}
+				
 				$(data.reviewList).each(function(){
 					
 					var day = new Date(data.reviewList[indexNum].revDate);

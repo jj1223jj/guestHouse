@@ -101,12 +101,53 @@ $(function(){
 				stxt[1]=stxt[1]-1;
 				var sdate = new Date(stxt[0],stxt[1],stxt[2]);
 				var edate = new Date(stxt[0],stxt[1],stxt[2]);
-				edate.setDate(sdate.getDate()+rangeDate);
 				
+				edate.setDate(sdate.getDate()+rangeDate);		
+				
+				/* 예약불가능 날짜 범위 */
+				var dis = [];
+	            for (var i=0; i<disabledDays.length; i++) {
+	               var text = disabledDays[i].split("-");
+	               dis.push(new Date(text[0],text[1]-1,text[2]));
+	            }
+	            /* alert("dis: " + dis); */
+	            for (var i=0; i<dis.length; i++) {
+	               dis[i] = dis[i].getTime();
+	            }
+	            /* alert("안되는 날짜:" +dis); */
+	            var today = new Date();
+	            
+	            var disD = [];
+	            for (var i=0; i<dis.length; i++) {
+	               if (sdate < dis[i]) {
+	                  disD.push(dis[i]);
+	               }
+	            }
+	            /* alert(disD); */
+	            var min;
+	            if (disD != ""){
+	               min = new Date(Math.min.apply(null, disD));
+	            }
+	            /* alert("안되는 날짜 중 오늘 이후로 가장 빠른 날짜:" +min);
+	            
+	            alert(edate); */
+
+				/* 체크아웃 minDate값 설정 */
+				var select = new Date(); 
+				select.setDate(sdate.getDate()+1);
+				var dt_to_tomorrow = $.datepicker.formatDate('yy-mm-dd', select);
+
 				$('#to').datepicker('option',{
-					minDate: selectDate,
+					minDate: dt_to_tomorrow,
 					beforeShow: function(){
-						$("#to").datepicker("option","maxDate",edate);
+						/* alert("dfdfdf"+sdate.getTime() + "," + min); */
+		                if (min == null){
+	                    	$("#to").datepicker("option","maxDate",edate);
+	                    	/* alert("!!!"); */
+	                  	}else {
+	                    	$("#to").datepicker("option","maxDate",min);
+	                  	}
+
 						setSDate = selectDate;
 						console.log(setSDate)
 					}
@@ -121,7 +162,7 @@ $(function(){
 				console.log(setEDate)
 			}
 		});
-		starRating();
+		/* starRating(); */
 	}); 
 	
 	function reservationFun(root,houseCode,memberCode,emailCheck){
@@ -226,77 +267,108 @@ $(function(){
 	<div class="bot">
 		<div class="guestHouse">
 			<div class="name">${hostDto.houseName}</div>
-
+			
+			<div>
+				<ul id="list">
+					<li>
+						<!-- <img alt="icon" src="./../resources/css/images/Icon/people.png" style="width: 1rem; height:1rem;"> -->
+						인원 ${hostDto.people}명
+					</li>
+					<li>욕실 ${hostDto.bath}개</li>
+					<li>침대 ${hostDto.bed}개</li>
+				</ul>
+			</div>
+			
+			<hr style="color: #cccccc">
+			
 			<div class="explain" style="    word-break: break-all;">${hostDto.explain}</div>
+		
 			<br />
 
 			<div class="facilites">
 				<p>편의시설</p>
 				<div id="fRight">
 					<c:if test="${hostDto.necessary != 'on'}">
-						<p id="necessary" style="text-decoration: line-through;"> necessary </p>
+						<p id="necessary" style="text-decoration: line-through;"> 
+							<img alt="icon" src="./../resources/css/images/Icon/noun_towel_2888408.png">
+							 necessary 
+						</p>
 					</c:if>
 					<c:if test="${hostDto.necessary == 'on'}">
-						<p id="necessary"> necessary </p>
+						<p id="necessary"><img alt="icon" src="./../resources/css/images/Icon/noun_towel_2888408.png"> necessary </p>
 					</c:if>
 					
 					<c:if test="${hostDto.wifi != 'on'}">
-						<p id="wifi" style="text-decoration: line-through;"> wifi </p>
+						<p id="wifi" style="text-decoration: line-through;"> 
+							<img alt="icon" src="./../resources/css/images/Icon/wifi.png">
+							 wifi 
+						</p>
 					</c:if>
 					<c:if test="${hostDto.wifi == 'on'}">
-						<p id="wifi">wifi</p>
+						<p id="wifi"><img alt="icon" src="./../resources/css/images/Icon/wifi.png"> wifi</p>
 					</c:if>
 					
 					<c:if test="${hostDto.hotWater != 'on'}">
-						<p id="hotWater" style="text-decoration: line-through;"> hotWater </p>
+						<p id="hotWater" style="text-decoration: line-through;"> 
+							<img alt="icon" src="./../resources/css/images/Icon/hotWater.png"> hotWater 
+						</p>
 					</c:if>
 					<c:if test="${hostDto.hotWater == 'on'}">
-						<p id="hotWater">hotWater</p>
+						<p id="hotWater"><img alt="icon" src="./../resources/css/images/Icon/hotWater.png"> hotWater</p>
 					</c:if>
 					
 					<c:if test="${hostDto.aircon != 'on'}">
-						<p id="aircon" style="text-decoration: line-through;"> aircon </p>
+						<p id="aircon" style="text-decoration: line-through;"> 
+							<img alt="icon" src="./../resources/css/images/Icon/noun_Air Conditioner_1515986.png"> aircon 
+						</p>
 					</c:if>
 					<c:if test="${hostDto.aircon == 'on'}">
-						<p id="aircon">aircon</p>
+						<p id="aircon"><img alt="icon" src="./../resources/css/images/Icon/noun_Air Conditioner_1515986.png"> aircon</p>
 					</c:if>
 					
 					<c:if test="${hostDto.safety != 'on'}">
-						<p id="safety" style="text-decoration: line-through;"> safety </p>
+						<p id="safety" style="text-decoration: line-through;"> 
+							<img alt="icon" src="./../resources/css/images/Icon/noun_Fire Extinguisher_1176908.png">
+							safety 
+						</p>
 					</c:if>
 					<c:if test="${hostDto.safety == 'on'}">
-						<p id="safety">safety</p>
+						<p id="safety"><img alt="icon" src="./../resources/css/images/Icon/noun_Fire Extinguisher_1176908.png"> safety</p>
 					</c:if>
 					
 				</div>
 				<div id="fLeft">
 					
 					<c:if test="${hostDto.mart != 'on'}">
-						<p id="mart" style="text-decoration: line-through;"> mart </p>
+						<p id="mart" style="text-decoration: line-through;"> 
+						<img alt="icon" src="./../resources/css/images/Icon/noun_Grocery Store_79159.png"> mart </p>
 					</c:if>
 					<c:if test="${hostDto.mart == 'on'}">
-						<p id="mart">mart</p>
+						<p id="mart"><img alt="icon" src="./../resources/css/images/Icon/noun_Grocery Store_79159.png"> mart</p>
 					</c:if>
 					
 					<c:if test="${hostDto.parking != 'on'}">
-						<p id="parking" style="text-decoration: line-through;"> parking </p>
+						<p id="parking" style="text-decoration: line-through;"> 
+						<img alt="icon" src="./../resources/css/images/Icon/parking-sign.png"> parking </p>
 					</c:if>
 					<c:if test="${hostDto.parking == 'on'}">
-						<p id="parking">parking</p>
+						<p id="parking"><img alt="icon" src="./../resources/css/images/Icon/parking-sign.png"> parking</p>
 					</c:if>
 					
 					<c:if test="${hostDto.kitchen != 'on'}">
-						<p id="kitchen" style="text-decoration: line-through;"> kitchen </p>
+						<p id="kitchen" style="text-decoration: line-through;"> 
+						<img alt="icon" src="./../resources/css/images/Icon/noun_Kitchen_1092638.png"> kitchen </p>
 					</c:if>
 					<c:if test="${hostDto.kitchen == 'on'}">
-						<p id="kitchen">kitchen</p>
+						<p id="kitchen"><img alt="icon" src="./../resources/css/images/Icon/noun_Kitchen_1092638.png"> kitchen</p>
 					</c:if>
 					
 					<c:if test="${hostDto.tv != 'on'}">
-						<p id="tv" style="text-decoration: line-through;"> tv </p>
+						<p id="tv" style="text-decoration: line-through;"> 
+						<img alt="icon" src="./../resources/css/images/Icon/noun_TV_1027809.png"> tv </p>
 					</c:if>
 					<c:if test="${hostDto.tv == 'on'}">
-						<p id="tv">tv</p>
+						<p id="tv"><img alt="icon" src="./../resources/css/images/noun_TV_1027809.png"> tv</p>
 					</c:if>
 					
 				</div>
@@ -313,6 +385,7 @@ $(function(){
 					jQuery(document).ready(function(){
 						jQuery('#datepicker').datepicker({
 							dateFormat: 'yy-mm-dd',
+							minDate: 0,
 							preText:'이전 달',
 							nextText: '다음 달',
 							monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
@@ -358,10 +431,10 @@ $(function(){
 			<hr style="color: #cccccc">
 			<!-- 후기 전체 -->
 			<div id="reviewAll">
+				<p id="reiveTitle">후기</p>
 				<!-- 후기 작성 -->
 				<c:if test="${memberLevel!=null}">
-					<form action="${root}/guestHousePage/reviewOk.do" method="get"
-						name="Form" onsubmit="return check(form)">
+					<form action="${root}/guestHousePage/reviewOk.do" method="get" name="Form" onsubmit="return check('${revContent}','${revRate}')">
 						<div id="write">
 							<input type="hidden" name="houseCode" id="houseCode"
 								value="${hostDto.houseCode}" />
@@ -376,7 +449,7 @@ $(function(){
 								</div>
 		
 								<div>
-									<span class="star-input"> <span class="input"> <input
+									<span class="star-input" style="padding: 0;"> <span class="input"> <input
 											type="radio" name="star-input" value="1" id="p1"> <label
 											for="p1">1</label> <input type="radio" name="star-input"
 											value="2" id="p2"> <label for="p2">2</label> <input
@@ -424,7 +497,6 @@ $(function(){
 				</div>
 			</div>
 
-			<hr style="color: #cccccc">
 			<div class="host">
 				<div id="hostInfo">
 					<div style="display: inline-block;">
@@ -432,17 +504,21 @@ $(function(){
 					<div id="hostDate">회원가입 : ${regDate}</div>
 					</div>
 					<div id="hostImg">
-					<img id="hostImgSize"
-						src="<spring:url value='/profileImg/${host.memberImgName}' />" />
+					<a href="${root}/guestdelluna/myInfo.do?memberCode=${host.memberCode}">
+						<img id="hostImgSize" src="<spring:url value='/profileImg/${host.memberImgName}' />" />
+					</a>
 					</div>
 				</div>
 				<p id="pHostInfo">${host.memberInfo}</p>
 			</div>
-
+			
+			<hr style="color: #cccccc">
+			
 			<div id="map">
 				<p>지역정보</p>
 				<div id="houseMap"></div>
 			</div>
+			
 			<script>
 					var container = document.getElementById('houseMap');
 					var options = {

@@ -128,7 +128,7 @@ html{
 						<span style="font-weight: bold;">point</span>
 					</div>
 					<div id="usePointDiv">
-						<span><input id="usePoint"></span>
+						<span><input id="usePoint" value="0"></span>
 					</div>
 					<script>
 						$(function(){

@@ -19,7 +19,7 @@
 		<div id="wrap">
 			
 			<div id="mainImg">
-				<img src="<spring:url value='/image/${mainImg}' />" />
+				<img src="<spring:url value='/image/${mainImg}' />" width="100%" height="100% " />
 			</div>
 			
 			<div id="info">
@@ -34,8 +34,9 @@
 			</div>
 			
 		</div>
+		<hr color="#CCCCCC" style="margin-top: 3rem;"/>
 	</div>
-	<hr color="#CCCCCC" style="margin-top: 9rem;"/>
+	
 	
 	<div align="center" style="margin-top: 2rem;">
 		<button style="margin-right: 1.5rem;" id="btn" type="button" class="btn btn-warning" name="home" onclick="location.href='${root}'">Home</button>
