@@ -29,6 +29,8 @@ menuL a{
 <script type="text/javascript" src="${root}/resources/javascript/jquery/flick/jquery-ui.js"></script>
 <link rel="stylesheet" href="${root}/resources/javascript/jquery/flick/jquery-ui.css">
 <script type="text/javascript" src="${root}/resources/xhr/xhr.js"></script>
+<script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <title>내가 쓴 후기</title>
 <script type="text/javascript">
 	$(function(){
@@ -115,10 +117,10 @@ menuL a{
 			<div id="tabs" class="container"
 				style="width: 60rem; margin-top: 1.5rem; margin-left: -4rem;">
 				<ul style="border: 0px; background: #ffffff;">
-					<li class="revExp"
+					<li class="revHouse"
 						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: -0.5rem;"><a
 						href="#fragment-1"><span>게스트하우스 후기</span></a></li>
-					<li class="revHouse"
+					<li class="revExp"
 						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 11rem;"><a
 						href="#fragment-2"><span>체험 후기</span></a></li>
 					<li style="margin-top: -2.3rem; margin-left: 42rem; color: #008489">

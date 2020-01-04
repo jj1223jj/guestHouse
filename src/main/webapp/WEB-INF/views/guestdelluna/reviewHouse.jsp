@@ -19,7 +19,7 @@
 		value="${myHousereviewList}" />
 	<div>
 		<c:if test="${countHouseReview ==0 }">
-			<span>작성한 후기가 없습니다.</span>
+			<span>작성한 게스트하우스 후기가 없습니다.</span>
 		</c:if>
 
 		<c:if test="${countHouseReview >0 }">

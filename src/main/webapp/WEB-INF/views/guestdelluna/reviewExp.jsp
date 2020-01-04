@@ -19,7 +19,7 @@
 
 	<div>
 		<c:if test="${countExpReview ==0 }">
-			<span>작성한 후기가 없습니다.</span>
+			<span>작성한 체험 후기가 없습니다.</span>
 		</c:if>
 
 		<c:if test="${countExpReview >0 }">

@@ -9,6 +9,8 @@
 	href="${root}/resources/css/register/register.css" />
 <link rel="stylesheet"
 	href="${root}/resources/css/guestdelluna/menuLayout.css">
+<script type="text/javascript"
+   src="${root}/resources/javascript/guestdelluna/menuLayout.js"></script>
 <meta charset="UTF-8">
 <title>회원 탈퇴</title>
 </head>
