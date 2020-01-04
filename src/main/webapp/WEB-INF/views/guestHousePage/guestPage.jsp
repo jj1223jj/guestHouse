@@ -581,7 +581,8 @@ $(function(){
 							$(function(){
 								$("#people").spinner({
 									min:1,
-									step:1
+									step:1,
+									max:${hostDto.people}
 								});
 							});
 				</script>

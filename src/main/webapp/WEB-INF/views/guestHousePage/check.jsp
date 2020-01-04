@@ -21,7 +21,7 @@
 	<c:if test="${check==0}">
 		<script type="text/javascript">
 			alert("예약 가능 인원을 초과 하였습니다.");
-			location.href="${root}/guestHousePage/guestHouse.do"
+			location.href="${root}/guestHousePage/guestHouse.do?houseCode=${houseCode}"
 		</script>
 	</c:if>
 </body>
