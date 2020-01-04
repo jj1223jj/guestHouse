@@ -119,7 +119,7 @@ html {
 						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 14rem"><a
 						href="#fragment-2"><span>체험 결제 내역</span></a></li>
 						
-							<li style="margin-top: -2.3rem; float: right; color: #008489">
+							<li style="margin-top: -2.3rem; float: right; color: black">
 							<span>총 ${countPayExp + countPayHouse }건 (게스트하우스 : ${countPayHouse } / 체험 : ${countPayExp })</span>
 						</li>
 				</ul>

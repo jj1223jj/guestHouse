@@ -123,7 +123,7 @@ menuL a{
 					<li class="revExp"
 						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 11rem;"><a
 						href="#fragment-2"><span>체험 후기</span></a></li>
-					<li style="margin-top: -2.3rem; float: right; color: #008489">
+					<li style="margin-top: -2.3rem; float: right; color: black">
 						<span>총 ${countExpReview + countHouseReview }개 (게스트하우스 :
 							${countHouseReview } / 체험 : ${countExpReview })</span>
 					</li>

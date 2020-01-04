@@ -856,14 +856,17 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
 	padding-bottom: 1px;
+	box-shadow : none;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
 	cursor: text;
+	box-shadow : none;
 }
 .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
 	cursor: pointer;
+	box-shadow : none;
 }
 .ui-tabs .ui-tabs-panel {
 	display: block;
@@ -912,7 +915,6 @@ body .ui-tooltip {
 	border: 1px solid #dddddd;
 	background: #dddddd url("images/ui-bg_highlight-soft_50_dddddd_1x100.png") 50% 50% repeat-x;
 	color: #444444;
-	font-weight: bold;
 }
 .ui-widget-header a {
 	color: #444444;
@@ -932,7 +934,6 @@ html .ui-button.ui-state-disabled:active {
 	border: 1px solid #dddddd;
 	background: #f6f6f6 url("images/ui-bg_highlight-soft_100_f6f6f6_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
-	color: #0073ea;
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -955,7 +956,6 @@ a:visited.ui-button,
 	border: 1px solid #0073ea;
 	background: #0073ea url("images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
-	color: #008489;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -983,7 +983,7 @@ a.ui-button:active,
 	border: 1px solid #dddddd;
 	background: #ffffff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
 	font-weight: bold;
-	color: #ff0084;
+	color: #008489;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
@@ -1307,6 +1307,6 @@ a.ui-button:active,
 	filter: Alpha(Opacity=80); /* support: IE8 */
 }
 .ui-widget-shadow {
-	-webkit-box-shadow: -4px -4px 4px #aaaaaa;
-	box-shadow: -4px -4px 4px #aaaaaa;
+	/* -webkit-box-shadow: -4px -4px 4px #aaaaaa;
+	box-shadow: -4px -4px 4px #aaaaaa; */
 }
