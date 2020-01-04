@@ -281,7 +281,7 @@ $(function(){
 			
 			<hr style="color: #cccccc">
 			
-			<div class="explain" style="    word-break: break-all;">${hostDto.explain}</div>
+			<div class="explain" style="word-break: break-all;">${hostDto.explain}</div>
 		
 			<br />
 
@@ -546,7 +546,7 @@ $(function(){
 					<span id="checkInTime"> check in : ${hostDto.checkInTime}</span>&nbsp;
 					<span id="checkOutTime"> check out : ${hostDto.checkOutTime}</span>
 				</div>
-				<div id="etc" style="margin-top: 1.5rem;">
+				<div id="etc" style="margin-top: 1.5rem; word-break: break-all;">
 					<p>기타사항</p>
 					${hostDto.etc}
 				</div>

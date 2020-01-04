@@ -72,7 +72,7 @@ html{
 			<div class="guestHouse">
 				<div id="explain">
 					<p id="houseName">${hostDto.houseName}</p>
-					<p>${hostDto.explain}</p>
+					<p style="word-break: break-all;">${hostDto.explain}</p>
 				</div>
 				<div id="ghImg">
 					<img style="width: 100%; height: 100%;" src="<spring:url value='/image/${mainImg}' />" />
@@ -101,7 +101,7 @@ html{
 		
 		<div class="mid">
 			<div class="notice">
-				<h3>주의할 사항</h3>
+				<h3 style="word-break: break-all;">주의할 사항</h3>
 				<div>
 					${hostDto.etc}
 				</div>
