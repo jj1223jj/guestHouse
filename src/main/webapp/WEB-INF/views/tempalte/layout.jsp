@@ -48,9 +48,8 @@
     position: fixed;
     z-index: 10;
     border-radius: 3rem;
-    background: rebeccapurple;
-    width: 30px;
-    height: 30px;
+    font-family: Font Awesome 5 Free;
+    
 }
 </style>
 
@@ -68,7 +67,7 @@
 	<t:insertAttribute name="content"/>
 	
 	
-	<span style="font-size: 3rem;"><i class="return-top fas fa-chevron-circle-up"></i></span>
+	<span style="font-size: 3rem;"><img class="return-top" style="width:4rem;" src="${root}/resources/images/top.png"/></span>
 	
 
 	

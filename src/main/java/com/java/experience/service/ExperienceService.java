@@ -1,5 +1,6 @@
 package com.java.experience.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,8 @@ public interface ExperienceService {
 	public void kakaoPaySuccess(ModelAndView mav);
 
 	public void kakaoPaySuccessOk(ModelAndView mav);
+
+	public ArrayList<String> exDisableDates(String exCode, String people);
 
 	
 	

@@ -250,5 +250,9 @@ public class ExperienceDaoImp implements ExperienceDao {
 		}
 		return houseImgList;	
 		}
+	@Override
+	public List<String> exDisableDates(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("dao.ExperienceMapper.exDisableDates", map);
+	}
 
 }

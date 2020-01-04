@@ -54,9 +54,42 @@ $(document).ready(function(){
 <script>
 $(function(){
 	load('${root}' ,'${sessionScope.email}','${experienceDto.exCode}');
+	$("#exPeople").change(function(){
+		var url= "${root}/experience/exDisableDates.do?exCode=${experienceDto.exCode}&people="+$(this).val();
+		$.ajax({
+			url:url,
+			method:"get",
+			success:function(d){
+				
+				var dd= JSON.parse(d);
+				var disabledDays =[];
+				for(var j =0;j<dd.length;j++){
+					var ddd = new Date(dd[j]);
+					var m = ddd.getMonth(), d = ddd.getDate(), y = ddd.getFullYear();
+					disabledDays.push(y + '-' +(m+1) + '-' + d);
+				}
+				
+				// 특정일 선택막기
+				function disableAllTheseDays(date) {
+				    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+				    for (i = 0; i < disabledDays.length; i++) {
+				        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
+				            return [false];
+				        }
+				    }
+				    return [true];
+				}
+				$("#exDateS").datepicker( "option", "beforeShowDay", disableAllTheseDays );
+				$("#date").datepicker( "option", "beforeShowDay", disableAllTheseDays );
+				
+				
+				
+			}
+		})
+	})
 
 		
-		});
+});
 	 
 
 </script>
@@ -231,34 +264,29 @@ list-style: none;
 			        
 			      <script type="text/javascript">
 			        
-			        var disableDays = new Array();
-			        
-			        <c:forEach var="item" items="${dates}">
-			        	disableDays.push('${item}');
+			        var disabledDays =[];
+			        <c:forEach var="item" items="${exDisableDates}">
+				        var ddd = new Date('${item}'.split(" ")[0]);
+						var m = ddd.getMonth(), d = ddd.getDate(), y = ddd.getFullYear();
+						disabledDays.push(y + '-' +(m+1) + '-' + d);
 			        </c:forEach>
-			        function disableSomeDay(date){
-			        	var month = date.getMonth()+1;
-			        	var dates = date.getDate();
-			        	var year = date.getFullYear();
-			        	
-			        	
-			        	for(i=0; i<disableDays.length; i++){
-			    			
-			    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
-			    				return [false];
-			    			}
-			        	}
-			        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
-			    		return [true];
-			        }
-			        
-						$(function(){
+		        	
+		        	function disableAllTheseDays(date) {
+					    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+					    for (i = 0; i < disabledDays.length; i++) {
+					        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
+					            return [false];
+					        }
+					    }
+					    return [true];
+					}
+					
+		        	
+
 							$("#date").datepicker({
 								dateFormat:"yy-mm-dd",
 								 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 								 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-								 //beforeShowDay: disableSomeDay,
-								 beforeShowDay: disableSomeDay,
 								 showMonthAfterYear: true,
 								 yearSuffix: "년",
 								 minDate: 'today',
@@ -277,7 +305,7 @@ list-style: none;
 								 }
 								
 							});
-						});
+							$("#date").datepicker( "option", "beforeShowDay", disableAllTheseDays );
 					</script>
 				</div>
 				
@@ -293,34 +321,29 @@ list-style: none;
 								<div>
 									<p style="width: 5rem; float: left;">날짜선택</p>
 									<div>
-										<input type="text" id="exDateS" name="exDateS" size="12" class="form-control" style="width:13rem; float: left; margin-left: 3rem;"/>
+										<input type="text" id="exDateS" name="exDateS" size="12" class="form-control" style="width:13rem; float: left; margin-left: 3rem; " value="${checkIn}"/>
 										<i class="calenderDate far fa-calendar-alt fa-3x"></i>
 									</div>
 									
 									<script type="text/javascript">
 									
-									 var disableDays = new Array();
-								        
-								        <c:forEach var="item" items="${dates}">
-								        	disableDays.push('${item}');
+								        var disabledDays =[];
+								        <c:forEach var="item" items="${exDisableDates}">
+									        var ddd = new Date('${item}'.split(" ")[0]);
+											var m = ddd.getMonth(), d = ddd.getDate(), y = ddd.getFullYear();
+											disabledDays.push(y + '-' +(m+1) + '-' + d);
 								        </c:forEach>
-								        function disableSomeDay(date){
-								        	var month = date.getMonth()+1;
-								        	var dates = date.getDate();
-								        	var year = date.getFullYear();
-								        	
-								        	
-								        	for(i=0; i<disableDays.length; i++){
-								    			
-								    			if($.inArray(year+'-'+(month)+'-'+dates, disableDays)!=-1|| new Date() > date){
-								    				return [false];
-								    			}
-								        	}
-								        	console.log('good:  ' + year + '-' + (month) + '-' + dates);
-								    		return [true];
-								        }
-								        
-									$(function(){
+							        	
+							        	function disableAllTheseDays(date) {
+										    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+										    for (i = 0; i < disabledDays.length; i++) {
+										        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
+										            return [false];
+										        }
+										    }
+										    return [true];
+										}
+									        
 										$("#exDateS").datepicker({
 											dateFormat:"yy-mm-dd",
 											 monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
@@ -329,7 +352,6 @@ list-style: none;
 											 /* buttonText:"날짜 선택", */
 											 showMonthAfterYear: true,
 											 yearSuffix: "년",
-											 beforeShowDay: disableSomeDay,
 											 minDate: 'today',
 											 maxDate:new Date('${endDateC}'),
 											 onClose:function(selectedDate){
@@ -338,15 +360,15 @@ list-style: none;
 												
 											 }
 										});
+										$("#exDateS").datepicker( "option", "beforeShowDay", disableAllTheseDays );
 										$(".calenderDate").click(function(){
 											$("#exDateS").datepicker("show");
 										});
-									});
 									</script>
 								</div>
 								<div style="width: 28rem; /* border: 0.1rem dotted red; */ margin-top: 3rem;">	
 									<p style="width: 4rem; float: left;">인원</p>
-									<input type="number" name="exPeople" id="exPeople" value="1" min="1" class="form-control" style="width:5rem"/>
+									<input type="number" name="exPeople" id="exPeople" value="${people}" min="1" max="${experienceDto.exPeople}" class="form-control" style="width:5rem"/>
 									<input type="hidden" name="exCode" id="exCode" value="${experienceDto.exCode}"/>
 									<input type="hidden" name="reviewList" id="reviewList" value="${reviewList.size()}"/>
 									

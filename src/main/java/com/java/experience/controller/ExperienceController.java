@@ -2,6 +2,7 @@ package com.java.experience.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -178,6 +179,27 @@ public class ExperienceController {
 		experienceService.exPage(mav);
 		
 		return mav;
+	}
+	
+	// 체험 날짜 불가능한 것
+	@RequestMapping(value="/experience/exDisableDates.do", method = RequestMethod.GET)
+	public void exDisableDates(HttpServletRequest request, HttpServletResponse response) {
+		String exCode=request.getParameter("exCode");
+		String people=request.getParameter("people");
+		HomeAspect.logger.info(HomeAspect.logMsg+"exCode: "+exCode+", people: "+people);
+		
+		ArrayList<String> disabled = experienceService.exDisableDates(exCode, people);
+		HomeAspect.logger.info(HomeAspect.logMsg+"disabled: "+disabled.toString());
+		
+		response.setContentType("application/text;charset=utf-8");
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.print(disabled);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	// 예약하기 눌렀을 때
