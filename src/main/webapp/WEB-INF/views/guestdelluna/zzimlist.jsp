@@ -133,9 +133,9 @@ html {
 						style="float: left; border: 0px; background: #ffffff; margin-top: -3.04rem; margin-left: 13rem;"><a
 						href="#fragment-2"><span>체험 찜 내역</span></a></li>
 
-					<li style="margin-top: -2.3rem; margin-left: 42rem; color: #008489">
-						<span>총 ${countExpZzim + countHouseZzim }(게스트하우스 :
-							${countHouseZzim } / 체험 : ${countExpZzim })개</span>
+					<li style="margin-top: -2.3rem; float: right; color: #008489">
+						<span>총 ${countExpZzim + countHouseZzim }개 (게스트하우스 :
+							${countHouseZzim } / 체험 : ${countExpZzim })</span>
 					</li>
 				</ul>
 				<div id="fragment-1">
