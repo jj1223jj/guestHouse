@@ -28,6 +28,7 @@ public class SearchServiceImp implements SearchService {
 	@Autowired
 	private SearchDao searchDao;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ModelAndView search(String checkIn, String checkOut, String local, String people, String searchHouseName, String pageNumber, Integer memberCode, String sort) {
 		HomeAspect.logger.info(HomeAspect.logMsg+"local: "+local+", checkIn: "+checkIn+", checkOut: "+checkOut+ " ,people: "+people+", searchHouseName: "+searchHouseName+", pageNumber: "+pageNumber+", memberCode: "+memberCode+", sort: "+sort);
@@ -153,6 +154,7 @@ public class SearchServiceImp implements SearchService {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public String overlay(int houseCode, Integer memberCode) {
 		HostImgDto hostImgDto = searchDao.overlay(houseCode, memberCode);
@@ -186,6 +188,7 @@ public class SearchServiceImp implements SearchService {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ModelAndView searchEx(String checkIn, String checkOut, String local, String people, String searchExName,
 			String pageNumber, Integer memberCode, String sort) {
@@ -296,6 +299,7 @@ public class SearchServiceImp implements SearchService {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public String exOverlay(int exCode, Integer memberCode) {
 		ExperienceImgDto exImgDto = searchDao.exOverlay(exCode, memberCode);

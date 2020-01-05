@@ -2,7 +2,6 @@ package com.java.experience.dto;
 
 import java.util.List;
 
-import com.java.exfile.dto.ExFileDto;
 import com.java.file.dto.FileDto;
 
 public class GuestHouseMainDto extends ExperienceDto {

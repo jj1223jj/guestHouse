@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.java.exfile.dto.ExFileDto;
 import com.java.experience.dto.ExperienceDto;
-import com.java.experience.dto.ExperienceImgDto;
 import com.java.experience.dto.ExperienceMainDto;
 import com.java.experience.dto.GuestHouseMainDto;
 import com.java.exremain.dto.ExRemainDto;

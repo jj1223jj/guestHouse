@@ -44,19 +44,19 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public HouseReviewDto selectReview(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectOneReview", memberCode);
 	}
 
 	@Override
 	public int reviewCount() {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.reviewCount");
 	}
 
 	@Override
 	public List<HouseReviewDto> reviewList(int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
@@ -67,26 +67,26 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int countExp(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.countExp", memberCode);
 	}
 
 	@Override
 	public List<ExpReservationDto> findExpList(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.findExpList", memberCode);
 	}
 
 	@Override
 	public int countHouse(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.countHouse", memberCode);
 	}
 
 	@Override
 	public List<HouseReservationDto> findHouseList(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberCode", memberCode);
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.findHouseList", map);
@@ -94,13 +94,12 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public MemberDto selectForUpdate(String email) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectForUpdate", email);
 	}
 
 	@Override
 	public int updateMember(MemberDto memberDto) {
-		// TODO Auto-generated method stub oooo
 
 		int check = 0;
 
@@ -115,7 +114,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int memberDeleteOk(String email, String password) {
-		// TODO Auto-generated method stub
+		 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("password", password);
@@ -125,13 +124,13 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public HouseReservationDto myResHouse(int reserveCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.myResHouse", reserveCode);
 	}
 
 	@Override
 	public ExpReservationDto myResExp(int exCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.myResExp", exCode);
 	}
 
@@ -146,55 +145,55 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int selectMemberCode(String email) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectMemberCode", email);
 	}
 
 	@Override
 	public int selectExCode(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectExCode", memberCode);
 	}
 
 	@Override
 	public int selectReserveCode(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.selectReserveCode", memberCode);
 	}
 
 	@Override
 	public int deleteExpReserve(int exCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.delete("dao.dellunaMapper.deleteExpReserve", exCode);
 	}
 
 	@Override
 	public int deleteHouseReserve(int reserveCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.delete("dao.dellunaMapper.deleteHouseReserve", reserveCode);
 	}
 
 	@Override
 	public List<HouseDto> houseInfo(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.houseInfo", memberCode);
 	}
 
 	@Override
 	public List<Integer> allHouse(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.allHouse", memberCode);
 	}
 
 	@Override
 	public List<Integer> houseCodeThis(int houseCodeFromRes) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.houseCodeThis", houseCodeFromRes);
 	}
 
 	@Override
 	public List<HouseDto> houseInfo(int memberCode, int houseCode) {
-		// TODO Auto-generated method stub
+		 
 
 		/*
 		 * List<Object> list = sqlSessionTemplate.selectList("houseInfo2",memberCode);
@@ -215,68 +214,68 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<String> findHouseName(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.findHouseName", memberCode);
 	}
 
 	@Override
 	public List<Integer> ExpResNum(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.ExpResNum", memberCode);
 	}
 
 	@Override
 	public List<Integer> expRealNum(int expResNum) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.expRealNum", expResNum);
 	}
 
 	@Override
 	public List<String> myExName(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.myExName", memberCode);
 	}
 
 	@Override
 	public List<Integer> findMyResCode(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.findMyResCode", memberCode);
 	}
 
 	@Override
 	public int updateState(int houseReserveCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.update("dao.dellunaMapper.updateState", houseReserveCode);
 	}
 
 	@Override
 	public List<Integer> findMyExpCode(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.findMyExpCode", memberCode);
 	}
 
 	@Override
 	public int updateExpState(int expReserveCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.update("dao.dellunaMapper.updateExpState",expReserveCode);
 	}
 
 	@Override
 	public List<ExpZzimDto> dtoExpZzim(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.dtoExpZzim",memberCode);
 
 	}
 
 	@Override
 	public List<String> zzimExName(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.zzimExName", memberCode);
 	}
 
 	@Override
 	public int deleteExpZzim(int exCode, int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -287,19 +286,19 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<HouseZzimDto> dtoHouseZzim(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.dtoHouseZzim", memberCode);
 	}
 
 	@Override
 	public List<String> zzimHouseName(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.zzimHouseName", memberCode);
 	}
 
 	@Override
 	public int deleteHouseZzim(int houseCode, int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -310,19 +309,19 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int deletePayListExp(int exReserveCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.delete("dao.dellunaMapper.deletePayListExp",exReserveCode);
 	}
 
 	@Override
 	public int deletePayListHouse(int houseReserveCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.delete("dao.dellunaMapper.deletePayListHouse",houseReserveCode);
 	}
 
 	@Override
 	public List<HouseReservationDto> findHouseListWithString(int memberCode, String state) {
-		// TODO Auto-generated method stub
+		 
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -335,7 +334,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<String> findHouseNameWithString(int memberCode, String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -346,7 +345,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<ExpReservationDto> findExpListWithString(int memberCode, String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -357,7 +356,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<String> myExNameWithString(int memberCode, String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -368,7 +367,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int getCountAccu(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.getCountAccu", memberCode);
 	}
 	@Override
@@ -404,13 +403,13 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int getCountUse(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.getCountUse", memberCode);
 	}
 
 	@Override
 	public List<PointAccumulate> myAccuPoint(int memberCode, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -421,7 +420,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<PointUse> myUsePoint(int memberCode, int startRow , int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -432,19 +431,19 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int expReviewCount(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.expReviewCount", memberCode);
 	}
 
 	@Override
 	public int houseReviewCount(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.houseReviewCount", memberCode);
 	}
 
 	@Override
 	public List<ExpReviewDto> myExpReview(int memberCode, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -455,7 +454,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<HouseReviewDto> myHouseReview(int memberCode, int houseStartRow, int houseEndRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("houseStartRow", houseStartRow);
@@ -466,7 +465,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public ExpReviewDto findMyReview(int memberCode, int exReserveCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("exReserveCode", exReserveCode);
@@ -476,7 +475,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int deleteReview(int exReserveCode, int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("exReserveCode", exReserveCode);
@@ -486,7 +485,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int deleteHouseReview(int reserveCode, int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("reserveCode", reserveCode);
@@ -495,7 +494,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int updateExpReview(int memberCode, int exReserveCode, String revContent) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("exReserveCode", exReserveCode);
@@ -506,7 +505,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int selectMSG(int memberCode,String msgCheck) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("msgCheck", msgCheck);
@@ -515,7 +514,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<MsgDto> listMsg(int memberCode, String msgCheck) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("msgCheck", msgCheck);
@@ -524,13 +523,13 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int deleteAllMsg(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.delete("dao.dellunaMapper.deleteAllMsg",memberCode);
 	}
 
 	@Override
 	public int deleteMsg(int memberCode, int msgCode) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("msgCode", msgCode);
@@ -539,13 +538,13 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int allMsg(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.allMsg", memberCode);
 	}
 
 	@Override
 	public int updateMsg(int memberCode, int msgCode, String msgCheck) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("msgCode", msgCode);
@@ -555,13 +554,13 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<MsgDto> allMsgDto(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.allMsgDto", memberCode);
 	}
 
 	@Override
 	public int updateHouseReview(int memberCode, int reserveCode, String revContent) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("reserveCode", reserveCode);
@@ -598,7 +597,7 @@ public class DellunaDaoImp implements DellunaDao {
 	}
 
 	public List<NewExpReviewDto> myExpreviewList(int memberCode,int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -608,7 +607,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewHouseReviewDto> myHousereviewList(int memberCode, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -619,7 +618,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewExpReserveDto> newExpReserve(int memberCode, String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -629,7 +628,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewHouseReserveDto> newHouseReserve(int memberCode, String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("memberCode", memberCode);
@@ -639,26 +638,26 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewExpReserveDto> newNewExpReserve(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newNewExpReserve", memberCode);
 	}
 
 	@Override
 	public List<NewHouseReserveDto> newNewHouseReserve(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newNewHouseReserve", memberCode);
 	}
 
 	@Override
 
 	public List<PointAccumulate> allAccuPoint(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectList("dao.dellunaMapper.newPointAccu", memberCode);
 	}
 
 	@Override
 	public List<NewExpZzimDto> newExpZzimDto(int memberCode, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -669,7 +668,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewHouseZzimDto> newHouseZzimDto(int memberCode, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("startRow", startRow);
@@ -680,19 +679,19 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int countExpZzim(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.countExpZzim", memberCode);
 	}
 
 	@Override
 	public int countHouseZzim(int memberCode) {
-		// TODO Auto-generated method stub
+		 
 		return sqlSessionTemplate.selectOne("dao.dellunaMapper.countHouseZzim", memberCode);
 	}
 
 	@Override
 	public int countPayExp(int memberCode,String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("state", state);
@@ -701,7 +700,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public int countPayHouse(int memberCode,String state) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("state", state);
@@ -710,7 +709,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewExpResDto> newExpResDto(int memberCode, String state, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("state", state);
@@ -721,7 +720,7 @@ public class DellunaDaoImp implements DellunaDao {
 
 	@Override
 	public List<NewHouseResDto> newHouseResDto(int memberCode, String state, int startRow, int endRow) {
-		// TODO Auto-generated method stub
+		 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberCode", memberCode);
 		map.put("state", state);
