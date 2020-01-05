@@ -22,7 +22,7 @@
 	<insert parameterType="com.java.experience.dto.ExperienceDto" id="exHostRegister">
 		insert into experience 
 		(exCode, memberCode, exName, exPeople,exStartDate, exEndDate,exTime,exPrice,exAddress,exExplain,exApproval,exBank,exAccount,exRegDate, houseCode)
-		values(experience_exCode_seq.nextval, 
+		values(experience_exCode_seq.nextval+1808, 
 		#{memberCode},
 		#{exName},
 		#{exPeople},

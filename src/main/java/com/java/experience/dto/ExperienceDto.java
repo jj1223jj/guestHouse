@@ -15,7 +15,7 @@ public class ExperienceDto {
 	private String exExplain;
 	private String exApproval;
 	private String exBank;
-	private int exAccount;
+	private long exAccount;
 	private Date exRegDate;
 	private int houseCode;
 	
@@ -23,8 +23,8 @@ public class ExperienceDto {
 
 	public ExperienceDto(int exCode, int memberCode, String exName, int exPeople, Date exStartDate, Date exEndDate,
 			String exTime, int exPrice, String exAddress, String exExplain, String exApproval, String exBank,
-			int exAccount, Date exRegDate, int houseCode) {
-		
+			long exAccount, Date exRegDate, int houseCode) {
+	
 		this.exCode = exCode;
 		this.memberCode = memberCode;
 		this.exName = exName;
@@ -138,11 +138,11 @@ public class ExperienceDto {
 		this.exBank = exBank;
 	}
 
-	public int getExAccount() {
+	public long getExAccount() {
 		return exAccount;
 	}
 
-	public void setExAccount(int exAccount) {
+	public void setExAccount(long exAccount) {
 		this.exAccount = exAccount;
 	}
 
@@ -171,8 +171,5 @@ public class ExperienceDto {
 				+ ", houseCode=" + houseCode + "]";
 	}
 
-	
-	
-	
 	
 }

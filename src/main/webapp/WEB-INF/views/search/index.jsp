@@ -333,7 +333,7 @@ color:#484848;
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem; margin-top: 1.5rem; font-weight: bold;">${ho.houseName}</div>
+				<div style="width: 20rem; margin-top: 1.5rem; font-weight: bold;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${ho.houseName}</div>
 				<div style="width: 20rem; text-align: right;">₩ ${ho.price}/박</div>
 				
 				<!-- 별점 출력 -->
@@ -399,19 +399,19 @@ color:#484848;
 			<div style="/* border:  1px solid; */display: inline-block;margin-top: 2.8rem;margin-left: 2rem;width: 48rem;height: 15rem;">
 				<div style="/* border: 1px solid red; */float: left;width: 15.2rem;height: 15rem;/* margin-top: auto; *//* display:  inline-block; */">
 					<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
-						<img style="width: 100%; height: 100%;" src="${root}/resources/images/1.jpg" alt="이미지가 없습니다.">
+						<img style="width: 100%; height: 100%;" src="${root}/resources/images/1.jpg" alt="img">
 					</a>
 					
 				</div>
 				<div style="/* border: 1px solid red; */width: 15.2rem;height: 15rem; margin-left: 1rem;display:  inline-block;">
 					<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
-						<img style="width: 100%; height: 100%;" src="${root}/resources/images/2.jpeg" alt="이미지가 없습니다.">
+						<img style="width: 100%; height: 100%;" src="${root}/resources/images/2.jpeg" alt="img">
 					</a>
 					
 				</div>
 				<div style="/* border: 1px solid red; */width: 15.2rem;height: 15rem; margin-left: 1rem;display:  inline-block;">
 					<a href="${root}/experience?checkIn=&checkOut=&local=&people=1&searchExName=">
-						<img style="width: 100%; height: 100%;" src="${root}/resources/images/3.jpg" alt="이미지가 없습니다.">
+						<img style="width: 100%; height: 100%;" src="${root}/resources/images/3.jpg" alt="img">
 					</a>
 					
 				</div>
@@ -420,8 +420,8 @@ color:#484848;
 		</div>
 	</div>
 	
-	<div style="background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat;  margin-top: 10rem;">
-		<div style="width: 90rem; height: 50rem; margin: 0 auto;"  >
+	<div style="background: url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat;  margin-top: 10rem; height: 44rem; margin-bottom: 5rem;">
+		<div style="width: 90rem; height: 41rem; margin: 0 auto;"  >
 		<div align="center">
 			<div style="width: 100%; height: 10rem; line-height: 10rem; font-size: 3rem; margin-top: 10rem; font-weight: bold;">JEJU EXPERIENCE</div>
 		</div>
@@ -441,13 +441,13 @@ color:#484848;
 				  <!-- The slideshow -->
 				  <div class="carousel-inner" style="width: 20rem; height: 20rem;">
 				    <div class="carousel-item active" style="width: 20rem; height: 20rem;">
-				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[0].fileName}" alt="사진이 없습니다.">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[0].fileName}" alt="img">
 				    </div>
 				    <div class="carousel-item">
-				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[1].fileName}" alt="Chicago">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[1].fileName}" alt="img">
 				    </div>
 				    <div class="carousel-item">
-				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[2].fileName}" alt="New York">
+				      <img style="width: 20rem; height: 20rem;" src="${root}/exImage/${ex.exFileList[2].fileName}" alt="img">
 				    </div>
 				  </div>
 				
@@ -459,7 +459,7 @@ color:#484848;
 				    <span class="carousel-control-next-icon"></span>
 				  </a>
 		
-				<div style="width: 20rem; margin-top: 1.5rem;font-weight: bold;">${ex.exName}</div>
+				<div style="width: 20rem; margin-top: 1.5rem;font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${ex.exName}</div>
 				<div style="width: 20rem; text-align: right;">1인당 ₩ ${ex.exPrice}</div>
 				<%-- <div style="width: 20rem;">${ex.revRate}</div> --%>
 				

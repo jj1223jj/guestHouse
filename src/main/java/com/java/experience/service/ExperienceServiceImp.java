@@ -160,7 +160,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		experienceDto.setExBank(request.getParameter("exBank"));
 
 		// 계좌
-		experienceDto.setExAccount(Integer.parseInt(request.getParameter("exAccount")));
+		experienceDto.setExAccount(Long.parseLong(request.getParameter("exAccount")));
 
 		// 가격
 		experienceDto.setExPrice(Integer.parseInt(request.getParameter("exPrice")));
