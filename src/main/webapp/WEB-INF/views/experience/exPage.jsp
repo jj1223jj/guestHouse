@@ -53,6 +53,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+var dddd=[];
 $(function(){
 	load('${root}' ,'${sessionScope.email}','${experienceDto.exCode}');
 	$("#exPeople").change(function(){
@@ -64,12 +65,13 @@ $(function(){
 				
 				var dd= JSON.parse(d);
 				var disabledDays =[];
+				
 				for(var j =0;j<dd.length;j++){
 					var ddd = new Date(dd[j]);
 					var m = ddd.getMonth(), d = ddd.getDate(), y = ddd.getFullYear();
 					disabledDays.push(y + '-' +(m+1) + '-' + d);
 				}
-				
+				dddd=disabledDays;
 				// 특정일 선택막기
 				function disableAllTheseDays(date) {
 				    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
@@ -91,7 +93,14 @@ $(function(){
 
 		
 });
-	 
+function onExReserve(form){
+	var date =new Date(form.exForm.exDateS.value);
+	var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+	if($.inArray(y + '-' +(m+1) + '-' + d,dddd) != -1) {
+		alert("해당 날짜는 예약이 다 찼습니다.");
+        return false;
+    }
+}	 
 
 </script>
 
@@ -298,7 +307,7 @@ list-style: none;
 									 var exDate = $(this).val();
 		
 									 alert(exDate + "은 예약이 가능합니다.");
-									 
+									 $("#exDateS").val(exDate);
 									 //var exCode = ${experienceDto.exCode};
 									 //var url="${root}/experience/exReserveCal.do?exDate="+exDate+"&exCode="+exCode;
 									 //alert(url);
@@ -312,7 +321,7 @@ list-style: none;
 				
 				<!-- 예약하기 -->
 				<div style="width: 40rem; height: 26rem; /* border: 0.1rem dotted black; */ margin-left: 35rem; margin-top: 2rem; margin-bottom: 10rem;">
-					<form action="${root}/experience/exReserve.do"  method="get" name="exForm">
+					<form action="${root}/experience/exReserve.do"  method="get" name="exForm" onsubmit="return onExReserve(exForm)">
 						<div style="width:30rem; height:22rem;  border: 0.1rem solid #e4e4e4; margin-top: 3.5rem;">
 						
 							<p style="width: 20rem; margin-bottom: 4rem; margin-top: 1rem; font-weight: bold; font-size: 1.5rem;">예약하기</p>
@@ -322,7 +331,7 @@ list-style: none;
 								<div>
 									<p style="width: 5rem; float: left;">날짜선택</p>
 									<div>
-										<input type="text" id="exDateS" name="exDateS" size="12" class="form-control" style="width:13rem; float: left; margin-left: 3rem; " value="${checkIn}"/>
+										<input readonly="readonly" type="text" id="exDateS" name="exDateS" size="12" class="form-control" style="background-color:white; width:13rem; float: left; margin-left: 3rem; " value="${checkIn}"/>
 										<i class="calenderDate far fa-calendar-alt fa-3x"></i>
 									</div>
 									

@@ -13,7 +13,7 @@
 </update>
 
 <insert id="doZzim" parameterType="java.util.Map">
-	insert into wishList values(#{memberCode},#{houseCode})
+	insert into wishList(memberCode, houseCode) values(#{memberCode},#{houseCode})
 </insert>
 
 <delete id="cancelZzim" parameterType="java.util.Map">
@@ -21,7 +21,7 @@
 </delete>
 
 <insert id="doExZzim" parameterType="java.util.Map">
-	insert into exWishList values(#{memberCode},#{exCode})
+	insert into exWishList(memberCode, exCode) values(#{memberCode},#{exCode})
 </insert>
 
 <delete id="cancelExZzim" parameterType="java.util.Map">

@@ -44,7 +44,7 @@
 			//alert(height);
 			$(".houseContainer").css("height",height+"rem");
 			
-			var marker= setMarker(house,map);
+			var marker= setMarker(house,map,'1');
 			var content =
 				'<div class="_overlaybox">' +
 				'	<div class="_shadowOverlaybox">' +
@@ -142,7 +142,7 @@
 					swiper = setSwiper();
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseover', function(){
-					var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
+					var imageSrc = '${root}/image/h1.png', // 마커이미지의 주소입니다    
 				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
 				    imageOption = {offset: new kakao.maps.Point(13, 38)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -152,8 +152,8 @@
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseout', function(){
 					var imageSrc = root+'/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13,38)};
+				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(13,23)};
 					
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -164,7 +164,7 @@
 			//집리스트 갖다대면 지도 집 아이콘 바뀌게, 클릭하면 해당 글로 가게
 			for(let i=0; i<=house.length;i++){
 				$(".house"+i).mouseover(function(){
-					var imageSrc = '${root}/image/h2.png', // 마커이미지의 주소입니다    
+					var imageSrc = '${root}/image/h1.png', // 마커이미지의 주소입니다    
 				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
 				    imageOption = {offset: new kakao.maps.Point(13, 38)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -174,8 +174,8 @@
 				});
 				$(".house"+i).mouseout(function(){
 					var imageSrc = root+'/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13,38)};
+				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(13,23)};
 					
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
