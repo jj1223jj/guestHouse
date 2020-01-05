@@ -52,7 +52,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
-		System.out.println("houseCode: "+houseCode);
+		HomeAspect.logger.info(HomeAspect.logMsg+"houseCode: "+houseCode);
 		
 //		int houseCode=13;
 //		int houseCode = 20;
@@ -69,7 +69,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HttpSession session = request.getSession();
 		
 		email = (String)session.getAttribute("email");
-		System.out.println("email: "+ email);
+		HomeAspect.logger.info(HomeAspect.logMsg+"email: "+ email);
 
 		MemberDto member = guestHouseDao.getMemberInfo(email);
 		mav.addObject("MemberDto",member);
@@ -110,7 +110,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HomeAspect.logger.info(HomeAspect.logMsg +remainDtoList.toString());
 		
 		if(!remainDtoList.isEmpty()) {
-			System.out.println("예약여부확인");
+			HomeAspect.logger.info(HomeAspect.logMsg+"예약여부확인");
 			
 			String[] disableDays = new String[remainDtoList.size()];
 			ArrayList<String> dList = new ArrayList<String>();
@@ -135,15 +135,15 @@ public class GuestHouseServiceImp implements GuestHouseService {
 					int j=0;
 					for(j=0; j<arrIn.length; j++) {
 						intArrIn[j] = Integer.parseInt(arrIn[j]);
-						System.out.println("intArrIn["+j+"]: "+intArrIn[j]);
+						HomeAspect.logger.info(HomeAspect.logMsg+"intArrIn["+j+"]: "+intArrIn[j]);
 					}
 					result = intArrIn[0]+"-"+intArrIn[1]+"-"+intArrIn[2];
-					System.out.println(result);
+					HomeAspect.logger.info(HomeAspect.logMsg+result);
 					dList.add(result);
 				}
 			}
 			for(int i=0; i<dList.size();i++) {
-				System.out.println(dList.get(i));
+				HomeAspect.logger.info(HomeAspect.logMsg+dList.get(i));
 			}
 			mav.addObject("dList",dList);
 		}
@@ -485,11 +485,11 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		for(int i=0; i<remainDtoList.size();i++) {
 			if(remainDtoList.get(i).getResDate() == checkIn) {
 				sum = remainDtoList.get(i).getPeople();
-				System.out.println(sum);
+				HomeAspect.logger.info(HomeAspect.logMsg+sum);
 			}
 		}
 		
-		System.out.println(sum);
+		HomeAspect.logger.info(HomeAspect.logMsg+sum);
 		int check =0;
 
 		int limit = hostDto.getPeople();		// 1
@@ -498,7 +498,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		}else {
 			check=0;
 		}
-		System.out.println("check:"+check);
+		HomeAspect.logger.info(HomeAspect.logMsg+"check:"+check);
 		mav.addObject("houseCode",houseCode);
 		mav.addObject("memberCode",memberCode);
 		mav.addObject("checkIn",stCheckIn);
@@ -652,12 +652,12 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		
 		if(night>1) {	// 숙박일이 2박 이상일 경우
 			arrDate[0] = cal.getTime();		// checkIn날짜 배열에 저장
-			System.out.println(arrDate[0]);
+			HomeAspect.logger.info(HomeAspect.logMsg+arrDate[0]);
 			
 			for(int i=1; i<night; i++) {
 				cal.add(Calendar.DATE, 1);	// 1일 더해줌
 				arrDate[i] = cal.getTime();	// 더해준 날짜를 배열에 저장
-				System.out.println(arrDate[i]);
+				HomeAspect.logger.info(HomeAspect.logMsg+arrDate[i]);
 			}
 			
 			for(int i=0; i<arrDate.length; i++) {
@@ -712,7 +712,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HomeAspect.logger.info(HomeAspect.logMsg +"reserveCode: "+reserveCode);
 		
 		int resPoint = (int)point;
-//		System.out.println(resPoint);
+//		HomeAspect.logger.info(HomeAspect.logMsg+resPoint);
 		
 		// 멤버 포인트 수정
 		memberPoint = memberPoint+ resPoint - usePoint;
@@ -778,7 +778,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		+people+", "+stCheckIn+", "+stCheckOut+", "+total+", "+point+", "+usePoint);
 		
 		int payment = total-usePoint;
-		System.out.println("총금액:" +payment);
+		HomeAspect.logger.info(HomeAspect.logMsg+"총금액:" +payment);
 		
 		MemberDto memberDto = guestHouseDao.getMemberInfo(email);
 		
@@ -863,12 +863,12 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		
 		if(night>1) {	// 숙박일이 2박 이상일 경우
 			arrDate[0] = cal.getTime();		// checkIn날짜 배열에 저장
-			System.out.println(arrDate[0]);
+			HomeAspect.logger.info(HomeAspect.logMsg+arrDate[0]);
 			
 			for(int i=1; i<night; i++) {
 				cal.add(Calendar.DATE, 1);	// 1일 더해줌
 				arrDate[i] = cal.getTime();	// 더해준 날짜를 배열에 저장
-				System.out.println(arrDate[i]);
+				HomeAspect.logger.info(HomeAspect.logMsg+arrDate[i]);
 			}
 			
 			for(int i=0; i<arrDate.length; i++) {
@@ -902,7 +902,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 		HomeAspect.logger.info(HomeAspect.logMsg +"reserveCode: "+reserveCode);
 		
 		int resPoint = (int)point;		// 적립포인트
-		System.out.println(resPoint);
+		HomeAspect.logger.info(HomeAspect.logMsg+resPoint);
 		
 		// 멤버 포인트 수정
 		memberPoint = memberPoint+ resPoint - usePoint;

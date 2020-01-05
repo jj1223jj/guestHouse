@@ -70,7 +70,7 @@
 																														group by houseCode, resDate order by houseCode, resDate
 																												) a, house where a.houseCode=house.houseCode
 																		) where remain < #{people} group by houseCode
-														) and h.people >=#{people}
+														) and h.people >=#{people} and approvalStatus='승인완료'
 		]]>
 		
 		<if test="localSplit!=null">
@@ -96,7 +96,7 @@
 																														group by exCode, resDate order by exCode, resDate
 																												) a, experience where a.exCode=experience.exCode
 																		) where remain < #{people} group by exCode
-														) and exPeople >=#{people}
+														) and exPeople >=#{people}  and exApproval='승인완료'
 		]]>
 		
 		<if test="localSplit!=null">
@@ -109,35 +109,6 @@
 		</if>
 	</select>
 
-
-
-
-
-
-	<select id="getCount2" parameterType="java.util.Map" resultType="int">
-		<![CDATA[
-			select count(*) from house h
-								where houseCode not in (
-												select houseCode from (
-																		select a.*, house.people-p remain from (
-																													select houseCode, resDate, sum(people) p from remain
-																														where resDate >= #{checkIn} and resDate < #{checkOut}
-																														group by houseCode, resDate order by houseCode, resDate
-																												) a, house where a.houseCode=house.houseCode
-																		) where remain < #{people} group by houseCode
-														)
-		]]>
-		
-		<if test="localSplit!=null">
-			<foreach collection="localSplit" item="item" open="and (" separator="or" close=")">
-				local=#{item}
-			</foreach>
-		</if>
-		<if test="searchHouseName!=null">
-			and houseName like '%${searchHouseName}%'
-		</if>
-	</select>
-	
 
 	
 
@@ -156,7 +127,7 @@
 			                                                                                      group by houseCode, resDate order by houseCode, resDate
 			    ) a, house where a.houseCode=house.houseCode
 			    ) where remain < #{people} group by houseCode]]>
-			    ) and h.people >=#{people}
+			    ) and h.people >=#{people} and approvalStatus='승인완료'
 			    <if test="searchHouseName!=null">
 					and houseName like '%${searchHouseName}%'
 				</if>
@@ -213,7 +184,7 @@
 			                                                                                      group by exCode, resDate order by exCode, resDate
 			    ) a, experience where a.exCode=experience.exCode
 			    ) where remain < #{people} group by exCode]]>
-			    ) and exPeople >=#{people}
+			    ) and exPeople >=#{people} and exApproval='승인완료'
 			    <if test="searchExName!=null">
 					and exName like '%${searchExName}%'
 				</if>

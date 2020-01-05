@@ -150,7 +150,7 @@ public class ExperienceServiceImp implements ExperienceService {
 
 			Date exEndDate = sdf.parse(request.getParameter("exEndDateS"));
 			experienceDto.setExEndDate(exEndDate);
-			System.out.println(exEndDate);
+			HomeAspect.logger.info(HomeAspect.logMsg+exEndDate);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -920,7 +920,7 @@ public class ExperienceServiceImp implements ExperienceService {
 
 		// 체험날짜
 
-		System.out.println(request.getParameter("exDateS"));
+		HomeAspect.logger.info(HomeAspect.logMsg+request.getParameter("exDateS"));
 
 		String exDateS = request.getParameter("exDateS");
 
@@ -1133,7 +1133,7 @@ public class ExperienceServiceImp implements ExperienceService {
 
 		String exDateS = request.getParameter("exDate");
 		int exCode = Integer.parseInt(request.getParameter("exCode"));
-		System.out.println(exDateS + ", " + exCode);
+		HomeAspect.logger.info(HomeAspect.logMsg+exDateS + ", " + exCode);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -1192,7 +1192,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		HomeAspect.logger.info(HomeAspect.logMsg + exCode +", "+memberCode+", "
 		+exDateS+", "+exPeople+", "+exPayment+", "+point+", "+usePoint);
 		
-		System.out.println("총 결제 금액:" +exPayment);
+		HomeAspect.logger.info(HomeAspect.logMsg+"총 결제 금액:" +exPayment);
 		
 		HttpSession session = request.getSession();
 		

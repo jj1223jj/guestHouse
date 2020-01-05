@@ -143,7 +143,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<NewExpZzimDto> newExpZzimDto = null;
 		if (countExpZzim > 0) {
@@ -190,7 +190,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (useCurrentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<NewHouseZzimDto> newHouseZzimDto = null;
 		if (countHouseZzim > 0) {
@@ -369,7 +369,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<NewExpReviewDto> myExpreviewList = null;
 
@@ -417,7 +417,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (useCurrentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<NewHouseReviewDto> myHousereviewList = null;
 
@@ -462,7 +462,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 		
 		int countExpReview = dellunaDao.expReviewCount(memberCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + "체험 후기 개수 : " + countExpReview);
@@ -521,7 +521,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (useCurrentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<PointUse> usePoint = null;
 		if (countUse > 0) {
@@ -568,7 +568,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<PointAccumulate> accuPoint = null;
 
@@ -946,7 +946,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<NewExpResDto> newExpResDto = null;
 
@@ -995,7 +995,7 @@ public class DellunaServiceImp implements DellunaService {
 		int startRow = (useCurrentPage - 1) * boardSize + 1;
 		int endRow = startRow + boardSize - 1;
 
-		System.out.println(startRow + "," + endRow);
+		HomeAspect.logger.info(HomeAspect.logMsg+startRow + "," + endRow);
 
 		List<NewHouseResDto> newHouseResDto = null;
 		if (countPayHouse > 0) {

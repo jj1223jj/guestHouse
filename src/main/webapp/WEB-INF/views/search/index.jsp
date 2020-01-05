@@ -222,11 +222,11 @@ color:#484848;
 					<div class="checkInOutContainer">
 						<div class="checkInContainer">
 							<div class="checkInLabel"><label for="checkIn">Check In</label></div>
-							<div class="checkInInput"><input class="form-control" type="text" name="checkIn" id="checkIn"/><i class="calenderIn far fa-calendar-alt fa-3x"></i></div>
+							<div class="checkInInput"><input readonly="readonly" style="background-color: white;" class="form-control" type="text" name="checkIn" id="checkIn"/><i class="calenderIn far fa-calendar-alt fa-3x"></i></div>
 						</div>
 						<div class="checkOutContainer">
 							<div class="checkOutLabel"><label for="checkOut">Check Out</label></div>
-							<div class="checkOutInput"><input class="form-control" type="text" name="checkOut" id="checkOut"/><i class="calenderOut far fa-calendar-alt fa-3x"></i></div>
+							<div class="checkOutInput"><input readonly="readonly" style="background-color: white;" class="form-control" type="text" name="checkOut" id="checkOut"/><i class="calenderOut far fa-calendar-alt fa-3x"></i></div>
 						</div>
 					</div>
 					

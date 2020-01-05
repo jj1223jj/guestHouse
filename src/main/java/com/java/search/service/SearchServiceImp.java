@@ -90,11 +90,18 @@ public class SearchServiceImp implements SearchService {
 				map.put("revRate",hostDto.getRevRate());
 				map.put("revCount",hostDto.getRevCount());
 				map.put("zzimed",hostDto.getZzimed());
+				map.put("bed",hostDto.getBed());
+				map.put("bath",hostDto.getBath());
 				map.put("parking",hostDto.getParking());
 				map.put("kitchen",hostDto.getKitchen());
 				map.put("aircon",hostDto.getAircon());
 				map.put("hotWater",hostDto.getHotWater());
-				
+				map.put("necessary", hostDto.getNecessary());
+				map.put("wifi", hostDto.getWifi());
+				map.put("washer", hostDto.getWasher());
+				map.put("tv", hostDto.getTv());
+				map.put("mart", hostDto.getMart());
+				map.put("safety", hostDto.getSafety());
 				
 				JSONArray fileArr = new JSONArray();
 				for(FileDto fileDto : hostDto.getFileList()) {
@@ -172,8 +179,8 @@ public class SearchServiceImp implements SearchService {
 			fileArr.add(fileMap);
 		}
 		map.put("fileList", fileArr);
-		System.out.println("jsonValue: "+JSONValue.toJSONString(map));
-		System.out.println("jsonObject: "+JSONObject.toJSONString(map));
+		HomeAspect.logger.info(HomeAspect.logMsg+"jsonValue: "+JSONValue.toJSONString(map));
+		HomeAspect.logger.info(HomeAspect.logMsg+"jsonObject: "+JSONObject.toJSONString(map));
 		
 		return JSONObject.toJSONString(map);
 	}
@@ -315,8 +322,8 @@ public class SearchServiceImp implements SearchService {
 			fileArr.add(fileMap);
 		}
 		map.put("exFileList", fileArr);
-		System.out.println("jsonValue: "+JSONValue.toJSONString(map));
-		System.out.println("jsonObject: "+JSONObject.toJSONString(map));
+		HomeAspect.logger.info(HomeAspect.logMsg+"jsonValue: "+JSONValue.toJSONString(map));
+		HomeAspect.logger.info(HomeAspect.logMsg+"jsonObject: "+JSONObject.toJSONString(map));
 		
 		return JSONObject.toJSONString(map);
 	}

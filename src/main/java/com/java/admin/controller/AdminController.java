@@ -21,8 +21,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/memberList.do", method = RequestMethod.GET)
 	public ModelAndView memberList(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin memberManagement");
-		
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin memberManagement");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		
@@ -53,7 +52,7 @@ public class AdminController {
 		  mav.addObject("memberDto",memberDto); 
 		  adminService.memberUpdateOk(mav);
 		 
-		System.out.println("adminController memberUpdateOk: "+memberDto.toString());
+		HomeAspect.logger.info(HomeAspect.logMsg+"adminController memberUpdateOk: "+memberDto.toString());
 		/*
 		 * mav.addObject("pageNumber",pageNumber);
 		 */
@@ -63,7 +62,7 @@ public class AdminController {
 	// 게스트하우스 관리
 	@RequestMapping(value = "/admin/houseList.do", method = RequestMethod.GET)
 	public ModelAndView houseList(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin guestHouseManagement");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin guestHouseManagement");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -76,7 +75,7 @@ public class AdminController {
 	// 체험 관리
 	@RequestMapping(value = "/admin/experienceList.do", method = RequestMethod.GET)
 	public ModelAndView experienceList(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin experienceManagement");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin experienceManagement");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -88,7 +87,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/exState.do", method = RequestMethod.GET)
 	public ModelAndView exStateOk(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin exStateOk");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin exStateOk");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -100,7 +99,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/exStateNo.do", method = RequestMethod.GET)
 	public ModelAndView exStateNo(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin exStateNO");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin exStateNO");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -112,7 +111,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/state.do", method = RequestMethod.GET)
 	public ModelAndView guestHouseStateOk(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin exStateOk");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin exStateOk");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -124,7 +123,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/stateNo.do", method = RequestMethod.GET)
 	public ModelAndView guestHouseStateNo(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Admin exStateNO");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Admin exStateNO");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);

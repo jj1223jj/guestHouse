@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.java.aop.HomeAspect;
 import com.java.guestdelluna.dto.ExpReservationDto;
 import com.java.guestdelluna.dto.ExpReviewDto;
 import com.java.guestdelluna.dto.ExpZzimDto;
@@ -104,7 +105,7 @@ public class DellunaDaoImp implements DellunaDao {
 		int check = 0;
 
 		if (memberDto.getMemberImgName() == null) {
-			System.out.println(11111);
+			HomeAspect.logger.info(HomeAspect.logMsg+11111);
 			check = sqlSessionTemplate.update("dao.dellunaMapper.updateMember", memberDto);
 		} else {
 			check = sqlSessionTemplate.update("dao.dellunaMapper.updateMemberFile", memberDto);

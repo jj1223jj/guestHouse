@@ -44,7 +44,7 @@ public class ExperienceController {
 	@RequestMapping(value="/experience/exHost.do", method = RequestMethod.GET)
 		public ModelAndView exHost(HttpServletRequest request, HttpServletResponse response, HostDto hostDto) {
 		
-		  System.out.println("experience exHost");
+		  HomeAspect.logger.info(HomeAspect.logMsg+"experience exHost");
 		  
 		  ModelAndView mav = new ModelAndView(); 
 		  mav.addObject("request", request);
@@ -60,7 +60,7 @@ public class ExperienceController {
 	// 체험 등록에서 다음 눌렀을 때
 	@RequestMapping(value="/experience/exHostOk.do", method = RequestMethod.POST)
 	public ModelAndView exHostOk(HttpServletRequest request, HttpServletResponse response, ExperienceDto experienceDto) {
-		System.out.println("exHost reservation Ok");
+		HomeAspect.logger.info(HomeAspect.logMsg+"exHost reservation Ok");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -78,7 +78,7 @@ public class ExperienceController {
 	 * public void exReview(HttpServletRequest request, HttpServletResponse
 	 * response, ExReviewDto exReviewDto) {
 	 * 
-	 * System.out.println("exReview write,list");
+	 * //System.out.println("exReview write,list");
 	 * 
 	 * ModelAndView mav = new ModelAndView(); mav.addObject("request",request);
 	 * mav.addObject("response",response);
@@ -102,7 +102,7 @@ public class ExperienceController {
 		@ResponseBody
 		@RequestMapping(value="/experience/exReview.do", method = RequestMethod.GET)
 		public Map<String, Object> list(HttpServletRequest request, HttpServletResponse response){
-			System.out.println("@@@@@@@");
+			//System.out.println("@@@@@@@");
 			
 			return experienceService.exReview(request);
 			
@@ -111,7 +111,7 @@ public class ExperienceController {
 	// 체험 후기 작성 완료
 		@RequestMapping(value="/experience/exReviewOk.do", method = RequestMethod.GET)
 		public ModelAndView exReviewOk(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
-			System.out.println("exReview write, list Ok");
+			HomeAspect.logger.info(HomeAspect.logMsg+"exReview write, list Ok");
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("request",request);
@@ -129,7 +129,7 @@ public class ExperienceController {
 	// 후기 수정하기 눌렀을 때
 	@RequestMapping(value="/experience/exReviewUpdate.do", method  = RequestMethod.GET)
 	public ModelAndView exReviewUpdate(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
-		System.out.println("exReview 수정하기");
+		HomeAspect.logger.info(HomeAspect.logMsg+"exReview 수정하기");
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request",request);
@@ -142,7 +142,7 @@ public class ExperienceController {
 	// 수정 완료 눌렀을 때
 	@RequestMapping(value="/experience/exReviewUpdateOk", method = RequestMethod.GET)
 	public void exReviewUpdateOk(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
-		System.out.println("exReview 수정완료");
+		HomeAspect.logger.info(HomeAspect.logMsg+"exReview 수정완료");
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -157,7 +157,7 @@ public class ExperienceController {
 	// 삭제 눌렀을 때
 	@RequestMapping(value="/experience/exReviewDelete.do", method = RequestMethod.GET)
 	public ModelAndView exReviewDelete(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("exReview 삭제하기");
+		HomeAspect.logger.info(HomeAspect.logMsg+"exReview 삭제하기");
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
@@ -169,7 +169,7 @@ public class ExperienceController {
 	// 체험 페이지 눌렀을 때 
 	@RequestMapping(value="/experience/exPage.do", method = RequestMethod.GET)
 	public ModelAndView exPage(HttpServletRequest request, HttpServletResponse response, ExReviewDto exReviewDto) {
-		System.out.println("체험페이지");
+		HomeAspect.logger.info(HomeAspect.logMsg+"체험페이지");
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
@@ -205,7 +205,7 @@ public class ExperienceController {
 	// 예약하기 눌렀을 때
 	@RequestMapping(value="/experience/exReserve.do", method = RequestMethod.GET)
 	public ModelAndView exReserve(HttpServletRequest request, HttpServletResponse response, ExReserveDto exReserveDto) {
-		System.out.println("체험예약하기");
+		//System.out.println("체험예약하기");
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);
@@ -218,7 +218,7 @@ public class ExperienceController {
 	// 예약 요청하기 눌렀을 때(무통장결제 일 경우)
 	@RequestMapping(value="/experience/exReserveOk.do", method = RequestMethod.GET)
 	public ModelAndView exReserveOk(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("체험예약완료");
+		//System.out.println("체험예약완료");
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("request", request);

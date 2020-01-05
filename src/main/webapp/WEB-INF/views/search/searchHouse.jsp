@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> 
 <!DOCTYPE html>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<c:set var="pageBlock" value="${2}"/>
+<c:set var="pageBlock" value="${5}"/>
 <%-- <c:set var="memberCode" value="${5}" scope="session"/> --%>
 <html>
 <head>
@@ -84,7 +84,8 @@
 			    position:  new kakao.maps.LatLng(33.450701, 126.570667),
 			    content: content,
 			    clickable: true,
-			    yAnchor: 0.98
+			    yAnchor: 1.05,
+			    zIndex: 5
 			});
 			customOverlay.setMap(map);
 			
@@ -143,8 +144,8 @@
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseover', function(){
 					var imageSrc = '${root}/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13, 38)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				    imageSize = new kakao.maps.Size(50, 84), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(21, 63)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -152,8 +153,8 @@
 				});
 				kakao.maps.event.addListener(marker[i], 'mouseout', function(){
 					var imageSrc = root+'/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13,23)};
+				    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(21, 39)};
 					
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -165,8 +166,8 @@
 			for(let i=0; i<=house.length;i++){
 				$(".house"+i).mouseover(function(){
 					var imageSrc = '${root}/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 50), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13, 38)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				    imageSize = new kakao.maps.Size(50, 84), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(21, 63)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -174,8 +175,8 @@
 				});
 				$(".house"+i).mouseout(function(){
 					var imageSrc = root+'/image/h1.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(13,23)};
+				    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(21, 39)};
 					
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					marker[i].setImage(markerImage);
@@ -581,7 +582,7 @@
 }
 .checkInOutContainer{
 	margin-top: 0.93rem;	
-	display:none;
+	display:inline-block;
 }
 
 .checkInOutContainer label{
@@ -794,11 +795,11 @@ form{
 					<div class="checkInOutContainer">
 						<div class="checkInContainer">
 							<label for="checkIn"><i class="calenderIn far fa-calendar-alt fa-2x"></i></label>
-							<input class="form-control" type="text" name="checkIn" id="checkIn" onchange="setDate(this)"/> ~
+							<input readonly="readonly" style="background-color: white;" class="form-control" type="text" name="checkIn" id="checkIn" onchange="setDate(this)"/> ~
 						</div>
 						<div class="checkOutContainer">
 							<label for="checkOut"><i class="calenderOut far fa-calendar-alt fa-2x"></i></label>
-							<input class="form-control" type="text" name="checkOut" id="checkOut" onchange="setCheckOutDate(this)"/> ~
+							<input readonly="readonly" style="background-color: white;" class="form-control" type="text" name="checkOut" id="checkOut" onchange="setCheckOutDate(this)"/> ~
 						</div>
 					</div>
 						
@@ -899,11 +900,10 @@ form{
 		</div>
 		<div class="mapContainer">
 			<div id="map">
-			<div class="custom_typecontrol radius_border">
-		        <span id="btnGuestHouse" class="selected_btn" onclick="setSearchType('guestHouse',form)">게하</span>
-		        <span id="btnExperience" class="_exbtn" onclick="setSearchType('experience',form)">체험</span>
-		    </div>
-			
+				<div class="custom_typecontrol radius_border">
+			        <span id="btnGuestHouse" class="selected_btn" onclick="setSearchType('guestHouse',form)">게하</span>
+			        <span id="btnExperience" class="_exbtn" onclick="setSearchType('experience',form)">체험</span>
+			    </div>
 			</div>
 		</div>
 

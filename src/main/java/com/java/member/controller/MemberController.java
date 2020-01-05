@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.aop.HomeAspect;
 //import com.fasterxml.jackson.databind.JsonNode;
 import com.java.member.dto.MemberDto;
 import com.java.member.service.MemberService;
@@ -34,7 +35,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/registerOk.do", method = RequestMethod.POST)
 	public ModelAndView memberRegisterOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
-		System.out.println("Member Register Ok");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Member Register Ok");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
@@ -48,7 +49,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/emailCheck.do", method = RequestMethod.GET)
 	public void memberIdCheck(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Email Check");
+		HomeAspect.logger.info(HomeAspect.logMsg+"Email Check");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
@@ -59,7 +60,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/login.do", method = RequestMethod.GET)
 	public ModelAndView memberLogin(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("member Login");
+		HomeAspect.logger.info(HomeAspect.logMsg+"member Login");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		
@@ -71,10 +72,10 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/loginOk.do", method = RequestMethod.POST)
 	public ModelAndView memberLoginOk(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("member LoginOk");
+		HomeAspect.logger.info(HomeAspect.logMsg+"member LoginOk");
 
 		String beforeURL = request.getHeader("REFERER");
-		//System.out.println(request.getRequestURL());
+		//HomeAspect.logger.info(HomeAspect.logMsg+request.getRequestURL());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		mav.addObject("beforeURL", beforeURL);
@@ -88,7 +89,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView memberLogout(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("member Logout");
+		HomeAspect.logger.info(HomeAspect.logMsg+"member Logout");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		
@@ -100,7 +101,7 @@ public class MemberController {
 	
 	  @RequestMapping(value = "/member/kakaoLogin.do", method =RequestMethod.GET)
 	  public ModelAndView KakaoLogin(HttpServletRequest request, HttpServletResponse response)  {
-		  System.out.println("kakao login");
+		  HomeAspect.logger.info(HomeAspect.logMsg+"kakao login");
 		  
 		  String beforeURL = request.getHeader("REFERER");
 		  
