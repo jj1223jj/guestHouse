@@ -157,14 +157,14 @@ $(document).ready(function(){
 <form action="${root}/member/registerOk.do" method="post" name="createForm"  class="form-horiaontal">
 
 <section id="container">
-	<div class="control-group" style="width:70rem;/*  border: 1px solid red; */ margin:2rem auto; height: 75rem;">
+	<div class="control-group" style="width:70rem;/*  border: 1px solid red; */ margin:5rem auto; height: 75rem;">
 		<div class="innerBox"> <!-- 가로값이 1280으로 설정되어진 아이 -->
 			<h1 style="text-align: center;"><span id="register">Sign up</span></h1><br/>
 			<h5 style="text-align: center; font-size: 1rem; color:#484848;">제주스테이 회원만을 위한 다양한 혜택과 서비스를 누려보세요.</h5>
 			
 		</div>
 	
-		<div class="fullBg">
+		<div class="fullBg" style="height: 60rem;">
 			<div class="innerBox formJoinWrap" style="margin: 0 auto; height: 31rem;">
 				<!-- 아이디 및 비밀번호 -->
 				<div class="form-group" style="margin: 0 auto; /* border: 0.1rem solid blue; */ height: 29rem; ">
@@ -260,7 +260,7 @@ $(document).ready(function(){
 			<br/><br/>
 		</div>
 		<br/>
-		<div class="btn" style="margin-top: 9rem; margin-bottom: 5rem; /* border: 0.1rem solid green; */ width: 50rem; padding-left: 20rem;">
+		<div class="btn" style="/* margin-bottom: 5rem;  *//* border: 0.1rem solid green; */ width: 50rem; padding-left: 20rem;">
 				<!-- 비활성화 시  disabled="disabled" 추가 -->
 				<button class="btn btn-success" type="submit" id="btnSubmit">확인</button>
 				<button class="btn btn-light" type="submit" id="btnPwd" style="margin-left: 1rem;">취소</button>

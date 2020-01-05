@@ -156,38 +156,44 @@ list-style: none;
 		<div style="width:100%; height: 35rem; background-color: black; padding-top: 3.5rem;">
 			<div align="center" style="width: 78rem; /* border: 0.1rem dotted pink; */ margin-left: 1rem;">
 	         	<div class="img" style="overflow: hidden;">
-	         		<c:forEach var="exFileDto"  varStatus="list" items="${exFileList}">
-	         			
-	         			<!-- 사진은 최소 5개  -->
-		         		<c:if test="${exFileDto.mainImgName!=null}">
-		         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden;/*  border: 0.01rem solid red; */ margin-right: 0.5rem;">
-		         				<img id="exImg" style="width: 100%; height: 100%;/* position:static !important; top:0rem !important; right:0rem !important; left:0rem !important; bottom:0rem !important; object-fit:cover; */" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
-		         			</div>
-		         		</c:if>
-		         				
-			         	<c:if test="${exFileDto.mainImgName==null}">
+		         		<c:forEach var="exFileDto" items="${exFileList}">
+		         			
+		         			<!-- 사진은 최소 5개  -->
+			         		<c:if test="${exFileDto.mainImgName!=null}">
+	         		
 			         			
-			         		<c:if test="${list.index<3}">
-				         		<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; /* border: 0.01rem solid blue; */ margin-right: 0.5rem;">
-				         			<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
-				         		</div>
+			         			<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden;  margin-right: 0.5rem;">
+			         				<img id="exImg" style="width: 100%; height: 100%;/* position:static !important; top:0rem !important; right:0rem !important; left:0rem !important; bottom:0rem !important; object-fit:cover; */" alt="img loading" src="<spring:url value='/exImage/${exFileDto.mainImgName}' />"/>
+			         			</div>
+			         	
 			         		</c:if>
+			         	</c:forEach>
 			         		
-			         		<!--  exFileList.size() > 3-->
-			         		<c:if test="${list.index>=3}">
-			         			<div style="float:left; width: 15rem; height: 13.5rem; margin-bottom:0.3rem; overflow: hidden; /* border: 0.01rem solid blue; */ margin-right: 0.5rem;">
-				         			<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto.fileName}' />"/>
-				         		</div>
-	         				</c:if>
-			         	</c:if>
-	         		</c:forEach>
+			         	<c:forEach var="exFileDto2"  varStatus="list" items="${exFileList}" begin="1">	
+				         	<c:if test="${exFileDto2.mainImgName eq null}">
+				         			
+				         		<c:if test="${list.index < 3 and list.index > 0}">
+					         		<div style="float:left; width: 20rem; height: 27.42rem; overflow: hidden; /* border: 0.01rem solid blue; */ margin-right: 0.5rem;">
+					         			<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto2.fileName}' />"/>
+					         		</div>
+				         		</c:if>
+				         		
+				         		<!--  exFileList.size() > 3-->
+				         		<c:if test="${list.index >=3}">
+				         			<div style="float:left; width: 15rem; height: 13.5rem; margin-bottom:0.3rem; overflow: hidden; /* border: 0.01rem solid blue; */ margin-right: 0.5rem;">
+					         			<img id="exImg" alt="img loading" src="<spring:url value='/exImage/${exFileDto2.fileName}' />"/>
+					         		</div>
+		         				</c:if>
+				         	</c:if>
+		         		</c:forEach>
+	         		
 	         	</div>
 	         </div>
 		</div>
 	     
 		<!-- 체험정보 -->	
 		<div class="wrap" style="margin:0px auto; width: 80rem; /* border: 1px dotted black;  */">
-			<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; width: 76rem; height: auto; border: 0.01rem solid #ffc0cb5c; float: left;">
+			<div id="exinfo" style="margin-left: 2rem; margin-top: 3.125rem; margin-bottom:3rem; width: 76rem; height: auto; border: 0.01rem solid #ffc0cb5c; float: left;">
 			 <ul style="width: 20rem; height:20rem; /* border: 0.1rem dotted orange; */ float: left; margin-right: 3rem;" > 
 		         <li style="width: 16rem; height: auto;">
 		            <label style="display: block;">체험이름</label>
