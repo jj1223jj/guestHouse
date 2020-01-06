@@ -309,7 +309,7 @@
 											data-class-input="form-control" data-button-text=""
 											data-icon-name="fa fa-upload" class="form-control"
 											tabindex="-1"
-											style="position: absolute; clip: rect(0px, 0px, 0px, 0px);">
+											style="position: absolute; clip: rect(0px, 0px, 0px, 0px);" accept="image/*">
 
 										<div class="bootstrap-filestyle input-group"
 											style="margin-left: 20rem; width: 32.5rem">

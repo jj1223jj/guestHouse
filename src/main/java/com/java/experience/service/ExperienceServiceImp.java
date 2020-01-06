@@ -166,7 +166,7 @@ public class ExperienceServiceImp implements ExperienceService {
 		experienceDto.setExPrice(Integer.parseInt(request.getParameter("exPrice")));
 
 		// 승인
-		experienceDto.setExApproval("심사 대기중");
+		experienceDto.setExApproval("심사대기");
 
 		// 등록 날짜
 		experienceDto.setExRegDate(new Date());

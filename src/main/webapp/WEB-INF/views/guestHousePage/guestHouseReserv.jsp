@@ -26,10 +26,10 @@ html{
 	function reserveCompleteFun(root, houseCode, memberCode, checkIn, checkOut, people, total){
 		
 		
-		alert(root +", "+ houseCode +", "+memberCode+", "+people+", "+checkIn+", "+checkOut+", "+total);
+		/* alert(root +", "+ houseCode +", "+memberCode+", "+people+", "+checkIn+", "+checkOut+", "+total); */
 		
 		var usePoint =$("#usePoint").val();	// 사용포인트
-		alert(usePoint);
+		/* alert(usePoint); */
 		
 		var resPoint;	// 적립포인트
 		var realTotal;
@@ -50,13 +50,13 @@ html{
 		url2 += "&memberCode="+memberCode+"&checkIn="+ checkIn +"&checkOut=" +checkOut+"&people="+people;
 		url2 += "&total="+realTotal+"&point="+resPoint+"&usePoint="+usePoint;
 		
-		alert($("#payment option:selected").val());
-		
+/* 		alert($("#payment option:selected").val());
+		 */
 		var account =$("#payment option:selected").val();
 		
 		if(account=='account'){
-			alert(url);
-			location.href=url;
+/* 			alert(url);
+ */			location.href=url;
 		}else{
 			location.href=url2;
 		}

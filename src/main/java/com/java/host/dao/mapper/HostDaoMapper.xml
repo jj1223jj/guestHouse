@@ -137,7 +137,11 @@
   	<![CDATA[
   		select * from
 		(select rownum rnum, A.* from
-		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode and house.houseCode = reservation.houseCode and reservation.state = '예약완료' and reservation.reserveDate between #{startDate} and to_date(#{endDate})+1)A)
+		(select reservation.reserveDate, member.memberName, reservation.people, reservation.payment  from house, reservation, 
+		member where house.memberCode = #{memberCode} and member.memberCode = reservation.memberCode 
+		and house.houseCode = reservation.houseCode and reservation.state = '예약완료' 
+		and reservation.reserveDate between #{startDate} and to_date(#{endDate})+1
+		order by reservation.reserveDate desc)A)
 		 WHERE rnum>=#{startRow} and rnum<=#{endRow}
   	]]>
   </select>

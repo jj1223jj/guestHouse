@@ -1217,7 +1217,7 @@ public class DellunaServiceImp implements DellunaService {
 		int currentPage = Integer.parseInt(pageNumber);
 		HomeAspect.logger.info(HomeAspect.logMsg + "currentPage: " + currentPage);
 
-		int boardSize = 2;
+		int boardSize = 5;
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize;
 
@@ -1272,7 +1272,7 @@ public class DellunaServiceImp implements DellunaService {
 				commonMap.put("revContent", exReviewListDto.getRevContent());
 				commonMap.put("revRate", Integer.toString(exReviewListDto.getRevRate()));
 
-				commonMap.put("revDate", dateFormat.format(exReviewListDto.getRevDate().toString()));
+				commonMap.put("revDate", dateFormat.format(exReviewListDto.getRevDate()));
 				commonMap.put("memberCode",Integer.toString(exReviewListDto.getMemberCode()));
 
 				commonMap.put("memberImgName", exReviewListDto.getMemberImgName());

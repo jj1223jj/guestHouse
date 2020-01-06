@@ -126,7 +126,7 @@ google.charts.setOnLoadCallback(drawChart);
 		
 		
 		if (from != "" && to != "") {
-			alert(to);
+			//alert(to);
 			//return false;
 			var params = "from=" + from + "&to=" + to + "&pageNumber=" + param;
 			sendRequest("GET", url, fromServer, params);

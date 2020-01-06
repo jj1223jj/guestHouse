@@ -179,7 +179,7 @@ html {
 					<li><a href="${root}/guestdelluna/memberUpdate.do">회원수정</a></li>
 					<li><a href="${root}/guestdelluna/managePoint.do">포인트관리</a></li>
 					<li><a href="${root}/guestdelluna/payList.do">결제내역</a></li>
-					<c:if test="${memberLevel == 'Host'}">
+					<c:if test="${memberDto.memberLevel == 'Host'}">
 						<hr style="border: 0.0315rem solid #ddd;" />
 						<li><a href="${root}/host/reservationView.do">숙소예약현황</a></li>
 						<li><a href="${root}/host/exReservationView.do">체험예약현황</a></li>

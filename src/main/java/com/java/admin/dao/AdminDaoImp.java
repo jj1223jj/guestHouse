@@ -94,6 +94,13 @@ public class AdminDaoImp implements AdminDao {
 		return  sqlSessionTemplate.update("dao.AdminMapper.guestHouseStateNo",houseCode);
 
 	}
+	
+	@Override
+	public int memberLevelHost(int memberCode) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update("dao.AdminMapper.memberLevelHost",memberCode);
+	}
+	
 	/*
 	 * // 메인 페이지
 	 * 

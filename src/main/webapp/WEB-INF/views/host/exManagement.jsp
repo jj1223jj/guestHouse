@@ -37,7 +37,7 @@
 	}
 	
 	function cancel(root, exCode) {
-		alert(root + "," + exCode);
+		//alert(root + "," + exCode);
 		var value = confirm("정말 삭제하시겠습니까?");
 		if (value == false) {
 			return false;

@@ -33,7 +33,7 @@ public class HostDto {
 	private String local;
 	private String approvalStatus;
 	private String bank;
-	private int account;
+	private long account;
 	private int people;
 	private int bed;
 	private int price;
@@ -47,7 +47,7 @@ public class HostDto {
 			String checkInTime, String checkOutTime, String necessary, String wifi, String washer, String hotWater,
 			String aircon, String tv, String mart, String parking, String kitchen, String safety, String address,
 			String sido, String sigungu, String roadName, String bName, String jibunAddress, String latLng,
-			String detailAddress, String local, String approvalStatus, String bank, int account, int people, int bed,
+			String detailAddress, String local, String approvalStatus, String bank, long account, int people, int bed,
 			int price, Date houseRegDate) {
 		this.houseCode = houseCode;
 		this.memberCode = memberCode;
@@ -317,11 +317,11 @@ public class HostDto {
 		this.bank = bank;
 	}
 
-	public int getAccount() {
+	public long getAccount() {
 		return account;
 	}
 
-	public void setAccount(int account) {
+	public void setAccount(long account) {
 		this.account = account;
 	}
 

@@ -172,11 +172,11 @@ $(function(){
 		//alert(inputCheckIn+","+inputCheckOut);
 		
 		if(inputCheckIn== ''){
-			alert("시작일을 선택해주세요");
+			/* alert("시작일을 선택해주세요"); */
 			$('input#from').focus();
 			return false;
 		}else if(inputCheckOut==''){
-			alert('종료일을 선택해주세요');
+			/* alert('종료일을 선택해주세요'); */
 			return false;
 		}
 		
@@ -187,7 +187,7 @@ $(function(){
 		var diff = t2date - t1date;
 		var currDay = 24*60*60*1000;
 		if(parseInt(diff/currDay)>rangeDate){
-			alert('선택 기간은'+rangeDate+'일을 초과할 수 없습니다.');
+			/* alert('선택 기간은'+rangeDate+'일을 초과할 수 없습니다.'); */
 			return false;
 		}
 		
@@ -206,7 +206,7 @@ $(function(){
 		if(emailCheck=='1'){ */
 		var url2 = root+"/guestHousePage/limitCheck.do?houseCode="+houseCode;
 		url2 += "&memberCode="+memberCode+"&checkIn="+ inputCheckIn +"&checkOut="+inputCheckOut+"&people="+people;
-		alert(url2); 
+
 		
 		location.href=url2;
 	/* 			
@@ -368,7 +368,7 @@ $(function(){
 						<img alt="icon" src="./../resources/css/images/Icon/noun_TV_1027809.png"> tv </p>
 					</c:if>
 					<c:if test="${hostDto.tv == 'on'}">
-						<p id="tv"><img alt="icon" src="./../resources/css/images/noun_TV_1027809.png"> tv</p>
+						<p id="tv"><img alt="icon" src="./../resources/css/images/Icon/noun_TV_1027809.png"> tv</p>
 					</c:if>
 					
 				</div>
@@ -693,9 +693,9 @@ $(function(){
 		<div align="center" style="margin: 6rem;">
 		<c:if test="${memberLevel == 'Admin'}">
 			<button id="btn" type="button" class="btn btn-warning" name="stateOk"
-			onclick="location.href='${root}/admin/state.do?houseCode='+'${hostDto.houseCode}'">승인</button>
+			onclick="location.href='${root}/admin/state.do?houseCode='+'${hostDto.houseCode}'+'&memberCode='+'${hostDto.memberCode}'">승인</button>
 		<button id="btn" type="button" class="btn btn-light" name="stateNo"
-			onclick="location.href='${root}/admin/stateNo.do?houseCode='+'${hostDto.houseCode}'">거절</button>
+			onclick="location.href='${root}/admin/stateNo.do?houseCode='+'${hostDto.houseCode}'+'&memberCode='+'${hostDto.memberCode}'">거절</button>
 		</c:if>
 		</div>
 

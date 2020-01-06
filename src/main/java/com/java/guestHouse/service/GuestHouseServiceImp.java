@@ -304,7 +304,7 @@ public class GuestHouseServiceImp implements GuestHouseService {
 
 		int currentPage = Integer.parseInt(pageNumber); // 1) 요청 페이지 1
 
-		int boardSize = 1; // 2) 페이지당 출력할 게시물 수
+		int boardSize = 3; // 2) 페이지당 출력할 게시물 수
 		// 시작 번호
 		int startRow = (currentPage - 1) * boardSize + 1;
 

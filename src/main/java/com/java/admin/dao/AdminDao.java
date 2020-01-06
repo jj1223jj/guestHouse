@@ -35,5 +35,7 @@ public interface AdminDao {
 
 	public int experienceStateNo(int exCode);
 
+	public int memberLevelHost(int memberCode);
+
 
 }

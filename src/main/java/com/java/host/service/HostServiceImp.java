@@ -122,8 +122,8 @@ public class HostServiceImp implements HostService {
 		hostDto.setSigungu(roadStr[1]);
 		hostDto.setRoadName(roadStr[roadStr.length-2]);
 		hostDto.setbName(jibunStr[jibunStr.length-2]);
-		hostDto.setApprovalStatus("심사 대기중");
-		hostDto.setAccount(Integer.parseInt(request.getParameter("account")));
+		hostDto.setApprovalStatus("심사대기");
+		hostDto.setAccount(Long.parseLong(request.getParameter("account")));
 		hostDto.setBed(Integer.parseInt(request.getParameter("bed")));
 		hostDto.setPeople(Integer.parseInt(request.getParameter("people")));
 		hostDto.setPrice(Integer.parseInt(request.getParameter("price")));

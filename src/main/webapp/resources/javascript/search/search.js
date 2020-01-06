@@ -60,7 +60,7 @@ function setMarker(house, map, num){
 		});
 	}
 	map.setBounds(bounds);
-	map.setLevel(9);
+	map.setLevel(10);
 	return marker;
 	
 }

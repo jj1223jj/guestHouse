@@ -223,9 +223,16 @@ public class AdminServiceImp implements AdminService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
 		int houseCode = Integer.parseInt(request.getParameter("houseCode"));
-
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		
 		int ghStateOk = adminDao.guestHouseStateOk(houseCode);
 		HomeAspect.logger.info(HomeAspect.logMsg + " ghStateOk : " + ghStateOk);
+		
+		if(ghStateOk==1) {
+			int levelOk = adminDao.memberLevelHost(memberCode);
+			HomeAspect.logger.info(HomeAspect.logMsg + " levelOk : " + levelOk);
+		}
+		
 
 		mav.addObject("houseCode", houseCode);
 		mav.addObject("ghStateOk", ghStateOk);

@@ -36,7 +36,7 @@
 	}
 	
 	function cancel(root, houseCode) {
-		alert(root + "," + houseCode + "," + currentPage);
+		//alert(root + "," + houseCode + "," + currentPage);
 		var value = confirm("정말 삭제하시겠습니까?");
 		if (value == false) {
 			return false;

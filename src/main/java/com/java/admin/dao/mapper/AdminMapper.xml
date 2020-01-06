@@ -69,5 +69,9 @@
 	<update id="guestHouseStateNo" parameterType="int">
 		update house set APPROVALSTATUS='승인거절' where houseCode=#{houseCode}
 	</update>
+	
+	<update id="memberLevelHost" parameterType="int">
+		update member set MEMBERLEVEL='Host' where memberCode=#{memberCode}
+	</update>
 
 </mapper>
